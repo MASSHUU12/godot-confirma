@@ -10,9 +10,6 @@
 		<Optimize Condition="'$(Configuration)' == 'ExportRelease'">
 			true
 		</Optimize>
-		<DefaultItemExcludes Condition="'$(Configuration)' == 'ExportRelease'">
-			$(DefaultItemExcludes);test/**/*
-		</DefaultItemExcludes>
 		<PropertyGroup Condition="'$(Configuration)' != 'ExportRelease'">
 			<DebugType>portable</DebugType>
 			<DebugSymbols>true</DebugSymbols>
