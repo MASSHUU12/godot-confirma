@@ -1,6 +1,7 @@
 #if TOOLS
 using Godot;
-using System;
+
+namespace Confirma;
 
 [Tool]
 public partial class Plugin : EditorPlugin
