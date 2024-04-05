@@ -8,7 +8,7 @@ public static class BasicTest
 	[TestCase]
 	public static void Test1()
 	{
-		true.ConfirmTrue();
+		true.ConfirmFalse();
 	}
 
 	[TestCase]
