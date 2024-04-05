@@ -29,5 +29,4 @@ unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Lorem [b]ipsum[/b]"
-fit_content = true
 scroll_following = true
