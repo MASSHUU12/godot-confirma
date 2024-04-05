@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="Confirma"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/tags=PackedStringArray("addon")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
