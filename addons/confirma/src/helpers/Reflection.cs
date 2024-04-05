@@ -18,6 +18,13 @@ public static class Reflection
 		return types.Where(type => type.HasAttribute<TestClassAttribute>()).ToArray();
 	}
 
+	public static MethodInfo[] GetTestMethodsFromType(Type type)
+	{
+		return type.GetMethods().Where(method => method.CustomAttributes.Any(
+			attribute => attribute.AttributeType == typeof(TestCaseAttribute)
+		)).ToArray();
+	}
+
 	public static bool HasAttribute<T>(this object obj) where T : Attribute
 	{
 		return Attribute.GetCustomAttribute(obj.GetType(), typeof(T)) is not null;
