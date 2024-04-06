@@ -15,46 +15,50 @@ public partial class TestRunner : Control
 	{
 		_output = GetNode<RichTextLabel>("%Output");
 
-		var assembly = Assembly.GetExecutingAssembly();
-		var testClasses = Reflection.GetTestClassesFromAssembly(assembly);
+		RunTests(Assembly.GetExecutingAssembly());
+	}
 
+	public void RunTests(Assembly assembly)
+	{
+		var testClasses = Reflection.GetTestClassesFromAssembly(assembly);
 		_output.Text = $"Running {testClasses.Length} tests...\n";
 
-		foreach (var testClass in testClasses)
+		foreach (var testClass in testClasses) RunTestClass(testClass);
+	}
+
+	private void RunTestClass(Type testClass)
+	{
+		var methods = Reflection.GetTestMethodsFromType(testClass);
+		_output.AppendText($"Running {testClass.Name}...\n");
+
+		foreach (var method in methods) RunTestMethod(method);
+	}
+
+	private void RunTestMethod(MethodInfo method)
+	{
+		var tests = Reflection.GetTestCasesFromMethod(method);
+
+		foreach (var test in tests)
 		{
-			var methods = Reflection.GetTestMethodsFromType(testClass);
+			var strParams = string.Join(", ", test.Parameters);
+			_output.AppendText($"\t| Running {method.Name}({strParams})...");
 
-			_output.AppendText($"Running {testClass.Name}...\n");
-
-			foreach (var method in methods)
+			try
 			{
-				var tests = Reflection.GetTestCasesFromMethod(method);
-
-				foreach (var test in tests)
-				{
-					var strParams = string.Join(", ", test.Parameters);
-					_output.AppendText($"\t| Running {method.Name}({strParams})...\n");
-
-					try
-					{
-						method.Invoke(null, test.Parameters);
-						_output.AppendText("\t| -\t[color=green]Passed.[/color]\n");
-					}
-					catch (Exception e) when (e
-						is TargetInvocationException
-					)
-					{
-						_output.AppendText($"\t| -\t[color=red]Failed: {e.InnerException?.Message}[/color]\n");
-					}
-					catch (ArgumentException)
-					{
-						_output.AppendText($"\t| -\t[color=red]Failed: Invalid test case parameters: {strParams}.[/color]\n");
-					}
-					catch (Exception e)
-					{
-						_output.AppendText($"\t| -\t[color=red]Failed: {e.Message}[/color]\n");
-					}
-				}
+				method.Invoke(null, test.Parameters);
+				_output.AppendText(" [color=green]passed.[/color]\n");
+			}
+			catch (TargetInvocationException tie)
+			{
+				_output.AppendText($"\n\t| -\t[color=red]Failed: {tie.InnerException?.Message}[/color]\n");
+			}
+			catch (ArgumentException)
+			{
+				_output.AppendText($"\n\t| -\t[color=red]Failed: Invalid test case parameters: {strParams}.[/color]\n");
+			}
+			catch (Exception e)
+			{
+				_output.AppendText($"\n\t| -\t[color=red]Failed: {e.Message}[/color]\n");
 			}
 		}
 	}
