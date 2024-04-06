@@ -11,6 +11,8 @@ public partial class TestRunner : Control
 	private RichTextLabel _output;
 #nullable restore
 
+	private uint _testCount, _passed, _failed;
+
 	public override void _Ready()
 	{
 		_output = GetNode<RichTextLabel>("%Output");
@@ -24,6 +26,14 @@ public partial class TestRunner : Control
 		_output.Text = $"Running {testClasses.Length} tests...\n";
 
 		foreach (var testClass in testClasses) RunTestClass(testClass);
+
+		_output.AppendText(
+			string.Format(
+				"\nConfirma ran {0} tests. [color=green]{1} passed[/color], [color=red]{2} failed[/color].",
+				_testCount,
+				_passed,
+				_failed)
+		);
 	}
 
 	private void RunTestClass(Type testClass)
@@ -38,6 +48,8 @@ public partial class TestRunner : Control
 	{
 		var tests = Reflection.GetTestCasesFromMethod(method);
 
+		_testCount += (uint)tests.Length;
+
 		foreach (var test in tests)
 		{
 			var strParams = string.Join(", ", test.Parameters);
@@ -46,18 +58,23 @@ public partial class TestRunner : Control
 			try
 			{
 				method.Invoke(null, test.Parameters);
+				_passed++;
+
 				_output.AppendText(" [color=green]passed.[/color]\n");
 			}
 			catch (TargetInvocationException tie)
 			{
+				_failed++;
 				_output.AppendText($"\n\t| -\t[color=red]Failed: {tie.InnerException?.Message}[/color]\n");
 			}
 			catch (ArgumentException)
 			{
+				_failed++;
 				_output.AppendText($"\n\t| -\t[color=red]Failed: Invalid test case parameters: {strParams}.[/color]\n");
 			}
 			catch (Exception e)
 			{
+				_failed++;
 				_output.AppendText($"\n\t| -\t[color=red]Failed: {e.Message}[/color]\n");
 			}
 		}
