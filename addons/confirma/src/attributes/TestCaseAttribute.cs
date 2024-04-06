@@ -6,15 +6,15 @@ namespace Confirma.Attributes;
 public class TestCaseAttribute : Attribute
 {
 	public string? Name { get; }
-	public object[] Parameters { get; }
+	public object?[]? Parameters { get; }
 
-	public TestCaseAttribute(string? name = null, params object[] parameters)
+	public TestCaseAttribute(string? name = null, params object?[]? parameters)
 	{
 		Name = name;
 		Parameters = parameters;
 	}
 
-	public TestCaseAttribute(params object[] parameters)
+	public TestCaseAttribute(params object?[]? parameters)
 	{
 		Parameters = parameters;
 	}
