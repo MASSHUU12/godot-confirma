@@ -34,4 +34,9 @@ public static class Reflection
 	{
 		return Attribute.GetCustomAttribute(obj, typeof(T)) is not null;
 	}
+
+	public static TestCaseAttribute[] GetTestCasesFromMethod(MethodInfo method)
+	{
+		return method.GetCustomAttributes<TestCaseAttribute>().ToArray();
+	}
 }
