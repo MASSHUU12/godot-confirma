@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Confirma.Helpers;
 using Godot;
@@ -23,7 +24,7 @@ public partial class TestRunner : Control
 		{
 			var methods = Reflection.GetTestMethodsFromType(testClass);
 
-			_output.AppendText($"Running tests for {testClass.Name}...\n");
+			_output.AppendText($"Running {testClass.Name}...\n");
 
 			foreach (var method in methods)
 			{
@@ -31,16 +32,27 @@ public partial class TestRunner : Control
 
 				foreach (var test in tests)
 				{
-					_output.AppendText($"\t| Running {method.Name}...\n");
+					var strParams = string.Join(", ", test.Parameters);
+					_output.AppendText($"\t| Running {method.Name}({strParams})...\n");
 
 					try
 					{
 						method.Invoke(null, test.Parameters);
 						_output.AppendText("\t| -\t[color=green]Passed.[/color]\n");
 					}
-					catch (TargetInvocationException e)
+					catch (Exception e) when (e
+						is TargetInvocationException
+					)
 					{
 						_output.AppendText($"\t| -\t[color=red]Failed: {e.InnerException?.Message}[/color]\n");
+					}
+					catch (ArgumentException)
+					{
+						_output.AppendText($"\t| -\t[color=red]Failed: Invalid test case parameters: {strParams}.[/color]\n");
+					}
+					catch (Exception e)
+					{
+						_output.AppendText($"\t| -\t[color=red]Failed: {e.Message}[/color]\n");
 					}
 				}
 			}
