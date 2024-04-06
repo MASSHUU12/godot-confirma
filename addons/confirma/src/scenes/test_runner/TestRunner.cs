@@ -27,16 +27,21 @@ public partial class TestRunner : Control
 
 			foreach (var method in methods)
 			{
-				_output.AppendText($"\t| Running {method.Name}...\n");
+				var tests = Reflection.GetTestCasesFromMethod(method);
 
-				try
+				foreach (var test in tests)
 				{
-					method.Invoke(null, null);
-					_output.AppendText("\t| -\t[color=green]Passed.[/color]\n");
-				}
-				catch (TargetInvocationException e)
-				{
-					_output.AppendText($"\t| -\t[color=red]Failed: {e.InnerException?.Message}[/color]\n");
+					_output.AppendText($"\t| Running {method.Name}...\n");
+
+					try
+					{
+						method.Invoke(null, test.Parameters);
+						_output.AppendText("\t| -\t[color=green]Passed.[/color]\n");
+					}
+					catch (TargetInvocationException e)
+					{
+						_output.AppendText($"\t| -\t[color=red]Failed: {e.InnerException?.Message}[/color]\n");
+					}
 				}
 			}
 		}
