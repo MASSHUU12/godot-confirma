@@ -60,6 +60,16 @@
 			"args": ["--", "--confirma-run"],
 			"cwd": "${workspaceFolder}",
 			"stopAtEntry": false
+		},
+		{
+			"name": "🧪 Run Tests (headless)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"program": "${env:GODOT}",
+			"args": ["--headless", "--", "--confirma-quit", "--confirma-run"],
+			"cwd": "${workspaceFolder}",
+			"stopAtEntry": false
 		}
 	]
 }

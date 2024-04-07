@@ -8,7 +8,10 @@ namespace Confirma.Scenes;
 public partial class TestRunner : Control
 {
 #nullable disable
+	private Log _log;
 	private RichTextLabel _output;
+	private ConfirmaAutoload _confirmaAutoload;
+	private Helpers.Colors _colors;
 #nullable restore
 
 	private uint _testCount, _passed, _failed;
@@ -16,6 +19,10 @@ public partial class TestRunner : Control
 	public override void _Ready()
 	{
 		_output = GetNode<RichTextLabel>("%Output");
+		_confirmaAutoload = GetNode<ConfirmaAutoload>("/root/Confirma");
+
+		_colors = new(_confirmaAutoload.IsHeadless);
+		_log = new Log(_confirmaAutoload.IsHeadless ? null : _output);
 
 		RunTests(Assembly.GetExecutingAssembly());
 	}
@@ -23,23 +30,25 @@ public partial class TestRunner : Control
 	public void RunTests(Assembly assembly)
 	{
 		var testClasses = Reflection.GetTestClassesFromAssembly(assembly);
-		_output.Text = $"Running {testClasses.Length} tests...\n";
+		_log.PrintLine($"Detected {testClasses.Length} test classes...");
 
 		foreach (var testClass in testClasses) RunTestClass(testClass);
 
-		_output.AppendText(
+		_log.PrintLine(
 			string.Format(
-				"\nConfirma ran {0} tests. [color=green]{1} passed[/color], [color=red]{2} failed[/color].",
+				"\nConfirma ran {0} tests in {1} test classes. {2}, {3}.",
 				_testCount,
-				_passed,
-				_failed)
+				testClasses.Length,
+				_colors.Auto($"{_passed} passed", "green"),
+				_colors.Auto($"{_failed} failed", "red")
+			)
 		);
 	}
 
 	private void RunTestClass(Type testClass)
 	{
 		var methods = Reflection.GetTestMethodsFromType(testClass);
-		_output.AppendText($"Running {testClass.Name}...\n");
+		_log.PrintLine($"Running {testClass.Name}...");
 
 		foreach (var method in methods) RunTestMethod(method);
 	}
@@ -52,30 +61,30 @@ public partial class TestRunner : Control
 
 		foreach (var test in tests)
 		{
-			var strParams = string.Join(", ", test.Parameters);
-			_output.AppendText($"\t| Running {method.Name}({strParams})...");
+			var strParams = string.Join(", ", test.Parameters!);
+			_log.Print($"| Running {method.Name}({strParams})...");
 
 			try
 			{
 				method.Invoke(null, test.Parameters);
 				_passed++;
 
-				_output.AppendText(" [color=green]passed.[/color]\n");
+				_log.PrintSuccess(" passed.\n");
 			}
 			catch (TargetInvocationException tie)
 			{
 				_failed++;
-				_output.AppendText($"\n\t| -\t[color=red]Failed: {tie.InnerException?.Message}[/color]\n");
+				_log.PrintError($"- Failed: {tie.InnerException?.Message}\n");
 			}
 			catch (ArgumentException)
 			{
 				_failed++;
-				_output.AppendText($"\n\t| -\t[color=red]Failed: Invalid test case parameters: {strParams}.[/color]\n");
+				_log.PrintError($"- Failed: Invalid test case parameters: {strParams}.\n");
 			}
 			catch (Exception e)
 			{
 				_failed++;
-				_output.AppendText($"\n\t| -\t[color=red]Failed: {e.Message}[/color]\n");
+				_log.PrintError($"- Failed: {e.Message}\n");
 			}
 		}
 	}
