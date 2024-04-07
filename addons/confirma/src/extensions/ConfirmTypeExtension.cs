@@ -1,22 +1,29 @@
+using System;
+
 namespace Confirma;
 
 public static class ConfirmTypeExtension
 {
-	public static void ConfirmType<T>(this object? actual, string? message = null)
+	public static void ConfirmType(this object? actual, Type expected, string? message = null)
 	{
-		if (actual is not T)
-			throw new ConfirmAssertException(message ?? $"Expected object to be of type {typeof(T)}.");
+		if (actual?.GetType() != expected)
+			throw new ConfirmAssertException(message ?? $"Expected object to be of type {expected}.");
 	}
 
-	public static T ConfirmType<T>(this object? actual, T expected, string? message = null)
+	public static T ConfirmType<T>(this object? actual, string? message = null)
 	{
-		actual.ConfirmType<T>(message);
+		actual.ConfirmType(typeof(T), message);
 		return (T)actual!;
+	}
+
+	public static void ConfirmNotType(this object? actual, Type expected, string? message = null)
+	{
+		if (actual?.GetType() == expected)
+			throw new ConfirmAssertException(message ?? $"Expected object to be not of type {expected}.");
 	}
 
 	public static void ConfirmNotType<T>(this object? actual, string? message = null)
 	{
-		if (actual is T)
-			throw new ConfirmAssertException(message ?? $"Expected object to be not of type {typeof(T)}.");
+		actual.ConfirmNotType(typeof(T), message);
 	}
 }
