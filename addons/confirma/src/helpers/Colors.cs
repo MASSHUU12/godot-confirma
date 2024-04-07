@@ -5,8 +5,7 @@ namespace Confirma.Helpers;
 public class Colors
 {
 	public Color Color { get; set; }
-
-	private readonly bool _terminal = false;
+	public bool Terminal { get; set; } = false;
 
 	public Colors()
 	{
@@ -25,7 +24,7 @@ public class Colors
 
 	public Colors(bool terminal)
 	{
-		_terminal = terminal;
+		Terminal = terminal;
 	}
 
 	public string ToTerminal()
@@ -47,7 +46,7 @@ public class Colors
 	{
 		Color = new Color(color);
 
-		return _terminal ? ToTerminal(text) : ToGodot(text);
+		return Terminal ? ToTerminal(text) : ToGodot(text);
 	}
 
 	public string ToGodot(string text)
