@@ -9,17 +9,20 @@ public class Log
 #nullable restore
 
 	private readonly bool _headless = false;
+	private readonly Colors _colors = new();
 
 	public Log(RichTextLabel? richOutput)
 	{
 		_richOutput = richOutput;
 		_headless = _richOutput is null;
+		_colors.Terminal = _headless;
 	}
 
 	public Log()
 	{
 		_richOutput = null;
 		_headless = true;
+		_colors.Terminal = _headless;
 	}
 
 	public void Print(string message)
@@ -50,8 +53,8 @@ public class Log
 
 	private string ColorText(string text, string color)
 	{
-		var c = new Colors(color);
+		_colors.Color = new(color);
 
-		return _headless ? c.ToTerminal(text) : c.ToGodot(text);
+		return _headless ? _colors.ToTerminal(text) : _colors.ToGodot(text);
 	}
 }
