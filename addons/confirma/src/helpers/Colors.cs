@@ -8,6 +8,11 @@ public class Colors
 
 	private readonly bool _terminal = false;
 
+	public Colors()
+	{
+		Color = new();
+	}
+
 	public Colors(Color color)
 	{
 		Color = color;
