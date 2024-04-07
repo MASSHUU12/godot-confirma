@@ -3,7 +3,7 @@ using System.Reflection;
 using Confirma.Helpers;
 using Godot;
 
-namespace Confirma.TestRunner;
+namespace Confirma.Scenes;
 
 public partial class TestRunner : Control
 {

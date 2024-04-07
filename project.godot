@@ -12,10 +12,18 @@ config_version=5
 
 config/name="Confirma"
 config/tags=PackedStringArray("addon")
-run/main_scene="res://addons/confirma/src/scenes/test_runner/TestRunner.tscn"
+run/main_scene="res://scenes/main/Main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Confirma="*res://addons/confirma/src/scenes/confirma_autoload/ConfirmaAutoload.tscn"
 
 [dotnet]
 
 project/assembly_name="Confirma"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/confirma/plugin.cfg")

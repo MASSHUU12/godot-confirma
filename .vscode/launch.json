@@ -1,5 +1,4 @@
 {
-	// Configuration based on https://github.com/chickensoft-games/GodotGame/blob/main/.vscode/launch.json
 	"version": "0.2.0",
 	"configurations": [
 		// For these launch configurations to work, you need to setup a GODOT
@@ -49,6 +48,16 @@
 			"preLaunchTask": "build",
 			"program": "${env:GODOT}",
 			"args": ["${fileDirname}/${fileBasenameNoExtension}.tscn"],
+			"cwd": "${workspaceFolder}",
+			"stopAtEntry": false
+		},
+		{
+			"name": "🧪 Run Tests",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"program": "${env:GODOT}",
+			"args": ["--", "--confirma-run"],
 			"cwd": "${workspaceFolder}",
 			"stopAtEntry": false
 		}
