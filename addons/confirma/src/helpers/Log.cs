@@ -13,6 +13,7 @@ public class Log
 	public Log(RichTextLabel? richOutput)
 	{
 		_richOutput = richOutput;
+		_headless = _richOutput is null;
 	}
 
 	public Log()
@@ -23,8 +24,8 @@ public class Log
 
 	public void Print(string message)
 	{
-		if (_headless) _richOutput.AppendText(message);
-		else GD.Print(message);
+		if (_headless) GD.Print(message);
+		else _richOutput.AppendText(message);
 	}
 
 	public void PrintLine(string message)
