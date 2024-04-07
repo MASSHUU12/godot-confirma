@@ -24,7 +24,7 @@ public class Log
 
 	public void Print(string message)
 	{
-		if (_headless) GD.Print(message);
+		if (_headless) GD.PrintRaw(message);
 		else _richOutput.AppendText(message);
 	}
 
