@@ -6,11 +6,11 @@ namespace Confirma.Classes;
 public class TestClass
 {
 	public Type Type { get; }
-	public IEnumerable<TestMethod> TestCases { get; }
+	public IEnumerable<TestMethod> TestMethods { get; }
 
 	public TestClass(Type type)
 	{
 		Type = type;
-		TestCases = TestDiscovery.DiscoverTestMethods(type);
+		TestMethods = TestDiscovery.DiscoverTestMethods(type);
 	}
 }
