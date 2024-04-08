@@ -40,47 +40,33 @@ public class TestExecutor
 		);
 	}
 
-	private void ExecuteTestClass(Type testClass)
+	private void ExecuteTestClass(TestClass testClass)
 	{
-		var methods = TestDiscovery.DiscoverTestMethods(testClass);
-		_log.PrintLine($"Running {testClass.Name}...");
+		_log.PrintLine($"Running {testClass.Type.Name}...");
 
-		foreach (var method in methods) RunTestMethod(method);
+		foreach (var method in testClass.TestMethods) RunTestMethod(method);
 	}
 
-	private void RunTestMethod(MethodInfo method)
+	private void RunTestMethod(TestMethod method)
 	{
-		var tests = TestDiscovery.DiscoverTestCases(method).ToArray();
-		var testName = method.GetCustomAttribute<TestNameAttribute>()?.Name ?? method.Name;
+		_testCount += (uint)method.TestCases.Count();
 
-		_testCount += (uint)tests.Length;
-
-		foreach (var test in tests)
+		foreach (var test in method.TestCases)
 		{
-			var strParams = string.Join(", ", test.Parameters ?? Array.Empty<object>());
-			_log.Print($"| Running {testName}{(strParams.Length > 0 ? $"({strParams})" : string.Empty)}...");
+			_log.Print($"| Running {method.Name}{(
+				test.Params.Length > 0
+				? $"({test.Params})"
+				: string.Empty)}..."
+			);
 
 			try
 			{
-				method.Invoke(null, test.Parameters);
+				test.Run();
 				_passed++;
 
 				_log.PrintSuccess(" passed.\n");
 			}
-			catch (TargetInvocationException tie)
-			{
-				_failed++;
-				_log.PrintError($"- Failed: {tie.InnerException?.Message}\n");
-			}
-			catch (Exception e) when (e
-				is ArgumentException
-				or ArgumentNullException
-			)
-			{
-				_failed++;
-				_log.PrintError($"- Failed: Invalid test case parameters: {strParams}.\n");
-			}
-			catch (Exception e)
+			catch (ConfirmAssertException e)
 			{
 				_failed++;
 				_log.PrintError($"- Failed: {e.Message}\n");
