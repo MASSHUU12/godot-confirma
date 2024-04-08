@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Helpers;
 using Godot;
 
@@ -30,7 +32,7 @@ public partial class TestRunner : Control
 
 	public void RunTests(Assembly assembly)
 	{
-		var testClasses = Reflection.GetTestClassesFromAssembly(assembly);
+		var testClasses = TestDiscovery.DiscoverTestClasses(assembly).ToArray();
 		_log.PrintLine($"Detected {testClasses.Length} test classes...");
 
 		foreach (var testClass in testClasses) RunTestClass(testClass);
@@ -48,7 +50,7 @@ public partial class TestRunner : Control
 
 	private void RunTestClass(Type testClass)
 	{
-		var methods = Reflection.GetTestMethodsFromType(testClass);
+		var methods = TestDiscovery.DiscoverTestMethods(testClass);
 		_log.PrintLine($"Running {testClass.Name}...");
 
 		foreach (var method in methods) RunTestMethod(method);
@@ -56,7 +58,7 @@ public partial class TestRunner : Control
 
 	private void RunTestMethod(MethodInfo method)
 	{
-		var tests = Reflection.GetTestCasesFromMethod(method);
+		var tests = TestDiscovery.DiscoverTestCases(method).ToArray();
 		var testName = method.GetCustomAttribute<TestNameAttribute>()?.Name ?? method.Name;
 
 		_testCount += (uint)tests.Length;
