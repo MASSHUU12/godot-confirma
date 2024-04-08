@@ -61,7 +61,7 @@ public partial class TestRunner : Control
 
 		foreach (var test in tests)
 		{
-			var strParams = string.Join(", ", test.Parameters!);
+			var strParams = string.Join(", ", test.Parameters ?? Array.Empty<object>());
 			_log.Print($"| Running {method.Name}({strParams})...");
 
 			try
@@ -76,7 +76,10 @@ public partial class TestRunner : Control
 				_failed++;
 				_log.PrintError($"- Failed: {tie.InnerException?.Message}\n");
 			}
-			catch (ArgumentException)
+			catch (Exception e) when (e
+				is ArgumentException
+				or ArgumentNullException
+			)
 			{
 				_failed++;
 				_log.PrintError($"- Failed: Invalid test case parameters: {strParams}.\n");
