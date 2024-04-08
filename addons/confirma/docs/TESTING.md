@@ -65,3 +65,7 @@ Not implemented.
 ## Timeout
 
 Not implemented.
+
+## TestName
+
+Used to display a different name for the test than the method name.
