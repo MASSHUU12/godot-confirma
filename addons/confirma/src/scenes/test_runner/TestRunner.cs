@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using System.Reflection;
-using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Helpers;
 using Godot;
@@ -16,6 +13,8 @@ public partial class TestRunner : Control
 	private TestExecutor _executor;
 #nullable restore
 
+	private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
+
 	public override void _Ready()
 	{
 		_output = GetNode<RichTextLabel>("%Output");
@@ -26,6 +25,19 @@ public partial class TestRunner : Control
 			new(_confirmaAutoload.IsHeadless)
 		);
 
-		_executor.ExecuteTests(Assembly.GetExecutingAssembly());
+		RunIfRoot();
+	}
+
+	private void RunIfRoot()
+	{
+		if (GetTree().CurrentScene != this) return;
+
+		RunAllTests();
+	}
+
+	public void RunAllTests()
+	{
+		_output.Clear();
+		_executor.ExecuteTests(_assembly);
 	}
 }
