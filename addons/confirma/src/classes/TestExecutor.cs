@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Confirma.Attributes;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
