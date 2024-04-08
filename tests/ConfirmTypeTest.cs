@@ -6,7 +6,7 @@ namespace Confirma.Tests;
 [TestClass]
 public static class ConfirmTypeTest
 {
-	[TestCase(parameters: new object[] { "Lorem ipsum", typeof(string) })]
+	[TestCase("Lorem ipsum", typeof(string))]
 	[TestCase(42, typeof(int))]
 	[TestCase(3.14, typeof(double))]
 	[TestCase(true, typeof(bool))]
@@ -17,7 +17,7 @@ public static class ConfirmTypeTest
 
 	// TODO: Create a test case for ConfirmType_WhenNotOfType
 
-	[TestCase(parameters: new object[] { "Lorem ipsum", typeof(int) })]
+	[TestCase("Lorem ipsum", typeof(int))]
 	[TestCase(42, typeof(double))]
 	[TestCase(3.14, typeof(bool))]
 	public static void ConfirmNotType_WhenNotOfType(object? actual, Type expected)

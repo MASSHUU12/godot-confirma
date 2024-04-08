@@ -5,7 +5,7 @@ namespace Confirma.Tests;
 [TestClass]
 public static class ConfirmNullTest
 {
-	[TestCase(parameters: new object?[] { null })]
+	[TestCase(new object?[] { null })]
 	public static void ConfirmNull_WhenNull(object? actual)
 	{
 		actual.ConfirmNull();
@@ -13,8 +13,8 @@ public static class ConfirmNullTest
 
 	// TODO: Create a test case for ConfirmNull_WhenNotNull
 
-	[TestCase(parameters: "Lorem ipsum")]
-	[TestCase(parameters: 2)]
+	[TestCase("Lorem ipsum")]
+	[TestCase(2)]
 	public static void ConfirmNotNull_WhenNotNull(object? actual)
 	{
 		actual.ConfirmNotNull();

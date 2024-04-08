@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using Confirma.Attributes;
 using Confirma.Helpers;
 using Godot;
 
@@ -56,13 +57,14 @@ public partial class TestRunner : Control
 	private void RunTestMethod(MethodInfo method)
 	{
 		var tests = Reflection.GetTestCasesFromMethod(method);
+		var testName = method.GetCustomAttribute<TestNameAttribute>()?.Name ?? method.Name;
 
 		_testCount += (uint)tests.Length;
 
 		foreach (var test in tests)
 		{
-			var strParams = string.Join(", ", test.Parameters!);
-			_log.Print($"| Running {method.Name}({strParams})...");
+			var strParams = string.Join(", ", test.Parameters ?? Array.Empty<object>());
+			_log.Print($"| Running {testName}{(strParams.Length > 0 ? $"({strParams})" : string.Empty)}...");
 
 			try
 			{
@@ -76,7 +78,10 @@ public partial class TestRunner : Control
 				_failed++;
 				_log.PrintError($"- Failed: {tie.InnerException?.Message}\n");
 			}
-			catch (ArgumentException)
+			catch (Exception e) when (e
+				is ArgumentException
+				or ArgumentNullException
+			)
 			{
 				_failed++;
 				_log.PrintError($"- Failed: Invalid test case parameters: {strParams}.\n");
