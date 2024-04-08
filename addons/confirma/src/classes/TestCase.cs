@@ -7,11 +7,13 @@ public class TestCase
 {
 	public MethodInfo Method { get; }
 	public object?[]? Parameters { get; }
+	public string Params { get; }
 
 	public TestCase(MethodInfo method, object?[]? parameters)
 	{
 		Method = method;
 		Parameters = parameters;
+		Params = string.Join(", ", Parameters ?? Array.Empty<object>()); ;
 	}
 
 	public void Run()
