@@ -64,7 +64,7 @@ public partial class TestRunner : Control
 		foreach (var test in tests)
 		{
 			var strParams = string.Join(", ", test.Parameters ?? Array.Empty<object>());
-			_log.Print($"| Running {testName}({strParams})...");
+			_log.Print($"| Running {testName}{(strParams.Length > 0 ? $"({strParams})" : string.Empty)}...");
 
 			try
 			{
