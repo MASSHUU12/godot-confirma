@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using Confirma.Helpers;
@@ -21,6 +22,7 @@ public class TestExecutor
 	{
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var count = testClasses.Count();
+		var startTimeStamp = DateTime.Now;
 
 		ResetStats();
 
@@ -30,9 +32,10 @@ public class TestExecutor
 
 		_log.PrintLine(
 			string.Format(
-				"\nConfirma ran {0} tests in {1} test classes. {2}, {3}.",
+				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s. {3}, {4}.",
 				_testCount,
 				count,
+				(DateTime.Now - startTimeStamp).TotalSeconds,
 				_colors.Auto($"{_passed} passed", Colors.Success),
 				_colors.Auto($"{_failed} failed", Colors.Error)
 			)
