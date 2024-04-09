@@ -1,4 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl21wviqvff84"]
+[gd_scene load_steps=7 format=3 uid="uid://bl21wviqvff84"]
+
+[ext_resource type="Script" path="res://addons/confirma/src/scenes/test_bottom_panel/TestBottomPanel.cs" id="1_cnf8q"]
+[ext_resource type="PackedScene" uid="uid://baxebi0q3s62s" path="res://addons/confirma/src/scenes/test_runner_editor/TestRunnerEditor.tscn" id="2_80bgg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xcbu7"]
 
@@ -30,6 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_cnf8q")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -50,6 +54,10 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="TestRunnerEditor" parent="PanelContainer/MarginContainer/HSplitContainer/TestResults" instance=ExtResource("2_80bgg")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="Menu" type="PanelContainer" parent="PanelContainer/MarginContainer/HSplitContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_70jaa")
@@ -60,6 +68,7 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HSplitContainer/Menu/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/HSplitContainer/Menu/MarginContainer/VBoxContainer"]
+[node name="RunAllTests" type="Button" parent="PanelContainer/MarginContainer/HSplitContainer/Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Run All Tests"

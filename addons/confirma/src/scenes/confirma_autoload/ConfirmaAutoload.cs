@@ -8,7 +8,7 @@ public partial class ConfirmaAutoload : Node
 	public bool IsHeadless { get; private set; } = false;
 	public bool QuitAfterTests { get; private set; } = false;
 
-	private const string _testRunnerUID = "uid://cqbaquyf403ot";
+	private const string _testRunnerUID = "uid://cq76c14wl2ti3";
 	private const string _paramToRunTests = "--confirma-run";
 	private const string _paramQuitAfterTests = "--confirma-quit";
 
