@@ -22,6 +22,8 @@ public class TestExecutor
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var count = testClasses.Count();
 
+		ResetStats();
+
 		_log.PrintLine($"Detected {count} test classes...");
 
 		foreach (var testClass in testClasses) ExecuteTestClass(testClass);
@@ -50,10 +52,8 @@ public class TestExecutor
 
 		foreach (var test in method.TestCases)
 		{
-			_log.Print($"| Running {method.Name}{(
-				test.Params.Length > 0
-				? $"({test.Params})"
-				: string.Empty)}..."
+			_log.Print(
+				$"| {method.Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}..."
 			);
 
 			try
@@ -69,5 +69,12 @@ public class TestExecutor
 				_log.PrintError($"- Failed: {e.Message}\n");
 			}
 		}
+	}
+
+	private void ResetStats()
+	{
+		_testCount = 0;
+		_passed = 0;
+		_failed = 0;
 	}
 }
