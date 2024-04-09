@@ -51,27 +51,11 @@ public class TestExecutor
 
 	private void RunTestMethod(TestMethod method)
 	{
-		_testCount += (uint)method.TestCases.Count();
+		var (passed, failed) = method.Run(_log);
 
-		foreach (var test in method.TestCases)
-		{
-			_log.Print(
-				$"| {method.Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}..."
-			);
-
-			try
-			{
-				test.Run();
-				_passed++;
-
-				_log.PrintSuccess(" passed.\n");
-			}
-			catch (ConfirmAssertException e)
-			{
-				_failed++;
-				_log.PrintError($"- Failed: {e.Message}\n");
-			}
-		}
+		_testCount += passed + failed;
+		_passed += passed;
+		_failed += failed;
 	}
 
 	private void ResetStats()
