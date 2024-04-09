@@ -76,3 +76,8 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Run All Tests"
+
+[node name="ClearOutput" type="Button" parent="PanelContainer/HSplitContainer/MarginContainer/Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear Output"

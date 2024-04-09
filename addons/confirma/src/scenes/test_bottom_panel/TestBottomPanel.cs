@@ -8,14 +8,18 @@ namespace Confirma.Scenes;
 public partial class TestBottomPanel : Control
 {
 #nullable disable
-	private Button _runAllTestsButton;
+	private Button _runAllTests;
+	private Button _clearOutput;
 	private TestRunnerEditor _testRunner;
 #nullable restore
 
 	public override void _Ready()
 	{
-		_runAllTestsButton = GetNode<Button>("%RunAllTests");
-		_runAllTestsButton.Pressed += OnRunAllTestsPressed;
+		_runAllTests = GetNode<Button>("%RunAllTests");
+		_runAllTests.Pressed += OnRunAllTestsPressed;
+
+		_clearOutput = GetNode<Button>("%ClearOutput");
+		_clearOutput.Pressed += OnClearOutputPressed;
 
 		_testRunner = GetNode<TestRunnerEditor>("%TestRunnerEditor");
 	}
@@ -23,6 +27,11 @@ public partial class TestBottomPanel : Control
 	private void OnRunAllTestsPressed()
 	{
 		_testRunner.RunAllTests();
+	}
+
+	private void OnClearOutputPressed()
+	{
+		_testRunner.ClearOutput();
 	}
 }
 
