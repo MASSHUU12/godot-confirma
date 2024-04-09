@@ -38,17 +38,17 @@ public class Log
 
 	public void PrintError(string message)
 	{
-		Print(ColorText(message, "red"));
+		Print(ColorText(message, Colors.Error));
 	}
 
 	public void PrintSuccess(string message)
 	{
-		Print(ColorText(message, "green"));
+		Print(ColorText(message, Colors.Success));
 	}
 
 	public void PrintWarning(string message)
 	{
-		Print(ColorText(message, "yellow"));
+		Print(ColorText(message, Colors.Warning));
 	}
 
 	private string ColorText(string text, string color)

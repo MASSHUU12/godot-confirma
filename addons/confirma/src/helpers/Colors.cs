@@ -7,6 +7,10 @@ public class Colors
 	public Color Color { get; set; }
 	public bool Terminal { get; set; } = false;
 
+	public static readonly string Success = "#8eef97";
+	public static readonly string Warning = "#ffdd65";
+	public static readonly string Error = "#ff786b";
+
 	public Colors()
 	{
 		Color = new();

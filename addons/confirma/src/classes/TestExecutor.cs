@@ -33,8 +33,8 @@ public class TestExecutor
 				"\nConfirma ran {0} tests in {1} test classes. {2}, {3}.",
 				_testCount,
 				count,
-				_colors.Auto($"{_passed} passed", "green"),
-				_colors.Auto($"{_failed} failed", "red")
+				_colors.Auto($"{_passed} passed", Colors.Success),
+				_colors.Auto($"{_failed} failed", Colors.Error)
 			)
 		);
 	}
