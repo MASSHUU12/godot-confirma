@@ -7,6 +7,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kiws"]
 bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_52oh6"]
 Button/styles/focus = SubResource("StyleBoxEmpty_xcbu7")
@@ -44,31 +48,31 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_52oh6")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="TestResults" type="PanelContainer" parent="PanelContainer/MarginContainer/HSplitContainer"]
+[node name="TestResults" type="PanelContainer" parent="PanelContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TestRunnerEditor" parent="PanelContainer/MarginContainer/HSplitContainer/TestResults" instance=ExtResource("2_80bgg")]
+[node name="TestRunnerEditor" parent="PanelContainer/HSplitContainer/TestResults" instance=ExtResource("2_80bgg")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Menu" type="PanelContainer" parent="PanelContainer/MarginContainer/HSplitContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="Menu" type="PanelContainer" parent="PanelContainer/HSplitContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_70jaa")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HSplitContainer/Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer/MarginContainer/Menu"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HSplitContainer/Menu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/MarginContainer/Menu/MarginContainer"]
 layout_mode = 2
 
-[node name="RunAllTests" type="Button" parent="PanelContainer/MarginContainer/HSplitContainer/Menu/MarginContainer/VBoxContainer"]
+[node name="RunAllTests" type="Button" parent="PanelContainer/HSplitContainer/MarginContainer/Menu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Run All Tests"
