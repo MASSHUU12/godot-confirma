@@ -22,6 +22,8 @@ public class TestExecutor
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var count = testClasses.Count();
 
+		ResetStats();
+
 		_log.PrintLine($"Detected {count} test classes...");
 
 		foreach (var testClass in testClasses) ExecuteTestClass(testClass);
@@ -69,5 +71,12 @@ public class TestExecutor
 				_log.PrintError($"- Failed: {e.Message}\n");
 			}
 		}
+	}
+
+	private void ResetStats()
+	{
+		_testCount = 0;
+		_passed = 0;
+		_failed = 0;
 	}
 }
