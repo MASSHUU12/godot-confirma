@@ -52,10 +52,8 @@ public class TestExecutor
 
 		foreach (var test in method.TestCases)
 		{
-			_log.Print($"| Running {method.Name}{(
-				test.Params.Length > 0
-				? $"({test.Params})"
-				: string.Empty)}..."
+			_log.Print(
+				$"| {method.Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}..."
 			);
 
 			try
