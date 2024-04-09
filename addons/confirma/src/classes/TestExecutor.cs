@@ -26,9 +26,16 @@ public class TestExecutor
 
 		ResetStats();
 
-		_log.PrintLine($"Detected {count} test classes...");
+		foreach (var testClass in testClasses)
+		{
+			_log.PrintLine($"Running {testClass.Type.Name}...");
 
-		foreach (var testClass in testClasses) ExecuteTestClass(testClass);
+			var (passed, failed) = testClass.Run(_log);
+
+			_testCount += passed + failed;
+			_passed += passed;
+			_failed += failed;
+		}
 
 		_log.PrintLine(
 			string.Format(
@@ -40,22 +47,6 @@ public class TestExecutor
 				_colors.Auto($"{_failed} failed", Colors.Error)
 			)
 		);
-	}
-
-	private void ExecuteTestClass(TestClass testClass)
-	{
-		_log.PrintLine($"Running {testClass.Type.Name}...");
-
-		foreach (var method in testClass.TestMethods) RunTestMethod(method);
-	}
-
-	private void RunTestMethod(TestMethod method)
-	{
-		var (passed, failed) = method.Run(_log);
-
-		_testCount += passed + failed;
-		_passed += passed;
-		_failed += failed;
 	}
 
 	private void ResetStats()
