@@ -12,6 +12,7 @@ public partial class TestRunnerEditor : TestRunner
 	{
 		base._Ready();
 
+		_output.Clear();
 		_executor = new(new Log(_output), new(false));
 	}
 }
