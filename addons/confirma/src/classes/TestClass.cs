@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Confirma.Helpers;
 
 namespace Confirma.Classes;
 
@@ -12,5 +13,20 @@ public class TestClass
 	{
 		Type = type;
 		TestMethods = TestDiscovery.DiscoverTestMethods(type);
+	}
+
+	public (uint testsPassed, uint testsFailed) Run(Log log)
+	{
+		uint passed = 0, failed = 0;
+
+		foreach (var method in TestMethods)
+		{
+			var (testsPassed, testsFailed) = method.Run(log);
+
+			passed += testsPassed;
+			failed += testsFailed;
+		}
+
+		return (passed, failed);
 	}
 }

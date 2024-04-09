@@ -26,9 +26,16 @@ public class TestExecutor
 
 		ResetStats();
 
-		_log.PrintLine($"Detected {count} test classes...");
+		foreach (var testClass in testClasses)
+		{
+			_log.PrintLine($"Running {testClass.Type.Name}...");
 
-		foreach (var testClass in testClasses) ExecuteTestClass(testClass);
+			var (testsPassed, testsFailed) = testClass.Run(_log);
+
+			_testCount += testsPassed + testsFailed;
+			_passed += testsPassed;
+			_failed += testsFailed;
+		}
 
 		_log.PrintLine(
 			string.Format(
@@ -40,38 +47,6 @@ public class TestExecutor
 				_colors.Auto($"{_failed} failed", Colors.Error)
 			)
 		);
-	}
-
-	private void ExecuteTestClass(TestClass testClass)
-	{
-		_log.PrintLine($"Running {testClass.Type.Name}...");
-
-		foreach (var method in testClass.TestMethods) RunTestMethod(method);
-	}
-
-	private void RunTestMethod(TestMethod method)
-	{
-		_testCount += (uint)method.TestCases.Count();
-
-		foreach (var test in method.TestCases)
-		{
-			_log.Print(
-				$"| {method.Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}..."
-			);
-
-			try
-			{
-				test.Run();
-				_passed++;
-
-				_log.PrintSuccess(" passed.\n");
-			}
-			catch (ConfirmAssertException e)
-			{
-				_failed++;
-				_log.PrintError($"- Failed: {e.Message}\n");
-			}
-		}
 	}
 
 	private void ResetStats()
