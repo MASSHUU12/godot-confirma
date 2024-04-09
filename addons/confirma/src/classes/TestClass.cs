@@ -15,16 +15,16 @@ public class TestClass
 		TestMethods = TestDiscovery.DiscoverTestMethods(type);
 	}
 
-	public (uint passed, uint failed) Run(Log log)
+	public (uint testsPassed, uint testsFailed) Run(Log log)
 	{
 		uint passed = 0, failed = 0;
 
 		foreach (var method in TestMethods)
 		{
-			var (methodPassed, methodFailed) = method.Run(log);
+			var (testsPassed, testsFailed) = method.Run(log);
 
-			passed += methodPassed;
-			failed += methodFailed;
+			passed += testsPassed;
+			failed += testsFailed;
 		}
 
 		return (passed, failed);

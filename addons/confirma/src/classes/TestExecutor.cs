@@ -30,11 +30,11 @@ public class TestExecutor
 		{
 			_log.PrintLine($"Running {testClass.Type.Name}...");
 
-			var (passed, failed) = testClass.Run(_log);
+			var (testsPassed, testsFailed) = testClass.Run(_log);
 
-			_testCount += passed + failed;
-			_passed += passed;
-			_failed += failed;
+			_testCount += testsPassed + testsFailed;
+			_passed += testsPassed;
+			_failed += testsFailed;
 		}
 
 		_log.PrintLine(

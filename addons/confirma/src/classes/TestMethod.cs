@@ -18,9 +18,9 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public (uint passed, uint failed) Run(Log log)
+	public (uint testsPassed, uint testsFailed) Run(Log log)
 	{
-		uint passed = 0, failed = 0;
+		uint testsPassed = 0, testsFailed = 0;
 
 		foreach (var test in TestCases)
 		{
@@ -29,17 +29,17 @@ public class TestMethod
 			try
 			{
 				test.Run();
-				passed++;
+				testsPassed++;
 
 				log.PrintSuccess(" passed.\n");
 			}
 			catch (ConfirmAssertException e)
 			{
-				failed++;
+				testsFailed++;
 				log.PrintError($"- Failed: {e.Message}\n");
 			}
 		}
 
-		return (passed, failed);
+		return (testsPassed, testsFailed);
 	}
 }
