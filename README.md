@@ -4,6 +4,9 @@
 	<p>Confirma is a lightweight and intuitive unit testing tool for the Godot game engine.</p>
 </div>
 
+> [!NOTE]
+> This project is in early stage of development.
+
 ## Prerequisites
 
 -   [.NET SDK 7^](https://dotnet.microsoft.com/en-us/download)
