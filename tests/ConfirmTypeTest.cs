@@ -15,7 +15,13 @@ public static class ConfirmTypeTest
 		actual.ConfirmType(expected);
 	}
 
-	// TODO: Create a test case for ConfirmType_WhenNotOfType
+	[TestCase("Lorem ipsum", typeof(int))]
+	[TestCase(42, typeof(double))]
+	[TestCase(3.14, typeof(bool))]
+	public static void ConfirmType_WhenNotOfType(object? actual, Type expected)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmType(expected));
+	}
 
 	[TestCase("Lorem ipsum", typeof(int))]
 	[TestCase(42, typeof(double))]
@@ -25,5 +31,12 @@ public static class ConfirmTypeTest
 		actual.ConfirmNotType(expected);
 	}
 
-	// TODO: Create a test case for ConfirmNotType_WhenOfType
+	[TestCase("Lorem ipsum", typeof(string))]
+	[TestCase(42, typeof(int))]
+	[TestCase(3.14, typeof(double))]
+	[TestCase(true, typeof(bool))]
+	public static void ConfirmNotType_WhenOfType(object? actual, Type expected)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotType(expected));
+	}
 }

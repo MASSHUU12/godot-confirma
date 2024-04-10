@@ -11,7 +11,12 @@ public static class ConfirmNullTest
 		actual.ConfirmNull();
 	}
 
-	// TODO: Create a test case for ConfirmNull_WhenNotNull
+	[TestCase("Lorem ipsum")]
+	[TestCase(2)]
+	public static void ConfirmNull_WhenNotNull(object? actual)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNull());
+	}
 
 	[TestCase("Lorem ipsum")]
 	[TestCase(2)]
@@ -20,5 +25,9 @@ public static class ConfirmNullTest
 		actual.ConfirmNotNull();
 	}
 
-	// TODO: Create a test case for ConfirmNotNull_WhenNull
+	[TestCase(new object?[] { null })]
+	public static void ConfirmNotNull_WhenNull(object? actual)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotNull());
+	}
 }

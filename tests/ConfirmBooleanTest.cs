@@ -11,7 +11,11 @@ public static class ConfirmBooleanTest
 		true.ConfirmTrue();
 	}
 
-	// TODO: Create a test case for ConfirmTrue_WhenFalse
+	[TestCase]
+	public static void ConfirmTrue_WhenFalse()
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => false.ConfirmTrue());
+	}
 
 	[TestCase]
 	public static void ConfirmFalse_WhenFalse()
@@ -19,5 +23,9 @@ public static class ConfirmBooleanTest
 		false.ConfirmFalse();
 	}
 
-	// TODO: Create a test case for ConfirmFalse_WhenTrue
+	[TestCase]
+	public static void ConfirmFalse_WhenTrue()
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => true.ConfirmFalse());
+	}
 }
