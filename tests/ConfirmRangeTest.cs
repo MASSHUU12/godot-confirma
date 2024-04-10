@@ -13,7 +13,12 @@ public static class ConfirmRangeExtension
 		actual.ConfirmInRange(min, max);
 	}
 
-	// TODO: Create a test case for ConfirmInRange_WhenNotInRange
+	[TestCase(0, 1, 2)]
+	[TestCase(3, 1, 2)]
+	public static void ConfirmInRange_WhenNotInRange(int actual, int min, int max)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmInRange(min, max));
+	}
 
 	[TestCase(0, 1, 2)]
 	[TestCase(3, 1, 2)]
@@ -22,7 +27,13 @@ public static class ConfirmRangeExtension
 		actual.ConfirmNotInRange(min, max);
 	}
 
-	// TODO: Create a test case for ConfirmNotInRange_WhenInRange
+	[TestCase(1, 0, 2)]
+	[TestCase(0, 0, 2)]
+	[TestCase(2, 0, 2)]
+	public static void ConfirmNotInRange_WhenInRange(int actual, int min, int max)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotInRange(min, max));
+	}
 
 	[TestCase(1, 0)]
 	[TestCase(0, -1)]
@@ -31,7 +42,12 @@ public static class ConfirmRangeExtension
 		actual.ConfirmGraterThan(value);
 	}
 
-	// TODO: Create a test case for ConfirmGraterThan_WhenNotGraterThan
+	[TestCase(0, 1)]
+	[TestCase(-1, 0)]
+	public static void ConfirmGraterThan_WhenNotGraterThan(int actual, int value)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmGraterThan(value));
+	}
 
 	[TestCase(2, 1)]
 	[TestCase(-1, -1)]
@@ -40,7 +56,12 @@ public static class ConfirmRangeExtension
 		actual.ConfirmGraterThanOrEqual(value);
 	}
 
-	// TODO: Create a test case for ConfirmGraterThanOrEqual_WhenNotGraterThanOrEqual
+	[TestCase(0, 1)]
+	[TestCase(-1, 0)]
+	public static void ConfirmGraterThanOrEqual_WhenNotGraterThanOrEqual(int actual, int value)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmGraterThanOrEqual(value));
+	}
 
 	[TestCase(0, 1)]
 	[TestCase(-1, 0)]
@@ -49,7 +70,12 @@ public static class ConfirmRangeExtension
 		actual.ConfirmLessThan(value);
 	}
 
-	// TODO: Create a test case for ConfirmLessThan_WhenNotLessThan
+	[TestCase(1, 0)]
+	[TestCase(0, -1)]
+	public static void ConfirmLessThan_WhenNotLessThan(int actual, int value)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmLessThan(value));
+	}
 
 	[TestCase(1, 2)]
 	[TestCase(0, 0)]
@@ -58,5 +84,10 @@ public static class ConfirmRangeExtension
 		actual.ConfirmLessThanOrEqual(value);
 	}
 
-	// TODO: Create a test case for ConfirmLessThanOrEqual_WhenNotLessThanOrEqual
+	[TestCase(1, 0)]
+	[TestCase(0, -1)]
+	public static void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(int actual, int value)
+	{
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmLessThanOrEqual(value));
+	}
 }

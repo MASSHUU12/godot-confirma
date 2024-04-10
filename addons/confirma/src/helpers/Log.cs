@@ -36,6 +36,11 @@ public class Log
 		Print($"{message}\n");
 	}
 
+	public void PrintLine()
+	{
+		Print("\n");
+	}
+
 	public void PrintError(string message)
 	{
 		Print(ColorText(message, Colors.Error));
