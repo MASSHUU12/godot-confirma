@@ -36,6 +36,7 @@ public class TestMethod
 			catch (ConfirmAssertException e)
 			{
 				testsFailed++;
+				log.PrintLine();
 				log.PrintError($"- Failed: {e.Message}\n");
 			}
 		}
