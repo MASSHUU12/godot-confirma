@@ -22,9 +22,16 @@ public class TestMethod
 	{
 		uint testsPassed = 0, testsFailed = 0;
 
-		foreach (var test in TestCases)
+		foreach (TestCase test in TestCases)
 		{
 			log.Print($"| {Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}...");
+
+			if (test.Method.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+			{
+				log.PrintWarning($" ignored\n");
+				log.PrintWarning($"- {ignore.Reason}\n");
+				continue;
+			}
 
 			try
 			{
