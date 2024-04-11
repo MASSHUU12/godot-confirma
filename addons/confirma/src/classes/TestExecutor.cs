@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -30,7 +31,18 @@ public class TestExecutor
 
 		foreach (var testClass in testClasses)
 		{
-			_log.PrintLine($"Running {testClass.Type.Name}...");
+			_log.Print($"> {testClass.Type.Name}...");
+
+			if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+			{
+				_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
+
+				_log.PrintWarning($" ignored.\n");
+				if (ignore.Reason is not null) _log.PrintWarning($"- {ignore.Reason}\n");
+				continue;
+			}
+
+			_log.PrintLine();
 
 			var classResult = testClass.Run(_log);
 

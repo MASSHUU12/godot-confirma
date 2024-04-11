@@ -32,7 +32,7 @@ public class TestMethod
 				testsIgnored++;
 
 				log.PrintWarning($" ignored.\n");
-				log.PrintWarning($"- {ignore.Reason}\n");
+				if (ignore.Reason is not null) log.PrintWarning($"- {ignore.Reason}\n");
 				continue;
 			}
 
