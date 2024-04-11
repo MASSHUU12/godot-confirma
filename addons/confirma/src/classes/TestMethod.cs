@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Helpers;
+using Confirma.Types;
 
 namespace Confirma.Classes;
 
@@ -18,13 +19,22 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public (uint testsPassed, uint testsFailed) Run(Log log)
+	public TestMethodResult Run(Log log)
 	{
-		uint testsPassed = 0, testsFailed = 0;
+		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
 
-		foreach (var test in TestCases)
+		foreach (TestCase test in TestCases)
 		{
 			log.Print($"| {Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}...");
+
+			if (test.Method.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+			{
+				testsIgnored++;
+
+				log.PrintWarning($" ignored.\n");
+				log.PrintWarning($"- {ignore.Reason}\n");
+				continue;
+			}
 
 			try
 			{
@@ -36,11 +46,11 @@ public class TestMethod
 			catch (ConfirmAssertException e)
 			{
 				testsFailed++;
-				log.PrintLine();
-				log.PrintError($"- Failed: {e.Message}\n");
+				log.PrintError($" failed.\n");
+				log.PrintError($"- {e.Message}\n");
 			}
 		}
 
-		return (testsPassed, testsFailed);
+		return new(testsPassed, testsFailed, testsIgnored);
 	}
 }

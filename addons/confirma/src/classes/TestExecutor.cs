@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Confirma.Helpers;
+using Confirma.Types;
 
 namespace Confirma.Classes;
 
@@ -10,12 +11,13 @@ public class TestExecutor
 	private readonly Log _log;
 	private readonly Colors _colors;
 
-	private uint _testCount, _passed, _failed;
+	private TestResult _result;
 
 	public TestExecutor(Log log, Colors colors)
 	{
 		_log = log;
 		_colors = colors;
+		_result = new(0, 0, 0, 0, 0);
 	}
 
 	public void ExecuteTests(Assembly assembly)
@@ -30,29 +32,29 @@ public class TestExecutor
 		{
 			_log.PrintLine($"Running {testClass.Type.Name}...");
 
-			var (testsPassed, testsFailed) = testClass.Run(_log);
+			var classResult = testClass.Run(_log);
 
-			_testCount += testsPassed + testsFailed;
-			_passed += testsPassed;
-			_failed += testsFailed;
+			_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
+			_result.TestsPassed += classResult.TestsPassed;
+			_result.TestsFailed += classResult.TestsFailed;
+			_result.TestsIgnored += classResult.TestsIgnored;
 		}
 
 		_log.PrintLine(
 			string.Format(
-				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s. {3}, {4}.",
-				_testCount,
+				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s. {3}, {4}, {5}.",
+				_result.TotalTests,
 				count,
 				(DateTime.Now - startTimeStamp).TotalSeconds,
-				_colors.Auto($"{_passed} passed", Colors.Success),
-				_colors.Auto($"{_failed} failed", Colors.Error)
+				_colors.Auto($"{_result.TestsPassed} passed", Colors.Success),
+				_colors.Auto($"{_result.TestsFailed} failed", Colors.Error),
+				_colors.Auto($"{_result.TestsIgnored} ignored", Colors.Warning)
 			)
 		);
 	}
 
 	private void ResetStats()
 	{
-		_testCount = 0;
-		_passed = 0;
-		_failed = 0;
+		_result = new(0, 0, 0, 0, 0);
 	}
 }

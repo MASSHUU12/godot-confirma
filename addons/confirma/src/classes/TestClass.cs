@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Confirma.Helpers;
+using Confirma.Types;
 
 namespace Confirma.Classes;
 
@@ -15,18 +16,19 @@ public class TestClass
 		TestMethods = TestDiscovery.DiscoverTestMethods(type);
 	}
 
-	public (uint testsPassed, uint testsFailed) Run(Log log)
+	public TestClassResult Run(Log log)
 	{
-		uint passed = 0, failed = 0;
+		uint passed = 0, failed = 0, ignored = 0;
 
 		foreach (var method in TestMethods)
 		{
-			var (testsPassed, testsFailed) = method.Run(log);
+			var methodResult = method.Run(log);
 
-			passed += testsPassed;
-			failed += testsFailed;
+			passed += methodResult.TestsPassed;
+			failed += methodResult.TestsFailed;
+			ignored += methodResult.TestsIgnored;
 		}
 
-		return (passed, failed);
+		return new(passed, failed, ignored);
 	}
 }
