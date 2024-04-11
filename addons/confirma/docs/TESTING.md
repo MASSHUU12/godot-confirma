@@ -52,7 +52,7 @@ Not implemented.
 
 ## Ignore
 
-Not implemented.
+Ignore method during testing.
 
 ## SetUp
 
