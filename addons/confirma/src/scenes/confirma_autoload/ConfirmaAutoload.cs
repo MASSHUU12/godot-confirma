@@ -1,4 +1,5 @@
 using System.Linq;
+using Confirma.Helpers;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -17,6 +18,8 @@ public partial class ConfirmaAutoload : Node
 		if (!OS.GetCmdlineUserArgs().Contains(_paramToRunTests)) return;
 		if (OS.GetCmdlineUserArgs().Contains(_paramQuitAfterTests)) QuitAfterTests = true;
 		if (DisplayServer.GetName() == "headless") IsHeadless = true;
+
+		Log.IsHeadless = IsHeadless;
 
 		RunTests();
 	}

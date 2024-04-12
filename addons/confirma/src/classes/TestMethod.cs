@@ -19,20 +19,20 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public TestMethodResult Run(Log log)
+	public TestMethodResult Run()
 	{
 		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
 
 		foreach (TestCase test in TestCases)
 		{
-			log.Print($"| {Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}...");
+			Log.Print($"| {Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}...");
 
 			if (test.Method.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
 			{
 				testsIgnored++;
 
-				log.PrintWarning($" ignored.\n");
-				if (ignore.Reason is not null) log.PrintWarning($"- {ignore.Reason}\n");
+				Log.PrintWarning($" ignored.\n");
+				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
 				continue;
 			}
 
@@ -41,13 +41,13 @@ public class TestMethod
 				test.Run();
 				testsPassed++;
 
-				log.PrintSuccess(" passed.\n");
+				Log.PrintSuccess(" passed.\n");
 			}
 			catch (ConfirmAssertException e)
 			{
 				testsFailed++;
-				log.PrintError($" failed.\n");
-				log.PrintError($"- {e.Message}\n");
+				Log.PrintError($" failed.\n");
+				Log.PrintError($"- {e.Message}\n");
 			}
 		}
 

@@ -1,7 +1,5 @@
 #if TOOLS
 
-using System;
-using Confirma.Helpers;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -13,7 +11,7 @@ public partial class TestRunnerEditor : TestRunner
 	{
 		base._Ready();
 
-		_executor = new(new Log(_output), new(false));
+		_executor = new();
 
 		ClearOutput();
 	}
