@@ -31,16 +31,14 @@ public static class ConfirmBooleanTest
 The `TestClass` attribute is used to identify the classes in which the tests are located.
 It is required, Confirma ignores all classes that do not have this attribute.
 
-
 ## TestCase
 
 The `TestCase` attribute is used to mark the methods that perform the tests.
 It also accepts arguments, which allows parameterized tests.
 
-
 ## AfterAll
 
-Not implemented.
+Runs after all test methods in the class.
 
 ## BeforeAll
 
