@@ -15,6 +15,9 @@ public class TestClass
 	private MethodInfo? _beforeAllMethod = null;
 	private bool _hasMoreBeforeAll = false;
 
+	private MethodInfo? _afterAllMethod = null;
+	private bool _hasMoreAfterAll = false;
+
 	public TestClass(Type type)
 	{
 		Type = type;
@@ -45,6 +48,24 @@ public class TestClass
 			}
 		}
 
+		if (_hasMoreAfterAll) Log.PrintWarning(
+			$"Multiple [AfterAll] methods found in {Type.Name}. Running only the first one.\n"
+		);
+
+		if (_afterAllMethod is not null)
+		{
+			Log.Print($"[AfterAll] {Type.Name}");
+
+			try
+			{
+				_afterAllMethod.Invoke(null, null);
+			}
+			catch (ConfirmAssertException e)
+			{
+				Log.PrintError($"- {e.Message}\n");
+			}
+		}
+
 		foreach (var method in TestMethods)
 		{
 			var methodResult = method.Run();
@@ -65,6 +86,14 @@ public class TestClass
 
 			if (_beforeAllMethod is null) _beforeAllMethod = method;
 			else _hasMoreBeforeAll = true;
+		}
+
+		foreach (var method in Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type))
+		{
+			if (method.GetCustomAttribute<AfterAllAttribute>() is null) continue;
+
+			if (_afterAllMethod is null) _afterAllMethod = method;
+			else _hasMoreAfterAll = true;
 		}
 	}
 }
