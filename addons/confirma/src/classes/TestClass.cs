@@ -23,17 +23,17 @@ public class TestClass
 		InitialLookup();
 	}
 
-	public TestClassResult Run(Log log)
+	public TestClassResult Run()
 	{
 		uint passed = 0, failed = 0, ignored = 0;
 
-		if (_hasMoreBeforeAll) log.PrintWarning(
+		if (_hasMoreBeforeAll) Log.PrintWarning(
 			$"Multiple [BeforeAll] methods found in {Type.Name}. Running only the first one.\n"
 		);
 
 		if (_beforeAllMethod is not null)
 		{
-			log.Print($"[BeforeAll] {Type.Name}");
+			Log.Print($"[BeforeAll] {Type.Name}");
 
 			try
 			{
@@ -41,13 +41,13 @@ public class TestClass
 			}
 			catch (ConfirmAssertException e)
 			{
-				log.PrintError($"- {e.Message}\n");
+				Log.PrintError($"- {e.Message}\n");
 			}
 		}
 
 		foreach (var method in TestMethods)
 		{
-			var methodResult = method.Run(log);
+			var methodResult = method.Run();
 
 			passed += methodResult.TestsPassed;
 			failed += methodResult.TestsFailed;

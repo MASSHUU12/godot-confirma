@@ -39,7 +39,7 @@ public class TestExecutor
 
 			Log.PrintLine();
 
-			var classResult = testClass.Run(Log);
+			var classResult = testClass.Run();
 
 			_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
 			_result.TestsPassed += classResult.TestsPassed;
