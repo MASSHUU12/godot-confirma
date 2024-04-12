@@ -25,26 +25,16 @@ public static class Log
 
 	public static void PrintError(string message)
 	{
-		Print(ColorText(message, Colors.Error));
+		Print(Colors.ColorText(message, Colors.Error));
 	}
 
 	public static void PrintSuccess(string message)
 	{
-		Print(ColorText(message, Colors.Success));
+		Print(Colors.ColorText(message, Colors.Success));
 	}
 
 	public static void PrintWarning(string message)
 	{
-		Print(ColorText(message, Colors.Warning));
-	}
-
-	public static string ColorText(string text, string color)
-	{
-		return $"[color={color}]{text}[/color]";
-	}
-
-	public static string ColorText(string text, Color color)
-	{
-		return $"[color=#{color.ToHtml()}]{text}[/color]";
+		Print(Colors.ColorText(message, Colors.Warning));
 	}
 }
