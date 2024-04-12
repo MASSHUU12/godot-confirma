@@ -13,7 +13,7 @@ public class TestExecutor
 
 	public TestExecutor()
 	{
-		_result = new(0, 0, 0, 0, 0);
+		_result = new();
 	}
 
 	public void ExecuteTests(Assembly assembly)
@@ -62,6 +62,6 @@ public class TestExecutor
 
 	private void ResetStats()
 	{
-		_result = new(0, 0, 0, 0, 0);
+		_result = new();
 	}
 }

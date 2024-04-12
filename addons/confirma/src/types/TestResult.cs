@@ -2,24 +2,12 @@ namespace Confirma.Types;
 
 public struct TestResult
 {
-	public uint TotalTests { get; set; }
-	public uint TestsPassed { get; set; }
-	public uint TestsFailed { get; set; }
-	public uint TestsIgnored { get; set; }
-	public double TotalTime { get; set; }
+	public uint TotalTests { get; set; } = 0;
+	public uint TestsPassed { get; set; } = 0;
+	public uint TestsFailed { get; set; } = 0;
+	public uint TestsIgnored { get; set; } = 0;
+	public double TotalTime { get; set; } = 0;
+	public uint Warnings { get; set; } = 0;
 
-	public TestResult(
-		uint totalTests,
-		uint testsPassed,
-		uint testsFailed,
-		uint testsIgnored,
-		double totalTime
-	)
-	{
-		TotalTests = totalTests;
-		TestsPassed = testsPassed;
-		TestsFailed = testsFailed;
-		TestsIgnored = testsIgnored;
-		TotalTime = totalTime;
-	}
+	public TestResult() { }
 }
