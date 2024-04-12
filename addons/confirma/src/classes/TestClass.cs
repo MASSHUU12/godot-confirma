@@ -15,6 +15,9 @@ public class TestClass
 	private MethodInfo? _beforeAllMethod = null;
 	private bool _hasMoreBeforeAll = false;
 
+	private MethodInfo? _afterAllMethod = null;
+	private bool _hasMoreAfterAll = false;
+
 	public TestClass(Type type)
 	{
 		Type = type;
@@ -25,25 +28,10 @@ public class TestClass
 
 	public TestClassResult Run()
 	{
-		uint passed = 0, failed = 0, ignored = 0;
+		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
-		if (_hasMoreBeforeAll) Log.PrintWarning(
-			$"Multiple [BeforeAll] methods found in {Type.Name}. Running only the first one.\n"
-		);
-
-		if (_beforeAllMethod is not null)
-		{
-			Log.Print($"[BeforeAll] {Type.Name}");
-
-			try
-			{
-				_beforeAllMethod.Invoke(null, null);
-			}
-			catch (ConfirmAssertException e)
-			{
-				Log.PrintError($"- {e.Message}\n");
-			}
-		}
+		if (_beforeAllMethod is not null) warnings += RunBeforeAll();
+		if (_afterAllMethod is not null) warnings += RunAfterAll();
 
 		foreach (var method in TestMethods)
 		{
@@ -54,7 +42,7 @@ public class TestClass
 			ignored += methodResult.TestsIgnored;
 		}
 
-		return new(passed, failed, ignored);
+		return new(passed, failed, ignored, warnings);
 	}
 
 	private void InitialLookup()
@@ -66,5 +54,50 @@ public class TestClass
 			if (_beforeAllMethod is null) _beforeAllMethod = method;
 			else _hasMoreBeforeAll = true;
 		}
+
+		foreach (var method in Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type))
+		{
+			if (method.GetCustomAttribute<AfterAllAttribute>() is null) continue;
+
+			if (_afterAllMethod is null) _afterAllMethod = method;
+			else _hasMoreAfterAll = true;
+		}
+	}
+
+	private byte RunLifecycleMethod(MethodInfo method, string name, bool hasMultiple)
+	{
+		if (hasMultiple)
+			Log.PrintWarning($"Multiple [{name}] methods found in {Type.Name}. Running only the first one.\n");
+
+		Log.PrintLine($"[{name}] {Type.Name}");
+
+		try
+		{
+			method.Invoke(null, null);
+		}
+		catch (Exception e)
+		{
+			Log.PrintError($"- {e.Message}");
+		}
+
+		return hasMultiple ? (byte)1 : (byte)0;
+	}
+
+	private byte RunBeforeAll()
+	{
+		return RunLifecycleMethod(
+		  _beforeAllMethod!,
+		  "BeforeAll",
+		  _hasMoreBeforeAll
+		);
+	}
+
+	private byte RunAfterAll()
+	{
+		return RunLifecycleMethod(
+		 _afterAllMethod!,
+		 "AfterAll",
+		 _hasMoreAfterAll
+		);
 	}
 }

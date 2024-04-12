@@ -13,7 +13,7 @@ public class TestExecutor
 
 	public TestExecutor()
 	{
-		_result = new(0, 0, 0, 0, 0);
+		_result = new();
 	}
 
 	public void ExecuteTests(Assembly assembly)
@@ -45,23 +45,25 @@ public class TestExecutor
 			_result.TestsPassed += classResult.TestsPassed;
 			_result.TestsFailed += classResult.TestsFailed;
 			_result.TestsIgnored += classResult.TestsIgnored;
+			_result.Warnings += classResult.Warnings;
 		}
 
 		Log.PrintLine(
 			string.Format(
-				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s. {3}, {4}, {5}.",
+				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}.",
 				_result.TotalTests,
 				count,
 				(DateTime.Now - startTimeStamp).TotalSeconds,
 				Colors.ColorText($"{_result.TestsPassed} passed", Colors.Success),
 				Colors.ColorText($"{_result.TestsFailed} failed", Colors.Error),
-				Colors.ColorText($"{_result.TestsIgnored} ignored", Colors.Warning)
+				Colors.ColorText($"{_result.TestsIgnored} ignored", Colors.Warning),
+				Colors.ColorText($"{_result.Warnings} warnings", Colors.Warning)
 			)
 		);
 	}
 
 	private void ResetStats()
 	{
-		_result = new(0, 0, 0, 0, 0);
+		_result = new();
 	}
 }
