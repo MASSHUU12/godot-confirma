@@ -9,7 +9,8 @@ public static class Log
 
 	public static void Print(string message)
 	{
-		if (IsHeadless) GD.PrintRich(message);
+		// Note: GD.PrintRich does not support hex color codes
+		if (IsHeadless) GD.PrintRaw(message);
 		else RichOutput?.AppendText(message);
 	}
 
