@@ -28,10 +28,10 @@ public class TestClass
 
 	public TestClassResult Run()
 	{
-		uint passed = 0, failed = 0, ignored = 0;
+		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
-		if (_beforeAllMethod is not null) RunBeforeAll();
-		if (_afterAllMethod is not null) RunAfterAll();
+		if (_beforeAllMethod is not null) warnings += RunBeforeAll();
+		if (_afterAllMethod is not null) warnings += RunAfterAll();
 
 		foreach (var method in TestMethods)
 		{
@@ -42,7 +42,7 @@ public class TestClass
 			ignored += methodResult.TestsIgnored;
 		}
 
-		return new(passed, failed, ignored);
+		return new(passed, failed, ignored, warnings);
 	}
 
 	private void InitialLookup()
@@ -64,7 +64,7 @@ public class TestClass
 		}
 	}
 
-	private void RunLifecycleMethod(MethodInfo method, string name, bool hasMultiple)
+	private byte RunLifecycleMethod(MethodInfo method, string name, bool hasMultiple)
 	{
 		if (hasMultiple)
 			Log.PrintWarning($"Multiple [{name}] methods found in {Type.Name}. Running only the first one.\n");
@@ -79,20 +79,22 @@ public class TestClass
 		{
 			Log.PrintError($"- {e.Message}");
 		}
+
+		return hasMultiple ? (byte)1 : (byte)0;
 	}
 
-	private void RunBeforeAll()
+	private byte RunBeforeAll()
 	{
-		RunLifecycleMethod(
+		return RunLifecycleMethod(
 		  _beforeAllMethod!,
 		  "BeforeAll",
 		  _hasMoreBeforeAll
 		);
 	}
 
-	private void RunAfterAll()
+	private byte RunAfterAll()
 	{
-		RunLifecycleMethod(
+		return RunLifecycleMethod(
 		 _afterAllMethod!,
 		 "AfterAll",
 		 _hasMoreAfterAll
