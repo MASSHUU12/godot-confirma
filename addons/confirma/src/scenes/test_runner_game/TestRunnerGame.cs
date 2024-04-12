@@ -1,5 +1,3 @@
-using Confirma.Helpers;
-
 namespace Confirma.Scenes;
 
 public partial class TestRunnerGame : TestRunner
@@ -14,10 +12,7 @@ public partial class TestRunnerGame : TestRunner
 
 		_confirmaAutoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
-		_executor = new(
-			new Log(_confirmaAutoload.IsHeadless ? null : _output),
-			new(_confirmaAutoload.IsHeadless)
-		);
+		_executor = new();
 
 		RunIfRoot();
 	}
