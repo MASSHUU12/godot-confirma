@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
@@ -16,6 +17,14 @@ public static class Reflection
 	{
 		var types = assembly.GetTypes();
 		return types.Where(type => type.HasAttribute<TestClassAttribute>()).ToArray();
+	}
+
+	public static IEnumerable<MethodInfo> GetMethodsWithAttribute<T>(Type type)
+	where T : Attribute
+	{
+		return type.GetMethods().Where(method => method.CustomAttributes.Any(
+			attribute => attribute.AttributeType == typeof(T)
+		));
 	}
 
 	public static MethodInfo[] GetTestMethodsFromType(Type type)

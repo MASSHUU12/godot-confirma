@@ -44,7 +44,7 @@ Not implemented.
 
 ## BeforeAll
 
-Not implemented.
+Runs before all test methods in the class.
 
 ## Category
 
