@@ -18,6 +18,9 @@ public class TestClass
 	private MethodInfo? _afterAllMethod = null;
 	private bool _hasMoreAfterAll = false;
 
+	private MethodInfo? _setUpMethod = null;
+	private bool _hasMoreSetUp = false;
+
 	public TestClass(Type type)
 	{
 		Type = type;
@@ -35,6 +38,8 @@ public class TestClass
 
 		foreach (var method in TestMethods)
 		{
+			if (_setUpMethod is not null) warnings += RunSetUp();
+
 			var methodResult = method.Run();
 
 			passed += methodResult.TestsPassed;
@@ -61,6 +66,14 @@ public class TestClass
 
 			if (_afterAllMethod is null) _afterAllMethod = method;
 			else _hasMoreAfterAll = true;
+		}
+
+		foreach (var method in Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type))
+		{
+			if (method.GetCustomAttribute<SetUpAttribute>() is null) continue;
+
+			if (_setUpMethod is null) _setUpMethod = method;
+			else _hasMoreSetUp = true;
 		}
 	}
 
@@ -98,6 +111,15 @@ public class TestClass
 		 _afterAllMethod!,
 		 "AfterAll",
 		 _hasMoreAfterAll
+		);
+	}
+
+	private byte RunSetUp()
+	{
+		return RunLifecycleMethod(
+			_setUpMethod!,
+			"SetUp",
+			_hasMoreSetUp
 		);
 	}
 }
