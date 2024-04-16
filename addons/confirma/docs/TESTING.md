@@ -54,9 +54,9 @@ Ignore method during testing.
 
 ## SetUp
 
-Not implemented.
+Runs before every test method in the class.
 
-## TerDown
+## TearDown
 
 Not implemented.
 
