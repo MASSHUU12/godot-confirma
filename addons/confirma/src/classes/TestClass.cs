@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Helpers;
@@ -12,14 +13,7 @@ public class TestClass
 	public Type Type { get; }
 	public IEnumerable<TestMethod> TestMethods { get; }
 
-	private MethodInfo? _beforeAllMethod = null;
-	private bool _hasMoreBeforeAll = false;
-
-	private MethodInfo? _afterAllMethod = null;
-	private bool _hasMoreAfterAll = false;
-
-	private MethodInfo? _setUpMethod = null;
-	private bool _hasMoreSetUp = false;
+	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
 
 	public TestClass(Type type)
 	{
@@ -33,93 +27,59 @@ public class TestClass
 	{
 		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
-		if (_beforeAllMethod is not null) warnings += RunBeforeAll();
-		if (_afterAllMethod is not null) warnings += RunAfterAll();
+		warnings += RunLifecycleMethod("BeforeAll");
 
 		foreach (var method in TestMethods)
 		{
-			if (_setUpMethod is not null) warnings += RunSetUp();
+			warnings += RunLifecycleMethod("SetUp");
 
 			var methodResult = method.Run();
+
+			warnings += RunLifecycleMethod("TearDown");
 
 			passed += methodResult.TestsPassed;
 			failed += methodResult.TestsFailed;
 			ignored += methodResult.TestsIgnored;
 		}
 
+		warnings += RunLifecycleMethod("AfterAll");
+
 		return new(passed, failed, ignored, warnings);
 	}
 
 	private void InitialLookup()
 	{
-		foreach (var method in Reflection.GetMethodsWithAttribute<BeforeAllAttribute>(Type))
-		{
-			if (method.GetCustomAttribute<BeforeAllAttribute>() is null) continue;
-
-			if (_beforeAllMethod is null) _beforeAllMethod = method;
-			else _hasMoreBeforeAll = true;
-		}
-
-		foreach (var method in Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type))
-		{
-			if (method.GetCustomAttribute<AfterAllAttribute>() is null) continue;
-
-			if (_afterAllMethod is null) _afterAllMethod = method;
-			else _hasMoreAfterAll = true;
-		}
-
-		foreach (var method in Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type))
-		{
-			if (method.GetCustomAttribute<SetUpAttribute>() is null) continue;
-
-			if (_setUpMethod is null) _setUpMethod = method;
-			else _hasMoreSetUp = true;
-		}
+		AddLifecycleMethod("BeforeAll", Reflection.GetMethodsWithAttribute<BeforeAllAttribute>(Type));
+		AddLifecycleMethod("AfterAll", Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type));
+		AddLifecycleMethod("SetUp", Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type));
+		AddLifecycleMethod("TearDown", Reflection.GetMethodsWithAttribute<TearDownAttribute>(Type));
 	}
 
-	private byte RunLifecycleMethod(MethodInfo method, string name, bool hasMultiple)
+	private void AddLifecycleMethod(string name, IEnumerable<MethodInfo> methods)
 	{
-		if (hasMultiple)
+		if (!methods.Any()) return;
+
+		_lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
+	}
+
+	private byte RunLifecycleMethod(string name)
+	{
+		if (!_lifecycleMethods.TryGetValue(name, out var method)) return 0;
+
+		if (method.HasMultiple)
 			Log.PrintWarning($"Multiple [{name}] methods found in {Type.Name}. Running only the first one.\n");
 
 		Log.PrintLine($"[{name}] {Type.Name}");
 
 		try
 		{
-			method.Invoke(null, null);
+			method.Method.Invoke(null, null);
 		}
 		catch (Exception e)
 		{
 			Log.PrintError($"- {e.Message}");
 		}
 
-		return hasMultiple ? (byte)1 : (byte)0;
-	}
-
-	private byte RunBeforeAll()
-	{
-		return RunLifecycleMethod(
-		  _beforeAllMethod!,
-		  "BeforeAll",
-		  _hasMoreBeforeAll
-		);
-	}
-
-	private byte RunAfterAll()
-	{
-		return RunLifecycleMethod(
-		 _afterAllMethod!,
-		 "AfterAll",
-		 _hasMoreAfterAll
-		);
-	}
-
-	private byte RunSetUp()
-	{
-		return RunLifecycleMethod(
-			_setUpMethod!,
-			"SetUp",
-			_hasMoreSetUp
-		);
+		return method.HasMultiple ? (byte)1 : (byte)0;
 	}
 }

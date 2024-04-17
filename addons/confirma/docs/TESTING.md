@@ -58,7 +58,7 @@ Runs before every test method in the class.
 
 ## TearDown
 
-Not implemented.
+Runs after every test method in the class.
 
 ## Timeout
 
