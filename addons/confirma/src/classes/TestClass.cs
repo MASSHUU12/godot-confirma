@@ -21,6 +21,9 @@ public class TestClass
 	private MethodInfo? _setUpMethod = null;
 	private bool _hasMoreSetUp = false;
 
+	private MethodInfo? _tearDownMethod = null;
+	private bool _hasMoreTearDown = false;
+
 	public TestClass(Type type)
 	{
 		Type = type;
@@ -41,6 +44,8 @@ public class TestClass
 			if (_setUpMethod is not null) warnings += RunSetUp();
 
 			var methodResult = method.Run();
+
+			if (_tearDownMethod is not null) warnings += RunTearDown();
 
 			passed += methodResult.TestsPassed;
 			failed += methodResult.TestsFailed;
@@ -74,6 +79,14 @@ public class TestClass
 
 			if (_setUpMethod is null) _setUpMethod = method;
 			else _hasMoreSetUp = true;
+		}
+
+		foreach (var method in Reflection.GetMethodsWithAttribute<TearDownAttribute>(Type))
+		{
+			if (method.GetCustomAttribute<TearDownAttribute>() is null) continue;
+
+			if (_tearDownMethod is null) _tearDownMethod = method;
+			else _hasMoreTearDown = true;
 		}
 	}
 
@@ -120,6 +133,15 @@ public class TestClass
 			_setUpMethod!,
 			"SetUp",
 			_hasMoreSetUp
+		);
+	}
+
+	private byte RunTearDown()
+	{
+		return RunLifecycleMethod(
+			_tearDownMethod!,
+			"TearDown",
+			_hasMoreTearDown
 		);
 	}
 }
