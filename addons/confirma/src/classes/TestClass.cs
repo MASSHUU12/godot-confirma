@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Helpers;
@@ -48,35 +49,17 @@ public class TestClass
 
 	private void InitialLookup()
 	{
-		foreach (var method in Reflection.GetMethodsWithAttribute<BeforeAllAttribute>(Type))
-		{
-			if (method.GetCustomAttribute<BeforeAllAttribute>() is null) continue;
+		AddLifecycleMethod("BeforeAll", Reflection.GetMethodsWithAttribute<BeforeAllAttribute>(Type));
+		AddLifecycleMethod("AfterAll", Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type));
+		AddLifecycleMethod("SetUp", Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type));
+		AddLifecycleMethod("TearDown", Reflection.GetMethodsWithAttribute<TearDownAttribute>(Type));
+	}
 
-			if (!_lifecycleMethods.TryGetValue("BeforeAll", out var beforeAll))
-				_lifecycleMethods.Add("BeforeAll", new(method, "BeforeAll", false));
-			else beforeAll.HasMultiple = true;
-		}
+	private void AddLifecycleMethod(string name, IEnumerable<MethodInfo> methods)
+	{
+		if (!methods.Any()) return;
 
-		foreach (var method in Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type))
-		{
-			if (!_lifecycleMethods.TryGetValue("AfterAll", out var afterAll))
-				_lifecycleMethods.Add("AfterAll", new(method, "AfterAll", false));
-			else afterAll.HasMultiple = true;
-		}
-
-		foreach (var method in Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type))
-		{
-			if (!_lifecycleMethods.TryGetValue("SetUp", out var setUp))
-				_lifecycleMethods.Add("SetUp", new(method, "SetUp", false));
-			else setUp.HasMultiple = true;
-		}
-
-		foreach (var method in Reflection.GetMethodsWithAttribute<TearDownAttribute>(Type))
-		{
-			if (!_lifecycleMethods.TryGetValue("TearDown", out var tearDown))
-				_lifecycleMethods.Add("TearDown", new(method, "TearDown", false));
-			else tearDown.HasMultiple = true;
-		}
+		_lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
 	}
 
 	private byte RunLifecycleMethod(string name)
