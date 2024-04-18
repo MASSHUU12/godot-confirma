@@ -70,6 +70,16 @@
 			"args": ["--headless", "--", "--confirma-quit", "--confirma-run"],
 			"cwd": "${workspaceFolder}",
 			"stopAtEntry": false
+		},
+		{
+			"name": "🧪 Run Single Test (headless)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"program": "${env:GODOT}",
+			"args": ["--headless", "--", "--confirma-quit", "--confirma-run=${fileBasenameNoExtension}"],
+			"cwd": "${workspaceFolder}",
+			"stopAtEntry": false
 		}
 	]
 }
