@@ -18,9 +18,9 @@ public partial class TestRunner : Control
 		_output = GetNode<RichTextLabel>("%Output");
 	}
 
-	public void RunAllTests()
+	public void RunAllTests(string className = "")
 	{
 		_output.Clear();
-		_executor.ExecuteTests(_assembly);
+		_executor.ExecuteTests(_assembly, className);
 	}
 }
