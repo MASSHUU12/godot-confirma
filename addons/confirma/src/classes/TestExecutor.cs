@@ -16,38 +16,55 @@ public class TestExecutor
 		_result = new();
 	}
 
-	public void ExecuteTests(Assembly assembly)
+	public void ExecuteTests(Assembly assembly, string className)
 	{
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
-		var count = testClasses.Count();
 		var startTimeStamp = DateTime.Now;
+
+		if (!string.IsNullOrEmpty(className))
+		{
+			testClasses = testClasses.Where(tc => tc.Type.Name == className);
+
+			if (!testClasses.Any())
+			{
+				Log.PrintError($"No test class found with the name '{className}'.");
+				return;
+			}
+		}
 
 		ResetStats();
 
-		foreach (var testClass in testClasses)
+		foreach (var testClass in testClasses) ExecuteSingleClass(testClass);
+
+		PrintSummary(testClasses.Count(), startTimeStamp);
+	}
+
+	private void ExecuteSingleClass(TestClass testClass)
+	{
+		Log.Print($"> {testClass.Type.Name}...");
+
+		if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
 		{
-			Log.Print($"> {testClass.Type.Name}...");
+			_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
 
-			if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
-			{
-				_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
-
-				Log.PrintWarning($" ignored.\n");
-				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
-				continue;
-			}
-
-			Log.PrintLine();
-
-			var classResult = testClass.Run();
-
-			_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
-			_result.TestsPassed += classResult.TestsPassed;
-			_result.TestsFailed += classResult.TestsFailed;
-			_result.TestsIgnored += classResult.TestsIgnored;
-			_result.Warnings += classResult.Warnings;
+			Log.PrintWarning($" ignored.\n");
+			if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
+			return;
 		}
 
+		Log.PrintLine();
+
+		var classResult = testClass.Run();
+
+		_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
+		_result.TestsPassed += classResult.TestsPassed;
+		_result.TestsFailed += classResult.TestsFailed;
+		_result.TestsIgnored += classResult.TestsIgnored;
+		_result.Warnings += classResult.Warnings;
+	}
+
+	private void PrintSummary(int count, DateTime startTimeStamp)
+	{
 		Log.PrintLine(
 			string.Format(
 				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}.",

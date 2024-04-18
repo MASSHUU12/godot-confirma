@@ -8,6 +8,7 @@ public partial class ConfirmaAutoload : Node
 {
 	public bool IsHeadless { get; private set; } = false;
 	public bool QuitAfterTests { get; private set; } = false;
+	public string ClassName { get; private set; } = string.Empty;
 
 	private const string _testRunnerUID = "uid://cq76c14wl2ti3";
 	private const string _paramToRunTests = "--confirma-run";
@@ -15,8 +16,16 @@ public partial class ConfirmaAutoload : Node
 
 	public override void _Ready()
 	{
-		if (!OS.GetCmdlineUserArgs().Contains(_paramToRunTests)) return;
-		if (OS.GetCmdlineUserArgs().Contains(_paramQuitAfterTests)) QuitAfterTests = true;
+		var args = OS.GetCmdlineUserArgs();
+
+		if (!args.Any(str => str.StartsWith(_paramToRunTests))) return;
+
+		var keyValue = args.Single(arg => arg.StartsWith(_paramToRunTests));
+		ClassName = keyValue.Find('=') == -1
+			? string.Empty
+			: keyValue.Split('=')[1];
+
+		if (args.Contains(_paramQuitAfterTests)) QuitAfterTests = true;
 		if (DisplayServer.GetName() == "headless") IsHeadless = true;
 
 		Log.IsHeadless = IsHeadless;

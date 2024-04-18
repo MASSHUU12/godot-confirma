@@ -21,6 +21,6 @@ public partial class TestRunnerGame : TestRunner
 	{
 		if (GetTree().CurrentScene != this) return;
 
-		RunAllTests();
+		RunAllTests(_confirmaAutoload.ClassName);
 	}
 }
