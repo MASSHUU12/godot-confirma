@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Confirma.Classes;
 
@@ -16,22 +17,19 @@ public class TestCase
 		Params = string.Join(", ", Parameters ?? Array.Empty<object>()); ;
 	}
 
-	public void Run()
+	public async Task RunAsync()
 	{
 		var strParams = string.Join(", ", Parameters ?? Array.Empty<object>());
 
 		try
 		{
-			Method.Invoke(null, Parameters);
+			await Task.Run(() => Method.Invoke(null, Parameters));
 		}
 		catch (TargetInvocationException tie)
 		{
 			throw new ConfirmAssertException(tie.InnerException?.Message ?? tie.Message);
 		}
-		catch (Exception e) when (e
-			is ArgumentException
-			or ArgumentNullException
-		)
+		catch (Exception e) when (e is ArgumentException or ArgumentNullException)
 		{
 			throw new ConfirmAssertException($"- Failed: Invalid test case parameters: {strParams}.");
 		}
