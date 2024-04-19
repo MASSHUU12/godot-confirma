@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -23,26 +24,26 @@ public class TestClass
 		InitialLookup();
 	}
 
-	public TestClassResult Run()
+	public async Task<TestClassResult> RunAsync()
 	{
 		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
-		warnings += RunLifecycleMethod("BeforeAll");
+		warnings += await RunLifecycleMethodAsync("BeforeAll");
 
 		foreach (var method in TestMethods)
 		{
-			warnings += RunLifecycleMethod("SetUp");
+			warnings += await RunLifecycleMethodAsync("SetUp");
 
-			var methodResult = method.Run();
+			var methodResult = await method.RunAsync();
 
-			warnings += RunLifecycleMethod("TearDown");
+			warnings += await RunLifecycleMethodAsync("TearDown");
 
 			passed += methodResult.TestsPassed;
 			failed += methodResult.TestsFailed;
 			ignored += methodResult.TestsIgnored;
 		}
 
-		warnings += RunLifecycleMethod("AfterAll");
+		warnings += await RunLifecycleMethodAsync("AfterAll");
 
 		return new(passed, failed, ignored, warnings);
 	}
@@ -62,7 +63,7 @@ public class TestClass
 		_lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
 	}
 
-	private byte RunLifecycleMethod(string name)
+	private async Task<byte> RunLifecycleMethodAsync(string name)
 	{
 		if (!_lifecycleMethods.TryGetValue(name, out var method)) return 0;
 
@@ -73,7 +74,7 @@ public class TestClass
 
 		try
 		{
-			method.Method.Invoke(null, null);
+			await Task.Run(() => method.Method.Invoke(null, null));
 		}
 		catch (Exception e)
 		{
