@@ -11,7 +11,7 @@ public static class Log
 	{
 		// Note: GD.PrintRich does not support hex color codes
 		if (IsHeadless) GD.PrintRaw(message);
-		else RichOutput?.AppendText(message);
+		else RichOutput!.AppendText(message);
 	}
 
 	public static void PrintLine(string message)

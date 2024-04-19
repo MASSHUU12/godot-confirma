@@ -1,5 +1,6 @@
 using System.Reflection;
 using Confirma.Classes;
+using Confirma.Helpers;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -17,6 +18,8 @@ public partial class TestRunner : Control
 	{
 		_output = GetNode<RichTextLabel>("%Output");
 		_executor = new();
+
+		Log.RichOutput = _output;
 	}
 
 	public void RunAllTests(string className = "")
