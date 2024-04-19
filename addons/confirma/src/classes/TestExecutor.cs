@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -16,7 +17,7 @@ public class TestExecutor
 		_result = new();
 	}
 
-	public void ExecuteTests(Assembly assembly, string className)
+	public async Task ExecuteTestsAsync(Assembly assembly, string className)
 	{
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var startTimeStamp = DateTime.Now;
@@ -34,12 +35,12 @@ public class TestExecutor
 
 		ResetStats();
 
-		foreach (var testClass in testClasses) ExecuteSingleClass(testClass);
+		foreach (var testClass in testClasses) await ExecuteSingleClassAsync(testClass);
 
 		PrintSummary(testClasses.Count(), startTimeStamp);
 	}
 
-	private void ExecuteSingleClass(TestClass testClass)
+	private async Task ExecuteSingleClassAsync(TestClass testClass)
 	{
 		Log.Print($"> {testClass.Type.Name}...");
 
@@ -54,7 +55,7 @@ public class TestExecutor
 
 		Log.PrintLine();
 
-		var classResult = testClass.Run();
+		var classResult = await testClass.RunAsync();
 
 		_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
 		_result.TestsPassed += classResult.TestsPassed;
