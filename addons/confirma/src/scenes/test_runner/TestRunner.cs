@@ -16,6 +16,7 @@ public partial class TestRunner : Control
 	public override void _Ready()
 	{
 		_output = GetNode<RichTextLabel>("%Output");
+		_executor = new();
 	}
 
 	public void RunAllTests(string className = "")

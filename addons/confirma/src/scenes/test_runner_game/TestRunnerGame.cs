@@ -12,8 +12,6 @@ public partial class TestRunnerGame : TestRunner
 
 		_confirmaAutoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
-		_executor = new();
-
 		RunIfRoot();
 	}
 

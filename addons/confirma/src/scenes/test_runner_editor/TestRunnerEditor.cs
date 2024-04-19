@@ -11,8 +11,6 @@ public partial class TestRunnerEditor : TestRunner
 	{
 		base._Ready();
 
-		_executor = new();
-
 		ClearOutput();
 	}
 
