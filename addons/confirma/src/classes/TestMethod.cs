@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -19,7 +20,7 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public TestMethodResult Run()
+	public async Task<TestMethodResult> RunAsync()
 	{
 		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
 
@@ -38,7 +39,7 @@ public class TestMethod
 
 			try
 			{
-				test.Run();
+				await test.RunAsync();
 				testsPassed++;
 
 				Log.PrintSuccess(" passed.\n");

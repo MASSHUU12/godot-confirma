@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Classes;
 using Confirma.Helpers;
 using Godot;
@@ -25,6 +26,8 @@ public partial class TestRunner : Control
 	public void RunAllTests(string className = "")
 	{
 		_output.Clear();
-		_executor.ExecuteTests(_assembly, className);
+		Task.Run(
+			async () => await _executor.ExecuteTestsAsync(_assembly, className)
+		).GetAwaiter().GetResult();
 	}
 }
