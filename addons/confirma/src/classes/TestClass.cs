@@ -26,26 +26,26 @@ public class TestClass
 		InitialLookup();
 	}
 
-	public async Task<TestClassResult> RunAsync()
+	public TestClassResult Run()
 	{
 		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
-		warnings += await RunLifecycleMethodAsync("BeforeAll");
+		warnings += RunLifecycleMethod("BeforeAll");
 
 		foreach (var method in TestMethods)
 		{
-			warnings += await RunLifecycleMethodAsync("SetUp");
+			warnings += RunLifecycleMethod("SetUp");
 
-			var methodResult = await method.RunAsync();
+			var methodResult = method.Run();
 
-			warnings += await RunLifecycleMethodAsync("TearDown");
+			warnings += RunLifecycleMethod("TearDown");
 
 			passed += methodResult.TestsPassed;
 			failed += methodResult.TestsFailed;
 			ignored += methodResult.TestsIgnored;
 		}
 
-		warnings += await RunLifecycleMethodAsync("AfterAll");
+		warnings += RunLifecycleMethod("AfterAll");
 
 		return new(passed, failed, ignored, warnings);
 	}
@@ -65,7 +65,7 @@ public class TestClass
 		_lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
 	}
 
-	private async Task<byte> RunLifecycleMethodAsync(string name)
+	private byte RunLifecycleMethod(string name)
 	{
 		if (!_lifecycleMethods.TryGetValue(name, out var method)) return 0;
 
@@ -76,7 +76,7 @@ public class TestClass
 
 		try
 		{
-			await Task.Run(() => method.Method.Invoke(null, null));
+			method.Method.Invoke(null, null);
 		}
 		catch (Exception e)
 		{
