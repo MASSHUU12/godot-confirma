@@ -2,7 +2,7 @@ using System;
 
 namespace Confirma.Attributes;
 
-[AttributeUsage(AttributeTargets.Method)]
+[AttributeUsage(AttributeTargets.Class)]
 public class ParallelizableAttribute : Attribute
 {
 	public ushort Threads { get; }
