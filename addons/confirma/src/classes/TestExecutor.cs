@@ -11,13 +11,14 @@ namespace Confirma.Classes;
 public class TestExecutor
 {
 	private TestResult _result;
+	private object _lock = new();
 
 	public TestExecutor()
 	{
 		_result = new();
 	}
 
-	public async Task ExecuteTestsAsync(Assembly assembly, string className)
+	public void ExecuteTests(Assembly assembly, string className)
 	{
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var startTimeStamp = DateTime.Now;
@@ -35,33 +36,42 @@ public class TestExecutor
 
 		ResetStats();
 
-		foreach (var testClass in testClasses) await ExecuteSingleClassAsync(testClass);
+		var parallelizableClasses = testClasses.Where(tc => tc.IsParallelizable);
+		var nonParallelizableClasses = testClasses.Where(tc => !tc.IsParallelizable);
+
+		parallelizableClasses.AsParallel().ForAll(ExecuteSingleClass);
+
+		foreach (var testClass in nonParallelizableClasses)
+			ExecuteSingleClass(testClass);
 
 		PrintSummary(testClasses.Count(), startTimeStamp);
 	}
 
-	private async Task ExecuteSingleClassAsync(TestClass testClass)
+	private void ExecuteSingleClass(TestClass testClass)
 	{
-		Log.Print($"> {testClass.Type.Name}...");
-
-		if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+		lock (_lock)
 		{
-			_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
+			Log.Print($"> {testClass.Type.Name}...");
 
-			Log.PrintWarning($" ignored.\n");
-			if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
-			return;
+			if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+			{
+				_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
+
+				Log.PrintWarning($" ignored.\n");
+				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
+				return;
+			}
+
+			Log.PrintLine();
+
+			var classResult = testClass.Run();
+
+			_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
+			_result.TestsPassed += classResult.TestsPassed;
+			_result.TestsFailed += classResult.TestsFailed;
+			_result.TestsIgnored += classResult.TestsIgnored;
+			_result.Warnings += classResult.Warnings;
 		}
-
-		Log.PrintLine();
-
-		var classResult = await testClass.RunAsync();
-
-		_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
-		_result.TestsPassed += classResult.TestsPassed;
-		_result.TestsFailed += classResult.TestsFailed;
-		_result.TestsIgnored += classResult.TestsIgnored;
-		_result.Warnings += classResult.Warnings;
 	}
 
 	private void PrintSummary(int count, DateTime startTimeStamp)
