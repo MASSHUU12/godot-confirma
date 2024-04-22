@@ -20,7 +20,7 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public async Task<TestMethodResult> RunAsync()
+	public TestMethodResult Run()
 	{
 		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
 
@@ -39,7 +39,7 @@ public class TestMethod
 
 			try
 			{
-				await test.RunAsync();
+				test.Run();
 				testsPassed++;
 
 				Log.PrintSuccess(" passed.\n");
