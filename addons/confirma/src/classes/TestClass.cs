@@ -12,6 +12,7 @@ namespace Confirma.Classes;
 public class TestClass
 {
 	public Type Type { get; }
+	public bool IsParallelizable { get; }
 	public IEnumerable<TestMethod> TestMethods { get; }
 
 	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
@@ -20,6 +21,7 @@ public class TestClass
 	{
 		Type = type;
 		TestMethods = TestDiscovery.DiscoverTestMethods(type);
+		IsParallelizable = type.GetCustomAttribute<ParallelizableAttribute>() is not null;
 
 		InitialLookup();
 	}
