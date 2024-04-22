@@ -9,7 +9,7 @@ public class ParallelizableAttribute : Attribute
 
 	public ParallelizableAttribute()
 	{
-		Threads = Math.Max((ushort)2, (ushort)Environment.ProcessorCount);
+		Threads = Math.Min((ushort)2, (ushort)Environment.ProcessorCount);
 	}
 
 	public ParallelizableAttribute(ushort threads)
