@@ -17,13 +17,13 @@ public class TestCase
 		Params = string.Join(", ", Parameters ?? Array.Empty<object>()); ;
 	}
 
-	public async Task RunAsync()
+	public void Run()
 	{
 		var strParams = string.Join(", ", Parameters ?? Array.Empty<object>());
 
 		try
 		{
-			await Task.Run(() => Method.Invoke(null, Parameters));
+			Method.Invoke(null, Parameters);
 		}
 		catch (TargetInvocationException tie)
 		{
