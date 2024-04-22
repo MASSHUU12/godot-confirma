@@ -4,6 +4,7 @@ using Confirma.Attributes;
 namespace Confirma.Tests;
 
 [TestClass]
+[Parallelizable()]
 public static class ConfirmTypeTest
 {
 	[TestCase("Lorem ipsum", typeof(string))]

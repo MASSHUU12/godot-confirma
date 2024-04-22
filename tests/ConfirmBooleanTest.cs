@@ -3,6 +3,7 @@ using Confirma.Attributes;
 namespace Confirma.Tests;
 
 [TestClass]
+[Parallelizable()]
 public static class ConfirmBooleanTest
 {
 	[TestCase]
