@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -11,7 +11,7 @@ namespace Confirma.Classes;
 public class TestExecutor
 {
 	private TestResult _result;
-	private object _lock = new();
+	private readonly object _lock = new();
 
 	public TestExecutor()
 	{
@@ -36,15 +36,22 @@ public class TestExecutor
 
 		ResetStats();
 
-		var parallelizableClasses = testClasses.Where(tc => tc.IsParallelizable);
-		var nonParallelizableClasses = testClasses.Where(tc => !tc.IsParallelizable);
+		var (parallelTestClasses, sequentialTestClasses) = ClassifyTests(testClasses);
 
-		parallelizableClasses.AsParallel().ForAll(ExecuteSingleClass);
+		parallelTestClasses.AsParallel().ForAll(ExecuteSingleClass);
 
-		foreach (var testClass in nonParallelizableClasses)
+		foreach (var testClass in sequentialTestClasses)
 			ExecuteSingleClass(testClass);
 
 		PrintSummary(testClasses.Count(), startTimeStamp);
+	}
+
+	private static (IEnumerable<TestClass>, IEnumerable<TestClass>) ClassifyTests(IEnumerable<TestClass> tests)
+	{
+		return (
+		  Reflection.GetParallelTestClasses(tests),
+		  Reflection.GetSequentialTestClasses(tests)
+		);
 	}
 
 	private void ExecuteSingleClass(TestClass testClass)
