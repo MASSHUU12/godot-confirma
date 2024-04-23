@@ -4,6 +4,7 @@ using Confirma.Attributes;
 namespace Confirma.Tests;
 
 [TestClass]
+[Parallelizable]
 public static class ConfirmArrayTest
 {
 	[TestCase(new int[] { }, 0)]

@@ -3,6 +3,7 @@ using Confirma.Attributes;
 namespace Confirma.Tests;
 
 [TestClass]
+[Parallelizable()]
 public static class ConfirmRangeExtension
 {
 	[TestCase(1, 0, 2)]
