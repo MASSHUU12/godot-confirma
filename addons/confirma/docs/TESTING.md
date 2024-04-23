@@ -67,3 +67,7 @@ Not implemented.
 ## TestName
 
 Used to display a different name for the test than the method name.
+
+## Parallelizable
+
+Allows to run all the tests included in the class on separate CPU cores.
