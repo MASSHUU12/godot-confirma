@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes;
 
 namespace Confirma.Helpers;
 
@@ -17,6 +18,16 @@ public static class Reflection
 	{
 		var types = assembly.GetTypes();
 		return types.Where(type => type.HasAttribute<TestClassAttribute>()).ToArray();
+	}
+
+	public static IEnumerable<TestClass> GetParallelTestClasses(IEnumerable<TestClass> classes)
+	{
+		return classes.Where(tc => tc.IsParallelizable);
+	}
+
+	public static IEnumerable<TestClass> GetSequentialTestClasses(IEnumerable<TestClass> classes)
+	{
+		return classes.Where(tc => !tc.IsParallelizable);
 	}
 
 	public static IEnumerable<MethodInfo> GetMethodsWithAttribute<T>(Type type)
