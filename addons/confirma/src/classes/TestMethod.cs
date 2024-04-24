@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Types;
 

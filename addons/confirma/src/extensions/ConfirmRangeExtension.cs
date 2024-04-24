@@ -1,4 +1,5 @@
 using System;
+using Confirma.Exceptions;
 
 namespace Confirma;
 

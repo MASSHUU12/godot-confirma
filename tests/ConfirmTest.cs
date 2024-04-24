@@ -1,5 +1,6 @@
 using System;
 using Confirma.Attributes;
+using Confirma.Exceptions;
 
 namespace Confirma.Tests;
 

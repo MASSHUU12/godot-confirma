@@ -1,3 +1,5 @@
+using Confirma.Exceptions;
+
 namespace Confirma;
 
 public static class ConfirmNullExtension
