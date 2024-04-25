@@ -50,7 +50,7 @@ public static class Converter
 			Vector2[] v => v,
 			Vector3[] v => v,
 			Color[] v => v,
-			_ => throw new System.NotSupportedException()
+			_ => throw new System.NotSupportedException(nameof(value))
 		};
 	}
 }
