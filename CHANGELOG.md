@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- ConfirmDictionary extension.
+
 ### Changed
 
 - Moved ConfirmAssert exception to Confirma.Exceptions namespace.
