@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Confirma.Exceptions;
 using Godot;
-using Godot.Collections;
 
 namespace Confirma;
 
