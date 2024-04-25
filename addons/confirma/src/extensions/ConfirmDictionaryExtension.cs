@@ -35,8 +35,7 @@ public static class ConfirmDictionaryExtensions
 
 	public static void ConfirmContainsKeyValuePair<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value, string? message = null)
 	{
-
-		if (dictionary.TryGetValue(key, out TValue? v) || v?.Equals(value) == true) return;
+		if (dictionary.TryGetValue(key, out TValue? v) && v?.Equals(value) == true) return;
 
 		throw new ConfirmAssertException(message ?? $"Expected dictionary to contain key-value pair '{key}': '{value}' but it did not.");
 	}
