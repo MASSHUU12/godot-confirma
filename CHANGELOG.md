@@ -6,8 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- ConfirmDictionary extension.
 - Converter class.
+- VariantExtension class.
+- ConfirmDictionary extension.
 
 ### Changed
 
