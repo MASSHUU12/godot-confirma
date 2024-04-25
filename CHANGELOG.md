@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Converter class.
+- VariantExtension class.
+- ConfirmDictionary extension.
+
 ### Changed
 
 - Moved ConfirmAssert exception to Confirma.Exceptions namespace.
