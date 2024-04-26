@@ -8,13 +8,32 @@ public struct TestsProps
 
 	public TestResult Result { get; set; }
 
-	public TestsProps()
+	public readonly bool IsHeadless { get; init; }
+	public readonly bool ExitOnFail { get; init; }
+	public readonly bool QuitAfterTests { get; init; }
+	public readonly string ClassName { get; init; }
+
+	public TestsProps(
+		bool isHeadless,
+		bool exitOnFail,
+		bool quitAfterTests,
+		string className
+	)
 	{
+		IsHeadless = isHeadless;
+		ExitOnFail = exitOnFail;
+		QuitAfterTests = quitAfterTests;
+		ClassName = className;
 		Result = new();
 	}
 
 	public void ResetStats()
 	{
 		Result = new();
+	}
+
+	public readonly void CallExitOnFailure()
+	{
+		ExitOnFailure?.Invoke();
 	}
 }
