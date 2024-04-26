@@ -25,7 +25,7 @@ public class TestClass
 		InitialLookup();
 	}
 
-	public TestClassResult Run()
+	public TestClassResult Run(TestsProps props)
 	{
 		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
 
@@ -35,7 +35,7 @@ public class TestClass
 		{
 			warnings += RunLifecycleMethod("SetUp");
 
-			var methodResult = method.Run();
+			var methodResult = method.Run(props);
 
 			warnings += RunLifecycleMethod("TearDown");
 
