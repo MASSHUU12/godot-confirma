@@ -1,6 +1,6 @@
 namespace Confirma.Types;
 
-public struct TestResult
+public record TestResult
 {
 	public uint TotalTests { get; set; } = 0;
 	public uint TestsPassed { get; set; } = 0;

@@ -20,7 +20,7 @@ public class TestMethod
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
 	}
 
-	public TestMethodResult Run()
+	public TestMethodResult Run(TestsProps props)
 	{
 		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
 
@@ -47,8 +47,11 @@ public class TestMethod
 			catch (ConfirmAssertException e)
 			{
 				testsFailed++;
+
 				Log.PrintError($" failed.\n");
 				Log.PrintError($"- {e.Message}\n");
+
+				if (props.ExitOnFail) props.CallExitOnFailure();
 			}
 		}
 

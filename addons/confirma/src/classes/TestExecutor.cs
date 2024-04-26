@@ -10,12 +10,20 @@ namespace Confirma.Classes;
 
 public class TestExecutor
 {
-	private TestResult _result;
+	private readonly TestsProps _props;
 	private readonly object _lock = new();
 
-	public TestExecutor()
+	public TestExecutor(TestsProps props)
 	{
-		_result = new();
+		_props = props;
+		_props.ExitOnFailure += () =>
+		{
+			// GetTree().Quit() doesn't close the program immediately
+			// and allows all the remaining tests to run.
+			// This is a workaround to close the program immediately,
+			// at the cost of Godot displaying a lot of errors.
+			Environment.Exit(1);
+		};
 	}
 
 	public void ExecuteTests(Assembly assembly, string className)
@@ -62,7 +70,7 @@ public class TestExecutor
 
 			if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
 			{
-				_result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
+				_props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
 
 				Log.PrintWarning($" ignored.\n");
 				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
@@ -71,13 +79,13 @@ public class TestExecutor
 
 			Log.PrintLine();
 
-			var classResult = testClass.Run();
+			var classResult = testClass.Run(_props);
 
-			_result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
-			_result.TestsPassed += classResult.TestsPassed;
-			_result.TestsFailed += classResult.TestsFailed;
-			_result.TestsIgnored += classResult.TestsIgnored;
-			_result.Warnings += classResult.Warnings;
+			_props.Result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
+			_props.Result.TestsPassed += classResult.TestsPassed;
+			_props.Result.TestsFailed += classResult.TestsFailed;
+			_props.Result.TestsIgnored += classResult.TestsIgnored;
+			_props.Result.Warnings += classResult.Warnings;
 		}
 	}
 
@@ -86,19 +94,19 @@ public class TestExecutor
 		Log.PrintLine(
 			string.Format(
 				"\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}.",
-				_result.TotalTests,
+				_props.Result.TotalTests,
 				count,
 				(DateTime.Now - startTimeStamp).TotalSeconds,
-				Colors.ColorText($"{_result.TestsPassed} passed", Colors.Success),
-				Colors.ColorText($"{_result.TestsFailed} failed", Colors.Error),
-				Colors.ColorText($"{_result.TestsIgnored} ignored", Colors.Warning),
-				Colors.ColorText($"{_result.Warnings} warnings", Colors.Warning)
+				Colors.ColorText($"{_props.Result.TestsPassed} passed", Colors.Success),
+				Colors.ColorText($"{_props.Result.TestsFailed} failed", Colors.Error),
+				Colors.ColorText($"{_props.Result.TestsIgnored} ignored", Colors.Warning),
+				Colors.ColorText($"{_props.Result.Warnings} warnings", Colors.Warning)
 			)
 		);
 	}
 
 	private void ResetStats()
 	{
-		_result = new();
+		_props.ResetStats();
 	}
 }
