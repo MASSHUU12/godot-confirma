@@ -14,6 +14,7 @@ public partial class ConfirmaAutoload : Node
 	private const string _testRunnerUID = "uid://cq76c14wl2ti3";
 	private const string _paramToRunTests = "--confirma-run";
 	private const string _paramQuitAfterTests = "--confirma-quit";
+	private const string _paramExitOnFail = "--confirma-exit-on-failure";
 
 	public override void _Ready()
 	{
@@ -32,7 +33,7 @@ public partial class ConfirmaAutoload : Node
 
 		foreach (var arg in args)
 		{
-			if (arg.StartsWith(_paramToRunTests))
+			if (!RunTests && arg.StartsWith(_paramToRunTests))
 			{
 				RunTests = true;
 
@@ -43,9 +44,15 @@ public partial class ConfirmaAutoload : Node
 				continue;
 			}
 
-			if (arg == _paramQuitAfterTests)
+			if (!QuitAfterTests && arg == _paramQuitAfterTests)
 			{
 				QuitAfterTests = true;
+				continue;
+			}
+
+			if (!ExitOnFail && arg == _paramExitOnFail)
+			{
+				ExitOnFail = true;
 				continue;
 			}
 		}
