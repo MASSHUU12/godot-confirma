@@ -8,6 +8,7 @@ namespace Confirma.Scenes;
 public partial class TestRunner : Control
 {
 #nullable disable
+	protected ConfirmaAutoload _autoload;
 	protected RichTextLabel _output;
 	protected TestExecutor _executor;
 #nullable restore
@@ -16,8 +17,14 @@ public partial class TestRunner : Control
 
 	public override void _Ready()
 	{
+		_autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 		_output = GetNode<RichTextLabel>("%Output");
-		_executor = new();
+		_executor = new(new(
+			_autoload.IsHeadless,
+			_autoload.ExitOnFail,
+			_autoload.QuitAfterTests,
+			_autoload.ClassName
+		));
 
 		Log.RichOutput = _output;
 	}
