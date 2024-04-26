@@ -10,12 +10,13 @@ namespace Confirma.Classes;
 
 public class TestExecutor
 {
-	private readonly TestsProps _props = new();
+	private readonly TestsProps _props;
 	private readonly object _lock = new();
 
-	public TestExecutor()
+	public TestExecutor(TestsProps props)
 	{
-		_props.ExitOnFailure += () => Godot.OS.Crash("1"); // Find a better way to exit the application.
+		_props = props;
+		_props.ExitOnFailure += () => Environment.Exit(0); // Find a better way to exit the application.
 	}
 
 	public void ExecuteTests(Assembly assembly, string className)
@@ -71,7 +72,7 @@ public class TestExecutor
 
 			Log.PrintLine();
 
-			var classResult = testClass.Run();
+			var classResult = testClass.Run(_props);
 
 			_props.Result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
 			_props.Result.TestsPassed += classResult.TestsPassed;
