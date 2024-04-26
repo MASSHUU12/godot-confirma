@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Converter class.
 - VariantExtension class.
 - ConfirmDictionary extension.
+- '--confirma-exit-on-failure' argument.
 
 ### Changed
 
