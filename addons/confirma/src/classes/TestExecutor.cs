@@ -16,7 +16,14 @@ public class TestExecutor
 	public TestExecutor(TestsProps props)
 	{
 		_props = props;
-		_props.ExitOnFailure += () => Environment.Exit(0); // Find a better way to exit the application.
+		_props.ExitOnFailure += () =>
+		{
+			// GetTree().Quit() doesn't close the program immediately
+			// and allows all the remaining tests to run.
+			// This is a workaround to close the program immediately,
+			// at the cost of Godot displaying a lot of errors.
+			Environment.Exit(1);
+		};
 	}
 
 	public void ExecuteTests(Assembly assembly, string className)
