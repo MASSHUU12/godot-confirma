@@ -1,4 +1,3 @@
-using System.Linq;
 using Confirma.Helpers;
 using Godot;
 
@@ -6,7 +5,9 @@ namespace Confirma.Scenes;
 
 public partial class ConfirmaAutoload : Node
 {
+	public bool RunTests { get; private set; } = false;
 	public bool IsHeadless { get; private set; } = false;
+	public bool ExitOnFail { get; private set; } = false;
 	public bool QuitAfterTests { get; private set; } = false;
 	public string ClassName { get; private set; } = string.Empty;
 
@@ -16,24 +17,43 @@ public partial class ConfirmaAutoload : Node
 
 	public override void _Ready()
 	{
-		var args = OS.GetCmdlineUserArgs();
+		CheckArguments();
 
-		if (!args.Any(str => str.StartsWith(_paramToRunTests))) return;
-
-		var keyValue = args.Single(arg => arg.StartsWith(_paramToRunTests));
-		ClassName = keyValue.Find('=') == -1
-			? string.Empty
-			: keyValue.Split('=')[1];
-
-		if (args.Contains(_paramQuitAfterTests)) QuitAfterTests = true;
-		if (DisplayServer.GetName() == "headless") IsHeadless = true;
+		if (!RunTests) return;
 
 		Log.IsHeadless = IsHeadless;
 
-		RunTests();
+		ChangeScene();
 	}
 
-	private void RunTests()
+	private void CheckArguments()
+	{
+		string[] args = OS.GetCmdlineUserArgs();
+
+		foreach (var arg in args)
+		{
+			if (arg.StartsWith(_paramToRunTests))
+			{
+				RunTests = true;
+
+				ClassName = arg.Find('=') == -1
+					? string.Empty
+					: arg.Split('=')[1];
+
+				continue;
+			}
+
+			if (arg == _paramQuitAfterTests)
+			{
+				QuitAfterTests = true;
+				continue;
+			}
+		}
+
+		if (DisplayServer.GetName() == "headless") IsHeadless = true;
+	}
+
+	private void ChangeScene()
 	{
 		GetTree().CallDeferred("change_scene_to_file", _testRunnerUID);
 
