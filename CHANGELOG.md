@@ -6,13 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Converter class.
-- VectorExtension class.
-- VariantExtension class.
-- ConfirmVector extension.
-- ConfirmDictionary extension.
 - '--confirma-exit-on-failure' argument.
 - run_tests.sh script.
+- Classes:
+  - Converter
+  - VectorExtension
+  - VariantExtension
+- Extensions:
+  - ConfirmFile
+  - ConfirmVector
+  - ConfirmDictionary
 
 ### Changed
 
