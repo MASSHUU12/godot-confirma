@@ -18,7 +18,8 @@ end_of_line = crlf
 indent_style = space
 max_line_length = 115
 
-[*.sh, *.bash]
+[*.sh]
 indent_size = 2
 indent_style = space
 max_line_length = 80
+shell_variant = posix
