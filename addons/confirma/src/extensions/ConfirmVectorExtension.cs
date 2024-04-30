@@ -50,4 +50,27 @@ public static class ConfirmVectorExtension
 		throw new ConfirmAssertException(message ?? $"Expected not {expected}, but got {vector}");
 	}
 	#endregion
+
+	#region ConfirmLessThan
+	public static void ConfirmLessThan(this Vector2 vector, Vector2 expected, string? message = null)
+	{
+		if (vector < expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than {expected}");
+	}
+
+	public static void ConfirmLessThan(this Vector3 vector, Vector3 expected, string? message = null)
+	{
+		if (vector < expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than {expected}");
+	}
+
+	public static void ConfirmLessThan(this Vector4 vector, Vector4 expected, string? message = null)
+	{
+		if (vector < expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than {expected}");
+	}
+	#endregion
 }

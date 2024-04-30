@@ -55,4 +55,28 @@ public static class ConfirmVectorTest
 		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmNotEqualApprox(vector2, tolerance));
 	}
 	#endregion
+
+	#region ConfirmLessThan
+	[TestCase(-5f, -5f, 0f, -2f)]
+	[TestCase(1f, 2f, 1.1f, 2.1f)]
+	[TestCase(1f, 2f, 1.0001f, 2.0001f)]
+	public static void ConfirmLessThan_WhenLessThan(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		vector.ConfirmLessThan(vector2);
+	}
+
+	[TestCase(1f, 2f, -5f, -5f)]
+	[TestCase(1f, 2f, 1f, 2f)]
+	[TestCase(1.00001f, 2.00001f, 1f, 2f)]
+	public static void ConfirmLessThan_WhenNotLessThan(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmLessThan(vector2));
+	}
+	#endregion
 }
