@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Extensions:
   - ConfirmFile
   - ConfirmVector
+  - ConfirmSignal
   - ConfirmNumeric
   - ConfirmDictionary
 
