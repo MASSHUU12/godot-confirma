@@ -142,4 +142,50 @@ public static class ConfirmVectorExtension
 		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than or equal to {expected}");
 	}
 	#endregion
+
+	#region ConfirmBetween
+	public static void ConfirmBetween(this Vector2 vector, Vector2 min, Vector2 max, string? message = null)
+	{
+		if (vector >= min && vector <= max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be between {min} and {max}");
+	}
+
+	public static void ConfirmBetween(this Vector3 vector, Vector3 min, Vector3 max, string? message = null)
+	{
+		if (vector >= min && vector <= max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be between {min} and {max}");
+	}
+
+	public static void ConfirmBetween(this Vector4 vector, Vector4 min, Vector4 max, string? message = null)
+	{
+		if (vector >= min && vector <= max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be between {min} and {max}");
+	}
+	#endregion
+
+	#region ConfirmNotBetween
+	public static void ConfirmNotBetween(this Vector2 vector, Vector2 min, Vector2 max, string? message = null)
+	{
+		if (vector < min || vector > max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to not be between {min} and {max}");
+	}
+
+	public static void ConfirmNotBetween(this Vector3 vector, Vector3 min, Vector3 max, string? message = null)
+	{
+		if (vector < min || vector > max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to not be between {min} and {max}");
+	}
+
+	public static void ConfirmNotBetween(this Vector4 vector, Vector4 min, Vector4 max, string? message = null)
+	{
+		if (vector < min || vector > max) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to not be between {min} and {max}");
+	}
+	#endregion
 }

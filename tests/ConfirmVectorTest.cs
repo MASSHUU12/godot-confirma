@@ -152,4 +152,56 @@ public static class ConfirmVectorTest
 		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThanOrEqual(vector2));
 	}
 	#endregion
+
+	#region ConfirmBetween
+	[TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 1f, 1f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
+	public static void ConfirmBetween_WhenBetween(float a, float b, float c, float d, float e, float f)
+	{
+		var vector = new Vector2(a, b);
+		var min = new Vector2(c, d);
+		var max = new Vector2(e, f);
+
+		vector.ConfirmBetween(min, max);
+	}
+
+	[TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.4f, 0.4f)]
+	[TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
+	public static void ConfirmBetween_WhenNotBetween(float a, float b, float c, float d, float e, float f)
+	{
+		var vector = new Vector2(a, b);
+		var min = new Vector2(c, d);
+		var max = new Vector2(e, f);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmBetween(min, max));
+	}
+	#endregion
+
+	#region ConfirmNotBetween
+	[TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.4f, 0.4f)]
+	[TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
+	public static void ConfirmNotBetween_WhenNotBetween(float a, float b, float c, float d, float e, float f)
+	{
+		var vector = new Vector2(a, b);
+		var min = new Vector2(c, d);
+		var max = new Vector2(e, f);
+
+		vector.ConfirmNotBetween(min, max);
+	}
+
+	[TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 1f, 1f)]
+	[TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
+	public static void ConfirmNotBetween_WhenBetween(float a, float b, float c, float d, float e, float f)
+	{
+		var vector = new Vector2(a, b);
+		var min = new Vector2(c, d);
+		var max = new Vector2(e, f);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmNotBetween(min, max));
+	}
+	#endregion
 }
