@@ -17,16 +17,27 @@ public partial class TestRunner : Control
 
 	public override void _Ready()
 	{
-		_autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 		_output = GetNode<RichTextLabel>("%Output");
+		Log.RichOutput = _output;
+
+		if (Engine.IsEditorHint())
+		{
+			_executor = new(new(
+				false,
+				false,
+				false,
+				string.Empty
+			));
+			return;
+		}
+
+		_autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 		_executor = new(new(
 			_autoload.IsHeadless,
 			_autoload.ExitOnFail,
 			_autoload.QuitAfterTests,
 			_autoload.ClassName
 		));
-
-		Log.RichOutput = _output;
 	}
 
 	public void RunAllTests(string className = "")

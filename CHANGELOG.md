@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+
+- TestRunner in editor doesn't work.
+
 ## [0.2.0-beta 2024-04-30]
 
 ### Added
