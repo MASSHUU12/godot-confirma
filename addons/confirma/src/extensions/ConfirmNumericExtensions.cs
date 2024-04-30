@@ -3,7 +3,7 @@ using Confirma.Exceptions;
 
 namespace Confirma;
 
-public static class ConfirmNumericExtension
+public static class ConfirmNumericExtensions
 {
 	#region ConfirmIsPositive
 	/// <remarks>

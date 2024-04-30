@@ -19,7 +19,7 @@ public static class ConfirmNumericTest
 	[TestCase(-1f)]
 	public static void ConfirmIsPositive_WhenNotPositive(float actual)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsPositive());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsPositive());
 	}
 	#endregion
 
@@ -35,7 +35,7 @@ public static class ConfirmNumericTest
 	[TestCase(0.1f)]
 	public static void ConfirmIsNotPositive_WhenPositive(float actual)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNotPositive());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNotPositive());
 	}
 	#endregion
 
@@ -51,7 +51,7 @@ public static class ConfirmNumericTest
 	[TestCase(1f)]
 	public static void ConfirmIsNegative_WhenNotNegative(float actual)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNegative());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNegative());
 	}
 	#endregion
 
@@ -67,7 +67,7 @@ public static class ConfirmNumericTest
 	[TestCase(-0.1f)]
 	public static void ConfirmIsNotNegative_WhenNegative(float actual)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNotNegative());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsNotNegative());
 	}
 	#endregion
 
@@ -82,7 +82,7 @@ public static class ConfirmNumericTest
 	[TestCase(-1f)]
 	public static void ConfirmIsZero_WhenNotZero(float actual)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsZero());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsZero());
 	}
 	#endregion
 }

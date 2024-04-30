@@ -2,7 +2,7 @@ using Godot;
 
 namespace Confirma;
 
-public static class VectorExtension
+public static class VectorExtensions
 {
 	public static bool IsEqualApprox(this Vector2 vector, Vector2 vector2, float tolerance = 0.0001f)
 	{

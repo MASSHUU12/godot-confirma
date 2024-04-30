@@ -3,7 +3,7 @@ using static Godot.Variant;
 
 namespace Confirma;
 
-public static class VariantExtension
+public static class VariantExtensions
 {
 	/// <summary>
 	/// Compares two Variant objects for equality.<br />

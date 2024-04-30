@@ -3,7 +3,7 @@ using Godot;
 
 namespace Confirma;
 
-public static class ConfirmVectorExtension
+public static class ConfirmVectorExtensions
 {
 	#region ConfirmEqualApprox
 	public static void ConfirmEqualApprox(this Vector2 vector, Vector2 expected, float tolerance = 0.0001f, string? message = null)

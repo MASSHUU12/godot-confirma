@@ -29,13 +29,13 @@ public static class ConfirmEqualTest
 	[TestCase(2f, 2)]
 	public static void ConfirmEqual_WhenNotEqual(object o1, object o2)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
 	}
 
 	[TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hi,", "world!" })]
 	public static void ConfirmEqual_WhenArrNotEqual(object[] o1, object[] o2)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
 	}
 
 	[TestCase(1, 2)]
@@ -60,12 +60,12 @@ public static class ConfirmEqualTest
 	[TestCase(2f, 2f)]
 	public static void ConfirmNotEqual_WhenEqual(object o1, object o2)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
 	}
 
 	[TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hello,", "world!" })]
 	public static void ConfirmNotEqual_WhenArrEqual(object[] o1, object[] o2)
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
 	}
 }

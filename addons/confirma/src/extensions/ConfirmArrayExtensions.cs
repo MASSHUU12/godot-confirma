@@ -3,7 +3,7 @@ using Confirma.Exceptions;
 
 namespace Confirma;
 
-public static class ConfirmArrayExtension
+public static class ConfirmArrayExtensions
 {
 	public static void ConfirmSize<T>(this T[] array, int expectedSize)
 	{
