@@ -12,12 +12,16 @@ All notable changes to this project will be documented in this file.
   - Converter
   - VectorExtension
   - VariantExtension
-- Extensions:
+- Extensions classes:
   - ConfirmFile
   - ConfirmVector
   - ConfirmSignal
   - ConfirmNumeric
   - ConfirmDictionary
+- String extensions:
+  - ConfirmNotHasLength
+  - ConfirmEqualsCaseInsensitive
+  - ConfirmNotEqualsCaseInsensitive
 
 ### Changed
 
