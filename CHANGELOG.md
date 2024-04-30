@@ -7,7 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Converter class.
+- VectorExtension class.
 - VariantExtension class.
+- ConfirmVector extension.
 - ConfirmDictionary extension.
 - '--confirma-exit-on-failure' argument.
 
