@@ -74,6 +74,29 @@ public static class ConfirmVectorExtension
 	}
 	#endregion
 
+	#region ConfirmLessThanOrEqual
+	public static void ConfirmLessThanOrEqual(this Vector2 vector, Vector2 expected, string? message = null)
+	{
+		if (vector <= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than or equal to {expected}");
+	}
+
+	public static void ConfirmLessThanOrEqual(this Vector3 vector, Vector3 expected, string? message = null)
+	{
+		if (vector <= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than or equal to {expected}");
+	}
+
+	public static void ConfirmLessThanOrEqual(this Vector4 vector, Vector4 expected, string? message = null)
+	{
+		if (vector <= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than or equal to {expected}");
+	}
+	#endregion
+
 	#region ConfirmGreaterThan
 	public static void ConfirmGreaterThan(this Vector2 vector, Vector2 expected, string? message = null)
 	{
@@ -94,6 +117,29 @@ public static class ConfirmVectorExtension
 		if (vector > expected) return;
 
 		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than {expected}");
+	}
+	#endregion
+
+	#region ConfirmGreaterThanOrEqual
+	public static void ConfirmGreaterThanOrEqual(this Vector2 vector, Vector2 expected, string? message = null)
+	{
+		if (vector >= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than or equal to {expected}");
+	}
+
+	public static void ConfirmGreaterThanOrEqual(this Vector3 vector, Vector3 expected, string? message = null)
+	{
+		if (vector >= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than or equal to {expected}");
+	}
+
+	public static void ConfirmGreaterThanOrEqual(this Vector4 vector, Vector4 expected, string? message = null)
+	{
+		if (vector >= expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than or equal to {expected}");
 	}
 	#endregion
 }

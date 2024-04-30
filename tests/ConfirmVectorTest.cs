@@ -80,6 +80,31 @@ public static class ConfirmVectorTest
 	}
 	#endregion
 
+	#region ConfirmLessThanOrEqual
+	[TestCase(1f, 2f, 1f, 2f)]
+	[TestCase(-5f, -5f, 0f, -2f)]
+	[TestCase(1.1f, 2f, 1.1f, 2.1f)]
+	[TestCase(1f, 2f, 1.0001f, 2.0001f)]
+	public static void ConfirmLessThanOrEqual_WhenLessThanOrEqual(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		vector.ConfirmLessThanOrEqual(vector2);
+	}
+
+	[TestCase(1f, 2f, -5f, -5f)]
+	[TestCase(1.1f, 2.1f, 1f, 2f)]
+	[TestCase(1.00001f, 2.00001f, 1f, 2f)]
+	public static void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmLessThanOrEqual(vector2));
+	}
+	#endregion
+
 	#region ConfirmGreaterThan
 	[TestCase(0f, -2f, -5f, -5f)]
 	[TestCase(1.1f, 2.1f, 1f, 2f)]
@@ -101,6 +126,30 @@ public static class ConfirmVectorTest
 		var vector2 = new Vector2(c, d);
 
 		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThan(vector2));
+	}
+	#endregion
+
+	#region ConfirmGreaterThanOrEqual
+	[TestCase(0f, -2f, -5f, -5f)]
+	[TestCase(1f, 2f, 1f, 2f)]
+	[TestCase(1f, 2.1f, 1f, 2f)]
+	public static void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		vector.ConfirmGreaterThanOrEqual(vector2);
+	}
+
+	[TestCase(-5f, -5f, 0f, -2f)]
+	[TestCase(1.1f, 2.1f, 1.1f, 5f)]
+	[TestCase(1.00001f, 0f, 1.0001f, 2f)]
+	public static void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThanOrEqual(vector2));
 	}
 	#endregion
 }
