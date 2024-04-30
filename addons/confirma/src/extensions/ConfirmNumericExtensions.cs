@@ -21,7 +21,7 @@ public static class ConfirmNumericExtensions
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) <= 0) return;
-		throw new ConfirmAssertException(message ?? "Expected object to not be posi	/// ive.");
+		throw new ConfirmAssertException(message ?? "Expected object to not be positive.");
 	}
 	#endregion
 
