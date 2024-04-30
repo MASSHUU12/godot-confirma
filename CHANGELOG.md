@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.2.0-beta 2024-04-30]
 
 ### Added
 
@@ -10,14 +10,13 @@ All notable changes to this project will be documented in this file.
 - run_tests.sh script.
 - Classes:
   - Converter
-  - VectorExtension
-  - VariantExtension
-- Extensions classes:
-  - ConfirmFile
-  - ConfirmVector
-  - ConfirmSignal
-  - ConfirmNumeric
-  - ConfirmDictionary
+  - VectorExtensions
+  - VariantExtensions
+  - ConfirmFileExtensions
+  - ConfirmVectorExtensions
+  - ConfirmSignalExtensions
+  - ConfirmNumericExtensions
+  - ConfirmDictionaryExtensions
 - String extensions:
   - ConfirmNotHasLength
   - ConfirmEqualsCaseInsensitive
