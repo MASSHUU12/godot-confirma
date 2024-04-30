@@ -2,7 +2,7 @@ using Confirma.Exceptions;
 
 namespace Confirma;
 
-public static class ConfirmNullExtension
+public static class ConfirmNullExtensions
 {
 	public static void ConfirmNull(this object? obj, string? message = null)
 	{

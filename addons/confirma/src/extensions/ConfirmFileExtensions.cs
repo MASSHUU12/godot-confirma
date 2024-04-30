@@ -4,7 +4,7 @@ using Godot;
 
 namespace Confirma;
 
-public static class ConfirmFileExtension
+public static class ConfirmFileExtensions
 {
 	public static void ConfirmIsFile(this StringName path, string? message = null)
 	{

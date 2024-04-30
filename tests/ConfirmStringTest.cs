@@ -19,7 +19,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmEmpty_WhenNotEmpty()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "not empty".ConfirmEmpty());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "not empty".ConfirmEmpty());
 	}
 
 	[TestCase]
@@ -31,7 +31,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotEmpty_WhenEmpty()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "".ConfirmNotEmpty());
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "".ConfirmNotEmpty());
 	}
 
 	[TestCase]
@@ -43,7 +43,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmContains_WhenNotContains()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmContains("not"));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmContains("not"));
 	}
 
 	[TestCase]
@@ -55,7 +55,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotContains_WhenContains()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmNotContains("tai"));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmNotContains("tai"));
 	}
 
 	[TestCase]
@@ -67,7 +67,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmStartsWith_WhenNotStartsWith()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmStartsWith("xxx"));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmStartsWith("xxx"));
 	}
 
 	[TestCase]
@@ -79,7 +79,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotStartsWith_WhenStartsWith()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmNotStartsWith("sta"));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmNotStartsWith("sta"));
 	}
 
 	[TestCase]
@@ -91,7 +91,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmEndsWith_WhenNotEndsWith()
 	{
-		Confirm.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmEndsWith("xxx"));
+		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmEndsWith("xxx"));
 	}
 
 	[TestCase("Lorem ipsum", 11)]
