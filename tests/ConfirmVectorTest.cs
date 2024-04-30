@@ -79,4 +79,28 @@ public static class ConfirmVectorTest
 		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmLessThan(vector2));
 	}
 	#endregion
+
+	#region ConfirmGreaterThan
+	[TestCase(0f, -2f, -5f, -5f)]
+	[TestCase(1.1f, 2.1f, 1f, 2f)]
+	[TestCase(1.0001f, 2.0001f, 1f, 2f)]
+	public static void ConfirmGreaterThan_WhenGreaterThan(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		vector.ConfirmGreaterThan(vector2);
+	}
+
+	[TestCase(-5f, -5f, 0f, -2f)]
+	[TestCase(1f, 2f, 1.1f, 2.1f)]
+	[TestCase(1f, 2f, 1.0001f, 2.0001f)]
+	public static void ConfirmGreaterThan_WhenNotGreaterThan(float a, float b, float c, float d)
+	{
+		var vector = new Vector2(a, b);
+		var vector2 = new Vector2(c, d);
+
+		Confirm.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThan(vector2));
+	}
+	#endregion
 }

@@ -73,4 +73,27 @@ public static class ConfirmVectorExtension
 		throw new ConfirmAssertException(message ?? $"Expected {vector} to be less than {expected}");
 	}
 	#endregion
+
+	#region ConfirmGreaterThan
+	public static void ConfirmGreaterThan(this Vector2 vector, Vector2 expected, string? message = null)
+	{
+		if (vector > expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than {expected}");
+	}
+
+	public static void ConfirmGreaterThan(this Vector3 vector, Vector3 expected, string? message = null)
+	{
+		if (vector > expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than {expected}");
+	}
+
+	public static void ConfirmGreaterThan(this Vector4 vector, Vector4 expected, string? message = null)
+	{
+		if (vector > expected) return;
+
+		throw new ConfirmAssertException(message ?? $"Expected {vector} to be greater than {expected}");
+	}
+	#endregion
 }
