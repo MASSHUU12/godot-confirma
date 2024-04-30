@@ -17,3 +17,8 @@ trim_trailing_whitespace = true
 end_of_line = crlf
 indent_style = space
 max_line_length = 115
+
+[*.sh, *.bash]
+indent_size = 2
+indent_style = space
+max_line_length = 80
