@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - ConfirmVector extension.
 - ConfirmDictionary extension.
 - '--confirma-exit-on-failure' argument.
+- run_tests.sh script.
 
 ### Changed
 
