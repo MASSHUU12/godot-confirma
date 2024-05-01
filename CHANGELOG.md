@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Default, more concise way of displaying information in the terminal.
+- Allow running tests in verbose mode via editor.
+- '--confirma-verbose' argument.
+
+### Changed
+
+- The old way of displaying information is available under the '--confirma-verbose' argument.
+
 ### Fixed
 
 - TestRunner in editor doesn't work.
