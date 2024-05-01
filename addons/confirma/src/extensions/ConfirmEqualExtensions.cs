@@ -1,7 +1,7 @@
 using System.Linq;
 using Confirma.Exceptions;
 
-namespace Confirma;
+namespace Confirma.Extensions;
 
 public static class ConfirmEqualExtensions
 {

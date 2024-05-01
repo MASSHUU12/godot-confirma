@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Confirma;
+namespace Confirma.Extensions;
 
 public static class VectorExtensions
 {
