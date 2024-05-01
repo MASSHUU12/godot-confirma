@@ -1,10 +1,11 @@
 using Confirma.Attributes;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 
 namespace Confirma.Tests;
 
 [TestClass]
-[Parallelizable()]
+[Parallelizable]
 public static class ConfirmNullTest
 {
 	[TestCase(new object?[] { null })]

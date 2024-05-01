@@ -1,10 +1,11 @@
 using Confirma.Attributes;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 
 namespace Confirma.Tests;
 
 [TestClass]
-[Parallelizable()]
+[Parallelizable]
 public static class ConfirmStringTest
 {
 	#region ConfirmEmpty
