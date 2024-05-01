@@ -13,6 +13,6 @@ public partial class TestRunnerGame : TestRunner
 	{
 		if (GetTree().CurrentScene != this) return;
 
-		RunAllTests(_autoload.ClassName);
+		RunAllTests(_autoload.Props.ClassName);
 	}
 }
