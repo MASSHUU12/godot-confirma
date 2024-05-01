@@ -8,13 +8,9 @@ public partial class ConfirmaAutoload : Node
 	public bool RunTests { get; private set; } = false;
 	public bool IsHeadless { get; private set; } = false;
 	public bool ExitOnFail { get; private set; } = false;
+	public bool VerboseOutput { get; private set; } = false;
 	public bool QuitAfterTests { get; private set; } = false;
 	public string ClassName { get; private set; } = string.Empty;
-
-	private const string _testRunnerUID = "uid://cq76c14wl2ti3";
-	private const string _paramToRunTests = "--confirma-run";
-	private const string _paramQuitAfterTests = "--confirma-quit";
-	private const string _paramExitOnFail = "--confirma-exit-on-failure";
 
 	public override void _Ready()
 	{
@@ -33,7 +29,7 @@ public partial class ConfirmaAutoload : Node
 
 		foreach (var arg in args)
 		{
-			if (!RunTests && arg.StartsWith(_paramToRunTests))
+			if (!RunTests && arg.StartsWith("--confirma-run"))
 			{
 				RunTests = true;
 
@@ -44,15 +40,21 @@ public partial class ConfirmaAutoload : Node
 				continue;
 			}
 
-			if (!QuitAfterTests && arg == _paramQuitAfterTests)
+			if (!QuitAfterTests && arg == "--confirma-quit")
 			{
 				QuitAfterTests = true;
 				continue;
 			}
 
-			if (!ExitOnFail && arg == _paramExitOnFail)
+			if (!ExitOnFail && arg == "--confirma-exit-on-failure")
 			{
 				ExitOnFail = true;
+				continue;
+			}
+
+			if (!VerboseOutput && arg == "--confirma-verbose")
+			{
+				VerboseOutput = true;
 				continue;
 			}
 		}
@@ -62,7 +64,7 @@ public partial class ConfirmaAutoload : Node
 
 	private void ChangeScene()
 	{
-		GetTree().CallDeferred("change_scene_to_file", _testRunnerUID);
+		GetTree().CallDeferred("change_scene_to_file", "uid://cq76c14wl2ti3");
 
 		if (QuitAfterTests) GetTree().Quit();
 	}
