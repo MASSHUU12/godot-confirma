@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Exceptions;
-using Confirma.Helpers;
 using Confirma.Types;
+
+using static Confirma.Enums.ETestCaseState;
 
 namespace Confirma.Classes;
 
@@ -26,14 +27,11 @@ public class TestMethod
 
 		foreach (TestCase test in TestCases)
 		{
-			Log.Print($"| {Name}{(test.Params.Length > 0 ? $"({test.Params})" : string.Empty)}...");
-
 			if (test.Method.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
 			{
 				testsIgnored++;
 
-				Log.PrintWarning($" ignored.\n");
-				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
+				TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, ignore.Reason);
 				continue;
 			}
 
@@ -42,14 +40,13 @@ public class TestMethod
 				test.Run();
 				testsPassed++;
 
-				Log.PrintSuccess(" passed.\n");
+				TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
 			}
 			catch (ConfirmAssertException e)
 			{
 				testsFailed++;
 
-				Log.PrintError($" failed.\n");
-				Log.PrintError($"- {e.Message}\n");
+				TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
 
 				if (props.ExitOnFail) props.CallExitOnFailure();
 			}

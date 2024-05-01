@@ -1,28 +1,21 @@
 using Confirma.Helpers;
+using Confirma.Types;
 using Godot;
 
 namespace Confirma.Scenes;
 
+[Tool]
 public partial class ConfirmaAutoload : Node
 {
-	public bool RunTests { get; private set; } = false;
-	public bool IsHeadless { get; private set; } = false;
-	public bool ExitOnFail { get; private set; } = false;
-	public bool QuitAfterTests { get; private set; } = false;
-	public string ClassName { get; private set; } = string.Empty;
-
-	private const string _testRunnerUID = "uid://cq76c14wl2ti3";
-	private const string _paramToRunTests = "--confirma-run";
-	private const string _paramQuitAfterTests = "--confirma-quit";
-	private const string _paramExitOnFail = "--confirma-exit-on-failure";
+	public TestsProps Props = new();
 
 	public override void _Ready()
 	{
 		CheckArguments();
 
-		if (!RunTests) return;
+		if (!Props.RunTests) return;
 
-		Log.IsHeadless = IsHeadless;
+		Log.IsHeadless = Props.IsHeadless;
 
 		ChangeScene();
 	}
@@ -33,37 +26,43 @@ public partial class ConfirmaAutoload : Node
 
 		foreach (var arg in args)
 		{
-			if (!RunTests && arg.StartsWith(_paramToRunTests))
+			if (!Props.RunTests && arg.StartsWith("--confirma-run"))
 			{
-				RunTests = true;
+				Props.RunTests = true;
 
-				ClassName = arg.Find('=') == -1
+				Props.ClassName = arg.Find('=') == -1
 					? string.Empty
 					: arg.Split('=')[1];
 
 				continue;
 			}
 
-			if (!QuitAfterTests && arg == _paramQuitAfterTests)
+			if (!Props.QuitAfterTests && arg == "--confirma-quit")
 			{
-				QuitAfterTests = true;
+				Props.QuitAfterTests = true;
 				continue;
 			}
 
-			if (!ExitOnFail && arg == _paramExitOnFail)
+			if (!Props.ExitOnFail && arg == "--confirma-exit-on-failure")
 			{
-				ExitOnFail = true;
+				Props.ExitOnFail = true;
+				continue;
+			}
+
+			if (!Props.IsVerbose && arg == "--confirma-verbose")
+			{
+				Props.IsVerbose = true;
 				continue;
 			}
 		}
 
-		if (DisplayServer.GetName() == "headless") IsHeadless = true;
+		if (DisplayServer.GetName() == "headless") Props.IsHeadless = true;
 	}
 
 	private void ChangeScene()
 	{
-		GetTree().CallDeferred("change_scene_to_file", _testRunnerUID);
+		GetTree().CallDeferred("change_scene_to_file", "uid://cq76c14wl2ti3");
 
-		if (QuitAfterTests) GetTree().Quit();
+		if (Props.QuitAfterTests) GetTree().Quit();
 	}
 }

@@ -6,25 +6,33 @@ public struct TestsProps
 {
 	public event Action? ExitOnFailure;
 
-	public TestResult Result { get; set; }
+	public TestResult Result { get; set; } = new();
 
-	public readonly bool IsHeadless { get; init; }
-	public readonly bool ExitOnFail { get; init; }
-	public readonly bool QuitAfterTests { get; init; }
-	public readonly string ClassName { get; init; }
+	public bool RunTests { get; set; } = false;
+	public bool IsVerbose { get; set; } = false;
+	public bool IsHeadless { get; set; } = false;
+	public bool ExitOnFail { get; set; } = false;
+	public string ClassName { get; set; } = string.Empty;
+	public bool QuitAfterTests { get; set; } = false;
+
+	public TestsProps() { }
 
 	public TestsProps(
+		bool runTests,
 		bool isHeadless,
 		bool exitOnFail,
 		bool quitAfterTests,
+		bool isVerbose,
 		string className
 	)
 	{
-		IsHeadless = isHeadless;
-		ExitOnFail = exitOnFail;
-		QuitAfterTests = quitAfterTests;
-		ClassName = className;
 		Result = new();
+		RunTests = runTests;
+		ClassName = className;
+		IsVerbose = isVerbose;
+		ExitOnFail = exitOnFail;
+		IsHeadless = isHeadless;
+		QuitAfterTests = quitAfterTests;
 	}
 
 	public void ResetStats()

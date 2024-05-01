@@ -1,7 +1,7 @@
 <div align="center">
-	<!-- <img src="./addons/confirma/docs/assets/confirma_icon_baner.png" /> -->
-	<h3>Confirma</h1>
-	<p>A lightweight and intuitive unit testing tool for the Godot (C#) game engine.</p>
+ <!-- <img src="./addons/confirma/docs/assets/confirma_icon_baner.png" /> -->
+ <h3>Confirma</h1>
+ <p>A lightweight and intuitive unit testing tool for the Godot (C#) game engine.</p>
 </div>
 
 > [!NOTE]
@@ -13,7 +13,11 @@
 - [.NET enabled Godot 4^](https://godotengine.org/download)
 - C# 11^
 
-## Features
+## Overview
+
+![Confirma](https://github.com/MASSHUU12/godot-confirma/assets/61974579/e453e5f7-36a4-4623-9c83-4ddd66cd849c)
+
+### Features
 
 - Writing and executing tests in C#
 - Custom assertion library
