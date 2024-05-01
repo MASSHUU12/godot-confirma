@@ -1,5 +1,6 @@
 using Confirma.Attributes;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 using Godot;
 
 namespace Confirma.Tests;

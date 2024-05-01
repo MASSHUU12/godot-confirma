@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - The old way of displaying information is available under the '--confirma-verbose' argument.
+- Moved extensions from Confirma namespace to Confirma.Extensions.
 
 ### Fixed
 

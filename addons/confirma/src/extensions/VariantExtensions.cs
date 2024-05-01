@@ -1,7 +1,7 @@
 using Godot;
 using static Godot.Variant;
 
-namespace Confirma;
+namespace Confirma.Extensions;
 
 public static class VariantExtensions
 {

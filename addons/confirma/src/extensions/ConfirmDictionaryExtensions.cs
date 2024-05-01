@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Confirma.Exceptions;
 using Godot;
 
-namespace Confirma;
+namespace Confirma.Extensions;
 
 public static class ConfirmDictionaryExtensions
 {
