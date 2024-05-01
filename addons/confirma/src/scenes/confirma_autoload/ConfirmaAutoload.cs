@@ -1,4 +1,5 @@
 using Confirma.Helpers;
+using Confirma.Types;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -6,20 +7,15 @@ namespace Confirma.Scenes;
 [Tool]
 public partial class ConfirmaAutoload : Node
 {
-	public bool RunTests { get; private set; } = false;
-	public bool IsHeadless { get; private set; } = false;
-	public bool ExitOnFail { get; private set; } = false;
-	public bool VerboseOutput { get; private set; } = false;
-	public bool QuitAfterTests { get; private set; } = false;
-	public string ClassName { get; private set; } = string.Empty;
+	public TestsProps Props = new();
 
 	public override void _Ready()
 	{
 		CheckArguments();
 
-		if (!RunTests) return;
+		if (!Props.RunTests) return;
 
-		Log.IsHeadless = IsHeadless;
+		Log.IsHeadless = Props.IsHeadless;
 
 		ChangeScene();
 	}
@@ -30,43 +26,43 @@ public partial class ConfirmaAutoload : Node
 
 		foreach (var arg in args)
 		{
-			if (!RunTests && arg.StartsWith("--confirma-run"))
+			if (!Props.RunTests && arg.StartsWith("--confirma-run"))
 			{
-				RunTests = true;
+				Props.RunTests = true;
 
-				ClassName = arg.Find('=') == -1
+				Props.ClassName = arg.Find('=') == -1
 					? string.Empty
 					: arg.Split('=')[1];
 
 				continue;
 			}
 
-			if (!QuitAfterTests && arg == "--confirma-quit")
+			if (!Props.QuitAfterTests && arg == "--confirma-quit")
 			{
-				QuitAfterTests = true;
+				Props.QuitAfterTests = true;
 				continue;
 			}
 
-			if (!ExitOnFail && arg == "--confirma-exit-on-failure")
+			if (!Props.ExitOnFail && arg == "--confirma-exit-on-failure")
 			{
-				ExitOnFail = true;
+				Props.ExitOnFail = true;
 				continue;
 			}
 
-			if (!VerboseOutput && arg == "--confirma-verbose")
+			if (!Props.IsVerbose && arg == "--confirma-verbose")
 			{
-				VerboseOutput = true;
+				Props.IsVerbose = true;
 				continue;
 			}
 		}
 
-		if (DisplayServer.GetName() == "headless") IsHeadless = true;
+		if (DisplayServer.GetName() == "headless") Props.IsHeadless = true;
 	}
 
 	private void ChangeScene()
 	{
 		GetTree().CallDeferred("change_scene_to_file", "uid://cq76c14wl2ti3");
 
-		if (QuitAfterTests) GetTree().Quit();
+		if (Props.QuitAfterTests) GetTree().Quit();
 	}
 }
