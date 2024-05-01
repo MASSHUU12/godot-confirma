@@ -88,11 +88,7 @@ public static class TestExecutor
 
 			var classResult = testClass.Run(_props);
 
-			_props.Result.TotalTests += classResult.TestsPassed + classResult.TestsFailed;
-			_props.Result.TestsPassed += classResult.TestsPassed;
-			_props.Result.TestsFailed += classResult.TestsFailed;
-			_props.Result.TestsIgnored += classResult.TestsIgnored;
-			_props.Result.Warnings += classResult.Warnings;
+			_props.Result += classResult;
 		}
 	}
 
