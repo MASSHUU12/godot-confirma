@@ -1,5 +1,5 @@
 <div align="center">
-	<h3>Testing</h1>
+ <h3>Testing</h1>
 </div>
 
 Confirma will detect all tests, regardless of where in the project you place them.
@@ -12,17 +12,20 @@ Example test class:
 
 ```cs
 using Confirma.Attributes;
+using Confirma.Exceptions;
+using Confirma.Extensions;
 
 namespace Confirma.Tests;
 
 [TestClass]
+[Parallelizable]
 public static class ConfirmBooleanTest
 {
-	[TestCase]
-	public static void ConfirmTrue_WhenTrue()
-	{
-		true.ConfirmTrue();
-	}
+ [TestCase]
+ public static void ConfirmTrue_WhenTrue()
+ {
+  true.ConfirmTrue();
+ }
 }
 ```
 
