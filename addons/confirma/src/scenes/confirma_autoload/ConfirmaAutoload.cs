@@ -3,6 +3,7 @@ using Godot;
 
 namespace Confirma.Scenes;
 
+[Tool]
 public partial class ConfirmaAutoload : Node
 {
 	public bool RunTests { get; private set; } = false;
