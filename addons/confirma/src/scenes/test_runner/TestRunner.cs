@@ -26,6 +26,7 @@ public partial class TestRunner : Control
 				false,
 				false,
 				false,
+				false,
 				string.Empty
 			));
 			return;
@@ -36,6 +37,7 @@ public partial class TestRunner : Control
 			_autoload.IsHeadless,
 			_autoload.ExitOnFail,
 			_autoload.QuitAfterTests,
+			_autoload.VerboseOutput,
 			_autoload.ClassName
 		));
 	}
