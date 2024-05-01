@@ -25,6 +25,8 @@ public partial class TestRunner : Control
 	public void RunAllTests(string className = "")
 	{
 		_output.Clear();
-		new TestExecutor(_autoload.Props).ExecuteTests(_assembly, className);
+
+		TestExecutor.Props = _autoload.Props;
+		TestExecutor.ExecuteTests(_assembly, className);
 	}
 }

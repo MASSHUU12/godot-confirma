@@ -8,25 +8,32 @@ using Confirma.Types;
 
 namespace Confirma.Classes;
 
-public class TestExecutor
+public static class TestExecutor
 {
-	private readonly TestsProps _props;
-	private readonly object _lock = new();
-
-	public TestExecutor(TestsProps props)
+	public static TestsProps Props
 	{
-		_props = props;
-		_props.ExitOnFailure += () =>
+		get => _props;
+		set
 		{
-			// GetTree().Quit() doesn't close the program immediately
-			// and allows all the remaining tests to run.
-			// This is a workaround to close the program immediately,
-			// at the cost of Godot displaying a lot of errors.
-			Environment.Exit(1);
-		};
+			_props.ExitOnFailure -= () => { };
+
+			_props = value;
+
+			_props.ExitOnFailure += () =>
+			{
+				// GetTree().Quit() doesn't close the program immediately
+				// and allows all the remaining tests to run.
+				// This is a workaround to close the program immediately,
+				// at the cost of Godot displaying a lot of errors.
+				Environment.Exit(1);
+			};
+		}
 	}
 
-	public void ExecuteTests(Assembly assembly, string className)
+	private static TestsProps _props;
+	private static readonly object _lock = new();
+
+	public static void ExecuteTests(Assembly assembly, string className)
 	{
 		var testClasses = TestDiscovery.DiscoverTestClasses(assembly);
 		var startTimeStamp = DateTime.Now;
@@ -42,7 +49,7 @@ public class TestExecutor
 			}
 		}
 
-		ResetStats();
+		_props.ResetStats();
 
 		var (parallelTestClasses, sequentialTestClasses) = ClassifyTests(testClasses);
 
@@ -62,7 +69,7 @@ public class TestExecutor
 		);
 	}
 
-	private void ExecuteSingleClass(TestClass testClass)
+	private static void ExecuteSingleClass(TestClass testClass)
 	{
 		lock (_lock)
 		{
@@ -89,7 +96,7 @@ public class TestExecutor
 		}
 	}
 
-	private void PrintSummary(int count, DateTime startTimeStamp)
+	private static void PrintSummary(int count, DateTime startTimeStamp)
 	{
 		Log.PrintLine(
 			string.Format(
@@ -103,10 +110,5 @@ public class TestExecutor
 				Colors.ColorText($"{_props.Result.Warnings} warnings", Colors.Warning)
 			)
 		);
-	}
-
-	private void ResetStats()
-	{
-		_props.ResetStats();
 	}
 }
