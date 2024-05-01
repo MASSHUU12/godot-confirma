@@ -8,7 +8,13 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmSignalTest
 {
-	private static readonly Button _button = new();
+	private static Button _button = new();
+
+	[BeforeAll]
+	public static void BeforeAll()
+	{
+		_button = new();
+	}
 
 	[AfterAll]
 	public static void AfterAll()
