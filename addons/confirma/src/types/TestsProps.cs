@@ -8,23 +8,26 @@ public struct TestsProps
 
 	public TestResult Result { get; set; }
 
+	public bool IsVerbose { get; init; }
 	public readonly bool IsHeadless { get; init; }
 	public readonly bool ExitOnFail { get; init; }
-	public readonly bool QuitAfterTests { get; init; }
 	public readonly string ClassName { get; init; }
+	public readonly bool QuitAfterTests { get; init; }
 
 	public TestsProps(
 		bool isHeadless,
 		bool exitOnFail,
 		bool quitAfterTests,
+		bool isVerbose,
 		string className
 	)
 	{
-		IsHeadless = isHeadless;
-		ExitOnFail = exitOnFail;
-		QuitAfterTests = quitAfterTests;
-		ClassName = className;
 		Result = new();
+		ClassName = className;
+		IsVerbose = isVerbose;
+		ExitOnFail = exitOnFail;
+		IsHeadless = isHeadless;
+		QuitAfterTests = quitAfterTests;
 	}
 
 	public void ResetStats()
