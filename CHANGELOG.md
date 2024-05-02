@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Default, more concise way of displaying information in the terminal.
 - Allow running tests in verbose mode via editor.
 - '--confirma-verbose' argument.
+- '--confirma-sequential' argument.
 
 ### Changed
 
