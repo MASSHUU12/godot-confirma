@@ -12,4 +12,4 @@ if ! [ -f "$GODOT" ]; then
   exit 1
 fi
 
-$GODOT ./ --headless -- --confirma-run --confirma-exit "$@"
+$GODOT ./ --headless -- --confirma-run --confirma-quit "$@"
