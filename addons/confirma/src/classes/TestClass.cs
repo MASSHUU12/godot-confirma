@@ -14,6 +14,7 @@ public class TestClass
 	public bool IsParallelizable { get; }
 	public IEnumerable<TestMethod> TestMethods { get; }
 
+	private TestsProps _props;
 	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
 
 	public TestClass(Type type)
@@ -28,6 +29,8 @@ public class TestClass
 	public TestClassResult Run(TestsProps props)
 	{
 		uint passed = 0, failed = 0, ignored = 0, warnings = 0;
+
+		_props = props;
 
 		warnings += RunLifecycleMethod("BeforeAll");
 
@@ -71,7 +74,7 @@ public class TestClass
 		if (method.HasMultiple)
 			Log.PrintWarning($"Multiple [{name}] methods found in {Type.Name}. Running only the first one.\n");
 
-		Log.PrintLine($"[{name}] {Type.Name}");
+		if (_props.IsVerbose) Log.PrintLine($"[{name}] {Type.Name}");
 
 		try
 		{
