@@ -51,12 +51,17 @@ public static class TestExecutor
 
 		_props.ResetStats();
 
-		var (parallelTestClasses, sequentialTestClasses) = ClassifyTests(testClasses);
+		if (_props.DisableParallelization)
+			foreach (var testClass in testClasses) ExecuteSingleClass(testClass);
+		else
+		{
+			var (parallelTestClasses, sequentialTestClasses) = ClassifyTests(testClasses);
 
-		parallelTestClasses.AsParallel().ForAll(ExecuteSingleClass);
+			parallelTestClasses.AsParallel().ForAll(ExecuteSingleClass);
 
-		foreach (var testClass in sequentialTestClasses)
-			ExecuteSingleClass(testClass);
+			foreach (var testClass in sequentialTestClasses)
+				ExecuteSingleClass(testClass);
+		}
 
 		PrintSummary(testClasses.Count(), startTimeStamp);
 	}
