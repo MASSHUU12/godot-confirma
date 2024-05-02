@@ -18,24 +18,6 @@ public struct TestsProps
 
 	public TestsProps() { }
 
-	public TestsProps(
-		bool runTests,
-		bool isHeadless,
-		bool exitOnFail,
-		bool quitAfterTests,
-		bool isVerbose,
-		string className
-	)
-	{
-		Result = new();
-		RunTests = runTests;
-		ClassName = className;
-		IsVerbose = isVerbose;
-		ExitOnFail = exitOnFail;
-		IsHeadless = isHeadless;
-		QuitAfterTests = quitAfterTests;
-	}
-
 	public void ResetStats()
 	{
 		Result = new();
