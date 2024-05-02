@@ -24,6 +24,8 @@ public partial class ConfirmaAutoload : Node
 	{
 		string[] args = OS.GetCmdlineUserArgs();
 
+		if (DisplayServer.GetName() == "headless") Props.IsHeadless = true;
+
 		foreach (var arg in args)
 		{
 			if (!Props.RunTests && arg.StartsWith("--confirma-run"))
@@ -54,9 +56,13 @@ public partial class ConfirmaAutoload : Node
 				Props.IsVerbose = true;
 				continue;
 			}
-		}
 
-		if (DisplayServer.GetName() == "headless") Props.IsHeadless = true;
+			if (!Props.DisableParallelization && arg == "--confirma-sequential")
+			{
+				Props.DisableParallelization = true;
+				continue;
+			}
+		}
 	}
 
 	private void ChangeScene()
