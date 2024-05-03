@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Abstract TestClass allowing access for the tests to the scene tree.
+- Static Global class which simplifies access for the tests to the scene tree.
 
 ## [0.3.0-beta 2024-05-03]
 
