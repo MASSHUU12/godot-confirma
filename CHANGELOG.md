@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- Static Global class which simplifies access for the tests to the scene tree.
+
 ## [0.3.0-beta 2024-05-03]
 
 ### Added

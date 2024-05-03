@@ -1,3 +1,4 @@
+using Confirma.Classes;
 using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
@@ -15,9 +16,14 @@ public partial class ConfirmaAutoload : Node
 
 		if (!Props.RunTests) return;
 
-		Log.IsHeadless = Props.IsHeadless;
-
+		SetupGlobals();
 		ChangeScene();
+	}
+
+	private void SetupGlobals()
+	{
+		Log.IsHeadless = Props.IsHeadless;
+		Global.Root = GetTree().Root;
 	}
 
 	private void CheckArguments()

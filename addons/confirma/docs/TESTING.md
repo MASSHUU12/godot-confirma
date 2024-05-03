@@ -29,48 +29,54 @@ public static class ConfirmBooleanTest
 }
 ```
 
-## TestClass
+## Accessing scene tree
+
+Access to the scene tree is enabled by the static `Global` class. It provides the variable `Root` where the tree's root Window is located.
+
+## Attributes
+
+### TestClass
 
 The `TestClass` attribute is used to identify the classes in which the tests are located.
 It is required, Confirma ignores all classes that do not have this attribute.
 
-## TestCase
+### TestCase
 
 The `TestCase` attribute is used to mark the methods that perform the tests.
 It also accepts arguments, which allows parameterized tests.
 
-## AfterAll
+### AfterAll
 
 Runs after all test methods in the class.
 
-## BeforeAll
+### BeforeAll
 
 Runs before all test methods in the class.
 
-## Category
+### Category
 
 Not implemented.
 
-## Ignore
+### Ignore
 
 Ignore method during testing.
 
-## SetUp
+### SetUp
 
 Runs before every test method in the class.
 
-## TearDown
+### TearDown
 
 Runs after every test method in the class.
 
-## Timeout
+### Timeout
 
 Not implemented.
 
-## TestName
+### TestName
 
 Used to display a different name for the test than the method name.
 
-## Parallelizable
+### Parallelizable
 
 Allows to run all the tests included in the class on separate CPU cores.

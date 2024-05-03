@@ -66,7 +66,7 @@ public static class TestExecutor
 		PrintSummary(testClasses.Count(), startTimeStamp);
 	}
 
-	private static (IEnumerable<TestClass>, IEnumerable<TestClass>) ClassifyTests(IEnumerable<TestClass> tests)
+	private static (IEnumerable<TestingClass>, IEnumerable<TestingClass>) ClassifyTests(IEnumerable<TestingClass> tests)
 	{
 		return (
 		  Reflection.GetParallelTestClasses(tests),
@@ -74,7 +74,7 @@ public static class TestExecutor
 		);
 	}
 
-	private static void ExecuteSingleClass(TestClass testClass)
+	private static void ExecuteSingleClass(TestingClass testClass)
 	{
 		lock (_lock)
 		{
