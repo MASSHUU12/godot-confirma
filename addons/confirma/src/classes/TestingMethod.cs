@@ -8,13 +8,13 @@ using static Confirma.Enums.ETestCaseState;
 
 namespace Confirma.Classes;
 
-public class TestMethod
+public class TestingMethod
 {
 	public MethodInfo Method { get; }
 	public IEnumerable<TestCase> TestCases { get; }
 	public string Name { get; }
 
-	public TestMethod(MethodInfo method)
+	public TestingMethod(MethodInfo method)
 	{
 		Method = method;
 		TestCases = TestDiscovery.DiscoverTestCases(method);

@@ -12,7 +12,7 @@ public class TestingClass
 {
 	public Type Type { get; }
 	public bool IsParallelizable { get; }
-	public IEnumerable<TestMethod> TestMethods { get; }
+	public IEnumerable<TestingMethod> TestMethods { get; }
 
 	private TestsProps _props;
 	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();

@@ -14,10 +14,10 @@ public class TestDiscovery
 			.Select(testClass => new TestingClass(testClass));
 	}
 
-	public static IEnumerable<TestMethod> DiscoverTestMethods(Type testClass)
+	public static IEnumerable<TestingMethod> DiscoverTestMethods(Type testClass)
 	{
 		return Reflection.GetTestMethodsFromType(testClass)
-			.Select(method => new TestMethod(method));
+			.Select(method => new TestingMethod(method));
 	}
 
 	public static IEnumerable<TestCase> DiscoverTestCases(MethodInfo method)
