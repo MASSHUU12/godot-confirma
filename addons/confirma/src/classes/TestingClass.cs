@@ -10,9 +10,9 @@ namespace Confirma.Classes;
 
 public class TestingClass
 {
-	public Type Type { get; }
-	public bool IsParallelizable { get; }
-	public IEnumerable<TestingMethod> TestMethods { get; }
+	public readonly Type Type;
+	public readonly bool IsParallelizable;
+	public readonly IEnumerable<TestingMethod> TestMethods;
 
 	private TestsProps _props;
 	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
