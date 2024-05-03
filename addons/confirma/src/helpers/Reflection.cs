@@ -17,10 +17,7 @@ public static class Reflection
 	public static IEnumerable<Type> GetTestClassesFromAssembly(Assembly assembly)
 	{
 		var types = assembly.GetTypes();
-		return types.Where(
-			type => type.HasAttribute<TestClassAttribute>() ||
-					type.IsSubclassOf(typeof(TestClass))
-		);
+		return types.Where(type => type.HasAttribute<TestClassAttribute>());
 	}
 
 	public static IEnumerable<TestingClass> GetParallelTestClasses(IEnumerable<TestingClass> classes)
