@@ -9,18 +9,18 @@ namespace Confirma.Helpers;
 
 public static class Reflection
 {
-	public static Type[] GetClassesFromAssembly(Assembly assembly)
+	public static IEnumerable<Type> GetClassesFromAssembly(Assembly assembly)
 	{
-		return assembly.GetTypes().Where(type => type.IsClass && !type.IsAbstract).ToArray();
+		return assembly.GetTypes().Where(type => type.IsClass && !type.IsAbstract);
 	}
 
-	public static Type[] GetTestClassesFromAssembly(Assembly assembly)
+	public static IEnumerable<Type> GetTestClassesFromAssembly(Assembly assembly)
 	{
 		var types = assembly.GetTypes();
 		return types.Where(
 			type => type.HasAttribute<TestClassAttribute>() ||
 					type.IsSubclassOf(typeof(TestClass))
-		).ToArray();
+		);
 	}
 
 	public static IEnumerable<TestingClass> GetParallelTestClasses(IEnumerable<TestingClass> classes)
@@ -41,11 +41,11 @@ public static class Reflection
 		));
 	}
 
-	public static MethodInfo[] GetTestMethodsFromType(Type type)
+	public static IEnumerable<MethodInfo> GetTestMethodsFromType(Type type)
 	{
 		return type.GetMethods().Where(method => method.CustomAttributes.Any(
 			attribute => attribute.AttributeType == typeof(TestCaseAttribute)
-		)).ToArray();
+		));
 	}
 
 	public static bool HasAttribute<T>(this object obj) where T : Attribute
