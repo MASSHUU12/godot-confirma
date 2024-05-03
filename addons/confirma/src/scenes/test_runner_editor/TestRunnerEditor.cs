@@ -9,6 +9,11 @@ public partial class TestRunnerEditor : TestRunner
 {
 	public override void _Ready()
 	{
+		CallDeferred("LateInit");
+	}
+
+	private void LateInit()
+	{
 		base._Ready();
 
 		ClearOutput();

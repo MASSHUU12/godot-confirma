@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - TestRunner in editor doesn't work.
+- 'Node not found: "/root/Confirma"' error in the editor when starting the project.
 
 ## [0.2.0-beta 2024-04-30]
 

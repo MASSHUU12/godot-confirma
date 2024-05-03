@@ -17,8 +17,6 @@ public partial class TestBottomPanel : Control
 
 	public override void _Ready()
 	{
-		_autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
-
 		_runAllTests = GetNode<Button>("%RunAllTests");
 		_runAllTests.Pressed += OnRunAllTestsPressed;
 
@@ -26,9 +24,17 @@ public partial class TestBottomPanel : Control
 		_clearOutput.Pressed += OnClearOutputPressed;
 
 		_verbose = GetNode<CheckBox>("%Verbose");
-		_verbose.Toggled += (bool on) => _autoload.Props.IsVerbose = on;
 
 		_testRunner = GetNode<TestRunnerEditor>("%TestRunnerEditor");
+
+		CallDeferred("LateInit");
+	}
+
+	private void LateInit()
+	{
+		_autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
+
+		_verbose.Toggled += (bool on) => _autoload.Props.IsVerbose = on;
 	}
 
 	private void OnRunAllTestsPressed()
