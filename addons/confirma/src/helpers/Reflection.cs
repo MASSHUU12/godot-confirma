@@ -20,12 +20,12 @@ public static class Reflection
 		return types.Where(type => type.HasAttribute<TestClassAttribute>()).ToArray();
 	}
 
-	public static IEnumerable<TestClass> GetParallelTestClasses(IEnumerable<TestClass> classes)
+	public static IEnumerable<TestingClass> GetParallelTestClasses(IEnumerable<TestingClass> classes)
 	{
 		return classes.Where(tc => tc.IsParallelizable);
 	}
 
-	public static IEnumerable<TestClass> GetSequentialTestClasses(IEnumerable<TestClass> classes)
+	public static IEnumerable<TestingClass> GetSequentialTestClasses(IEnumerable<TestingClass> classes)
 	{
 		return classes.Where(tc => !tc.IsParallelizable);
 	}

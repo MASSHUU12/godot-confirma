@@ -8,7 +8,7 @@ using Confirma.Types;
 
 namespace Confirma.Classes;
 
-public class TestClass
+public class TestingClass
 {
 	public Type Type { get; }
 	public bool IsParallelizable { get; }
@@ -17,7 +17,7 @@ public class TestClass
 	private TestsProps _props;
 	private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
 
-	public TestClass(Type type)
+	public TestingClass(Type type)
 	{
 		Type = type;
 		TestMethods = TestDiscovery.DiscoverTestMethods(type);
