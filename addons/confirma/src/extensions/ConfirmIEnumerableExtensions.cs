@@ -5,7 +5,7 @@ using Confirma.Exceptions;
 
 namespace Confirma.Extensions;
 
-public static class ConfirmIEnumerateExtensions
+public static class ConfirmIEnumerableExtensions
 {
 	public static void ConfirmEmpty<T>(this IEnumerable<T> actual, string? message = null)
 	{
