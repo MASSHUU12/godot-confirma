@@ -6,7 +6,7 @@ namespace Confirma.Extensions;
 public static class ConfirmExceptionExtensions
 {
 	#region ConfirmThrows
-	public static void ConfirmThrows(this object _, Action action, Type e, string? message = null)
+	public static void ConfirmThrows<T>(this Func<T> action, Type e, string? message = null)
 	{
 		try
 		{
@@ -31,46 +31,26 @@ public static class ConfirmExceptionExtensions
 		);
 	}
 
-	public static void ConfirmThrows<T>(this Action action, string? message = null)
-	where T : Exception
+	public static void ConfirmThrows<E>(this Func<object?> action, string? message = null)
+	where E : Exception
 	{
-		ConfirmThrows(action, action, typeof(T), message);
+		action.ConfirmThrows(typeof(E), message);
 	}
 
-	public static void ConfirmThrows(this object _, Func<object> action, Type e, string? message = null)
+	public static void ConfirmThrows<E>(this Action action, string? message = null)
 	{
-		try
+		Func<object> func = () =>
 		{
 			action();
-		}
-		catch (Exception ex)
-		{
-			if (ex.GetType() == e)
-			{
-				return;
-			}
+			return new object();
+		};
 
-			throw new ConfirmAssertException(
-				message
-				?? $"Expected exception of type {e.Name} but exception of type {ex.GetType().Name} was thrown."
-			);
-		}
-
-		throw new ConfirmAssertException(
-			message
-			?? $"Expected exception of type {e.Name} but no exception was thrown."
-		);
-	}
-
-	public static void ConfirmThrows<T>(this Func<object> action, string? message = null)
-	where T : Exception
-	{
-		ConfirmThrows(action, action, typeof(T), message);
+		func.ConfirmThrows(typeof(E), message);
 	}
 	#endregion
 
 	#region ConfirmNotThrows
-	public static void ConfirmNotThrows(this object _, Action action, Type e, string? message = null)
+	public static void ConfirmNotThrows<T>(this Func<T> action, Type e, string? message = null)
 	{
 		try
 		{
@@ -88,34 +68,21 @@ public static class ConfirmExceptionExtensions
 		}
 	}
 
-	public static void ConfirmNotThrows<T>(this Action action, string? message = null)
-	where T : Exception
+	public static void ConfirmNotThrows<E>(this Func<object?> action, string? message = null)
+	where E : Exception
 	{
-		ConfirmNotThrows(action, action, typeof(T), message);
+		ConfirmNotThrows(action, typeof(E), message);
 	}
 
-	public static void ConfirmNotThrows(this object _, Func<object> action, Type e, string? message = null)
+	public static void ConfirmNotThrows<E>(this Action action, string? message = null)
 	{
-		try
+		Func<object> func = () =>
 		{
 			action();
-		}
-		catch (Exception ex)
-		{
-			if (ex.GetType() == e)
-			{
-				throw new ConfirmAssertException(
-					message
-					?? $"Expected exception of type {e.Name} not to be thrown but it was."
-				);
-			}
-		}
-	}
+			return new object();
+		};
 
-	public static void ConfirmNotThrows<T>(this Func<object> action, string? message = null)
-	where T : Exception
-	{
-		ConfirmNotThrows(action, action, typeof(T), message);
+		func.ConfirmNotThrows(typeof(E), message);
 	}
 	#endregion
 }
