@@ -17,7 +17,7 @@ public static class ConfirmBooleanTest
 	[TestCase]
 	public static void ConfirmTrue_WhenFalse()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => false.ConfirmTrue());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => false.ConfirmTrue());
 	}
 
 	[TestCase]
@@ -29,6 +29,6 @@ public static class ConfirmBooleanTest
 	[TestCase]
 	public static void ConfirmFalse_WhenTrue()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => true.ConfirmFalse());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => true.ConfirmFalse());
 	}
 }

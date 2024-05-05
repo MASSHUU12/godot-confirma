@@ -20,7 +20,7 @@ public static class ConfirmFileTest
 	[TestCase("./tests/ConfirmFileTest.css")]
 	public static void ConfirmIsFile_WhenFileDoesNotExist(string path)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsFile());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsFile());
 	}
 	#endregion
 
@@ -34,7 +34,7 @@ public static class ConfirmFileTest
 	[TestCase("./tests/ConfirmFileTest.cs")]
 	public static void ConfirmIsNotFile_WhenFileExists(string path)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsNotFile());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsNotFile());
 	}
 	#endregion
 
@@ -48,7 +48,7 @@ public static class ConfirmFileTest
 	[TestCase("./test")]
 	public static void ConfirmIsDirectory_WhenDirectoryDoesNotExist(string path)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsDirectory());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsDirectory());
 	}
 	#endregion
 
@@ -62,7 +62,7 @@ public static class ConfirmFileTest
 	[TestCase("./tests")]
 	public static void ConfirmIsNotDirectory_WhenDirectoryExists(string path)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsNotDirectory());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmIsNotDirectory());
 	}
 	#endregion
 
@@ -76,7 +76,7 @@ public static class ConfirmFileTest
 	[TestCase("./LICENSE", "ConfirmFileTest.cs")]
 	public static void ConfirmFileContains_WhenFileDoesNotContainContent(string path, string content)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileContains(content));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileContains(content));
 	}
 	#endregion
 
@@ -90,7 +90,7 @@ public static class ConfirmFileTest
 	[TestCase("./tests/ConfirmFileTest.cs", "ConfirmFileTest")]
 	public static void ConfirmFileDoesNotContain_WhenFileContainsContent(string path, string content)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotContain(content));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotContain(content));
 	}
 	#endregion
 
@@ -104,7 +104,7 @@ public static class ConfirmFileTest
 	[TestCase("./LICENSE", 1)]
 	public static void ConfirmFileHasLength_WhenFileDoesNotHaveLength(string path, long length)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileHasLength(length));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileHasLength(length));
 	}
 	#endregion
 
@@ -118,7 +118,7 @@ public static class ConfirmFileTest
 	[TestCase("./LICENSE", 1066)]
 	public static void ConfirmFileDoesNotHaveLength_WhenFileHasLength(string path, long length)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotHaveLength(length));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotHaveLength(length));
 	}
 	#endregion
 
@@ -132,7 +132,7 @@ public static class ConfirmFileTest
 	[TestCase("./LICENSE", FileAttributes.Hidden)]
 	public static void ConfirmFileHasAttributes_WhenFileDoesNotHaveAttributes(string path, FileAttributes attributes)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileHasAttributes(attributes));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileHasAttributes(attributes));
 	}
 	#endregion
 
@@ -146,7 +146,7 @@ public static class ConfirmFileTest
 	[TestCase("./LICENSE", FileAttributes.Normal)]
 	public static void ConfirmFileDoesNotHaveAttributes_WhenFileHasAttributes(string path, FileAttributes attributes)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotHaveAttributes(attributes));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => ((StringName)path).ConfirmFileDoesNotHaveAttributes(attributes));
 	}
 	#endregion
 }

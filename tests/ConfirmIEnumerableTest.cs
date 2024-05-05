@@ -21,7 +21,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3 })]
 	public static void ConfirmEmpty_WhenNotEmpty(IEnumerable<int> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmEmpty());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmEmpty());
 	}
 	#endregion
 
@@ -37,7 +37,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { })]
 	public static void ConfirmNotEmpty_WhenEmpty(IEnumerable<int> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotEmpty());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotEmpty());
 	}
 	#endregion
 
@@ -57,7 +57,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 2)]
 	public static void ConfirmCount_WhenNotEqual(IEnumerable<float> actual, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCount(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCount(expected));
 	}
 	#endregion
 
@@ -76,7 +76,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new double[] { 1.0, 2.0, 3.0 }, 3)]
 	public static void ConfirmCountGreaterThan_WhenNotGreaterThan(IEnumerable<double> actual, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountGreaterThan(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountGreaterThan(expected));
 	}
 	#endregion
 
@@ -95,7 +95,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new short[] { 1, 2, 3, 4 }, 3)]
 	public static void ConfirmCountLessThan_WhenNotLessThan(IEnumerable<short> actual, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountLessThan(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountLessThan(expected));
 	}
 	#endregion
 
@@ -115,7 +115,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3 }, 4)]
 	public static void ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual(IEnumerable<int> actual, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountGreaterThanOrEqual(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountGreaterThanOrEqual(expected));
 	}
 	#endregion
 
@@ -135,7 +135,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new long[] { 1, 2, 3, 4 }, 3)]
 	public static void ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual(IEnumerable<long> actual, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountLessThanOrEqual(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmCountLessThanOrEqual(expected));
 	}
 	#endregion
 
@@ -153,7 +153,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new string[] { "a", "b", "c" }, "f")]
 	public static void ConfirmContains_WhenNotContains(IEnumerable<string> actual, string expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmContains(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmContains(expected));
 	}
 	#endregion
 
@@ -171,7 +171,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new string[] { "a", "b", "c" }, "c")]
 	public static void ConfirmNotContains_WhenContains(IEnumerable<string> actual, string expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotContains(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotContains(expected));
 	}
 	#endregion
 
@@ -189,7 +189,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
 	public static void ConfirmAllMatch_WhenNotAllMatch(IEnumerable<int> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmAllMatch(x => x < 0));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmAllMatch(x => x < 0));
 	}
 	#endregion
 
@@ -207,7 +207,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
 	public static void ConfirmAnyMatch_WhenNotAnyMatch(IEnumerable<int> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmAnyMatch(x => x == 0));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmAnyMatch(x => x == 0));
 	}
 	#endregion
 
@@ -225,7 +225,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
 	public static void ConfirmNoneMatch_WhenNotNoneMatch(IEnumerable<float> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNoneMatch(x => x > 0));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNoneMatch(x => x > 0));
 	}
 	#endregion
 
@@ -243,7 +243,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new char[] { 'a', 'b', 'c', 'c', 'e' })]
 	public static void ConfirmElementsAreUnique_WhenNotUnique(IEnumerable<char> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreUnique());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreUnique());
 	}
 	#endregion
 
@@ -261,7 +261,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new string[] { "a", "b", "c", "c", "e" }, new string[] { "f", "g", "h", "i", "j" })]
 	public static void ConfirmElementsAreDistinct_WhenNotDistinct(IEnumerable<string> actual, IEnumerable<string> expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreDistinct(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreDistinct(expected));
 	}
 	#endregion
 
@@ -279,7 +279,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 5, 4, 3, 2, 1 })]
 	public static void ConfirmElementsAreOrdered_WhenNotOrdered(IEnumerable<int> actual)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreOrdered());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreOrdered());
 	}
 	#endregion
 
@@ -297,7 +297,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3, 4, 5 }, 4, 5)]
 	public static void ConfirmElementsAreInRange_WhenNotInRange(IEnumerable<int> actual, int min, int max)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreInRange(min, max));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreInRange(min, max));
 	}
 	#endregion
 
@@ -315,7 +315,7 @@ public static class ConfirmIEnumerableTest
 	[TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 6 })]
 	public static void ConfirmElementsAreEquivalent_WhenNotEquivalent_Data(IEnumerable<int> actual, IEnumerable<int> expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreEquivalent(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmElementsAreEquivalent(expected));
 	}
 	#endregion
 }

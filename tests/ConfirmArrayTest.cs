@@ -22,7 +22,7 @@ public static class ConfirmArrayTest
 	[TestCase(new int[] { 1, 2, 3 }, 2)]
 	public static void ConfirmSize_WhenIsNotOfSize(int[] array, int expectedSize)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmSize(expectedSize));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmSize(expectedSize));
 	}
 
 	[TestCase]
@@ -36,7 +36,7 @@ public static class ConfirmArrayTest
 	[TestCase(new int[] { 1, 2, 3 })]
 	public static void ConfirmEmpty_WhenIsNotEmpty(int[] array)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmEmpty());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmEmpty());
 	}
 
 	[TestCase(new int[] { 1 }, 1)]
@@ -52,6 +52,6 @@ public static class ConfirmArrayTest
 	[TestCase(new int[] { 1, 2, 3 }, 4)]
 	public static void ConfirmContains_WhenNotContains(int[] array, int expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmContains(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => array.ConfirmContains(expected));
 	}
 }

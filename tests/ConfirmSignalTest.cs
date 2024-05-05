@@ -37,7 +37,7 @@ public static class ConfirmSignalTest
 	[TestCase("signal_that_is_nowhere_to_be_found")]
 	public static void ConfirmSignalExists_WhenSignalDoesNotExist(string signalName)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(
 			() => _button?.ConfirmSignalExists((StringName)signalName)
 		);
 	}

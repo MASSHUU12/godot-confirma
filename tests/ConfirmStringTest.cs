@@ -21,7 +21,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmEmpty_WhenNotEmpty()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "not empty".ConfirmEmpty());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "not empty".ConfirmEmpty());
 	}
 	#endregion
 
@@ -35,7 +35,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotEmpty_WhenEmpty()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "".ConfirmNotEmpty());
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "".ConfirmNotEmpty());
 	}
 	#endregion
 
@@ -49,7 +49,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmContains_WhenNotContains()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmContains("not"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmContains("not"));
 	}
 	#endregion
 
@@ -63,7 +63,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotContains_WhenContains()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmNotContains("tai"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "contains".ConfirmNotContains("tai"));
 	}
 	#endregion
 
@@ -77,7 +77,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmStartsWith_WhenNotStartsWith()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmStartsWith("xxx"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmStartsWith("xxx"));
 	}
 	#endregion
 
@@ -91,7 +91,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotStartsWith_WhenStartsWith()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmNotStartsWith("sta"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "starts with".ConfirmNotStartsWith("sta"));
 	}
 	#endregion
 
@@ -105,7 +105,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmEndsWith_WhenNotEndsWith()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmEndsWith("xxx"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmEndsWith("xxx"));
 	}
 	#endregion
 
@@ -119,7 +119,7 @@ public static class ConfirmStringTest
 	[TestCase]
 	public static void ConfirmNotEndsWith_WhenEndsWith()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmNotEndsWith("ith"));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => "ends with".ConfirmNotEndsWith("ith"));
 	}
 	#endregion
 
@@ -135,7 +135,7 @@ public static class ConfirmStringTest
 	[TestCase("Lorem ipsum\n", 11)]
 	public static void ConfirmHasLength_WhenNotHasLength(string value, int length)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmHasLength(length));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmHasLength(length));
 	}
 	#endregion
 
@@ -151,7 +151,7 @@ public static class ConfirmStringTest
 	[TestCase("Lorem ipsum\n", 12)]
 	public static void ConfirmNotHasLength_WhenHasLength(string value, int length)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmNotHasLength(length));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmNotHasLength(length));
 	}
 	#endregion
 
@@ -169,7 +169,7 @@ public static class ConfirmStringTest
 	[TestCase("Lorem ipsum", "lorem ipsum ")]
 	public static void ConfirmEqualsCaseInsensitive_WhenNotEquals(string value, string expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmEqualsCaseInsensitive(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmEqualsCaseInsensitive(expected));
 	}
 	#endregion
 
@@ -187,7 +187,7 @@ public static class ConfirmStringTest
 	[TestCase("Lorem ipsum", "lOrEm IpSuM")]
 	public static void ConfirmNotEqualsCaseInsensitive_WhenEquals(string value, string expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmNotEqualsCaseInsensitive(expected));
+		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => value.ConfirmNotEqualsCaseInsensitive(expected));
 	}
 	#endregion
 }

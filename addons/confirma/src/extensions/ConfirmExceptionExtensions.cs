@@ -3,7 +3,7 @@ using Confirma.Exceptions;
 
 namespace Confirma.Extensions;
 
-public static class ConfirmExtensions
+public static class ConfirmExceptionExtensions
 {
 	#region ConfirmThrows
 	public static void ConfirmThrows(this object _, Action action, Type e, string? message = null)
