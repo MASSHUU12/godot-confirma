@@ -2,6 +2,7 @@ using Godot;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
+using System;
 
 namespace Confirma.Tests;
 
@@ -29,7 +30,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmEqualApprox(vector2, tolerance));
+		Action action = () => vector.ConfirmEqualApprox(vector2, tolerance);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -53,7 +56,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmNotEqualApprox(vector2, tolerance));
+		Action action = () => vector.ConfirmNotEqualApprox(vector2, tolerance);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -77,7 +82,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmLessThan(vector2));
+		Action action = () => vector.ConfirmLessThan(vector2);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -102,7 +109,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmLessThanOrEqual(vector2));
+		Action action = () => vector.ConfirmLessThanOrEqual(vector2);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -126,7 +135,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThan(vector2));
+		Action action = () => vector.ConfirmGreaterThan(vector2);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -150,7 +161,9 @@ public static class ConfirmVectorTest
 		var vector = new Vector2(a, b);
 		var vector2 = new Vector2(c, d);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmGreaterThanOrEqual(vector2));
+		Action action = () => vector.ConfirmGreaterThanOrEqual(vector2);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -176,7 +189,9 @@ public static class ConfirmVectorTest
 		var min = new Vector2(c, d);
 		var max = new Vector2(e, f);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmBetween(min, max));
+		Action action = () => vector.ConfirmBetween(min, max);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 
@@ -202,7 +217,9 @@ public static class ConfirmVectorTest
 		var min = new Vector2(c, d);
 		var max = new Vector2(e, f);
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => vector.ConfirmNotBetween(min, max));
+		Action action = () => vector.ConfirmNotBetween(min, max);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 }

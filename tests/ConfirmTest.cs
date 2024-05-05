@@ -22,7 +22,7 @@ public static class ConfirmTest
 	{
 		Func<object> Test = () => throw new ConfirmAssertException("Lorem ipsum dolor sit amet.");
 
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(Test);
+		Test.ConfirmThrows<ConfirmAssertException>();
 	}
 
 	[TestCase]
@@ -38,6 +38,6 @@ public static class ConfirmTest
 	{
 		Func<object> Test = () => new object();
 
-		ConfirmExceptionExtensions.ConfirmNotThrows<ConfirmAssertException>(Test);
+		Test.ConfirmNotThrows<ConfirmAssertException>();
 	}
 }

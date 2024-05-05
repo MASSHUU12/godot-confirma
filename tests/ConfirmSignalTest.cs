@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
@@ -37,9 +38,9 @@ public static class ConfirmSignalTest
 	[TestCase("signal_that_is_nowhere_to_be_found")]
 	public static void ConfirmSignalExists_WhenSignalDoesNotExist(string signalName)
 	{
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(
-			() => _button?.ConfirmSignalExists((StringName)signalName)
-		);
+		Action action = () => _button?.ConfirmSignalExists((StringName)signalName);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
 }

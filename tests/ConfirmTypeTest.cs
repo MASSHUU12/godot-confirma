@@ -23,7 +23,9 @@ public static class ConfirmTypeTest
 	[TestCase(3.14, typeof(bool))]
 	public static void ConfirmType_WhenNotOfType(object? actual, Type expected)
 	{
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmType(expected));
+		Action action = () => actual.ConfirmType(expected);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 
 	[TestCase("Lorem ipsum", typeof(int))]
@@ -40,6 +42,8 @@ public static class ConfirmTypeTest
 	[TestCase(true, typeof(bool))]
 	public static void ConfirmNotType_WhenOfType(object? actual, Type expected)
 	{
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotType(expected));
+		Action action = () => actual.ConfirmNotType(expected);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 }

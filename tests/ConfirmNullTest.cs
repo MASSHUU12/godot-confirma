@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
@@ -18,7 +19,9 @@ public static class ConfirmNullTest
 	[TestCase(2)]
 	public static void ConfirmNull_WhenNotNull(object? actual)
 	{
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNull());
+		Action action = () => actual.ConfirmNull();
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 
 	[TestCase("Lorem ipsum")]
@@ -31,6 +34,8 @@ public static class ConfirmNullTest
 	[TestCase(new object?[] { null })]
 	public static void ConfirmNotNull_WhenNull(object? actual)
 	{
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmNotNull());
+		Action action = () => actual.ConfirmNotNull();
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 }
