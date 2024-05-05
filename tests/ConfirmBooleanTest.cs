@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
@@ -17,7 +18,9 @@ public static class ConfirmBooleanTest
 	[TestCase]
 	public static void ConfirmTrue_WhenFalse()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => false.ConfirmTrue());
+		Action action = () => false.ConfirmTrue();
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 
 	[TestCase]
@@ -29,6 +32,8 @@ public static class ConfirmBooleanTest
 	[TestCase]
 	public static void ConfirmFalse_WhenTrue()
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => true.ConfirmFalse());
+		Action action = () => true.ConfirmFalse();
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 }

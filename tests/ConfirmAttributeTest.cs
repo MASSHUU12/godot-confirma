@@ -20,6 +20,8 @@ public static class ConfirmAttributeTest
 	[TestCase(typeof(TestClassAttribute), typeof(ConfirmAttributeTest))]
 	public static void ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(Type actual, Type expected)
 	{
-		ConfirmExtensions.ConfirmThrows<ConfirmAssertException>(() => actual.ConfirmIsDecoratedWith(expected));
+		Action action = () => actual.ConfirmIsDecoratedWith(expected);
+
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
 }

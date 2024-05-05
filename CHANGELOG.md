@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file.
 - Assertions for IEnumerable.
 - Assertions for attributes.
 
+### Changed
+
+- Simplified checking if Action/Func throws an exception.
+
 ## [0.3.0-beta 2024-05-03]
 
 ### Added
