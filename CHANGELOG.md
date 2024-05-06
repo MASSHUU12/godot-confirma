@@ -2,13 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.4.0-beta 2024-05-06]
 
 ### Added
 
 - Static Global class which simplifies access for the tests to the scene tree.
-- Assertions for IEnumerable.
-- Assertions for attributes.
+- Assertions for IEnumerable & attributes.
 
 ### Changed
 
