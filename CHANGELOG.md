@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Message parameter to all extensions.
+
 ### Changed
 
 - Improved display of passed parameters to the methods.
+- Improved default exception messages.
 
 ## [0.4.0-beta 2024-05-06]
 
