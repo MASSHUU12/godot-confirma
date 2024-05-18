@@ -1,5 +1,6 @@
 using System;
 using Confirma.Enums;
+using Godot;
 using static System.AttributeTargets;
 
 namespace Confirma.Attributes;
@@ -14,5 +15,15 @@ public class IgnoreAttribute : Attribute
 	{
 		Mode = mode;
 		Reason = string.IsNullOrEmpty(reason) ? null : reason;
+	}
+
+	public bool IsIgnored()
+	{
+		return Mode switch
+		{
+			EIgnoreMode.Always => true,
+			EIgnoreMode.InEditor => Engine.IsEditorHint(),
+			_ => false
+		};
 	}
 }
