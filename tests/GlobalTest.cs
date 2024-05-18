@@ -2,10 +2,12 @@ using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Extensions;
 using Godot;
+using static Confirma.Enums.EIgnoreMode;
 
 namespace Confirma.Tests;
 
 [TestClass]
+[Ignore(InEditor)]
 public static class GlobalTest
 {
 	[TestCase]
