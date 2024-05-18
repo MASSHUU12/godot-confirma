@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- Improved display of passed parameters to the methods.
+
 ## [0.4.0-beta 2024-05-06]
 
 ### Added
