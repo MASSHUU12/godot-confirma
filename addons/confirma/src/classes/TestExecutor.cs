@@ -80,12 +80,13 @@ public static class TestExecutor
 		{
 			Log.Print($"> {testClass.Type.Name}...");
 
-			if (testClass.Type.GetCustomAttribute<IgnoreAttribute>() is IgnoreAttribute ignore)
+			var attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
+			if (attr is not null && attr.IsIgnored())
 			{
 				_props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
 
 				Log.PrintWarning($" ignored.\n");
-				if (ignore.Reason is not null) Log.PrintWarning($"- {ignore.Reason}\n");
+				if (attr.Reason is not null) Log.PrintWarning($"- {attr.Reason}\n");
 				return;
 			}
 
