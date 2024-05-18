@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Message parameter to all extensions.
+- Ignore attribute now accepts EIgnoreMode enum
+  which allows ignoring class/method always or when ran from editor.
 
 ### Changed
 
