@@ -21,7 +21,7 @@ public static class ArrayHelper
 				continue;
 			}
 
-			if (item is Array arr)
+			if (item.GetType().IsArray)
 			{
 				if (depth + 1 > maxDepth)
 				{
@@ -29,9 +29,10 @@ public static class ArrayHelper
 					continue;
 				}
 
-				var nestedArray = arr.Cast<object?>().ToArray();
-				var result = ToString(nestedArray, depth + 1, maxDepth);
-				list.Add($"[{result}]");
+				var arr = ((item as Array) ?? Array.Empty<object>()).OfType<object?>().ToArray();
+				var result = ToString(arr, depth + 1, maxDepth);
+
+				list.Add($"[{string.Join(", ", result)}]");
 
 				continue;
 			}
