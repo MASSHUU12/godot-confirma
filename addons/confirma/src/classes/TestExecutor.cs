@@ -94,8 +94,10 @@ public static class TestExecutor
 			_props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
 
 			Log.PrintWarning($" ignored.\n");
-			if (attr.Reason is not null) Log.PrintWarning($"- {attr.Reason}\n");
-			return;
+
+			if (string.IsNullOrEmpty(attr.Reason)) return;
+
+			Log.PrintWarning($"- {attr.Reason}\n");
 		}
 
 		Log.PrintLine();
