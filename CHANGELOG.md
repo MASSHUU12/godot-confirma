@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- Parallel execution of tests has been improved, significantly increasing performance.
+
 ## [0.4.1-beta 2024-05-20]
 
 ### Added
