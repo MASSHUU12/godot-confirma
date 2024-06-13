@@ -79,8 +79,8 @@ public static class TestExecutor
 	private static (IEnumerable<TestingClass>, IEnumerable<TestingClass>) ClassifyTests(IEnumerable<TestingClass> tests)
 	{
 		return (
-		  Reflection.GetParallelTestClasses(tests),
-		  Reflection.GetSequentialTestClasses(tests)
+		  TestDiscovery.GetParallelTestClasses(tests),
+		  TestDiscovery.GetSequentialTestClasses(tests)
 		);
 	}
 
