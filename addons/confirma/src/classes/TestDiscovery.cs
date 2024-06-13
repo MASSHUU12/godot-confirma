@@ -38,9 +38,9 @@ public class TestDiscovery
 			.Select(testClass => new TestingClass(testClass));
 	}
 
-	public static TestCaseAttribute[] GetTestCasesFromMethod(MethodInfo method)
+	public static IEnumerable<TestCaseAttribute> GetTestCasesFromMethod(MethodInfo method)
 	{
-		return method.GetCustomAttributes<TestCaseAttribute>().ToArray();
+		return method.GetCustomAttributes<TestCaseAttribute>();
 	}
 
 	public static IEnumerable<TestingMethod> DiscoverTestMethods(Type testClass)
