@@ -81,6 +81,24 @@ public static class ConfirmNumericTest
 	}
 	#endregion
 
+	#region ConfirmSign
+	[TestCase(-5, true)]
+	[TestCase(5, false)]
+	public static void ConfirmSign_WhenCorrect(int number, bool expected)
+	{
+		number.ConfirmSign(expected);
+	}
+
+	[TestCase(-5, false)]
+	[TestCase(5, true)]
+	public static void ConfirmSign_WhenIncorrect(int number, bool expected)
+	{
+		Action action = () => number.ConfirmSign(expected);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
+
 	#region ConfirmIsZero
 	[TestCase(0f)]
 	public static void ConfirmIsZero_WhenZero(float actual)
