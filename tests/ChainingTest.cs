@@ -46,6 +46,12 @@ public static class ChainingTest
 	}
 
 	[TestCase]
+	public static void ChainingOnEqual()
+	{
+		5.ConfirmEqual(5).ConfirmNotEqual(6);
+	}
+
+	[TestCase]
 	public static void ChainingOnNumeric()
 	{
 		5.ConfirmIsNotZero().ConfirmIsPositive();
