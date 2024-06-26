@@ -12,4 +12,10 @@ public static class ChainingTest
 	{
 		5.ConfirmIsNotZero().ConfirmIsPositive();
 	}
+
+	[TestCase]
+	public static void ChainingOnRange()
+	{
+		5.ConfirmGraterThan(3).ConfirmInRange(0, 10);
+	}
 }
