@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Confirma.Attributes;
 using Confirma.Extensions;
+using Godot;
 
 namespace Confirma.Tests;
 
@@ -60,6 +61,14 @@ public static class ChainingTest
 		action
 			.ConfirmThrows<IndexOutOfRangeException>()
 			.ConfirmNotThrows<OutOfMemoryException>();
+	}
+
+	[TestCase]
+	public static void ChainingOnFile()
+	{
+		new StringName("./LICENSE")
+			.ConfirmIsFile()
+			.ConfirmFileContains("MIT License");
 	}
 
 	[TestCase]
