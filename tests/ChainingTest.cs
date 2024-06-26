@@ -7,10 +7,21 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ChainingTest
 {
+	[Parallelizable]
+	private static class TestClass { }
+
 	[TestCase]
 	public static void ChainingOnArray()
 	{
 		new int[] { 0, 1, 2, 3, 4 }.ConfirmNotEmpty().ConfirmContains(2);
+	}
+
+	[TestCase]
+	public static void ChainingOnAttribute()
+	{
+		typeof(TestClass)
+			.ConfirmIsDecoratedWith<ParallelizableAttribute>()
+			.ConfirmIsNotDecoratedWith<TestClassAttribute>();
 	}
 
 	[TestCase]
