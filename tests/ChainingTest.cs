@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Confirma.Attributes;
 using Confirma.Extensions;
@@ -49,6 +50,16 @@ public static class ChainingTest
 	public static void ChainingOnEqual()
 	{
 		5.ConfirmEqual(5).ConfirmNotEqual(6);
+	}
+
+	[TestCase]
+	public static void ChainingOnException()
+	{
+		Action action = () => throw new IndexOutOfRangeException();
+
+		action
+			.ConfirmThrows<IndexOutOfRangeException>()
+			.ConfirmNotThrows<OutOfMemoryException>();
 	}
 
 	[TestCase]
