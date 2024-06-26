@@ -115,4 +115,12 @@ public static class ChainingTest
 			.ConfirmStartsWith("Lorem")
 			.ConfirmEndsWith("amet");
 	}
+
+	[TestCase]
+	public static void ChainingOnType()
+	{
+		"Lorem ipsum dolor sit amet"
+			.ConfirmType<string>()
+			.ConfirmNotType<int>();
+	}
 }

@@ -5,9 +5,9 @@ namespace Confirma.Extensions;
 
 public static class ConfirmTypeExtensions
 {
-	public static void ConfirmType(this object? actual, Type expected, string? message = null)
+	public static object? ConfirmType(this object? actual, Type expected, string? message = null)
 	{
-		if (actual?.GetType() == expected) return;
+		if (actual?.GetType() == expected) return actual;
 
 		throw new ConfirmAssertException(message ?? $"Expected object to be of type {expected}.");
 	}
@@ -18,15 +18,15 @@ public static class ConfirmTypeExtensions
 		return (T)actual!;
 	}
 
-	public static void ConfirmNotType(this object? actual, Type expected, string? message = null)
+	public static object? ConfirmNotType(this object? actual, Type expected, string? message = null)
 	{
-		if (actual?.GetType() != expected) return;
+		if (actual?.GetType() != expected) return actual;
 
 		throw new ConfirmAssertException(message ?? $"Expected object to be not of type {expected}.");
 	}
 
-	public static void ConfirmNotType<T>(this object? actual, string? message = null)
+	public static object? ConfirmNotType<T>(this object? actual, string? message = null)
 	{
-		actual.ConfirmNotType(typeof(T), message);
+		return actual.ConfirmNotType(typeof(T), message);
 	}
 }
