@@ -81,6 +81,12 @@ public static class ChainingTest
 	}
 
 	[TestCase]
+	public static void ChainingOnConfirmNull()
+	{
+		5.ConfirmNotNull().ConfirmNotNull(); // XD
+	}
+
+	[TestCase]
 	public static void ChainingOnNumeric()
 	{
 		5.ConfirmIsNotZero().ConfirmIsPositive();
