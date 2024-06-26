@@ -30,7 +30,7 @@ public static class ChainingTest
 	[TestCase]
 	public static void ChainingOnBoolean()
 	{
-		true.ConfirmTrue().ConfirmTrue(); // XD
+		true.ConfirmTrue().ConfirmTrue();
 	}
 
 	[TestCase]
@@ -83,7 +83,7 @@ public static class ChainingTest
 	[TestCase]
 	public static void ChainingOnConfirmNull()
 	{
-		5.ConfirmNotNull().ConfirmNotNull(); // XD
+		5.ConfirmNotNull().ConfirmNotNull();
 	}
 
 	[TestCase]
@@ -122,5 +122,11 @@ public static class ChainingTest
 		"Lorem ipsum dolor sit amet"
 			.ConfirmType<string>()
 			.ConfirmNotType<int>();
+	}
+
+	[TestCase]
+	public static void ChainingOnUuid()
+	{
+		Guid.NewGuid().ToString().ConfirmValidUuid4().ConfirmValidUuid4();
 	}
 }
