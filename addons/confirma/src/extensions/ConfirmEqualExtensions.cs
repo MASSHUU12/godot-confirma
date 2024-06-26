@@ -5,32 +5,36 @@ namespace Confirma.Extensions;
 
 public static class ConfirmEqualExtensions
 {
-	public static void ConfirmEqual<T>(this T? actual, T? expected, string? message = null)
+	public static T? ConfirmEqual<T>(this T? actual, T? expected, string? message = null)
 	{
 		if (!(actual?.Equals(expected)) ?? false)
 		{
 			throw new ConfirmAssertException(message ?? $"Expected '{expected}' but was '{actual}'.");
 		}
+
+		return actual;
 	}
 
-	public static void ConfirmEqual<T>(this T?[] actual, T?[] expected, string? message = null)
+	public static T?[] ConfirmEqual<T>(this T?[] actual, T?[] expected, string? message = null)
 	{
-		if (actual.SequenceEqual(expected)) return;
+		if (actual.SequenceEqual(expected)) return actual;
 
 		throw new ConfirmAssertException(message ?? $"Expected '{expected}' but was '{actual}'.");
 	}
 
-	public static void ConfirmNotEqual<T>(this T? actual, T? expected, string? message = null)
+	public static T? ConfirmNotEqual<T>(this T? actual, T? expected, string? message = null)
 	{
 		if (actual?.Equals(expected) ?? false)
 		{
 			throw new ConfirmAssertException(message ?? $"Expected not '{expected}' but was '{actual}'.");
 		}
+
+		return actual;
 	}
 
-	public static void ConfirmNotEqual<T>(this T?[] actual, T?[] expected, string? message = null)
+	public static T?[] ConfirmNotEqual<T>(this T?[] actual, T?[] expected, string? message = null)
 	{
-		if (!actual.SequenceEqual(expected)) return;
+		if (!actual.SequenceEqual(expected)) return actual;
 
 		throw new ConfirmAssertException(message ?? $"Expected not '{expected}' but was '{actual}'.");
 	}

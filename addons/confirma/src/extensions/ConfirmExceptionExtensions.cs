@@ -6,7 +6,7 @@ namespace Confirma.Extensions;
 public static class ConfirmExceptionExtensions
 {
 	#region ConfirmThrows
-	public static void ConfirmThrows<T>(this Func<T> action, Type e, string? message = null)
+	public static Func<T> ConfirmThrows<T>(this Func<T> action, Type e, string? message = null)
 	{
 		try
 		{
@@ -14,7 +14,7 @@ public static class ConfirmExceptionExtensions
 		}
 		catch (Exception ex)
 		{
-			if (ex.GetType() == e) return;
+			if (ex.GetType() == e) return action;
 
 			throw new ConfirmAssertException(
 				message
@@ -28,13 +28,13 @@ public static class ConfirmExceptionExtensions
 		);
 	}
 
-	public static void ConfirmThrows<E>(this Func<object?> action, string? message = null)
+	public static Func<object?> ConfirmThrows<E>(this Func<object?> action, string? message = null)
 	where E : Exception
 	{
-		action.ConfirmThrows(typeof(E), message);
+		return action.ConfirmThrows(typeof(E), message);
 	}
 
-	public static void ConfirmThrows<E>(this Action action, string? message = null)
+	public static Action ConfirmThrows<E>(this Action action, string? message = null)
 	{
 		Func<object> func = () =>
 		{
@@ -43,11 +43,13 @@ public static class ConfirmExceptionExtensions
 		};
 
 		func.ConfirmThrows(typeof(E), message);
+
+		return action;
 	}
 	#endregion
 
 	#region ConfirmNotThrows
-	public static void ConfirmNotThrows<T>(this Func<T> action, Type e, string? message = null)
+	public static Func<T> ConfirmNotThrows<T>(this Func<T> action, Type e, string? message = null)
 	{
 		try
 		{
@@ -63,15 +65,17 @@ public static class ConfirmExceptionExtensions
 				);
 			}
 		}
+
+		return action;
 	}
 
-	public static void ConfirmNotThrows<E>(this Func<object?> action, string? message = null)
+	public static Func<object?> ConfirmNotThrows<E>(this Func<object?> action, string? message = null)
 	where E : Exception
 	{
-		ConfirmNotThrows(action, typeof(E), message);
+		return ConfirmNotThrows(action, typeof(E), message);
 	}
 
-	public static void ConfirmNotThrows<E>(this Action action, string? message = null)
+	public static Action ConfirmNotThrows<E>(this Action action, string? message = null)
 	{
 		Func<object> func = () =>
 		{
@@ -80,6 +84,8 @@ public static class ConfirmExceptionExtensions
 		};
 
 		func.ConfirmNotThrows(typeof(E), message);
+
+		return action;
 	}
 	#endregion
 }

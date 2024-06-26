@@ -8,24 +8,22 @@ Each class that contains tests must be labelled with the `TestClass` attribute.
 
 Each method, however, must be tagged with the `TestCase` attribute.
 
-Example test class:
+Chaining assertions is allowed, so something like this is possible:
 
 ```cs
 using Confirma.Attributes;
-using Confirma.Exceptions;
 using Confirma.Extensions;
-
-namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmBooleanTest
+public static class TestSomething
 {
- [TestCase]
- public static void ConfirmTrue_WhenTrue()
- {
-  true.ConfirmTrue();
- }
+    [TestCase]
+    public static void Something()
+    {
+        5.ConfirmInRange(0, 15)
+        .ConfirmNotEqual(7);
+    }
 }
 ```
 
