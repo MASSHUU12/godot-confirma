@@ -6,9 +6,9 @@ namespace Confirma.Extensions;
 public static class ConfirmStringExtensions
 {
 	#region ConfirmEmpty
-	public static void ConfirmEmpty(this string? actual, string? message = null)
+	public static string? ConfirmEmpty(this string? actual, string? message = null)
 	{
-		if (string.IsNullOrEmpty(actual)) return;
+		if (string.IsNullOrEmpty(actual)) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -16,9 +16,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotEmpty(this string? actual, string? message = null)
+	public static string? ConfirmNotEmpty(this string? actual, string? message = null)
 	{
-		if (!string.IsNullOrEmpty(actual)) return;
+		if (!string.IsNullOrEmpty(actual)) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -28,14 +28,14 @@ public static class ConfirmStringExtensions
 	#endregion
 
 	#region ConfirmContains
-	public static void ConfirmContains(
+	public static string? ConfirmContains(
 		this string? actual,
 		string expected,
 		StringComparison comparisonType = StringComparison.OrdinalIgnoreCase,
 		string? message = null
 	)
 	{
-		if (actual?.Contains(expected, comparisonType) == true) return;
+		if (actual?.Contains(expected, comparisonType) == true) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -43,9 +43,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotContains(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotContains(this string? actual, string expected, string? message = null)
 	{
-		if (actual?.Contains(expected) == false) return;
+		if (actual?.Contains(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -55,9 +55,9 @@ public static class ConfirmStringExtensions
 	#endregion
 
 	#region ConfirmStartsWith
-	public static void ConfirmStartsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmStartsWith(this string? actual, string expected, string? message = null)
 	{
-		if (actual?.StartsWith(expected) == true) return;
+		if (actual?.StartsWith(expected) == true) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -65,9 +65,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotStartsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotStartsWith(this string? actual, string expected, string? message = null)
 	{
-		if (actual?.StartsWith(expected) == false) return;
+		if (actual?.StartsWith(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -77,9 +77,9 @@ public static class ConfirmStringExtensions
 	#endregion
 
 	#region ConfirmEndsWith
-	public static void ConfirmEndsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmEndsWith(this string? actual, string expected, string? message = null)
 	{
-		if (actual?.EndsWith(expected) == true) return;
+		if (actual?.EndsWith(expected) == true) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -87,9 +87,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotEndsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotEndsWith(this string? actual, string expected, string? message = null)
 	{
-		if (actual?.EndsWith(expected) == false) return;
+		if (actual?.EndsWith(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -99,9 +99,9 @@ public static class ConfirmStringExtensions
 	#endregion
 
 	#region ConfirmHasLength
-	public static void ConfirmHasLength(this string? actual, int expected, string? message = null)
+	public static string? ConfirmHasLength(this string? actual, int expected, string? message = null)
 	{
-		if (actual?.Length == expected) return;
+		if (actual?.Length == expected) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -109,9 +109,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotHasLength(this string? actual, int expected, string? message = null)
+	public static string? ConfirmNotHasLength(this string? actual, int expected, string? message = null)
 	{
-		if (actual?.Length != expected) return;
+		if (actual?.Length != expected) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -121,9 +121,9 @@ public static class ConfirmStringExtensions
 	#endregion
 
 	#region ConfirmEqualsCaseInsensitive
-	public static void ConfirmEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
+	public static string? ConfirmEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
 	{
-		if (string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return;
+		if (string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return actual;
 
 		throw new ConfirmAssertException(
 			message
@@ -131,9 +131,9 @@ public static class ConfirmStringExtensions
 		);
 	}
 
-	public static void ConfirmNotEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
 	{
-		if (!string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return;
+		if (!string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return actual;
 
 		throw new ConfirmAssertException(
 			message

@@ -107,4 +107,12 @@ public static class ChainingTest
 			.ConfirmSignalDoesNotExist("Lorem ipsum")
 		).QueueFree();
 	}
+
+	[TestCase]
+	public static void ChainingOnString()
+	{
+		"Lorem ipsum dolor sit amet"
+			.ConfirmStartsWith("Lorem")
+			.ConfirmEndsWith("amet");
+	}
 }
