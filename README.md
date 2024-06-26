@@ -21,6 +21,7 @@
 
 - Writing and executing tests in C#
 - Custom assertion library
+- Extensions for Random class
 - Independent of Godot editor (but can be accessed from Godot)
 - Simple syntax for writing tests
 - Parametrized tests
