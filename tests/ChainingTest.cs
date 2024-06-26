@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Confirma.Attributes;
 using Confirma.Extensions;
 
@@ -28,6 +29,20 @@ public static class ChainingTest
 	public static void ChainingOnBoolean()
 	{
 		true.ConfirmTrue().ConfirmTrue(); // XD
+	}
+
+	[TestCase]
+	public static void ChainingOnDictionary()
+	{
+		new Dictionary<string, int>()
+		{
+			{"key1", 0},
+			{"key2", 0},
+			{"key3", 0},
+		}
+		.ConfirmContainsKey("key1")
+		.ConfirmNotContainsKey("key4")
+		.ConfirmNotContainsValue(1);
 	}
 
 	[TestCase]
