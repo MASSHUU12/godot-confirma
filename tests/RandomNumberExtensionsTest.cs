@@ -19,6 +19,22 @@ public static class RandomNumberExtensionsTest
 	}
 
 	[TestCase]
+	public static void NextDigit()
+	{
+		rg.NextDigit().ConfirmInRange(0, 9);
+		rg.NextDigit().ConfirmInRange(0, 9);
+		rg.NextDigit().ConfirmInRange(0, 9);
+	}
+
+	[TestCase]
+	public static void NextNonZeroDigit()
+	{
+		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
+		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
+		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
+	}
+
+	[TestCase]
 	public static void NextDecimal()
 	{
 		rg.NextDecimal().ConfirmInRange(decimal.MinValue, decimal.MaxValue);

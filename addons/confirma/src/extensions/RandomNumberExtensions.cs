@@ -17,6 +17,16 @@ public static class RandomNumber
 		}
 	}
 
+	public static int NextDigit(this Random rg)
+	{
+		return rg.Next(0, 10);
+	}
+
+	public static int NextNonZeroDigit(this Random rg)
+	{
+		return rg.Next(1, 10);
+	}
+
 	public static decimal NextDecimal(this Random rg)
 	{
 		return rg.NextDecimal(rg.Next(2) == 1);
