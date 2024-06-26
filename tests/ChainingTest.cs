@@ -97,4 +97,14 @@ public static class ChainingTest
 	{
 		5.ConfirmGraterThan(3).ConfirmInRange(0, 10);
 	}
+
+	[TestCase]
+	public static void ChainingOnSignal()
+	{
+		(
+			(Button)new Button()
+			.ConfirmSignalExists("pressed")
+			.ConfirmSignalDoesNotExist("Lorem ipsum")
+		).QueueFree();
+	}
 }
