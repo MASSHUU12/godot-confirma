@@ -5,7 +5,7 @@ namespace Confirma.Extensions;
 /// <summary>
 /// Inspired by https://stackoverflow.com/a/2000459.
 /// </summary>
-public static class RandomNumber
+public static class RandomNumberExtensions
 {
 	public static int NextInt32(this Random rg)
 	{
