@@ -72,6 +72,15 @@ public static class ChainingTest
 	}
 
 	[TestCase]
+	public static void ChainingOnIEnumerable()
+	{
+		new int[] { 0, 1, 2, 3, 4 }
+			.ConfirmNotEmpty()
+			.ConfirmContains(2)
+			.ConfirmElementsAreUnique();
+	}
+
+	[TestCase]
 	public static void ChainingOnNumeric()
 	{
 		5.ConfirmIsNotZero().ConfirmIsPositive();
