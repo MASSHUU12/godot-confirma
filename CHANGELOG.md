@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- ConfirmSign extension to ConfirmNumericExtensions.
+- ConfirmUuidExtensions class.
+- Simple library for generating random:
+  - numbers
+  - UUIDs
+
+### Changed
+
+- Improved default messages for ConfirmRangeExtensions.
+
 ## [0.4.2-beta 2024-06-14]
 
 ### Changed
