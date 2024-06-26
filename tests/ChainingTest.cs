@@ -129,4 +129,10 @@ public static class ChainingTest
 	{
 		Guid.NewGuid().ToString().ConfirmValidUuid4().ConfirmValidUuid4();
 	}
+
+	[TestCase]
+	public static void ChainingOnVector()
+	{
+		Vector2.Up.ConfirmEqual(Vector2.Up).ConfirmNotEqual(Vector2.Down);
+	}
 }
