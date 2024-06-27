@@ -19,22 +19,20 @@ public class TestingMethod
 
 	public TestingMethod(MethodInfo method)
 	{
+		Result = new();
 		Method = method;
 		TestCases = DiscoverTestCases();
 		Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
-		Result = new();
 	}
 
 	public TestMethodResult Run(TestsProps props)
 	{
-		uint testsPassed = 0, testsFailed = 0, testsIgnored = 0;
-
 		foreach (TestCase test in TestCases)
 		{
 			var attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
 			if (attr is not null && attr.IsIgnored())
 			{
-				testsIgnored++;
+				Result.TestsIgnored++;
 
 				TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, attr.Reason);
 				continue;
@@ -43,13 +41,13 @@ public class TestingMethod
 			try
 			{
 				test.Run();
-				testsPassed++;
+				Result.TestsPassed++;
 
 				TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
 			}
 			catch (ConfirmAssertException e)
 			{
-				testsFailed++;
+				Result.TestsFailed++;
 
 				TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
 
@@ -57,7 +55,7 @@ public class TestingMethod
 			}
 		}
 
-		return new(testsPassed, testsFailed, testsIgnored);
+		return Result;
 	}
 
 	private IEnumerable<TestCase> DiscoverTestCases()
@@ -70,6 +68,7 @@ public class TestingMethod
 			if (discovered.Current is TestCaseAttribute testCase)
 			{
 				cases.Add(new(Method, testCase.Parameters, 0));
+				continue;
 			}
 
 			if (discovered.Current is RepeatAttribute repeat)
@@ -80,6 +79,7 @@ public class TestingMethod
 						$"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
 						"because it does not have the TestCase attribute after it.\n"
 					);
+					Result.Warnings++;
 					continue;
 				}
 
@@ -88,6 +88,7 @@ public class TestingMethod
 					Log.PrintWarning(
 						$"The Repeat attributes for the \"{Method.Name}\" cannot occur in succession.\n"
 					);
+					Result.Warnings++;
 					continue;
 				}
 
