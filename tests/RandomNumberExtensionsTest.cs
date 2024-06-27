@@ -10,35 +10,31 @@ public static class RandomNumberExtensionsTest
 {
 	private static readonly Random rg = new();
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextInt32()
 	{
 		rg.NextInt32().ConfirmInRange(int.MinValue, int.MaxValue);
-		rg.NextInt32().ConfirmInRange(int.MinValue, int.MaxValue);
-		rg.NextInt32().ConfirmInRange(int.MinValue, int.MaxValue);
 	}
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextDigit()
 	{
 		rg.NextDigit().ConfirmInRange(0, 9);
-		rg.NextDigit().ConfirmInRange(0, 9);
-		rg.NextDigit().ConfirmInRange(0, 9);
 	}
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextNonZeroDigit()
 	{
 		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
-		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
-		rg.NextNonZeroDigit().ConfirmInRange(1, 9);
 	}
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextDecimal()
 	{
-		rg.NextDecimal().ConfirmInRange(decimal.MinValue, decimal.MaxValue);
-		rg.NextDecimal().ConfirmInRange(decimal.MinValue, decimal.MaxValue);
 		rg.NextDecimal().ConfirmInRange(decimal.MinValue, decimal.MaxValue);
 	}
 
@@ -49,11 +45,10 @@ public static class RandomNumberExtensionsTest
 		rg.NextDecimal(sign).ConfirmSign(sign);
 	}
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextNonNegativeDecimal()
 	{
-		rg.NextNonNegativeDecimal().ConfirmIsPositive();
-		rg.NextNonNegativeDecimal().ConfirmIsPositive();
 		rg.NextNonNegativeDecimal().ConfirmIsPositive();
 	}
 
@@ -86,11 +81,10 @@ public static class RandomNumberExtensionsTest
 		action.ConfirmThrows<InvalidOperationException>();
 	}
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextNonNegativeLong()
 	{
-		rg.NextNonNegativeLong().ConfirmIsPositive();
-		rg.NextNonNegativeLong().ConfirmIsPositive();
 		rg.NextNonNegativeLong().ConfirmIsPositive();
 	}
 

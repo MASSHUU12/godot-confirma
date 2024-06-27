@@ -35,12 +35,12 @@ Access to the scene tree is enabled by the static `Global` class. It provides th
 
 ### TestClass
 
-The `TestClass` attribute is used to identify the classes in which the tests are located.
+The TestClass attribute is used to identify the classes in which the tests are located.
 It is required, Confirma ignores all classes that do not have this attribute.
 
 ### TestCase
 
-The `TestCase` attribute is used to mark the methods that perform the tests.
+The TestCase attribute is used to mark the methods that perform the tests.
 It also accepts arguments, which allows parameterized tests.
 
 ### AfterAll
@@ -80,3 +80,8 @@ Used to display a different name for the test than the method name.
 ### Parallelizable
 
 Allows to run all the tests included in the class on separate CPU cores.
+
+### Repeat
+
+The Repeat attribute allows you to run a particular TestCase several times.
+Repeat refers to the next TestCase, so the order in which the attributes are defined matters.

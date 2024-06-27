@@ -10,11 +10,10 @@ public static class RandomUuidExtensionsTest
 {
 	private static readonly Random rg = new();
 
+	[Repeat(3)]
 	[TestCase]
 	public static void NextUuid4()
 	{
-		rg.NextUuid4().ToString().ConfirmValidUuid4();
-		rg.NextUuid4().ToString().ConfirmValidUuid4();
 		rg.NextUuid4().ToString().ConfirmValidUuid4();
 	}
 }
