@@ -76,16 +76,18 @@ public class TestingMethod
 			{
 				if (!discovered.MoveNext())
 				{
-					Log.PrintError(
+					Log.PrintWarning(
 						$"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
-						"because it does not have the TestCase attribute after it."
+						"because it does not have the TestCase attribute after it.\n"
 					);
 					continue;
 				}
 
 				if (discovered.Current is RepeatAttribute)
 				{
-					Log.PrintError("Repeat attributes cannot occur in succession.");
+					Log.PrintWarning(
+						$"The Repeat attributes for the \"{Method.Name}\" cannot occur in succession.\n"
+					);
 					continue;
 				}
 
