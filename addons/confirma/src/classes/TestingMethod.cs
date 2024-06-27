@@ -29,29 +29,32 @@ public class TestingMethod
 	{
 		foreach (TestCase test in TestCases)
 		{
-			var attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
-			if (attr is not null && attr.IsIgnored())
+			for (ushort i = 0; i <= test.Repeat; i++)
 			{
-				Result.TestsIgnored++;
+				var attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
+				if (attr is not null && attr.IsIgnored())
+				{
+					Result.TestsIgnored++;
 
-				TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, attr.Reason);
-				continue;
-			}
+					TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, attr.Reason);
+					continue;
+				}
 
-			try
-			{
-				test.Run();
-				Result.TestsPassed++;
+				try
+				{
+					test.Run();
+					Result.TestsPassed++;
 
-				TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
-			}
-			catch (ConfirmAssertException e)
-			{
-				Result.TestsFailed++;
+					TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
+				}
+				catch (ConfirmAssertException e)
+				{
+					Result.TestsFailed++;
 
-				TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
+					TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
 
-				if (props.ExitOnFail) props.CallExitOnFailure();
+					if (props.ExitOnFail) props.CallExitOnFailure();
+				}
 			}
 		}
 
@@ -71,6 +74,9 @@ public class TestingMethod
 				continue;
 			}
 
+			// I rely on the order in which the attributes are defined
+			// to determine which TestCase attributes should be assigned values
+			// from the Repeat attributes.
 			if (discovered.Current is RepeatAttribute repeat)
 			{
 				if (!discovered.MoveNext())
