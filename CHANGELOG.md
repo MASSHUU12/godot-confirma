@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
   - Numbers
   - UUIDs
 - Assertion chaining.
+- Repeat attribute.
 
 ### Changed
 
