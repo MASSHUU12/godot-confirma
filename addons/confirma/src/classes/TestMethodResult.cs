@@ -2,9 +2,9 @@ namespace Confirma.Classes;
 
 public class TestMethodResult
 {
-	uint TestsPassed { get; set; }
-	uint TestsFailed { get; set; }
-	uint TestsIgnored { get; set; }
+	public uint TestsPassed { get; set; }
+	public uint TestsFailed { get; set; }
+	public uint TestsIgnored { get; set; }
 
 	public TestMethodResult(uint passed, uint failed, uint ignored)
 	{
