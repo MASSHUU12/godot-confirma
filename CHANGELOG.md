@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Extension classes:
   - ConfirmUuidExtensions
   - ConfirmReferenceExtensions
+  - ConfirmDateTimeExtensions
 - Simple library for generating random:
   - Numbers
   - UUIDs
@@ -19,6 +20,10 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Improved default messages for ConfirmRangeExtensions.
+
+### Fixed
+
+- Typo in ConfirmRangeExtensions.
 
 ## [0.4.2-beta 2024-06-14]
 

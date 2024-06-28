@@ -27,24 +27,24 @@ public static class ConfirmRangeExtensions
 		return actual;
 	}
 
-	public static T ConfirmGraterThan<T>(this T actual, T value, string? message = null)
+	public static T ConfirmGreaterThan<T>(this T actual, T value, string? message = null)
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo(value) <= 0)
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected object to be grater than {value}, but {actual} was provided."
+				$"Expected object to be greater than {value}, but {actual} was provided."
 			);
 		return actual;
 	}
 
-	public static T ConfirmGraterThanOrEqual<T>(this T actual, T value, string? message = null)
+	public static T ConfirmGreaterThanOrEqual<T>(this T actual, T value, string? message = null)
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo(value) < 0)
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected object to be grater than or equal to {value}, but {actual} was provided."
+				$"Expected object to be greater than or equal to {value}, but {actual} was provided."
 			);
 		return actual;
 	}

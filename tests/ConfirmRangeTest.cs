@@ -7,7 +7,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmRangeExtension
+public static class ConfirmRangeExtensionTest
 {
 	[TestCase(1, 0, 2)]
 	[TestCase(0, 0, 2)]
@@ -45,32 +45,32 @@ public static class ConfirmRangeExtension
 
 	[TestCase(1, 0)]
 	[TestCase(0, -1)]
-	public static void ConfirmGraterThan_WhenGraterThan(int actual, int value)
+	public static void ConfirmGreaterThan_WhenGreaterThan(int actual, int value)
 	{
-		actual.ConfirmGraterThan(value);
+		actual.ConfirmGreaterThan(value);
 	}
 
 	[TestCase(0, 1)]
 	[TestCase(-1, 0)]
-	public static void ConfirmGraterThan_WhenNotGraterThan(int actual, int value)
+	public static void ConfirmGreaterThan_WhenNotGreaterThan(int actual, int value)
 	{
-		Action action = () => actual.ConfirmGraterThan(value);
+		Action action = () => actual.ConfirmGreaterThan(value);
 
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 
 	[TestCase(2, 1)]
 	[TestCase(-1, -1)]
-	public static void ConfirmGraterThanOrEqual_WhenGraterThanOrEqual(int actual, int value)
+	public static void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(int actual, int value)
 	{
-		actual.ConfirmGraterThanOrEqual(value);
+		actual.ConfirmGreaterThanOrEqual(value);
 	}
 
 	[TestCase(0, 1)]
 	[TestCase(-1, 0)]
-	public static void ConfirmGraterThanOrEqual_WhenNotGraterThanOrEqual(int actual, int value)
+	public static void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(int actual, int value)
 	{
-		Action action = () => actual.ConfirmGraterThanOrEqual(value);
+		Action action = () => actual.ConfirmGreaterThanOrEqual(value);
 
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
