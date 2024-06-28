@@ -69,10 +69,6 @@ Runs before every test method in the class.
 
 Runs after every test method in the class.
 
-### Timeout
-
-Not implemented.
-
 ### TestName
 
 Used to display a different name for the test than the method name.

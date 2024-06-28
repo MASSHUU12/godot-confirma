@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Extension classes:
   - ConfirmUuidExtensions
   - ConfirmEventExtensions
+  - ConfirmActionExtensions
   - ConfirmDateTimeExtensions
   - ConfirmReferenceExtensions
 - Simple library for generating random:
