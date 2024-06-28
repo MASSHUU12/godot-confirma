@@ -13,8 +13,9 @@ All notable changes to this project will be documented in this file.
   - ConfirmDoesNotMatchPattern
 - Extension classes:
   - ConfirmUuidExtensions
-  - ConfirmReferenceExtensions
+  - ConfirmEventExtensions
   - ConfirmDateTimeExtensions
+  - ConfirmReferenceExtensions
 - Simple library for generating random:
   - Numbers
   - UUIDs
