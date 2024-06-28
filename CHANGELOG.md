@@ -7,7 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ConfirmSign extension to ConfirmNumericExtensions.
-- ConfirmUuidExtensions class.
+- Extension classes:
+  - ConfirmUuidExtensions
+  - ConfirmReferenceExtensions
 - Simple library for generating random:
   - Numbers
   - UUIDs
