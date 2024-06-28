@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Confirma.Exceptions;
 
 namespace Confirma.Extensions;
@@ -139,6 +140,22 @@ public static class ConfirmStringExtensions
 			message
 			?? $"Expected string to not equal: {expected} but found: {actual}"
 		);
+	}
+	#endregion
+
+	#region ConfirmMatchesPattern
+	public static string ConfirmMatchesPattern(this string value, string pattern, string? message = null)
+	{
+		if (Regex.IsMatch(value, pattern)) return value;
+
+		throw new ConfirmAssertException(message ?? $"Expected string to match pattern '{pattern}', but it did not.");
+	}
+
+	public static string ConfirmDoesNotMatchPattern(this string value, string pattern, string? message = null)
+	{
+		if (!Regex.IsMatch(value, pattern)) return value;
+
+		throw new ConfirmAssertException(message ?? $"Expected string to not match pattern '{pattern}', but it did.");
 	}
 	#endregion
 }

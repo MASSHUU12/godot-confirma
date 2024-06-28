@@ -215,4 +215,40 @@ public static class ConfirmStringTest
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
+
+	#region ConfirmMatchesPattern
+	[TestCase("Lorem ipsum", @"\bL\w*\b")]
+	[TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})")]
+	public static void ConfirmMatchesPattern_WhenPatternMatches(string value, string pattern)
+	{
+		value.ConfirmMatchesPattern(pattern);
+	}
+
+	[TestCase("Dorem ipsum", @"\bL\w*\b")]
+	[TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})")]
+	public static void ConfirmMatchesPattern_WhenPatternNotMatches(string value, string pattern)
+	{
+		Action action = () => value.ConfirmMatchesPattern(pattern);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
+
+	#region ConfirmDoesNotMatchPattern
+	[TestCase("Dorem ipsum", @"\bL\w*\b")]
+	[TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})")]
+	public static void ConfirmDoesNotMatchPattern_WhenPatternNotMatches(string value, string pattern)
+	{
+		value.ConfirmDoesNotMatchPattern(pattern);
+	}
+
+	[TestCase("Lorem ipsum", @"\bL\w*\b")]
+	[TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})")]
+	public static void ConfirmDoesNotMatchPattern_WhenPatternMatches(string value, string pattern)
+	{
+		Action action = () => value.ConfirmDoesNotMatchPattern(pattern);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }

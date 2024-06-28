@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- ConfirmSign extension to ConfirmNumericExtensions.
+- ConfirmMatchesPattern
+- Extensions:
+  - ConfirmSign
+  - ConfirmMatchesPattern
+  - ConfirmDoesNotMatchPattern
 - Extension classes:
   - ConfirmUuidExtensions
   - ConfirmReferenceExtensions
