@@ -95,7 +95,7 @@ public static class ChainingTest
 	[TestCase]
 	public static void ChainingOnRange()
 	{
-		5.ConfirmGraterThan(3).ConfirmInRange(0, 10);
+		5.ConfirmGreaterThan(3).ConfirmInRange(0, 10);
 	}
 
 	[TestCase]

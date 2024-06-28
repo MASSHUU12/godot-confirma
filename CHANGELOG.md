@@ -20,6 +20,10 @@ All notable changes to this project will be documented in this file.
 
 - Improved default messages for ConfirmRangeExtensions.
 
+### Fixed
+
+- Typo in ConfirmRangeExtensions.
+
 ## [0.4.2-beta 2024-06-14]
 
 ### Changed
