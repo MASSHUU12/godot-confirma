@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - Extensions:
   - ConfirmSign
   - ConfirmMatchesPattern
+  - ConfirmThrowsWMessage
+  - ConfirmNotThrowsWMessage
   - ConfirmDoesNotMatchPattern
 - Extension classes:
   - ConfirmUuidExtensions
