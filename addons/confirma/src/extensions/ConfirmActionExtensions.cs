@@ -12,7 +12,7 @@ public static class ConfirmActionExtensions
 		{
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected action to complete within {timeSpan.TotalMilliseconds} ms, but it did not."
+				$"Action did not complete within {timeSpan.TotalMilliseconds} ms."
 			);
 		}
 
@@ -32,7 +32,7 @@ public static class ConfirmActionExtensions
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected action to not complete within {timeSpan.TotalMilliseconds} ms, but it did."
+			$"Action completed within {timeSpan.TotalMilliseconds} ms, but it should not have."
 		);
 	}
 }
