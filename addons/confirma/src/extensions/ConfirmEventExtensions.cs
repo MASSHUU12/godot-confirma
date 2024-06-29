@@ -30,7 +30,7 @@ public static class ConfirmEventExtensions
 		{
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected {eventHandler?.GetType().Name ?? "event"} to be raised, but it was not."
+				$"{eventHandler?.GetType().Name ?? "event"} was not raised."
 			);
 		}
 
@@ -62,7 +62,7 @@ public static class ConfirmEventExtensions
 		{
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected {eventHandler?.GetType().Name ?? "event"} to not be raised, but it was."
+				$"{eventHandler?.GetType().Name ?? "event"} was raised."
 			);
 		}
 
