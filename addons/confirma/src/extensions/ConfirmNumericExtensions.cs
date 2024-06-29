@@ -13,14 +13,22 @@ public static class ConfirmNumericExtensions
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) > 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to be positive.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to be positive."
+		);
 	}
 
 	public static T ConfirmIsNotPositive<T>(this T actual, string? message = null)
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) <= 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to not be positive.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to not be positive."
+		);
 	}
 	#endregion
 
@@ -32,14 +40,22 @@ public static class ConfirmNumericExtensions
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) < 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to be negative.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to be negative."
+		);
 	}
 
 	public static T ConfirmIsNotNegative<T>(this T actual, string? message = null)
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) >= 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to not be negative.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to not be negative."
+		);
 	}
 	#endregion
 
@@ -55,7 +71,7 @@ public static class ConfirmNumericExtensions
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected sign to be {(sign ? "missing" : "provided")}."
+			$"Expected {actual} to have a {(sign ? "negative" : "positive")} sign."
 		);
 	}
 	#endregion
@@ -65,14 +81,22 @@ public static class ConfirmNumericExtensions
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) == 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to be zero.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to be zero."
+		);
 	}
 
 	public static T ConfirmIsNotZero<T>(this T actual, string? message = null)
 	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) != 0) return actual;
-		throw new ConfirmAssertException(message ?? "Expected object to not be zero.");
+
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected {actual} to not be zero."
+		);
 	}
 	#endregion
 }

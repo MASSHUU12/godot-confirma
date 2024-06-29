@@ -11,7 +11,7 @@ public static class ConfirmRangeExtensions
 		if (actual.CompareTo(min) < 0 || actual.CompareTo(max) > 0)
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected object to be in range [{min}, {max}], but {actual} was provided."
+				$"Expected {actual} to be within the range [{min}, {max}]."
 			);
 		return actual;
 	}
@@ -22,7 +22,7 @@ public static class ConfirmRangeExtensions
 		if (actual.CompareTo(min) >= 0 && actual.CompareTo(max) <= 0)
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected object to be not in range [{min}, {max}], but {actual} was provided."
+				$"Expected {actual} to be outside the range [{min}, {max}]."
 			);
 		return actual;
 	}
@@ -33,7 +33,7 @@ public static class ConfirmRangeExtensions
 		if (actual.CompareTo(value) <= 0)
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected object to be greater than {value}, but {actual} was provided."
+				$"Expected {actual} to be greater than {value}."
 			);
 		return actual;
 	}

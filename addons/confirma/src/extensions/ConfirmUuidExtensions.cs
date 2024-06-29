@@ -11,7 +11,7 @@ public static class ConfirmUuidExtensions
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected string to be a valid UUID, but '{actual}' was provided."
+			$"Expected a valid UUID, but '{actual}' is not in the correct format."
 		);
 	}
 
@@ -21,7 +21,7 @@ public static class ConfirmUuidExtensions
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected string to be not a valid UUID, but '{actual}' was provided."
+			$"Expected '{actual}' to not be a valid UUID."
 		);
 	}
 }

@@ -8,13 +8,13 @@ public static class ConfirmNullExtensions
 	{
 		if (obj is null) return obj;
 
-		throw new ConfirmAssertException(message ?? "Expected object to be null but it was not.");
+		throw new ConfirmAssertException(message ?? $"Expected null, but got {obj}.");
 	}
 
 	public static object? ConfirmNotNull(this object? obj, string? message = null)
 	{
 		if (obj is not null) return obj;
 
-		throw new ConfirmAssertException(message ?? "Expected object to be not null but it was.");
+		throw new ConfirmAssertException(message ?? "Expected a non-null value.");
 	}
 }
