@@ -15,7 +15,7 @@
 
 ## Overview
 
-![Confirma](https://github.com/MASSHUU12/godot-confirma/assets/61974579/e453e5f7-36a4-4623-9c83-4ddd66cd849c)
+![Confirma](https://github.com/MASSHUU12/godot-confirma/assets/61974579/47d2a6b1-113b-4142-8441-244e14f894b8)
 
 ### Features
 
