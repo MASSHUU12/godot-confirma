@@ -27,7 +27,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Improved default messages for ConfirmRangeExtensions.
+- Improved default messages.
 
 ### Fixed
 
