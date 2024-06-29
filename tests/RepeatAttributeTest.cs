@@ -21,5 +21,6 @@ public static class RepeatAttributeTest
 	public static void AfterAll()
 	{
 		_runCount.ConfirmEqual(5);
+		_runCount = 0;
 	}
 }
