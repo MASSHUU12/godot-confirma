@@ -94,4 +94,44 @@ public static class ConfirmExceptionTest
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
+
+	#region ConfirmNotThrowsWMessage
+	[TestCase("")]
+	[TestCase("Lorem ipsum")]
+	public static void ConfirmNotThrowsWMessage_WhenNotThrows(string actual)
+	{
+		Action action = () => {/* Not throws */};
+
+		action.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
+	}
+
+	[TestCase("")]
+	[TestCase("Lorem ipsum")]
+	public static void ConfirmNotThrowsWMessage_WhenThrows(string actual)
+	{
+		Action action = () =>
+		{
+			Action a = () => throw new NotImplementedException(actual);
+
+			a.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
+		};
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+
+	[TestCase("", "Expected")]
+	[TestCase("Actual", "")]
+	[TestCase("Lorem ipsum", "dolor sit amet")]
+	public static void ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(string actual, string expected)
+	{
+		Action action = () =>
+		{
+			Action a = () => throw new NotImplementedException(actual);
+
+			a.ConfirmNotThrowsWMessage<NotImplementedException>(expected);
+		};
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }

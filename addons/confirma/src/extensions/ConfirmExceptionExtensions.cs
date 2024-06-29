@@ -163,4 +163,46 @@ public static class ConfirmExceptionExtensions
 		return action;
 	}
 	#endregion
+
+	#region ConfirmNotThrowsWMessage
+	public static Func<T> ConfirmNotThrowsWMessage<T>(this Func<T> action, Type e, string exMessage, string? message = null)
+	{
+		try
+		{
+			action();
+		}
+		catch (Exception ex)
+		{
+			if (ex.GetType() == e)
+			{
+				throw new ConfirmAssertException(
+					message ??
+					$"Expected exception of type '{e.Name}' with message '{exMessage}' not to be thrown but it was."
+				);
+			}
+		}
+
+		return action;
+	}
+
+	public static Func<object?> ConfirmNotThrowsWMessage<E>(this Func<object?> action, string exMessage, string? message = null)
+	where E : Exception
+	{
+		return ConfirmNotThrowsWMessage(action, typeof(E), exMessage, message);
+	}
+
+	public static Action ConfirmNotThrowsWMessage<E>(this Action action, string exMessage, string? message = null)
+	where E : Exception
+	{
+		Func<object> func = () =>
+		{
+			action();
+			return new object();
+		};
+
+		func.ConfirmNotThrowsWMessage(typeof(E), exMessage, message);
+
+		return action;
+	}
+	#endregion
 }
