@@ -115,4 +115,44 @@ public static class ConfirmNumericTest
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
+
+	#region ConfirmIsOdd
+	[TestCase(1)]
+	[TestCase(69)]
+	[TestCase(2137)]
+	public static void ConfirmIsOdd_WhenIsOdd(int actual)
+	{
+		actual.ConfirmIsOdd();
+	}
+
+	[TestCase(2)]
+	[TestCase(70)]
+	[TestCase(2138)]
+	public static void ConfirmIsOdd_WhenIsEven(int actual)
+	{
+		Action action = () => actual.ConfirmIsOdd();
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
+
+	#region ConfirmIsEven
+	[TestCase(2)]
+	[TestCase(70)]
+	[TestCase(2138)]
+	public static void ConfirmIsEven_WhenIsEven(int actual)
+	{
+		actual.ConfirmIsEven();
+	}
+
+	[TestCase(1)]
+	[TestCase(69)]
+	[TestCase(2137)]
+	public static void ConfirmIsEven_WhenIsOdd(int actual)
+	{
+		Action action = () => actual.ConfirmIsEven();
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }

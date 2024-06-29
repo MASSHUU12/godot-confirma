@@ -99,4 +99,20 @@ public static class ConfirmNumericExtensions
 		);
 	}
 	#endregion
+
+	public static T ConfirmIsOdd<T>(this T actual, string? message = null)
+	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	{
+		if ((Convert.ToInt64(actual) & 1) != 0) return actual;
+
+		throw new ConfirmAssertException(message ?? $"Expected {actual} to be odd.");
+	}
+
+	public static T ConfirmIsEven<T>(this T actual, string? message = null)
+	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	{
+		if ((Convert.ToInt64(actual) & 1) == 0) return actual;
+
+		throw new ConfirmAssertException(message ?? $"Expected {actual} to be even.");
+	}
 }
