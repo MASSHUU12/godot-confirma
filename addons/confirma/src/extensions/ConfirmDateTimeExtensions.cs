@@ -8,7 +8,7 @@ public static class ConfirmDateTimeExtensions
 	{
 		return actual.ConfirmLessThan(
 			dateTime,
-			message ?? $"Expected {actual.ToUniversalTime()} to be before {dateTime.ToUniversalTime()}."
+			message ?? $"{actual.ToUniversalTime()} is not before {dateTime.ToUniversalTime()}."
 		);
 	}
 
@@ -16,7 +16,7 @@ public static class ConfirmDateTimeExtensions
 	{
 		return actual.ConfirmLessThanOrEqual(
 			dateTime,
-			message ?? $"Expected {actual.ToUniversalTime()} to be on or before {dateTime.ToUniversalTime()}."
+			message ?? $"{actual.ToUniversalTime()} is not on or before {dateTime.ToUniversalTime()}."
 		);
 	}
 
@@ -24,7 +24,7 @@ public static class ConfirmDateTimeExtensions
 	{
 		return actual.ConfirmGreaterThan(
 			dateTime,
-			message ?? $"Expected {actual.ToUniversalTime()} to be after {dateTime.ToUniversalTime()}."
+			message ?? $"{actual.ToUniversalTime()} is not after {dateTime.ToUniversalTime()}."
 		);
 	}
 
@@ -32,7 +32,7 @@ public static class ConfirmDateTimeExtensions
 	{
 		return actual.ConfirmGreaterThanOrEqual(
 			dateTime,
-			message ?? $"Expected {actual.ToUniversalTime()} to be on or after {dateTime.ToUniversalTime()}."
+			message ?? $"{actual.ToUniversalTime()} is not on or after {dateTime.ToUniversalTime()}."
 		);
 	}
 }
