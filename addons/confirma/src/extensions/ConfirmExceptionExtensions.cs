@@ -18,13 +18,13 @@ public static class ConfirmExceptionExtensions
 
 			throw new ConfirmAssertException(
 				message ??
-				$"Expected exception of type '{e.Name}' but exception of type '{ex.GetType().Name}' was thrown."
+				$"Expected {e.Name} exception, but got {ex.GetType().Name} instead."
 			);
 		}
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected exception of type '{e.Name}' but no exception was thrown."
+			$"Expected {e.Name} exception, but no exception was thrown."
 		);
 	}
 
@@ -61,7 +61,7 @@ public static class ConfirmExceptionExtensions
 			{
 				throw new ConfirmAssertException(
 					message ??
-					$"Expected exception of type '{e.Name}' not to be thrown but it was."
+					$"Did not expect {e.Name} exception, but it was thrown."
 				);
 			}
 		}
@@ -109,12 +109,12 @@ public static class ConfirmExceptionExtensions
 			{
 				throw new ConfirmAssertException(
 					message ??
-					$"Expected exception of type '{e.Name}' with message '{exMessage}' " +
-					$"but exception of type '{ex.GetType().Name}' was thrown {(
+					$"Expected {e.Name} exception with message '{exMessage}', " +
+					$"but got {ex.GetType().Name} exception {(
 						string.IsNullOrEmpty(ex.Message)
 						? "without a message"
 						: $"with message '{ex.Message}'"
-					)}."
+					)} instead."
 				);
 			}
 
@@ -122,8 +122,7 @@ public static class ConfirmExceptionExtensions
 			{
 				throw new ConfirmAssertException(
 					message ??
-					$"Expected exception of type '{e.Name}' " +
-					$"but exception of type '{ex.GetType().Name}' was thrown."
+					$"Expected {e.Name} exception, but got {ex.GetType().Name} exception instead."
 				);
 			}
 
@@ -131,15 +130,15 @@ public static class ConfirmExceptionExtensions
 			{
 				throw new ConfirmAssertException(
 					message ??
-					$"Expected exception to be thrown with message '{exMessage}' " +
-					$"but was thrown with message '{ex.Message}'."
+					$"Expected exception to be thrown with message '{exMessage}', " +
+					$"but got message '{ex.Message}' instead."
 				);
 			}
 		}
 
 		throw new ConfirmAssertException(
 			message ??
-			$"Expected exception of type '{e.Name}' but no exception was thrown."
+			$"Expected {e.Name} exception, but no exception was thrown."
 		);
 	}
 
@@ -177,7 +176,7 @@ public static class ConfirmExceptionExtensions
 			{
 				throw new ConfirmAssertException(
 					message ??
-					$"Expected exception of type '{e.Name}' with message '{exMessage}' not to be thrown but it was."
+					$"Did not expect {e.Name} exception with message '{exMessage}', but it was thrown."
 				);
 			}
 		}

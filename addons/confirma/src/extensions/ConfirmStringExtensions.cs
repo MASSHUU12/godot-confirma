@@ -7,23 +7,29 @@ namespace Confirma.Extensions;
 public static class ConfirmStringExtensions
 {
 	#region ConfirmEmpty
-	public static string? ConfirmEmpty(this string? actual, string? message = null)
+	public static string? ConfirmEmpty(
+		this string? actual,
+		string? message = null
+	)
 	{
 		if (string.IsNullOrEmpty(actual)) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected empty string but found: {actual}"
+			message ??
+			$"Expected empty string but found: {actual}"
 		);
 	}
 
-	public static string? ConfirmNotEmpty(this string? actual, string? message = null)
+	public static string? ConfirmNotEmpty(
+		this string? actual,
+		string? message = null
+	)
 	{
 		if (!string.IsNullOrEmpty(actual)) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected non-empty string but found: {actual}"
+			message ??
+			$"Expected non-empty string but found: {actual}"
 		);
 	}
 	#endregion
@@ -39,8 +45,8 @@ public static class ConfirmStringExtensions
 		if (actual?.Contains(expected, comparisonType) == true) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to contain: {expected} but found: {actual}"
+			message ??
+			$"Expected string to contain: {expected} but found: {actual}"
 		);
 	}
 
@@ -49,8 +55,8 @@ public static class ConfirmStringExtensions
 		if (actual?.Contains(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to not contain: {expected} but found: {actual}"
+			message ??
+			$"Expected string to not contain: {expected} but found: {actual}"
 		);
 	}
 	#endregion
@@ -61,101 +67,143 @@ public static class ConfirmStringExtensions
 		if (actual?.StartsWith(expected) == true) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to start with: {expected} but found: {actual}"
+			message ??
+			$"Expected string to start with: {expected} but found: {actual}"
 		);
 	}
 
-	public static string? ConfirmNotStartsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotStartsWith(
+		this string? actual,
+		string expected,
+		string? message = null
+	)
 	{
 		if (actual?.StartsWith(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to not start with: {expected} but found: {actual}"
+			message ??
+			$"Expected string to not start with: {expected} but found: {actual}"
 		);
 	}
 	#endregion
 
 	#region ConfirmEndsWith
-	public static string? ConfirmEndsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmEndsWith(
+		this string? actual,
+		string expected,
+		string? message = null
+	)
 	{
 		if (actual?.EndsWith(expected) == true) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to end with: {expected} but found: {actual}"
+			message ??
+			$"Expected string to end with: {expected} but found: {actual}"
 		);
 	}
 
-	public static string? ConfirmNotEndsWith(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotEndsWith(
+		this string? actual,
+		string expected,
+		string? message = null
+	)
 	{
 		if (actual?.EndsWith(expected) == false) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to not end with: {expected} but found: {actual}"
+			message ??
+			$"Expected string to not end with: {expected} but found: {actual}"
 		);
 	}
 	#endregion
 
 	#region ConfirmHasLength
-	public static string? ConfirmHasLength(this string? actual, int expected, string? message = null)
+	public static string? ConfirmHasLength(
+		this string? actual,
+		int expected,
+		string? message = null
+	)
 	{
 		if (actual?.Length == expected) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to have length: {expected} but found: {actual?.Length}"
+			message ??
+			$"Expected string to have length: {expected} but found: {actual?.Length}"
 		);
 	}
 
-	public static string? ConfirmNotHasLength(this string? actual, int expected, string? message = null)
+	public static string? ConfirmNotHasLength(
+		this string? actual,
+		int expected,
+		string? message = null
+	)
 	{
 		if (actual?.Length != expected) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to not have length: {expected} but found: {actual?.Length}"
+			message ??
+			$"Expected string to not have length: {expected} but found: {actual?.Length}"
 		);
 	}
 	#endregion
 
 	#region ConfirmEqualsCaseInsensitive
-	public static string? ConfirmEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
+	public static string? ConfirmEqualsCaseInsensitive(
+		this string? actual,
+		string expected,
+		string? message = null
+	)
 	{
 		if (string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to equal: {expected} but found: {actual}"
+			message ??
+			$"Expected string to equal: {expected} but found: {actual}"
 		);
 	}
 
-	public static string? ConfirmNotEqualsCaseInsensitive(this string? actual, string expected, string? message = null)
+	public static string? ConfirmNotEqualsCaseInsensitive(
+		this string? actual,
+		string expected,
+		string? message = null
+	)
 	{
 		if (!string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase)) return actual;
 
 		throw new ConfirmAssertException(
-			message
-			?? $"Expected string to not equal: {expected} but found: {actual}"
+			message ??
+			$"Expected string to not equal: {expected} but found: {actual}"
 		);
 	}
 	#endregion
 
 	#region ConfirmMatchesPattern
-	public static string ConfirmMatchesPattern(this string value, string pattern, string? message = null)
+	public static string ConfirmMatchesPattern(
+		this string value,
+		string pattern,
+		string? message = null
+	)
 	{
 		if (Regex.IsMatch(value, pattern)) return value;
 
-		throw new ConfirmAssertException(message ?? $"Expected string to match pattern '{pattern}', but it did not.");
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected string to match pattern '{pattern}'."
+		);
 	}
 
-	public static string ConfirmDoesNotMatchPattern(this string value, string pattern, string? message = null)
+	public static string ConfirmDoesNotMatchPattern(
+		this string value,
+		string pattern,
+		string? message = null
+	)
 	{
 		if (!Regex.IsMatch(value, pattern)) return value;
 
-		throw new ConfirmAssertException(message ?? $"Expected string to not match pattern '{pattern}', but it did.");
+		throw new ConfirmAssertException(
+			message ??
+			$"Expected string to not match pattern '{pattern}'."
+		);
 	}
 	#endregion
 }
