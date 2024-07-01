@@ -1,5 +1,6 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 
 namespace Confirma.Classes;
 
@@ -89,6 +90,20 @@ public static class Confirm
 			message ??
 			$"Expected {name} not to be {typeof(T).Name} enum name."
 		);
+	}
+	#endregion
+
+	#region Throws
+	public static Action Throws<T>(Action action, string? message = null)
+	where T : Exception
+	{
+		return action.ConfirmThrows<T>(message);
+	}
+
+	public static Action NotThrows<T>(Action action, string? message = null)
+	where T : Exception
+	{
+		return action.ConfirmNotThrows<T>(message);
 	}
 	#endregion
 }
