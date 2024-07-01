@@ -1,10 +1,25 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 
 namespace Confirma.Classes;
 
 public static class Confirm
 {
+	public static bool IsTrue(bool expression, string? message = null)
+	{
+		if (expression) return true;
+
+		throw new ConfirmAssertException(message ?? "Expected true but was false");
+	}
+
+	public static bool IsFalse(bool expression, string? message = null)
+	{
+		if (!expression) return true;
+
+		throw new ConfirmAssertException(message ?? "Expected false but was true");
+	}
+
 	#region IsEnumValue
 	public static int IsEnumValue<T>(int value, string? message = null)
 	where T : struct, Enum
@@ -75,6 +90,20 @@ public static class Confirm
 			message ??
 			$"Expected {name} not to be {typeof(T).Name} enum name."
 		);
+	}
+	#endregion
+
+	#region Throws
+	public static Action Throws<T>(Action action, string? message = null)
+	where T : Exception
+	{
+		return action.ConfirmThrows<T>(message);
+	}
+
+	public static Action NotThrows<T>(Action action, string? message = null)
+	where T : Exception
+	{
+		return action.ConfirmNotThrows<T>(message);
 	}
 	#endregion
 }

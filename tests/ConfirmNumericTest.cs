@@ -155,4 +155,34 @@ public static class ConfirmNumericTest
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
+
+	#region ConfirmCloseTo
+	[TestCase(5f, 6f, 2f)]
+	[TestCase(5f, 5.1f, 0.1f)]
+	[TestCase(6f, 5f, 2f)]
+	[TestCase(5.1f, 5f, 0.1f)]
+	[TestCase(-5f, -4.5f, 0.5f)]
+	public static void ConfirmCloseTo_WhenCloseTo(
+		float actual,
+		float expected,
+		float tolerance
+	)
+	{
+		actual.ConfirmCloseTo(expected, tolerance);
+	}
+
+	[TestCase(5d, 0d, 1d)]
+	[TestCase(5d, 15d, 1d)]
+	[TestCase(0d, 0.1d, 0.01d)]
+	public static void ConfirmCloseTo_WhenNotCloseTo(
+		double actual,
+		double expected,
+		double tolerance
+	)
+	{
+		Action action = () => actual.ConfirmCloseTo(expected, tolerance);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }

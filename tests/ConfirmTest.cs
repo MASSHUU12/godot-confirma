@@ -94,4 +94,35 @@ public static class ConfirmTest
 		action.ConfirmThrows<ConfirmAssertException>();
 	}
 	#endregion
+
+	#region IsTrue
+	[TestCase]
+	public static void IsTrue_WhenIsTrue()
+	{
+		Confirm.IsTrue(true);
+	}
+
+	[TestCase]
+	public static void IsTrue_WhenIsFalse()
+	{
+		Action action = () => Confirm.IsTrue(false);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
+
+	#region IsFalse
+	public static void IsFalse_WhenIsFalse()
+	{
+		Confirm.IsFalse(false);
+	}
+
+	[TestCase]
+	public static void IsFalse_WhenIsTrue()
+	{
+		Action action = () => Confirm.IsFalse(true);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }
