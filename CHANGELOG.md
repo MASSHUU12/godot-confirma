@@ -9,6 +9,13 @@ All notable changes to this project will be documented in this file.
 - Extensions:
   - ConfirmIsOdd
   - ConfirmIsEven
+- Extension classes:
+  - RandomEnumExtensions
+- Confirm class with assertions:
+  - IsEnumValue
+  - IsNotEnumValue
+  - IsEnumName
+  - IsNotEnumName
 
 ## [0.5.0-beta 2024-06-29]
 
