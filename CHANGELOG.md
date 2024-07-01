@@ -9,13 +9,25 @@ All notable changes to this project will be documented in this file.
 - Extensions:
   - ConfirmIsOdd
   - ConfirmIsEven
+  - ConfirmCloseTo
 - Extension classes:
   - RandomEnumExtensions
+  - RandomBooleanExtensions
+  - RandomNetworkExtensions
 - Confirm class with assertions:
   - IsEnumValue
   - IsNotEnumValue
   - IsEnumName
   - IsNotEnumName
+  - IsTrue
+  - IsFalse
+  - Throws
+  - NotThrows
+
+### Changed
+
+- Numeric extensions now use 'INumber<T>' generic constraint
+  instead of 'IComparable, IConvertible, IComparable<T>, IEquatable<T>'.
 
 ## [0.5.0-beta 2024-06-29]
 
