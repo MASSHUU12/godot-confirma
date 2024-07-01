@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Confirma.Exceptions;
 
 namespace Confirma.Extensions;
@@ -114,5 +115,24 @@ public static class ConfirmNumericExtensions
 		if ((Convert.ToInt64(actual) & 1) == 0) return actual;
 
 		throw new ConfirmAssertException(message ?? $"Expected {actual} to be even.");
+	}
+
+	public static T ConfirmCloseTo<T>(
+		this T actual,
+		T expected,
+		T tolerance,
+		string? message = null
+	)
+	where T : INumber<T>
+	{
+		T diff = actual - expected;
+		T abs = diff < (T)Convert.ChangeType(0, typeof(T)) ? -diff : diff;
+
+		if (abs <= tolerance) return actual;
+
+		throw new ConfirmAssertException(
+			message ??
+			$"{actual} is not close to {expected} within tolerance {tolerance}."
+		);
 	}
 }
