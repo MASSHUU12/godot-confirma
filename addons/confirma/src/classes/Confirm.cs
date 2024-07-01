@@ -5,6 +5,20 @@ namespace Confirma.Classes;
 
 public static class Confirm
 {
+	public static bool IsTrue(bool expression, string? message = null)
+	{
+		if (expression) return true;
+
+		throw new ConfirmAssertException(message ?? "Expected true but was false");
+	}
+
+	public static bool IsFalse(bool expression, string? message = null)
+	{
+		if (!expression) return true;
+
+		throw new ConfirmAssertException(message ?? "Expected false but was true");
+	}
+
 	#region IsEnumValue
 	public static int IsEnumValue<T>(int value, string? message = null)
 	where T : struct, Enum
