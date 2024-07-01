@@ -11,7 +11,7 @@ public static class ConfirmNumericExtensions
 	/// Zero is not considered positive.
 	/// </remarks>
 	public static T ConfirmIsPositive<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) > 0) return actual;
 
@@ -22,7 +22,7 @@ public static class ConfirmNumericExtensions
 	}
 
 	public static T ConfirmIsNotPositive<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) <= 0) return actual;
 
@@ -38,7 +38,7 @@ public static class ConfirmNumericExtensions
 	/// Zero is not considered negative.
 	/// </remarks>
 	public static T ConfirmIsNegative<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) < 0) return actual;
 
@@ -49,7 +49,7 @@ public static class ConfirmNumericExtensions
 	}
 
 	public static T ConfirmIsNotNegative<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) >= 0) return actual;
 
@@ -65,7 +65,7 @@ public static class ConfirmNumericExtensions
 	/// Zero is not considered signed or unsigned.
 	/// </remarks>
 	public static T ConfirmSign<T>(this T actual, bool sign, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (sign && actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) < 0) return actual;
 		if (!sign && actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) > 0) return actual;
@@ -79,7 +79,7 @@ public static class ConfirmNumericExtensions
 
 	#region ConfirmIsZero
 	public static T ConfirmIsZero<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) == 0) return actual;
 
@@ -90,7 +90,7 @@ public static class ConfirmNumericExtensions
 	}
 
 	public static T ConfirmIsNotZero<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if (actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) != 0) return actual;
 
@@ -102,7 +102,7 @@ public static class ConfirmNumericExtensions
 	#endregion
 
 	public static T ConfirmIsOdd<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if ((Convert.ToInt64(actual) & 1) != 0) return actual;
 
@@ -110,7 +110,7 @@ public static class ConfirmNumericExtensions
 	}
 
 	public static T ConfirmIsEven<T>(this T actual, string? message = null)
-	where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
+	where T : INumber<T>
 	{
 		if ((Convert.ToInt64(actual) & 1) == 0) return actual;
 
