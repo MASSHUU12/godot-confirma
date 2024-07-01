@@ -1,5 +1,6 @@
 using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -9,35 +10,88 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmTest
 {
-	[TestCase]
-	public static void ConfirmThrows_Action()
+	private enum TestEnum
 	{
-		static void Test() => throw new ConfirmAssertException("Lorem ipsum dolor sit amet.");
-
-		ConfirmExceptionExtensions.ConfirmThrows<ConfirmAssertException>(Test);
+		A, B, C, D, E
 	}
 
-	[TestCase]
-	public static void ConfirmThrows_Func()
+	#region IsEnumValue
+	[TestCase(0)]
+	[TestCase(1)]
+	[TestCase(2)]
+	[TestCase(3)]
+	[TestCase(4)]
+	public static void IsEnumValue_WhenIsEnumValue(int value)
 	{
-		Func<object> Test = () => throw new ConfirmAssertException("Lorem ipsum dolor sit amet.");
-
-		Test.ConfirmThrows<ConfirmAssertException>();
+		Confirm.IsEnumValue<TestEnum>(value);
 	}
 
-	[TestCase]
-	public static void ConfirmNotThrows_Action()
+	[TestCase(-1)]
+	[TestCase(5)]
+	public static void IsEnumValue_WhenISNotEnumValue(int value)
 	{
-		static void Test() => new object().ToString();
+		Action action = () => Confirm.IsEnumValue<TestEnum>(value);
 
-		ConfirmExceptionExtensions.ConfirmNotThrows<ConfirmAssertException>(Test);
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
+
+	#region IsNotEnumValue
+	[TestCase(-1)]
+	[TestCase(5)]
+	public static void IsNotEnumValue_WhenIsNotEnumValue(int value)
+	{
+		Confirm.IsNotEnumValue<TestEnum>(value);
 	}
 
-	[TestCase]
-	public static void ConfirmNotThrows_Func()
+	[TestCase(0)]
+	[TestCase(1)]
+	[TestCase(2)]
+	[TestCase(3)]
+	[TestCase(4)]
+	public static void IsNotEnumValue_WhenIsEnumValue(int value)
 	{
-		Func<object> Test = () => new object();
+		Action action = () => Confirm.IsNotEnumValue<TestEnum>(value);
 
-		Test.ConfirmNotThrows<ConfirmAssertException>();
+		action.ConfirmThrows<ConfirmAssertException>();
 	}
+	#endregion
+
+	#region IsEnumName
+	[TestCase("A", false)]
+	[TestCase("a", true)]
+	[TestCase("B", false)]
+	[TestCase("b", true)]
+	[TestCase("C", false)]
+	[TestCase("c", true)]
+	[TestCase("D", false)]
+	[TestCase("d", true)]
+	[TestCase("E", false)]
+	[TestCase("e", true)]
+	public static void IsEnumName_WhenIsEnumName(string name, bool ignoreCase)
+	{
+		Confirm.IsEnumName<TestEnum>(name, ignoreCase);
+	}
+
+	[TestCase("a")]
+	[TestCase("b")]
+	[TestCase("c")]
+	public static void IsEnumName_WhenIsEnumNameIncorrectCase(string name)
+	{
+		Action action = () => Confirm.IsEnumName<TestEnum>(name);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+
+	[TestCase("0", false)]
+	[TestCase("F", false)]
+	[TestCase("0", true)]
+	[TestCase("f", true)]
+	public static void IsEnumName_WhenIsNotEnumName(string name, bool ignoreCase)
+	{
+		Action action = () => Confirm.IsEnumName<TestEnum>(name, ignoreCase);
+
+		action.ConfirmThrows<ConfirmAssertException>();
+	}
+	#endregion
 }
