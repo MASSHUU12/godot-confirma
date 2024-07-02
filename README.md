@@ -1,5 +1,5 @@
 <div align="center">
- <!-- <img src="./addons/confirma/docs/assets/confirma_icon_baner.png" /> -->
+ <img height=128 src="./addons/confirma/docs/resources/icon.svg" />
  <h3>Confirma</h1>
  <p>A lightweight and intuitive unit testing tool for the Godot (C#) game engine.</p>
 </div>
