@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.6.0-beta 2024-07-02]
 
 ### Added
 
@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
   - IsFalse
   - Throws
   - NotThrows
+- Addon icon.
 
 ### Changed
 
