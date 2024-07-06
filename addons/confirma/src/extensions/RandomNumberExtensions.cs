@@ -80,4 +80,11 @@ public static class RandomNumberExtensions
 
         return rg.NextLong(maxValue - minValue) + minValue;
     }
+
+    public static double NextDouble(this Random rg, double minValue, double maxValue)
+    {
+        if (minValue >= maxValue) throw new InvalidOperationException();
+
+        return rg.NextDouble() * (maxValue - minValue) + minValue;
+    }
 }

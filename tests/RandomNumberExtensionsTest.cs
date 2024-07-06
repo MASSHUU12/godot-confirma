@@ -113,4 +113,22 @@ public static class RandomNumberExtensionsTest
 
         action.ConfirmThrows<InvalidOperationException>();
     }
+
+    [TestCase(0d, 69d)]
+    [TestCase(-10d, 0d)]
+    [TestCase(10d, 15d)]
+    [TestCase(-15d, -10d)]
+    [TestCase(0.1d, 0.2d)]
+    public static void NextDouble_WRange(double min, double max)
+    {
+        rg.NextDouble(min, max).ConfirmInRange(min, max);
+    }
+
+    [TestCase]
+    public static void NextDouble_WInvalidRange()
+    {
+        Action action = () => rg.NextDouble(2d, 0d);
+
+        action.ConfirmThrows<InvalidOperationException>();
+    }
 }
