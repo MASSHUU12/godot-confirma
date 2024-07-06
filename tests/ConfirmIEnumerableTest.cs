@@ -10,347 +10,347 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmIEnumerableTest
 {
-	#region ConfirmEmpty
-	[TestCase(new int[] { })]
-	public static void ConfirmEmpty_WhenEmpty(IEnumerable<int> actual)
-	{
-		actual.ConfirmEmpty();
-	}
+    #region ConfirmEmpty
+    [TestCase(new int[] { })]
+    public static void ConfirmEmpty_WhenEmpty(IEnumerable<int> actual)
+    {
+        actual.ConfirmEmpty();
+    }
 
-	[TestCase(new int[] { 1 })]
-	[TestCase(new int[] { 1, 2 })]
-	[TestCase(new int[] { 1, 2, 3 })]
-	public static void ConfirmEmpty_WhenNotEmpty(IEnumerable<int> actual)
-	{
-		Action action = () => actual.ConfirmEmpty();
+    [TestCase(new int[] { 1 })]
+    [TestCase(new int[] { 1, 2 })]
+    [TestCase(new int[] { 1, 2, 3 })]
+    public static void ConfirmEmpty_WhenNotEmpty(IEnumerable<int> actual)
+    {
+        Action action = () => actual.ConfirmEmpty();
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmNotEmpty
-	[TestCase(new int[] { 1 })]
-	[TestCase(new int[] { 1, 2 })]
-	[TestCase(new int[] { 1, 2, 3 })]
-	public static void ConfirmNotEmpty_WhenNotEmpty(IEnumerable<int> actual)
-	{
-		actual.ConfirmNotEmpty();
-	}
+    #region ConfirmNotEmpty
+    [TestCase(new int[] { 1 })]
+    [TestCase(new int[] { 1, 2 })]
+    [TestCase(new int[] { 1, 2, 3 })]
+    public static void ConfirmNotEmpty_WhenNotEmpty(IEnumerable<int> actual)
+    {
+        actual.ConfirmNotEmpty();
+    }
 
-	[TestCase(new int[] { })]
-	public static void ConfirmNotEmpty_WhenEmpty(IEnumerable<int> actual)
-	{
-		Action action = () => actual.ConfirmNotEmpty();
+    [TestCase(new int[] { })]
+    public static void ConfirmNotEmpty_WhenEmpty(IEnumerable<int> actual)
+    {
+        Action action = () => actual.ConfirmNotEmpty();
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmCount
-	[TestCase(new float[] { }, 0)]
-	[TestCase(new float[] { 1.0f }, 1)]
-	[TestCase(new float[] { 1.0f, 2.0f }, 2)]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 3)]
-	public static void ConfirmCount_WhenEqual(IEnumerable<float> actual, int expected)
-	{
-		actual.ConfirmCount(expected);
-	}
+    #region ConfirmCount
+    [TestCase(new float[] { }, 0)]
+    [TestCase(new float[] { 1.0f }, 1)]
+    [TestCase(new float[] { 1.0f, 2.0f }, 2)]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 3)]
+    public static void ConfirmCount_WhenEqual(IEnumerable<float> actual, int expected)
+    {
+        actual.ConfirmCount(expected);
+    }
 
-	[TestCase(new float[] { }, 1)]
-	[TestCase(new float[] { 1.0f }, 0)]
-	[TestCase(new float[] { 1.0f, 2.0f }, 1)]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 2)]
-	public static void ConfirmCount_WhenNotEqual(IEnumerable<float> actual, int expected)
-	{
-		Action action = () => actual.ConfirmCount(expected);
+    [TestCase(new float[] { }, 1)]
+    [TestCase(new float[] { 1.0f }, 0)]
+    [TestCase(new float[] { 1.0f, 2.0f }, 1)]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 2)]
+    public static void ConfirmCount_WhenNotEqual(IEnumerable<float> actual, int expected)
+    {
+        Action action = () => actual.ConfirmCount(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmCountGreaterThan
-	[TestCase(new double[] { 1.0 }, 0)]
-	[TestCase(new double[] { 1.0, 2.0 }, 1)]
-	[TestCase(new double[] { 1.0, 2.0, 3.0 }, 2)]
-	public static void ConfirmCountGreaterThan_WhenGreaterThan(IEnumerable<double> actual, int expected)
-	{
-		actual.ConfirmCountGreaterThan(expected);
-	}
+    #region ConfirmCountGreaterThan
+    [TestCase(new double[] { 1.0 }, 0)]
+    [TestCase(new double[] { 1.0, 2.0 }, 1)]
+    [TestCase(new double[] { 1.0, 2.0, 3.0 }, 2)]
+    public static void ConfirmCountGreaterThan_WhenGreaterThan(IEnumerable<double> actual, int expected)
+    {
+        actual.ConfirmCountGreaterThan(expected);
+    }
 
-	[TestCase(new double[] { }, 0)]
-	[TestCase(new double[] { 1.0 }, 1)]
-	[TestCase(new double[] { 1.0, 2.0 }, 2)]
-	[TestCase(new double[] { 1.0, 2.0, 3.0 }, 3)]
-	public static void ConfirmCountGreaterThan_WhenNotGreaterThan(IEnumerable<double> actual, int expected)
-	{
-		Action action = () => actual.ConfirmCountGreaterThan(expected);
+    [TestCase(new double[] { }, 0)]
+    [TestCase(new double[] { 1.0 }, 1)]
+    [TestCase(new double[] { 1.0, 2.0 }, 2)]
+    [TestCase(new double[] { 1.0, 2.0, 3.0 }, 3)]
+    public static void ConfirmCountGreaterThan_WhenNotGreaterThan(IEnumerable<double> actual, int expected)
+    {
+        Action action = () => actual.ConfirmCountGreaterThan(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmCountLessThan
-	[TestCase(new short[] { }, 1)]
-	[TestCase(new short[] { 1 }, 2)]
-	[TestCase(new short[] { 1, 2 }, 3)]
-	public static void ConfirmCountLessThan_WhenLessThan(IEnumerable<short> actual, int expected)
-	{
-		actual.ConfirmCountLessThan(expected);
-	}
+    #region ConfirmCountLessThan
+    [TestCase(new short[] { }, 1)]
+    [TestCase(new short[] { 1 }, 2)]
+    [TestCase(new short[] { 1, 2 }, 3)]
+    public static void ConfirmCountLessThan_WhenLessThan(IEnumerable<short> actual, int expected)
+    {
+        actual.ConfirmCountLessThan(expected);
+    }
 
-	[TestCase(new short[] { 1 }, 0)]
-	[TestCase(new short[] { 1, 2 }, 1)]
-	[TestCase(new short[] { 1, 2, 3 }, 2)]
-	[TestCase(new short[] { 1, 2, 3, 4 }, 3)]
-	public static void ConfirmCountLessThan_WhenNotLessThan(IEnumerable<short> actual, int expected)
-	{
-		Action action = () => actual.ConfirmCountLessThan(expected);
+    [TestCase(new short[] { 1 }, 0)]
+    [TestCase(new short[] { 1, 2 }, 1)]
+    [TestCase(new short[] { 1, 2, 3 }, 2)]
+    [TestCase(new short[] { 1, 2, 3, 4 }, 3)]
+    public static void ConfirmCountLessThan_WhenNotLessThan(IEnumerable<short> actual, int expected)
+    {
+        Action action = () => actual.ConfirmCountLessThan(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmCountGreaterThanOrEqual
-	[TestCase(new int[] { }, 0)]
-	[TestCase(new int[] { 1 }, 0)]
-	[TestCase(new int[] { 1, 2 }, 1)]
-	[TestCase(new int[] { 1, 2, 3 }, 2)]
-	public static void ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual(IEnumerable<int> actual, int expected)
-	{
-		actual.ConfirmCountGreaterThanOrEqual(expected);
-	}
+    #region ConfirmCountGreaterThanOrEqual
+    [TestCase(new int[] { }, 0)]
+    [TestCase(new int[] { 1 }, 0)]
+    [TestCase(new int[] { 1, 2 }, 1)]
+    [TestCase(new int[] { 1, 2, 3 }, 2)]
+    public static void ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual(IEnumerable<int> actual, int expected)
+    {
+        actual.ConfirmCountGreaterThanOrEqual(expected);
+    }
 
-	[TestCase(new int[] { }, 1)]
-	[TestCase(new int[] { 1 }, 2)]
-	[TestCase(new int[] { 1, 2 }, 3)]
-	[TestCase(new int[] { 1, 2, 3 }, 4)]
-	public static void ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual(IEnumerable<int> actual, int expected)
-	{
-		Action action = () => actual.ConfirmCountGreaterThanOrEqual(expected);
+    [TestCase(new int[] { }, 1)]
+    [TestCase(new int[] { 1 }, 2)]
+    [TestCase(new int[] { 1, 2 }, 3)]
+    [TestCase(new int[] { 1, 2, 3 }, 4)]
+    public static void ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual(IEnumerable<int> actual, int expected)
+    {
+        Action action = () => actual.ConfirmCountGreaterThanOrEqual(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmCountLessThanOrEqual
-	[TestCase(new long[] { }, 1)]
-	[TestCase(new long[] { 1 }, 1)]
-	[TestCase(new long[] { 1, 2 }, 2)]
-	[TestCase(new long[] { 1, 2, 3 }, 3)]
-	public static void ConfirmCountLessThanOrEqual_WhenLessThanOrEqual(IEnumerable<long> actual, int expected)
-	{
-		actual.ConfirmCountLessThanOrEqual(expected);
-	}
+    #region ConfirmCountLessThanOrEqual
+    [TestCase(new long[] { }, 1)]
+    [TestCase(new long[] { 1 }, 1)]
+    [TestCase(new long[] { 1, 2 }, 2)]
+    [TestCase(new long[] { 1, 2, 3 }, 3)]
+    public static void ConfirmCountLessThanOrEqual_WhenLessThanOrEqual(IEnumerable<long> actual, int expected)
+    {
+        actual.ConfirmCountLessThanOrEqual(expected);
+    }
 
-	[TestCase(new long[] { 1 }, 0)]
-	[TestCase(new long[] { 1, 2 }, 1)]
-	[TestCase(new long[] { 1, 2, 3 }, 2)]
-	[TestCase(new long[] { 1, 2, 3, 4 }, 3)]
-	public static void ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual(IEnumerable<long> actual, int expected)
-	{
-		Action action = () => actual.ConfirmCountLessThanOrEqual(expected);
+    [TestCase(new long[] { 1 }, 0)]
+    [TestCase(new long[] { 1, 2 }, 1)]
+    [TestCase(new long[] { 1, 2, 3 }, 2)]
+    [TestCase(new long[] { 1, 2, 3, 4 }, 3)]
+    public static void ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual(IEnumerable<long> actual, int expected)
+    {
+        Action action = () => actual.ConfirmCountLessThanOrEqual(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmContains
-	[TestCase(new string[] { "a", "b", "c" }, "a")]
-	[TestCase(new string[] { "a", "b", "c" }, "b")]
-	[TestCase(new string[] { "a", "b", "c" }, "c")]
-	public static void ConfirmContains_WhenContains(IEnumerable<string> actual, string expected)
-	{
-		actual.ConfirmContains(expected);
-	}
+    #region ConfirmContains
+    [TestCase(new string[] { "a", "b", "c" }, "a")]
+    [TestCase(new string[] { "a", "b", "c" }, "b")]
+    [TestCase(new string[] { "a", "b", "c" }, "c")]
+    public static void ConfirmContains_WhenContains(IEnumerable<string> actual, string expected)
+    {
+        actual.ConfirmContains(expected);
+    }
 
-	[TestCase(new string[] { "a", "b", "c" }, "d")]
-	[TestCase(new string[] { "a", "b", "c" }, "e")]
-	[TestCase(new string[] { "a", "b", "c" }, "f")]
-	public static void ConfirmContains_WhenNotContains(IEnumerable<string> actual, string expected)
-	{
-		Action action = () => actual.ConfirmContains(expected);
+    [TestCase(new string[] { "a", "b", "c" }, "d")]
+    [TestCase(new string[] { "a", "b", "c" }, "e")]
+    [TestCase(new string[] { "a", "b", "c" }, "f")]
+    public static void ConfirmContains_WhenNotContains(IEnumerable<string> actual, string expected)
+    {
+        Action action = () => actual.ConfirmContains(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmNotContains
-	[TestCase(new string[] { "a", "b", "c" }, "d")]
-	[TestCase(new string[] { "a", "b", "c" }, "e")]
-	[TestCase(new string[] { "a", "b", "c" }, "f")]
-	public static void ConfirmNotContains_WhenNotContains(IEnumerable<string> actual, string expected)
-	{
-		actual.ConfirmNotContains(expected);
-	}
+    #region ConfirmNotContains
+    [TestCase(new string[] { "a", "b", "c" }, "d")]
+    [TestCase(new string[] { "a", "b", "c" }, "e")]
+    [TestCase(new string[] { "a", "b", "c" }, "f")]
+    public static void ConfirmNotContains_WhenNotContains(IEnumerable<string> actual, string expected)
+    {
+        actual.ConfirmNotContains(expected);
+    }
 
-	[TestCase(new string[] { "a", "b", "c" }, "a")]
-	[TestCase(new string[] { "a", "b", "c" }, "b")]
-	[TestCase(new string[] { "a", "b", "c" }, "c")]
-	public static void ConfirmNotContains_WhenContains(IEnumerable<string> actual, string expected)
-	{
-		Action action = () => actual.ConfirmNotContains(expected);
+    [TestCase(new string[] { "a", "b", "c" }, "a")]
+    [TestCase(new string[] { "a", "b", "c" }, "b")]
+    [TestCase(new string[] { "a", "b", "c" }, "c")]
+    public static void ConfirmNotContains_WhenContains(IEnumerable<string> actual, string expected)
+    {
+        Action action = () => actual.ConfirmNotContains(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmAllMatch
-	[TestCase(new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmAllMatch_WhenAllMatch(IEnumerable<int> actual)
-	{
-		actual.ConfirmAllMatch(x => x > 0);
-	}
+    #region ConfirmAllMatch
+    [TestCase(new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmAllMatch_WhenAllMatch(IEnumerable<int> actual)
+    {
+        actual.ConfirmAllMatch(x => x > 0);
+    }
 
-	[TestCase(new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmAllMatch_WhenNotAllMatch(IEnumerable<int> actual)
-	{
-		Action action = () => actual.ConfirmAllMatch(x => x < 0);
+    [TestCase(new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmAllMatch_WhenNotAllMatch(IEnumerable<int> actual)
+    {
+        Action action = () => actual.ConfirmAllMatch(x => x < 0);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmAnyMatch
-	[TestCase(new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmAnyMatch_WhenAnyMatch(IEnumerable<int> actual)
-	{
-		actual.ConfirmAnyMatch(x => x == 3);
-	}
+    #region ConfirmAnyMatch
+    [TestCase(new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmAnyMatch_WhenAnyMatch(IEnumerable<int> actual)
+    {
+        actual.ConfirmAnyMatch(x => x == 3);
+    }
 
-	[TestCase(new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmAnyMatch_WhenNotAnyMatch(IEnumerable<int> actual)
-	{
-		Action action = () => actual.ConfirmAnyMatch(x => x == 0);
+    [TestCase(new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmAnyMatch_WhenNotAnyMatch(IEnumerable<int> actual)
+    {
+        Action action = () => actual.ConfirmAnyMatch(x => x == 0);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmNoneMatch
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f })]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f })]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
-	public static void ConfirmNoneMatch_WhenNoneMatch(IEnumerable<float> actual)
-	{
-		actual.ConfirmNoneMatch(x => x < 0);
-	}
+    #region ConfirmNoneMatch
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f })]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f })]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
+    public static void ConfirmNoneMatch_WhenNoneMatch(IEnumerable<float> actual)
+    {
+        actual.ConfirmNoneMatch(x => x < 0);
+    }
 
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f })]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f })]
-	[TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
-	public static void ConfirmNoneMatch_WhenNotNoneMatch(IEnumerable<float> actual)
-	{
-		Action action = () => actual.ConfirmNoneMatch(x => x > 0);
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f })]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f })]
+    [TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
+    public static void ConfirmNoneMatch_WhenNotNoneMatch(IEnumerable<float> actual)
+    {
+        Action action = () => actual.ConfirmNoneMatch(x => x > 0);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmElementsAreUnique
-	[TestCase(new char[] { 'a', 'b', 'c' })]
-	[TestCase(new char[] { 'a', 'b', 'c', 'd' })]
-	[TestCase(new char[] { 'a', 'b', 'c', 'd', 'e' })]
-	public static void ConfirmElementsAreUnique_WhenUnique(IEnumerable<char> actual)
-	{
-		actual.ConfirmElementsAreUnique();
-	}
+    #region ConfirmElementsAreUnique
+    [TestCase(new char[] { 'a', 'b', 'c' })]
+    [TestCase(new char[] { 'a', 'b', 'c', 'd' })]
+    [TestCase(new char[] { 'a', 'b', 'c', 'd', 'e' })]
+    public static void ConfirmElementsAreUnique_WhenUnique(IEnumerable<char> actual)
+    {
+        actual.ConfirmElementsAreUnique();
+    }
 
-	[TestCase(new char[] { 'a', 'a', 'c' })]
-	[TestCase(new char[] { 'a', 'b', 'b', 'd' })]
-	[TestCase(new char[] { 'a', 'b', 'c', 'c', 'e' })]
-	public static void ConfirmElementsAreUnique_WhenNotUnique(IEnumerable<char> actual)
-	{
-		Action action = () => actual.ConfirmElementsAreUnique();
+    [TestCase(new char[] { 'a', 'a', 'c' })]
+    [TestCase(new char[] { 'a', 'b', 'b', 'd' })]
+    [TestCase(new char[] { 'a', 'b', 'c', 'c', 'e' })]
+    public static void ConfirmElementsAreUnique_WhenNotUnique(IEnumerable<char> actual)
+    {
+        Action action = () => actual.ConfirmElementsAreUnique();
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmElementsAreDistinct
-	[TestCase(new string[] { "a", "b", "c" }, new string[] { "d", "e", "f" })]
-	[TestCase(new string[] { "a", "b", "c", "d" }, new string[] { "e", "f", "g", "h" })]
-	[TestCase(new string[] { "a", "b", "c", "d", "e" }, new string[] { "f", "g", "h", "i", "j" })]
-	public static void ConfirmElementsAreDistinct_WhenDistinct(IEnumerable<string> actual, IEnumerable<string> expected)
-	{
-		actual.ConfirmElementsAreDistinct(expected);
-	}
+    #region ConfirmElementsAreDistinct
+    [TestCase(new string[] { "a", "b", "c" }, new string[] { "d", "e", "f" })]
+    [TestCase(new string[] { "a", "b", "c", "d" }, new string[] { "e", "f", "g", "h" })]
+    [TestCase(new string[] { "a", "b", "c", "d", "e" }, new string[] { "f", "g", "h", "i", "j" })]
+    public static void ConfirmElementsAreDistinct_WhenDistinct(IEnumerable<string> actual, IEnumerable<string> expected)
+    {
+        actual.ConfirmElementsAreDistinct(expected);
+    }
 
-	[TestCase(new string[] { "a", "a", "c" }, new string[] { "d", "e", "f" })]
-	[TestCase(new string[] { "a", "b", "b", "d" }, new string[] { "e", "f", "g", "h" })]
-	[TestCase(new string[] { "a", "b", "c", "c", "e" }, new string[] { "f", "g", "h", "i", "j" })]
-	public static void ConfirmElementsAreDistinct_WhenNotDistinct(IEnumerable<string> actual, IEnumerable<string> expected)
-	{
-		Action action = () => actual.ConfirmElementsAreDistinct(expected);
+    [TestCase(new string[] { "a", "a", "c" }, new string[] { "d", "e", "f" })]
+    [TestCase(new string[] { "a", "b", "b", "d" }, new string[] { "e", "f", "g", "h" })]
+    [TestCase(new string[] { "a", "b", "c", "c", "e" }, new string[] { "f", "g", "h", "i", "j" })]
+    public static void ConfirmElementsAreDistinct_WhenNotDistinct(IEnumerable<string> actual, IEnumerable<string> expected)
+    {
+        Action action = () => actual.ConfirmElementsAreDistinct(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmElementsAreOrdered
-	[TestCase(new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmElementsAreOrdered_WhenOrdered(IEnumerable<int> actual)
-	{
-		actual.ConfirmElementsAreOrdered();
-	}
+    #region ConfirmElementsAreOrdered
+    [TestCase(new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmElementsAreOrdered_WhenOrdered(IEnumerable<int> actual)
+    {
+        actual.ConfirmElementsAreOrdered();
+    }
 
-	[TestCase(new int[] { 3, 2, 1 })]
-	[TestCase(new int[] { 4, 3, 2, 1 })]
-	[TestCase(new int[] { 5, 4, 3, 2, 1 })]
-	public static void ConfirmElementsAreOrdered_WhenNotOrdered(IEnumerable<int> actual)
-	{
-		Action action = () => actual.ConfirmElementsAreOrdered();
+    [TestCase(new int[] { 3, 2, 1 })]
+    [TestCase(new int[] { 4, 3, 2, 1 })]
+    [TestCase(new int[] { 5, 4, 3, 2, 1 })]
+    public static void ConfirmElementsAreOrdered_WhenNotOrdered(IEnumerable<int> actual)
+    {
+        Action action = () => actual.ConfirmElementsAreOrdered();
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmElementsAreInRange
-	[TestCase(new int[] { 1, 2, 3 }, 1, 3)]
-	[TestCase(new int[] { 1, 2, 3, 4 }, 1, 4)]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 }, 1, 5)]
-	public static void ConfirmElementsAreInRange_WhenInRange(IEnumerable<int> actual, int min, int max)
-	{
-		actual.ConfirmElementsAreInRange(min, max);
-	}
+    #region ConfirmElementsAreInRange
+    [TestCase(new int[] { 1, 2, 3 }, 1, 3)]
+    [TestCase(new int[] { 1, 2, 3, 4 }, 1, 4)]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1, 5)]
+    public static void ConfirmElementsAreInRange_WhenInRange(IEnumerable<int> actual, int min, int max)
+    {
+        actual.ConfirmElementsAreInRange(min, max);
+    }
 
-	[TestCase(new int[] { 1, 2, 3 }, 2, 3)]
-	[TestCase(new int[] { 1, 2, 3, 4 }, 3, 4)]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 }, 4, 5)]
-	public static void ConfirmElementsAreInRange_WhenNotInRange(IEnumerable<int> actual, int min, int max)
-	{
-		Action action = () => actual.ConfirmElementsAreInRange(min, max);
+    [TestCase(new int[] { 1, 2, 3 }, 2, 3)]
+    [TestCase(new int[] { 1, 2, 3, 4 }, 3, 4)]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4, 5)]
+    public static void ConfirmElementsAreInRange_WhenNotInRange(IEnumerable<int> actual, int min, int max)
+    {
+        Action action = () => actual.ConfirmElementsAreInRange(min, max);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 
-	#region ConfirmElementsAreEquivalent
-	[TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
-	[TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
-	public static void ConfirmElementsAreEquivalent_WhenEquivalent(IEnumerable<int> actual, IEnumerable<int> expected)
-	{
-		actual.ConfirmElementsAreEquivalent(expected);
-	}
+    #region ConfirmElementsAreEquivalent
+    [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+    [TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+    public static void ConfirmElementsAreEquivalent_WhenEquivalent(IEnumerable<int> actual, IEnumerable<int> expected)
+    {
+        actual.ConfirmElementsAreEquivalent(expected);
+    }
 
-	[TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 })]
-	[TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 5 })]
-	[TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 6 })]
-	public static void ConfirmElementsAreEquivalent_WhenNotEquivalent_Data(IEnumerable<int> actual, IEnumerable<int> expected)
-	{
-		Action action = () => actual.ConfirmElementsAreEquivalent(expected);
+    [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 })]
+    [TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 5 })]
+    [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 6 })]
+    public static void ConfirmElementsAreEquivalent_WhenNotEquivalent_Data(IEnumerable<int> actual, IEnumerable<int> expected)
+    {
+        Action action = () => actual.ConfirmElementsAreEquivalent(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
-	#endregion
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
 }

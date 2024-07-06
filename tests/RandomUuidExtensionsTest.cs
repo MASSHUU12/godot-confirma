@@ -8,12 +8,12 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class RandomUuidExtensionsTest
 {
-	private static readonly Random rg = new();
+    private static readonly Random rg = new();
 
-	[Repeat(3)]
-	[TestCase]
-	public static void NextUuid4()
-	{
-		rg.NextUuid4().ToString().ConfirmValidUuid4();
-	}
+    [Repeat(3)]
+    [TestCase]
+    public static void NextUuid4()
+    {
+        rg.NextUuid4().ToString().ConfirmValidUuid4();
+    }
 }

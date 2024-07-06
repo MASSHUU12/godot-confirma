@@ -9,19 +9,19 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmAttributeTest
 {
-	[TestCase(typeof(ConfirmAttributeTest), typeof(TestClassAttribute))]
-	[TestCase(typeof(ConfirmAttributeTest), typeof(ParallelizableAttribute))]
-	public static void ConfirmIsDecoratedWith_WhenIsDecoratedWith(Type actual, Type expected)
-	{
-		actual.ConfirmIsDecoratedWith(expected);
-	}
+    [TestCase(typeof(ConfirmAttributeTest), typeof(TestClassAttribute))]
+    [TestCase(typeof(ConfirmAttributeTest), typeof(ParallelizableAttribute))]
+    public static void ConfirmIsDecoratedWith_WhenIsDecoratedWith(Type actual, Type expected)
+    {
+        actual.ConfirmIsDecoratedWith(expected);
+    }
 
-	[TestCase(typeof(ParallelizableAttribute), typeof(ConfirmAttributeTest))]
-	[TestCase(typeof(TestClassAttribute), typeof(ConfirmAttributeTest))]
-	public static void ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(Type actual, Type expected)
-	{
-		Action action = () => actual.ConfirmIsDecoratedWith(expected);
+    [TestCase(typeof(ParallelizableAttribute), typeof(ConfirmAttributeTest))]
+    [TestCase(typeof(TestClassAttribute), typeof(ConfirmAttributeTest))]
+    public static void ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(Type actual, Type expected)
+    {
+        Action action = () => actual.ConfirmIsDecoratedWith(expected);
 
-		action.ConfirmThrows<ConfirmAssertException>();
-	}
+        action.ConfirmThrows<ConfirmAssertException>();
+    }
 }

@@ -9,25 +9,25 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class RandomEnumTest
 {
-	private static readonly Random rg = new();
+    private static readonly Random rg = new();
 
-	private enum TestEnum { A, B, C, D, E, F }
+    private enum TestEnum { A, B, C, D, E, F }
 
-	[Repeat(6)]
-	[TestCase]
-	public static void NextEnumValue()
-	{
-		var value = rg.NextEnumValue<TestEnum>();
+    [Repeat(6)]
+    [TestCase]
+    public static void NextEnumValue()
+    {
+        var value = rg.NextEnumValue<TestEnum>();
 
-		Confirm.IsEnumValue<TestEnum>(value);
-	}
+        Confirm.IsEnumValue<TestEnum>(value);
+    }
 
-	[Repeat(6)]
-	[TestCase]
-	public static void NextEnumName()
-	{
-		var name = rg.NextEnumName<TestEnum>();
+    [Repeat(6)]
+    [TestCase]
+    public static void NextEnumName()
+    {
+        var name = rg.NextEnumName<TestEnum>();
 
-		Confirm.IsEnumName<TestEnum>(name);
-	}
+        Confirm.IsEnumName<TestEnum>(name);
+    }
 }
