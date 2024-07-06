@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Extensions:
   - NextDouble
+  - NextElement
 
 ## [0.6.0-beta 2024-07-02]
 
