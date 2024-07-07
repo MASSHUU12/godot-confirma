@@ -206,4 +206,24 @@ public static class ConfirmStringExtensions
         );
     }
     #endregion
+
+    public static bool ConfirmLowercase(this string value, string? message = null)
+    {
+        if (value.Equals(value.ToLower())) return true;
+
+        throw new ConfirmAssertException(
+            message
+            ?? $"Expected {value} to be lowercase."
+        );
+    }
+
+    public static bool ConfirmUppercase(this string value, string? message = null)
+    {
+        if (value.Equals(value.ToUpper())) return true;
+
+        throw new ConfirmAssertException(
+            message
+            ?? $"Expected {value} to be uppercase."
+        );
+    }
 }
