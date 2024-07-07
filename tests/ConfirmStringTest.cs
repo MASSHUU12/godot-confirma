@@ -1,5 +1,6 @@
 using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -249,6 +250,40 @@ public static class ConfirmStringTest
         Action action = () => value.ConfirmDoesNotMatchPattern(pattern);
 
         action.ConfirmThrows<ConfirmAssertException>();
+    }
+    #endregion
+
+    #region ConfirmLowercase
+    [TestCase]
+    public static void ConfirmLowercase_ReturnsTrue_WhenStringIsLowercase()
+    {
+        "hello".ConfirmLowercase().ConfirmTrue();
+    }
+
+    [TestCase("Hello")]
+    [TestCase("heLlo")]
+    [TestCase("hellO")]
+    [TestCase("HELLO")]
+    public static void ConfirmLowercase_WhenStringIsNotLowercase(string str)
+    {
+        Confirm.Throws<ConfirmAssertException>(() => str.ConfirmLowercase());
+    }
+    #endregion
+
+    #region ConfirmUppercase
+    [TestCase]
+    public static void ConfirmUppercase_ReturnsTrue_WhenStringIsUppercase()
+    {
+        "HELLO".ConfirmUppercase().ConfirmTrue();
+    }
+
+    [TestCase("hello")]
+    [TestCase("Hello")]
+    [TestCase("heLlo")]
+    [TestCase("hellO")]
+    public static void ConfirmUppercase_WhenStringIsNotUppercase(string str)
+    {
+        Confirm.Throws<ConfirmAssertException>(() => str.ConfirmUppercase());
     }
     #endregion
 }
