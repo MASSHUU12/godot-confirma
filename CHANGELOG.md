@@ -11,6 +11,11 @@ All notable changes to this project will be documented in this file.
   - NextElement
   - NextElements
   - NextShuffle
+  - NextChar
+  - NextLowerChar
+  - NextUpperChar
+  - NextDigitChar
+  - NextString
 
 ## [0.6.0-beta 2024-07-02]
 
