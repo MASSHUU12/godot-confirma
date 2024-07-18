@@ -51,11 +51,6 @@ public class TestingMethod
                         Result.TestsPassed++;
                         TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
                     }
-                    else
-                    {
-                        TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose);
-                        Result.TestsIgnored++;
-                    }
 
                 }
                 catch (ConfirmAssertException e)
