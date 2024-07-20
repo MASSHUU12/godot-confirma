@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Helpers;
@@ -43,10 +42,10 @@ public class TestingMethod
 
                 try
                 {
-                        test.Run();
-                        Result.TestsPassed++;
-                        TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
+                    test.Run();
+                    Result.TestsPassed++;
 
+                    TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
                 }
                 catch (ConfirmAssertException e)
                 {
