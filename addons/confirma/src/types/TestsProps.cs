@@ -15,7 +15,6 @@ public struct TestsProps
     public bool QuitAfterTests { get; set; } = false;
     public string ClassName { get; set; } = string.Empty;
     public string MethodName { get; set; } = string.Empty;
-    public bool RunSingleCase { get; set; } = false;
     public bool DisableParallelization { get; set; } = false;
 
     public TestsProps() { }

@@ -12,7 +12,7 @@ public class TestingClass
 {
     public readonly Type Type;
     public readonly bool IsParallelizable;
-    public readonly IEnumerable<TestingMethod> TestMethods;
+    public IEnumerable<TestingMethod> TestMethods;
 
     private TestsProps _props;
     private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
@@ -33,6 +33,17 @@ public class TestingClass
         _props = props;
 
         warnings += RunLifecycleMethod("BeforeAll");
+
+        if (!string.IsNullOrEmpty(props.MethodName))
+        {
+            TestMethods = TestMethods.Where(tm => tm.Name == props.MethodName);
+
+            if (!TestMethods.Any())
+            {
+                Log.PrintError($"No test Methods found with the name '{props.MethodName}'.");
+                return new TestClassResult(0,0,0,1);
+            }
+        }
 
         foreach (var method in TestMethods)
         {

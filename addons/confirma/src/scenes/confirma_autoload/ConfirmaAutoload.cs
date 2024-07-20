@@ -51,7 +51,6 @@ public partial class ConfirmaAutoload : Node
                     ? string.Empty
                     : arg.Split('=')[1];
 
-                Props.RunSingleCase = !string.IsNullOrEmpty(Props.MethodName);
                 continue;
             }
 

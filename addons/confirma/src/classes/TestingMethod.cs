@@ -43,14 +43,9 @@ public class TestingMethod
 
                 try
                 {
-                    bool run = !props.RunSingleCase || (props.MethodName.Equals(test.Method.Name) && props.RunSingleCase);
-
-                    if (run)
-                    {
                         test.Run();
                         Result.TestsPassed++;
                         TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
-                    }
 
                 }
                 catch (ConfirmAssertException e)
