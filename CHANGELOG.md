@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v0.6.1-beta 2024-07-08]
+## [Unreleased]
+
+### Added
+
+- '--confirma-method' argument allowing to run a single method.
+
+## [0.6.1-beta 2024-07-08]
 
 ### Added
 
