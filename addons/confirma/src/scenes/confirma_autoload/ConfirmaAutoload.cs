@@ -45,6 +45,15 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
+            if (Props.RunTests && !Props.ClassName.Equals(string.Empty) && arg.StartsWith("--confirma-method"))
+            {
+                Props.MethodName = arg.Find('=') == -1
+                    ? string.Empty
+                    : arg.Split('=')[1];
+
+                continue;
+            }
+
             if (!Props.QuitAfterTests && arg == "--confirma-quit")
             {
                 Props.QuitAfterTests = true;
