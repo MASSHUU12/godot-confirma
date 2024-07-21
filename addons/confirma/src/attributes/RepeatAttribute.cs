@@ -9,7 +9,10 @@ public class RepeatAttribute : Attribute
 
     public RepeatAttribute(ushort repeat)
     {
-        if (repeat == 0) throw new ArgumentOutOfRangeException(nameof(repeat));
+        if (repeat == 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(repeat));
+        }
 
         Repeat = (ushort)(repeat - 1);
     }

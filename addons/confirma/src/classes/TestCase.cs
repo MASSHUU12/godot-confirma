@@ -24,7 +24,7 @@ public class TestCase
     {
         try
         {
-            Method.Invoke(null, Parameters);
+            _ = Method.Invoke(null, Parameters);
         }
         catch (TargetInvocationException tie)
         {
