@@ -8,6 +8,7 @@
     "omnisharp.organizeImportsOnFormat": true,
     "omnisharp.useModernNet": true,
     "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+    "dotnet.server.useOmnisharp": true,
     "cSpell.words": [
         "Autoload",
         "Confirma",
