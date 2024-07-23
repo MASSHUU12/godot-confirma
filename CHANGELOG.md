@@ -7,12 +7,14 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - '--confirma-method' argument allowing to run a single method.
+- Flag to Repeat attribute to stop repeating after the first failed test.
 
 ### Changed
 
 - Confirma uses invariant culture when working with strings & numbers.
 - TestDiscovery class is now static.
 - Renamed protected '_autoload' & '_output' fields to 'Autoload' & 'Output'.
+- Repeat field in TestCase is now of type RepeatAttribute and not ushort.
 
 ## [0.6.1-beta 2024-07-08]
 

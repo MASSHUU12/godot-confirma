@@ -6,8 +6,9 @@ namespace Confirma.Attributes;
 public class RepeatAttribute : Attribute
 {
     public ushort Repeat { get; init; }
+    public bool FailFast { get; init; }
 
-    public RepeatAttribute(ushort repeat)
+    public RepeatAttribute(ushort repeat, bool failFast = false)
     {
         if (repeat == 0)
         {
@@ -15,5 +16,6 @@ public class RepeatAttribute : Attribute
         }
 
         Repeat = (ushort)(repeat - 1);
+        FailFast = failFast;
     }
 }
