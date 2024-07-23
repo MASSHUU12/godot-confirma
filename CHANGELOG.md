@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - '--confirma-method' argument allowing to run a single method.
+- Flag to Repeat attribute to stop repeating after the first failed test.
 
 ### Changed
 
