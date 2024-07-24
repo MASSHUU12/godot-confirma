@@ -16,13 +16,13 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnArray()
     {
-        new int[] { 0, 1, 2, 3, 4 }.ConfirmNotEmpty().ConfirmContains(2);
+        _ = new int[] { 0, 1, 2, 3, 4 }.ConfirmNotEmpty().ConfirmContains(2);
     }
 
     [TestCase]
     public static void ChainingOnAttribute()
     {
-        typeof(TestClass)
+        _ = typeof(TestClass)
             .ConfirmIsDecoratedWith<ParallelizableAttribute>()
             .ConfirmIsNotDecoratedWith<TestClassAttribute>();
     }
@@ -30,13 +30,13 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnBoolean()
     {
-        true.ConfirmTrue().ConfirmTrue();
+        _ = true.ConfirmTrue().ConfirmTrue();
     }
 
     [TestCase]
     public static void ChainingOnDictionary()
     {
-        new Dictionary<string, int>()
+        _ = new Dictionary<string, int>()
         {
             {"key1", 0},
             {"key2", 0},
@@ -50,7 +50,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnEqual()
     {
-        5.ConfirmEqual(5).ConfirmNotEqual(6);
+        _ = 5.ConfirmEqual(5).ConfirmNotEqual(6);
     }
 
     [TestCase]
@@ -58,7 +58,7 @@ public static class ChainingTest
     {
         Action action = () => throw new IndexOutOfRangeException();
 
-        action
+        _ = action
             .ConfirmThrows<IndexOutOfRangeException>()
             .ConfirmNotThrows<OutOfMemoryException>();
     }
@@ -66,7 +66,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnFile()
     {
-        new StringName("./LICENSE")
+        _ = new StringName("./LICENSE")
             .ConfirmIsFile()
             .ConfirmFileContains("MIT License");
     }
@@ -74,7 +74,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnIEnumerable()
     {
-        new int[] { 0, 1, 2, 3, 4 }
+        _ = new int[] { 0, 1, 2, 3, 4 }
             .ConfirmNotEmpty()
             .ConfirmContains(2)
             .ConfirmElementsAreUnique();
@@ -83,19 +83,19 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnConfirmNull()
     {
-        5.ConfirmNotNull().ConfirmNotNull();
+        _ = 5.ConfirmNotNull().ConfirmNotNull();
     }
 
     [TestCase]
     public static void ChainingOnNumeric()
     {
-        5.ConfirmIsNotZero().ConfirmIsPositive();
+        _ = 5.ConfirmIsNotZero().ConfirmIsPositive();
     }
 
     [TestCase]
     public static void ChainingOnRange()
     {
-        5.ConfirmGreaterThan(3).ConfirmInRange(0, 10);
+        _ = 5.ConfirmGreaterThan(3).ConfirmInRange(0, 10);
     }
 
     [TestCase]
@@ -111,7 +111,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnString()
     {
-        "Lorem ipsum dolor sit amet"
+        _ = "Lorem ipsum dolor sit amet"
             .ConfirmStartsWith("Lorem")
             .ConfirmEndsWith("amet");
     }
@@ -119,7 +119,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnType()
     {
-        "Lorem ipsum dolor sit amet"
+        _ = "Lorem ipsum dolor sit amet"
             .ConfirmType<string>()
             .ConfirmNotType<int>();
     }
@@ -127,12 +127,12 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnUuid()
     {
-        Guid.NewGuid().ToString().ConfirmValidUuid4().ConfirmValidUuid4();
+        _ = Guid.NewGuid().ToString().ConfirmValidUuid4().ConfirmValidUuid4();
     }
 
     [TestCase]
     public static void ChainingOnVector()
     {
-        Vector2.Up.ConfirmEqual(Vector2.Up).ConfirmNotEqual(Vector2.Down);
+        _ = Vector2.Up.ConfirmEqual(Vector2.Up).ConfirmNotEqual(Vector2.Down);
     }
 }

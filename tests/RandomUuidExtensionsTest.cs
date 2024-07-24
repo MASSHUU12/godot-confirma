@@ -14,6 +14,6 @@ public static class RandomUuidExtensionsTest
     [TestCase]
     public static void NextUuid4()
     {
-        rg.NextUuid4().ToString().ConfirmValidUuid4();
+        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
     }
 }

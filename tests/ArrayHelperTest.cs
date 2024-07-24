@@ -15,7 +15,7 @@ public static class ArrayHelperTest
         object?[]? array = null;
         string result = ArrayHelper.ToString(array);
 
-        result.ConfirmEqual(string.Empty);
+        _ = result.ConfirmEqual(string.Empty);
     }
 
     [TestCase]
@@ -24,7 +24,7 @@ public static class ArrayHelperTest
         object?[]? array = Array.Empty<object?>();
         string result = ArrayHelper.ToString(array);
 
-        result.ConfirmEqual(string.Empty);
+        _ = result.ConfirmEqual(string.Empty);
     }
 
     [TestCase]
@@ -33,7 +33,7 @@ public static class ArrayHelperTest
         object?[]? array = new object?[] { 1 };
         string result = ArrayHelper.ToString(array);
 
-        result.ConfirmEqual(array[0]?.ToString());
+        _ = result.ConfirmEqual(array[0]?.ToString());
     }
 
     [TestCase(new object?[] { 1, 2 }, "1, 2")]
@@ -46,6 +46,6 @@ public static class ArrayHelperTest
     {
         string result = ArrayHelper.ToString(array);
 
-        result.ConfirmEqual(expected);
+        _ = result.ConfirmEqual(expected);
     }
 }

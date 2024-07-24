@@ -23,7 +23,7 @@ public static class ConfirmEventTest
     {
         Action action = () => OnTestEvent(new());
 
-        action.ConfirmRaisesEvent(ref TestEvent);
+        _ = action.ConfirmRaisesEvent(ref TestEvent);
     }
 
     [TestCase]
@@ -32,10 +32,10 @@ public static class ConfirmEventTest
         Action action = () =>
         {
             Action a = () => { /* No event raise here */ };
-            a.ConfirmRaisesEvent(ref TestEvent);
+            _ = a.ConfirmRaisesEvent(ref TestEvent);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
     [TestCase]
@@ -43,7 +43,7 @@ public static class ConfirmEventTest
     {
         Action action = () => { /* No event raise here */ };
 
-        action.ConfirmDoesNotRaiseEvent(ref TestEvent);
+        _ = action.ConfirmDoesNotRaiseEvent(ref TestEvent);
     }
 
     [TestCase]
@@ -52,9 +52,9 @@ public static class ConfirmEventTest
         Action action = () =>
         {
             Action a = () => OnTestEvent(new());
-            a.ConfirmDoesNotRaiseEvent(ref TestEvent);
+            _ = a.ConfirmDoesNotRaiseEvent(ref TestEvent);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 }

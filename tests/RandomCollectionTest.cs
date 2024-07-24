@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Confirma.Attributes;
 using Confirma.Extensions;
-using Confirma.Helpers;
 
 namespace Confirma.Tests;
 
@@ -11,7 +10,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class RandomCollectionTest
 {
-    private readonly static Random _rg = new();
+    private static readonly Random _rg = new();
 
     #region NextElement
     [TestCase(new int[] { 0 })]
@@ -19,7 +18,7 @@ public static class RandomCollectionTest
     [TestCase(new int[] { 0, 1, 2, 3 })]
     public static void NextElement_ValidIntArray(int[] elements)
     {
-        elements.ConfirmContains(_rg.NextElement(elements));
+        _ = elements.ConfirmContains(_rg.NextElement(elements));
     }
 
     [TestCase(new float[] { 0f })]
@@ -27,9 +26,9 @@ public static class RandomCollectionTest
     [TestCase(new float[] { 0f, 1.1f, 2.2f, 3.3f })]
     public static void NextElement_ValidStringEnumerable(float[] elements)
     {
-        var e = elements.Select((f) => f.ToString());
+        IEnumerable<string> e = elements.Select((f) => f.ToString());
 
-        e.ConfirmContains(_rg.NextElement(e));
+        _ = e.ConfirmContains(_rg.NextElement(e));
     }
 
     [TestCase]
@@ -37,9 +36,9 @@ public static class RandomCollectionTest
     {
         Action action = () => _rg.NextElement(Array.Empty<string>());
 
-        action.ConfirmThrows<InvalidOperationException>();
+        _ = action.ConfirmThrows<InvalidOperationException>();
     }
-    #endregion
+    #endregion NextElement
 
     #region NextElements
     [TestCase(new int[] { 0 })]
@@ -49,7 +48,7 @@ public static class RandomCollectionTest
     {
         int expectedSize = _rg.Next(1, elements.Length + 1);
 
-        _rg.NextElements(expectedSize, elements).ConfirmCount(expectedSize);
+        _ = _rg.NextElements(expectedSize, elements).ConfirmCount(expectedSize);
     }
 
     [TestCase]
@@ -57,7 +56,7 @@ public static class RandomCollectionTest
     {
         Action action = () => _rg.NextElements(0, new int[] { 0, 1, 2 });
 
-        action.ConfirmThrows<InvalidOperationException>();
+        _ = action.ConfirmThrows<InvalidOperationException>();
     }
 
     [Repeat(3)]
@@ -66,40 +65,40 @@ public static class RandomCollectionTest
     {
         Action action = () => _rg.NextElements(_rg.Next(), Array.Empty<string>());
 
-        action.ConfirmThrows<InvalidOperationException>();
+        _ = action.ConfirmThrows<InvalidOperationException>();
     }
-    #endregion
+    #endregion NextElements
 
     #region NextShuffle
     [Repeat(3)]
     [TestCase]
     public static void NextShuffle_ChangesOrderOfElements()
     {
-        var originalCollection = new List<int> { 1, 2, 3, 4, 5 };
-        var shuffledCollection = _rg.NextShuffle(originalCollection);
+        List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
+        IEnumerable<int> shuffledCollection = _rg.NextShuffle(originalCollection);
 
-        shuffledCollection.ConfirmNotEqual(originalCollection);
+        _ = shuffledCollection.ConfirmNotEqual(originalCollection);
     }
 
     [Repeat(3)]
     [TestCase]
     public static void NextShuffle_ContainsSameElements()
     {
-        var originalCollection = new List<int> { 1, 2, 3, 4, 5 };
-        var shuffledCollection = _rg.NextShuffle(originalCollection);
+        List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
+        IEnumerable<int> shuffledCollection = _rg.NextShuffle(originalCollection);
 
-        shuffledCollection.ConfirmElementsAreEquivalent(originalCollection);
+        _ = shuffledCollection.ConfirmElementsAreEquivalent(originalCollection);
     }
 
     [Repeat(3)]
     [TestCase]
     public static void NextShuffle_IsRandom()
     {
-        var originalCollection = new List<int> { 1, 2, 3, 4, 5 };
-        var shuffledCollection1 = _rg.NextShuffle(originalCollection);
-        var shuffledCollection2 = _rg.NextShuffle(originalCollection);
+        List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
+        IEnumerable<int> shuffledCollection1 = _rg.NextShuffle(originalCollection);
+        IEnumerable<int> shuffledCollection2 = _rg.NextShuffle(originalCollection);
 
-        shuffledCollection1.ConfirmNotEqual(shuffledCollection2);
+        _ = shuffledCollection1.ConfirmNotEqual(shuffledCollection2);
     }
 
     [TestCase]
@@ -107,7 +106,7 @@ public static class RandomCollectionTest
     {
         Action action = () => _rg.NextShuffle(Array.Empty<int>());
 
-        action.ConfirmThrows<InvalidOperationException>();
+        _ = action.ConfirmThrows<InvalidOperationException>();
     }
-    #endregion
+    #endregion NextShuffle
 }

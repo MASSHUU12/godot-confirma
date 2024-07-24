@@ -10,7 +10,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmSignalTest
 {
-    private static Button? _button = null;
+    private static Button? _button;
 
     [SetUp]
     public static void SetUp()
@@ -30,7 +30,7 @@ public static class ConfirmSignalTest
     [TestCase("button_down")]
     public static void ConfirmSignalExists_WhenSignalExists(string signalName)
     {
-        _button?.ConfirmSignalExists((StringName)signalName);
+        _ = (_button?.ConfirmSignalExists((StringName)signalName));
     }
 
     [TestCase("signal_that_does_not_exist")]
@@ -40,7 +40,7 @@ public static class ConfirmSignalTest
     {
         Action action = () => _button?.ConfirmSignalExists((StringName)signalName);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmSignalExists
 }

@@ -8,7 +8,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class RandomBooleanTest
 {
-    private readonly static Random rg = new();
+    private static readonly Random rg = new();
 
     [Repeat(5)]
     [TestCase]
@@ -17,10 +17,16 @@ public static class RandomBooleanTest
         const uint ITERATIONS = 100000;
         uint trueCount = 0;
 
-        for (int i = 0; i < ITERATIONS; i++) if (rg.NextBool()) trueCount++;
+        for (int i = 0; i < ITERATIONS; i++)
+        {
+            if (rg.NextBool())
+            {
+                trueCount++;
+            }
+        }
 
-        var truePercentage = (double)trueCount / ITERATIONS * 100;
-        truePercentage.ConfirmCloseTo(50, 1);
+        double truePercentage = (double)trueCount / ITERATIONS * 100;
+        _ = truePercentage.ConfirmCloseTo(50, 1);
     }
 
     [Repeat(5)]
@@ -37,17 +43,26 @@ public static class RandomBooleanTest
         {
             bool? result = rg.NextNullableBool();
 
-            if (result == true) trueCount++;
-            else if (result == false) falseCount++;
-            else nullCount++;
+            if (result == true)
+            {
+                trueCount++;
+            }
+            else if (result == false)
+            {
+                falseCount++;
+            }
+            else
+            {
+                nullCount++;
+            }
         }
 
-        var truePercentage = (double)trueCount / ITERATIONS * 100;
-        var falsePercentage = (double)falseCount / ITERATIONS * 100;
-        var nullPercentage = (double)nullCount / ITERATIONS * 100;
+        double truePercentage = (double)trueCount / ITERATIONS * 100;
+        double falsePercentage = (double)falseCount / ITERATIONS * 100;
+        double nullPercentage = (double)nullCount / ITERATIONS * 100;
 
-        nullPercentage.ConfirmCloseTo(33.33, 1);
-        truePercentage.ConfirmCloseTo(33.33, 1);
-        falsePercentage.ConfirmCloseTo(33.33, 1);
+        _ = nullPercentage.ConfirmCloseTo(33.33, 1);
+        _ = truePercentage.ConfirmCloseTo(33.33, 1);
+        _ = falsePercentage.ConfirmCloseTo(33.33, 1);
     }
 }

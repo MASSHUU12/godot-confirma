@@ -17,17 +17,17 @@ public static class RandomEnumTest
     [TestCase]
     public static void NextEnumValue()
     {
-        var value = rg.NextEnumValue<TestEnum>();
+        int value = rg.NextEnumValue<TestEnum>();
 
-        Confirm.IsEnumValue<TestEnum>(value);
+        _ = Confirm.IsEnumValue<TestEnum>(value);
     }
 
     [Repeat(6)]
     [TestCase]
     public static void NextEnumName()
     {
-        var name = rg.NextEnumName<TestEnum>();
+        string name = rg.NextEnumName<TestEnum>();
 
-        Confirm.IsEnumName<TestEnum>(name);
+        _ = Confirm.IsEnumName<TestEnum>(name);
     }
 }

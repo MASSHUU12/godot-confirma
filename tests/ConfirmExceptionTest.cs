@@ -15,7 +15,7 @@ public static class ConfirmExceptionTest
     {
         Action action = () => throw new NotImplementedException();
 
-        action.ConfirmThrows<NotImplementedException>();
+        _ = action.ConfirmThrows<NotImplementedException>();
     }
 
     [TestCase]
@@ -25,12 +25,12 @@ public static class ConfirmExceptionTest
         {
             Action a = () => {/* Not throws */};
 
-            a.ConfirmThrows<NotImplementedException>();
+            _ = a.ConfirmThrows<NotImplementedException>();
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmThrows
 
     #region ConfirmThrows
     [TestCase]
@@ -38,7 +38,7 @@ public static class ConfirmExceptionTest
     {
         Action action = () => {/* Not throws */};
 
-        action.ConfirmNotThrows<NotImplementedException>();
+        _ = action.ConfirmNotThrows<NotImplementedException>();
     }
 
     [TestCase]
@@ -48,12 +48,12 @@ public static class ConfirmExceptionTest
         {
             Action a = () => throw new NotImplementedException();
 
-            a.ConfirmNotThrows<NotImplementedException>();
+            _ = a.ConfirmNotThrows<NotImplementedException>();
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmThrows
 
     #region ConfirmThrowsWMessage
     [TestCase("")]
@@ -62,7 +62,7 @@ public static class ConfirmExceptionTest
     {
         Action action = () => throw new NotImplementedException(actual);
 
-        action.ConfirmThrowsWMessage<NotImplementedException>(actual);
+        _ = action.ConfirmThrowsWMessage<NotImplementedException>(actual);
     }
 
     [TestCase("")]
@@ -73,10 +73,10 @@ public static class ConfirmExceptionTest
         {
             Action a = () => {/* Not throws */};
 
-            a.ConfirmThrowsWMessage<NotImplementedException>(actual);
+            _ = a.ConfirmThrowsWMessage<NotImplementedException>(actual);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
     [TestCase("", "Expected")]
@@ -88,12 +88,12 @@ public static class ConfirmExceptionTest
         {
             Action a = () => throw new NotImplementedException(actual);
 
-            a.ConfirmThrowsWMessage<NotImplementedException>(expected);
+            _ = a.ConfirmThrowsWMessage<NotImplementedException>(expected);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmThrowsWMessage
 
     #region ConfirmNotThrowsWMessage
     [TestCase("")]
@@ -102,7 +102,7 @@ public static class ConfirmExceptionTest
     {
         Action action = () => {/* Not throws */};
 
-        action.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
+        _ = action.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
     }
 
     [TestCase("")]
@@ -113,10 +113,10 @@ public static class ConfirmExceptionTest
         {
             Action a = () => throw new NotImplementedException(actual);
 
-            a.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
+            _ = a.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
     [TestCase("", "Expected")]
@@ -128,10 +128,10 @@ public static class ConfirmExceptionTest
         {
             Action a = () => throw new NotImplementedException(actual);
 
-            a.ConfirmNotThrowsWMessage<NotImplementedException>(expected);
+            _ = a.ConfirmNotThrowsWMessage<NotImplementedException>(expected);
         };
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotThrowsWMessage
 }

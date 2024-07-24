@@ -15,7 +15,7 @@ public static class ConfirmDateTimeTest
     [TestCase(2137, 6969)]
     public static void ConfirmIsBefore_WhenIsBefore(long actualTicks, long dateTicks)
     {
-        new DateTime(actualTicks).ConfirmIsBefore(new(dateTicks));
+        _ = new DateTime(actualTicks).ConfirmIsBefore(new(dateTicks));
     }
 
     [TestCase(15, 15)]
@@ -25,9 +25,9 @@ public static class ConfirmDateTimeTest
     {
         Action action = () => new DateTime(actualTicks).ConfirmIsBefore(new(dateTicks));
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmIsBefore
 
     #region ConfirmIsOnOrBefore
     [TestCase(0, 0)]
@@ -36,7 +36,7 @@ public static class ConfirmDateTimeTest
     [TestCase(2137, 6969)]
     public static void ConfirmIsOnOrBefore_WhenIsOnOrBefore(long actualTicks, long dateTicks)
     {
-        new DateTime(actualTicks).ConfirmIsOnOrBefore(new(dateTicks));
+        _ = new DateTime(actualTicks).ConfirmIsOnOrBefore(new(dateTicks));
     }
 
     [TestCase(15, 0)]
@@ -45,9 +45,9 @@ public static class ConfirmDateTimeTest
     {
         Action action = () => new DateTime(actualTicks).ConfirmIsOnOrBefore(new(dateTicks));
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmIsOnOrBefore
 
     #region ConfirmIsAfter
     [TestCase(15, 5)]
@@ -55,7 +55,7 @@ public static class ConfirmDateTimeTest
     [TestCase(6969, 2137)]
     public static void ConfirmIsAfter_WhenIsAfter(long actualTicks, long dateTicks)
     {
-        new DateTime(actualTicks).ConfirmIsAfter(new(dateTicks));
+        _ = new DateTime(actualTicks).ConfirmIsAfter(new(dateTicks));
     }
 
     [TestCase(15, 15)]
@@ -65,9 +65,9 @@ public static class ConfirmDateTimeTest
     {
         Action action = () => new DateTime(actualTicks).ConfirmIsAfter(new(dateTicks));
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmIsAfter
 
     #region ConfirmIsOnOrAfter
     [TestCase(0, 0)]
@@ -76,7 +76,7 @@ public static class ConfirmDateTimeTest
     [TestCase(6969, 2137)]
     public static void ConfirmIsOnOrAfter_WhenIsOnOrAfter(long actualTicks, long dateTicks)
     {
-        new DateTime(actualTicks).ConfirmIsOnOrAfter(new(dateTicks));
+        _ = new DateTime(actualTicks).ConfirmIsOnOrAfter(new(dateTicks));
     }
 
     [TestCase(0, 15)]
@@ -85,7 +85,7 @@ public static class ConfirmDateTimeTest
     {
         Action action = () => new DateTime(actualTicks).ConfirmIsOnOrAfter(new(dateTicks));
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmIsOnOrAfter
 }

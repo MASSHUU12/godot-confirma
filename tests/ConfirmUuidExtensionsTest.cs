@@ -15,9 +15,9 @@ public static class ConfirmUuidExtensions
     [TestCase]
     public static void ConfirmValidUuid4_WhenValid()
     {
-        rg.NextUuid4().ToString().ConfirmValidUuid4();
-        rg.NextUuid4().ToString().ConfirmValidUuid4();
-        rg.NextUuid4().ToString().ConfirmValidUuid4();
+        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
+        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
+        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
     }
 
     [TestCase("aaa")]
@@ -27,9 +27,9 @@ public static class ConfirmUuidExtensions
     {
         Action action = () => actual.ConfirmValidUuid4();
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmValidUuid4
 
     #region ConfirmInvalidUuid4
     [TestCase("aaa")]
@@ -37,7 +37,7 @@ public static class ConfirmUuidExtensions
     [TestCase("Lorem ipsum dolor sit amet")]
     public static void ConfirmInvalidUuid4_WhenInvalid(string actual)
     {
-        actual.ConfirmInvalidUuid4();
+        _ = actual.ConfirmInvalidUuid4();
     }
 
     [TestCase]
@@ -45,9 +45,9 @@ public static class ConfirmUuidExtensions
     {
         Action action = () => rg.NextUuid4().ToString().ConfirmInvalidUuid4();
 
-        action.ConfirmThrows<ConfirmAssertException>();
-        action.ConfirmThrows<ConfirmAssertException>();
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmInvalidUuid4
 }

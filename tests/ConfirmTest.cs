@@ -23,7 +23,7 @@ public static class ConfirmTest
     [TestCase(4)]
     public static void IsEnumValue_WhenIsEnumValue(int value)
     {
-        Confirm.IsEnumValue<TestEnum>(value);
+        _ = Confirm.IsEnumValue<TestEnum>(value);
     }
 
     [TestCase(-1)]
@@ -32,16 +32,16 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsEnumValue<TestEnum>(value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion IsEnumValue
 
     #region IsNotEnumValue
     [TestCase(-1)]
     [TestCase(5)]
     public static void IsNotEnumValue_WhenIsNotEnumValue(int value)
     {
-        Confirm.IsNotEnumValue<TestEnum>(value);
+        _ = Confirm.IsNotEnumValue<TestEnum>(value);
     }
 
     [TestCase(0)]
@@ -53,9 +53,9 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsNotEnumValue<TestEnum>(value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion IsNotEnumValue
 
     #region IsEnumName
     [TestCase("A", false)]
@@ -70,7 +70,7 @@ public static class ConfirmTest
     [TestCase("e", true)]
     public static void IsEnumName_WhenIsEnumName(string name, bool ignoreCase)
     {
-        Confirm.IsEnumName<TestEnum>(name, ignoreCase);
+        _ = Confirm.IsEnumName<TestEnum>(name, ignoreCase);
     }
 
     [TestCase("a")]
@@ -80,7 +80,7 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsEnumName<TestEnum>(name);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
     [TestCase("0", false)]
@@ -91,15 +91,15 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsEnumName<TestEnum>(name, ignoreCase);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion IsEnumName
 
     #region IsTrue
     [TestCase]
     public static void IsTrue_WhenIsTrue()
     {
-        Confirm.IsTrue(true);
+        _ = Confirm.IsTrue(true);
     }
 
     [TestCase]
@@ -107,14 +107,14 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsTrue(false);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion IsTrue
 
     #region IsFalse
     public static void IsFalse_WhenIsFalse()
     {
-        Confirm.IsFalse(false);
+        _ = Confirm.IsFalse(false);
     }
 
     [TestCase]
@@ -122,7 +122,7 @@ public static class ConfirmTest
     {
         Action action = () => Confirm.IsFalse(true);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion IsFalse
 }

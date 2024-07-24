@@ -1,8 +1,8 @@
-using Godot;
+using System;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
-using System;
+using Godot;
 
 namespace Confirma.Tests;
 
@@ -16,10 +16,10 @@ public static class ConfirmVectorTest
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.5f)]
     public static void ConfirmEqualApprox_WhenEqual(float a, float b, float c, float d, float tolerance)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmEqualApprox(vector2, tolerance);
+        _ = vector.ConfirmEqualApprox(vector2, tolerance);
     }
 
     [TestCase(1f, 2f, 1.1f, 2.1f, 0.0001f)]
@@ -27,14 +27,14 @@ public static class ConfirmVectorTest
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.1f)]
     public static void ConfirmEqualApprox_WhenNotEqual(float a, float b, float c, float d, float tolerance)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmEqualApprox(vector2, tolerance);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmEqualApprox
 
     #region ConfirmNotEqualApprox
     [TestCase(1f, 2f, 1.1f, 2.1f, 0.0001f)]
@@ -42,10 +42,10 @@ public static class ConfirmVectorTest
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.1f)]
     public static void ConfirmNotEqualApprox_WhenNotEqual(float a, float b, float c, float d, float tolerance)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmNotEqualApprox(vector2, tolerance);
+        _ = vector.ConfirmNotEqualApprox(vector2, tolerance);
     }
 
     [TestCase(1f, 2f, 1f, 2f, 0.0001f)]
@@ -53,14 +53,14 @@ public static class ConfirmVectorTest
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.5f)]
     public static void ConfirmNotEqualApprox_WhenEqual(float a, float b, float c, float d, float tolerance)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmNotEqualApprox(vector2, tolerance);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotEqualApprox
 
     #region ConfirmLessThan
     [TestCase(-5f, -5f, 0f, -2f)]
@@ -68,10 +68,10 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
     public static void ConfirmLessThan_WhenLessThan(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmLessThan(vector2);
+        _ = vector.ConfirmLessThan(vector2);
     }
 
     [TestCase(1f, 2f, -5f, -5f)]
@@ -79,14 +79,14 @@ public static class ConfirmVectorTest
     [TestCase(1.00001f, 2.00001f, 1f, 2f)]
     public static void ConfirmLessThan_WhenNotLessThan(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmLessThan(vector2);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmLessThan
 
     #region ConfirmLessThanOrEqual
     [TestCase(1f, 2f, 1f, 2f)]
@@ -95,10 +95,10 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
     public static void ConfirmLessThanOrEqual_WhenLessThanOrEqual(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmLessThanOrEqual(vector2);
+        _ = vector.ConfirmLessThanOrEqual(vector2);
     }
 
     [TestCase(1f, 2f, -5f, -5f)]
@@ -106,14 +106,14 @@ public static class ConfirmVectorTest
     [TestCase(1.00001f, 2.00001f, 1f, 2f)]
     public static void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmLessThanOrEqual(vector2);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmLessThanOrEqual
 
     #region ConfirmGreaterThan
     [TestCase(0f, -2f, -5f, -5f)]
@@ -121,10 +121,10 @@ public static class ConfirmVectorTest
     [TestCase(1.0001f, 2.0001f, 1f, 2f)]
     public static void ConfirmGreaterThan_WhenGreaterThan(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmGreaterThan(vector2);
+        _ = vector.ConfirmGreaterThan(vector2);
     }
 
     [TestCase(-5f, -5f, 0f, -2f)]
@@ -132,14 +132,14 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
     public static void ConfirmGreaterThan_WhenNotGreaterThan(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmGreaterThan(vector2);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmGreaterThan
 
     #region ConfirmGreaterThanOrEqual
     [TestCase(0f, -2f, -5f, -5f)]
@@ -147,10 +147,10 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2.1f, 1f, 2f)]
     public static void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
-        vector.ConfirmGreaterThanOrEqual(vector2);
+        _ = vector.ConfirmGreaterThanOrEqual(vector2);
     }
 
     [TestCase(-5f, -5f, 0f, -2f)]
@@ -158,14 +158,14 @@ public static class ConfirmVectorTest
     [TestCase(1.00001f, 0f, 1.0001f, 2f)]
     public static void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(float a, float b, float c, float d)
     {
-        var vector = new Vector2(a, b);
-        var vector2 = new Vector2(c, d);
+        Vector2 vector = new(a, b);
+        Vector2 vector2 = new(c, d);
 
         Action action = () => vector.ConfirmGreaterThanOrEqual(vector2);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmGreaterThanOrEqual
 
     #region ConfirmBetween
     [TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
@@ -173,11 +173,11 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
     public static void ConfirmBetween_WhenBetween(float a, float b, float c, float d, float e, float f)
     {
-        var vector = new Vector2(a, b);
-        var min = new Vector2(c, d);
-        var max = new Vector2(e, f);
+        Vector2 vector = new(a, b);
+        Vector2 min = new(c, d);
+        Vector2 max = new(e, f);
 
-        vector.ConfirmBetween(min, max);
+        _ = vector.ConfirmBetween(min, max);
     }
 
     [TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
@@ -185,15 +185,15 @@ public static class ConfirmVectorTest
     [TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
     public static void ConfirmBetween_WhenNotBetween(float a, float b, float c, float d, float e, float f)
     {
-        var vector = new Vector2(a, b);
-        var min = new Vector2(c, d);
-        var max = new Vector2(e, f);
+        Vector2 vector = new(a, b);
+        Vector2 min = new(c, d);
+        Vector2 max = new(e, f);
 
         Action action = () => vector.ConfirmBetween(min, max);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmBetween
 
     #region ConfirmNotBetween
     [TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
@@ -201,11 +201,11 @@ public static class ConfirmVectorTest
     [TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
     public static void ConfirmNotBetween_WhenNotBetween(float a, float b, float c, float d, float e, float f)
     {
-        var vector = new Vector2(a, b);
-        var min = new Vector2(c, d);
-        var max = new Vector2(e, f);
+        Vector2 vector = new(a, b);
+        Vector2 min = new(c, d);
+        Vector2 max = new(e, f);
 
-        vector.ConfirmNotBetween(min, max);
+        _ = vector.ConfirmNotBetween(min, max);
     }
 
     [TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
@@ -213,13 +213,13 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
     public static void ConfirmNotBetween_WhenBetween(float a, float b, float c, float d, float e, float f)
     {
-        var vector = new Vector2(a, b);
-        var min = new Vector2(c, d);
-        var max = new Vector2(e, f);
+        Vector2 vector = new(a, b);
+        Vector2 min = new(c, d);
+        Vector2 max = new(e, f);
 
         Action action = () => vector.ConfirmNotBetween(min, max);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotBetween
 }

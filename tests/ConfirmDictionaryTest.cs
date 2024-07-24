@@ -37,18 +37,17 @@ public static class ConfirmDictionaryTest
     [TestCase('5')]
     public static void ConfirmContainsKey_WhenKeyExists(object key)
     {
-        _dictionary.ConfirmContainsKey(key);
+        _ = _dictionary.ConfirmContainsKey(key);
     }
 
-    // Variant
     [TestCase("key")]
     [TestCase(2)]
     [TestCase(3f)]
     [TestCase(4d)]
     [TestCase('5')]
-    public static void ConfirmContainsVariantKey_WhenKeyExists(object key)
+    public static void ConfirmContainsKey_WhenKeyExists_Variant(object key)
     {
-        _godotDictionary.ConfirmContainsKey(key.ToVariant());
+        _ = _godotDictionary.ConfirmContainsKey(key.ToVariant());
     }
 
     [TestCase("key2")]
@@ -60,22 +59,21 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmContainsKey(key);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("key2")]
     [TestCase(3)]
     [TestCase(4)]
     [TestCase(5d)]
     [TestCase('6')]
-    public static void ConfirmContainsVariantKey_WhenKeyDoesNotExist(object key)
+    public static void ConfirmContainsKey_WhenKeyDoesNotExist_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmContainsKey(key.ToVariant());
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmContainsKey
 
     #region ConfirmNotContainsKey
     [TestCase("key2")]
@@ -85,18 +83,17 @@ public static class ConfirmDictionaryTest
     [TestCase('6')]
     public static void ConfirmNotContainsKey_WhenKeyDoesNotExist(object key)
     {
-        _dictionary.ConfirmNotContainsKey(key);
+        _ = _dictionary.ConfirmNotContainsKey(key);
     }
 
-    // Variant
     [TestCase("key2")]
     [TestCase(3)]
     [TestCase(4)]
     [TestCase(5d)]
     [TestCase('6')]
-    public static void ConfirmNotContainsVariantKey_WhenKeyDoesNotExist(object key)
+    public static void ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(object key)
     {
-        _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
+        _ = _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
     }
 
     [TestCase("key")]
@@ -108,22 +105,21 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmNotContainsKey(key);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("key")]
     [TestCase(2)]
     [TestCase(3f)]
     [TestCase(4d)]
     [TestCase('5')]
-    public static void ConfirmNotContainsVariantKey_WhenKeyExists(object key)
+    public static void ConfirmNotContainsKey_WhenKeyExists_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotContainsKey
 
     #region ConfirmContainsValue
     [TestCase("value")]
@@ -133,18 +129,17 @@ public static class ConfirmDictionaryTest
     [TestCase('5')]
     public static void ConfirmContainsValue_WhenValueExists(object value)
     {
-        _dictionary.ConfirmContainsValue(value);
+        _ = _dictionary.ConfirmContainsValue(value);
     }
 
-    // Variant
     [TestCase("value")]
     [TestCase(222)]
     [TestCase(333f)]
     [TestCase(444d)]
     [TestCase('5')]
-    public static void ConfirmContainsVariantValue_WhenValueExists(object value)
+    public static void ConfirmContainsValue_WhenValueExists_Variant(object value)
     {
-        _godotDictionary.ConfirmContainsValue(value.ToVariant());
+        _ = _godotDictionary.ConfirmContainsValue(value.ToVariant());
     }
 
     [TestCase("value2")]
@@ -156,22 +151,21 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmContainsValue(value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("value2")]
     [TestCase(69)]
     [TestCase(2137f)]
     [TestCase(420d)]
     [TestCase('0')]
-    public static void ConfirmContainsVariantValue_WhenValueDoesNotExist(object value)
+    public static void ConfirmContainsValue_WhenValueDoesNotExist_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmContainsValue(value.ToVariant());
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmContainsValue
 
     #region ConfirmNotContainsValue
     [TestCase("value2")]
@@ -181,18 +175,17 @@ public static class ConfirmDictionaryTest
     [TestCase('0')]
     public static void ConfirmNotContainsValue_WhenValueDoesNotExist(object value)
     {
-        _dictionary.ConfirmNotContainsValue(value);
+        _ = _dictionary.ConfirmNotContainsValue(value);
     }
 
-    // Variant
     [TestCase("value2")]
     [TestCase(69)]
     [TestCase(2137f)]
     [TestCase(420d)]
     [TestCase('0')]
-    public static void ConfirmNotContainsVariantValue_WhenValueDoesNotExist(object value)
+    public static void ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(object value)
     {
-        _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
+        _ = _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
     }
 
     [TestCase("value")]
@@ -204,22 +197,21 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmNotContainsValue(value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("value")]
     [TestCase(222)]
     [TestCase(333f)]
     [TestCase(444d)]
     [TestCase('5')]
-    public static void ConfirmNotContainsVariantValue_WhenValueExists(object value)
+    public static void ConfirmNotContainsValue_WhenValueExists_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotContainsValue
 
     #region ConfirmContainsKeyValuePair
     [TestCase("key", "value")]
@@ -227,20 +219,28 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairExists(object key, object value)
+    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairExists(
+        object key,
+        object value
+    )
     {
-        _dictionary.ConfirmContainsKeyValuePair(key, value);
+        _ = _dictionary.ConfirmContainsKeyValuePair(key, value);
     }
 
-    // Variant
     [TestCase("key", "value")]
     [TestCase(2, 222)]
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmContainsVariantKeyValuePair_WhenKeyValuePairExists(object key, object value)
+    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(
+        object key,
+        object value
+    )
     {
-        _godotDictionary.ConfirmContainsKeyValuePair(key.ToVariant(), value.ToVariant());
+        _ = _godotDictionary.ConfirmContainsKeyValuePair(
+            key.ToVariant(),
+            value.ToVariant()
+        );
     }
 
     [TestCase("kdey", "vdalue")]
@@ -248,26 +248,34 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(object key, object value)
+    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
+        object key,
+        object value
+    )
     {
         Action action = () => _dictionary.ConfirmContainsKeyValuePair(key, value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("kdey", "vdalue")]
     [TestCase(2, -222f)]
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmContainsVariantKeyValuePair_WhenKeyValuePairDoesNotExist(object key, object value)
+    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
+        object key,
+        object value
+    )
     {
-        Action action = () => _godotDictionary.ConfirmContainsKeyValuePair(key.ToVariant(), value.ToVariant());
+        Action action = () => _godotDictionary.ConfirmContainsKeyValuePair(
+            key.ToVariant(),
+            value.ToVariant()
+        );
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmContainsKeyValuePair
 
     #region ConfirmNotContainsKeyValuePair
     [TestCase("kdey", "vdalue")]
@@ -275,20 +283,28 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(object key, object value)
+    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
+        object key,
+        object value
+    )
     {
-        _dictionary.ConfirmNotContainsKeyValuePair(key, value);
+        _ = _dictionary.ConfirmNotContainsKeyValuePair(key, value);
     }
 
-    // Variant
     [TestCase("kdey", "vdalue")]
     [TestCase(2, -222f)]
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmNotContainsVariantKeyValuePair_WhenKeyValuePairDoesNotExist(object key, object value)
+    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
+        object key,
+        object value
+    )
     {
-        _godotDictionary.ConfirmNotContainsKeyValuePair(key.ToVariant(), value.ToVariant());
+        _ = _godotDictionary.ConfirmNotContainsKeyValuePair(
+            key.ToVariant(),
+            value.ToVariant()
+        );
     }
 
     [TestCase("key", "value")]
@@ -296,24 +312,32 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(object key, object value)
+    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(
+        object key,
+        object value
+    )
     {
         Action action = () => _dictionary.ConfirmNotContainsKeyValuePair(key, value);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 
-    // Variant
     [TestCase("key", "value")]
     [TestCase(2, 222)]
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmNotContainsVariantKeyValuePair_WhenKeyValuePairExists(object key, object value)
+    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(
+        object key,
+        object value
+    )
     {
-        Action action = () => _godotDictionary.ConfirmNotContainsKeyValuePair(key.ToVariant(), value.ToVariant());
+        Action action = () => _godotDictionary.ConfirmNotContainsKeyValuePair(
+            key.ToVariant(),
+            value.ToVariant()
+        );
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
-    #endregion
+    #endregion ConfirmNotContainsKeyValuePair
 }
