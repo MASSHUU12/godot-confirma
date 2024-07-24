@@ -1,5 +1,5 @@
-using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -12,28 +12,24 @@ public static class ConfirmBooleanTest
     [TestCase]
     public static void ConfirmTrue_WhenTrue()
     {
-        true.ConfirmTrue();
+        _ = true.ConfirmTrue();
     }
 
     [TestCase]
     public static void ConfirmTrue_WhenFalse()
     {
-        Action action = () => false.ConfirmTrue();
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => false.ConfirmTrue());
     }
 
     [TestCase]
     public static void ConfirmFalse_WhenFalse()
     {
-        false.ConfirmFalse();
+        _ = false.ConfirmFalse();
     }
 
     [TestCase]
     public static void ConfirmFalse_WhenTrue()
     {
-        Action action = () => true.ConfirmFalse();
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => true.ConfirmFalse());
     }
 }

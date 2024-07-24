@@ -1,5 +1,6 @@
 using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -15,7 +16,7 @@ public static class ConfirmTypeTest
     [TestCase(true, typeof(bool))]
     public static void ConfirmType_WhenOfType(object? actual, Type expected)
     {
-        actual.ConfirmType(expected);
+        _ = actual.ConfirmType(expected);
     }
 
     [TestCase("Lorem ipsum", typeof(int))]
@@ -23,9 +24,9 @@ public static class ConfirmTypeTest
     [TestCase(3.14, typeof(bool))]
     public static void ConfirmType_WhenNotOfType(object? actual, Type expected)
     {
-        Action action = () => actual.ConfirmType(expected);
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(
+            () => actual.ConfirmType(expected)
+        );
     }
 
     [TestCase("Lorem ipsum", typeof(int))]
@@ -33,7 +34,7 @@ public static class ConfirmTypeTest
     [TestCase(3.14, typeof(bool))]
     public static void ConfirmNotType_WhenNotOfType(object? actual, Type expected)
     {
-        actual.ConfirmNotType(expected);
+        _ = actual.ConfirmNotType(expected);
     }
 
     [TestCase("Lorem ipsum", typeof(string))]
@@ -42,8 +43,8 @@ public static class ConfirmTypeTest
     [TestCase(true, typeof(bool))]
     public static void ConfirmNotType_WhenOfType(object? actual, Type expected)
     {
-        Action action = () => actual.ConfirmNotType(expected);
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(
+            () => actual.ConfirmNotType(expected)
+        );
     }
 }

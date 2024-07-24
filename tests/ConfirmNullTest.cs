@@ -1,5 +1,5 @@
-using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -12,30 +12,26 @@ public static class ConfirmNullTest
     [TestCase(new object?[] { null })]
     public static void ConfirmNull_WhenNull(object? actual)
     {
-        actual.ConfirmNull();
+        _ = actual.ConfirmNull();
     }
 
     [TestCase("Lorem ipsum")]
     [TestCase(2)]
     public static void ConfirmNull_WhenNotNull(object? actual)
     {
-        Action action = () => actual.ConfirmNull();
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNull());
     }
 
     [TestCase("Lorem ipsum")]
     [TestCase(2)]
     public static void ConfirmNotNull_WhenNotNull(object? actual)
     {
-        actual.ConfirmNotNull();
+        _ = actual.ConfirmNotNull();
     }
 
     [TestCase(new object?[] { null })]
     public static void ConfirmNotNull_WhenNull(object? actual)
     {
-        Action action = () => actual.ConfirmNotNull();
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNotNull());
     }
 }

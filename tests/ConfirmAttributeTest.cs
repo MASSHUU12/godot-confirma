@@ -13,7 +13,7 @@ public static class ConfirmAttributeTest
     [TestCase(typeof(ConfirmAttributeTest), typeof(ParallelizableAttribute))]
     public static void ConfirmIsDecoratedWith_WhenIsDecoratedWith(Type actual, Type expected)
     {
-        actual.ConfirmIsDecoratedWith(expected);
+        _ = actual.ConfirmIsDecoratedWith(expected);
     }
 
     [TestCase(typeof(ParallelizableAttribute), typeof(ConfirmAttributeTest))]
@@ -22,6 +22,6 @@ public static class ConfirmAttributeTest
     {
         Action action = () => actual.ConfirmIsDecoratedWith(expected);
 
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrows<ConfirmAssertException>();
     }
 }

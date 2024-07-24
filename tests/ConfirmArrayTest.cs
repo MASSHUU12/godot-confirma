@@ -1,5 +1,6 @@
 using System;
 using Confirma.Attributes;
+using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -14,7 +15,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1, 2 }, 2)]
     public static void ConfirmSize_WhenIsOfSize(int[] array, int expectedSize)
     {
-        array.ConfirmSize(expectedSize);
+        _ = array.ConfirmSize(expectedSize);
     }
 
     [TestCase(new int[] { 1 }, 0)]
@@ -22,15 +23,13 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1, 2, 3 }, 2)]
     public static void ConfirmSize_WhenIsNotOfSize(int[] array, int expectedSize)
     {
-        Action action = () => array.ConfirmSize(expectedSize);
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => array.ConfirmSize(expectedSize));
     }
 
     [TestCase]
     public static void ConfirmEmpty_WhenIsEmpty()
     {
-        Array.Empty<int>().ConfirmEmpty();
+        _ = Array.Empty<int>().ConfirmEmpty();
     }
 
     [TestCase(new int[] { 1 })]
@@ -38,9 +37,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1, 2, 3 })]
     public static void ConfirmEmpty_WhenIsNotEmpty(int[] array)
     {
-        Action action = () => array.ConfirmEmpty();
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => array.ConfirmEmpty());
     }
 
     [TestCase(new int[] { 1 }, 1)]
@@ -48,7 +45,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1, 2, 3 }, 2)]
     public static void ConfirmContains_WhenContains(int[] array, int expected)
     {
-        array.ConfirmContains(expected);
+        _ = array.ConfirmContains(expected);
     }
 
     [TestCase(new int[] { 1 }, 2)]
@@ -56,8 +53,6 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1, 2, 3 }, 4)]
     public static void ConfirmContains_WhenNotContains(int[] array, int expected)
     {
-        Action action = () => array.ConfirmContains(expected);
-
-        action.ConfirmThrows<ConfirmAssertException>();
+        _ = Confirm.Throws<ConfirmAssertException>(() => array.ConfirmContains(expected));
     }
 }
