@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [0.7.1-beta 2024-07-24]
 
+### Changed
+
+- Confirma can operate from a location other than the default.
+
 ### Fixed
 
 - Single tests are run twice.
+- Issues occur when adding Confirma to the bottom panel of the editor when starting Godot.
 
 ## [0.7.0-beta 2024-07-23]
 
