@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+
+- Single tests are run twice.
+
 ## [0.7.0-beta 2024-07-23]
 
 ### Added
