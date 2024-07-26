@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+
+- Resource leak on Godot editor exit.
+
 ## [0.7.1-beta 2024-07-24]
 
 ### Changed
