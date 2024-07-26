@@ -5,6 +5,7 @@ using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Helpers;
 using Confirma.Types;
+using Godot;
 
 namespace Confirma.Classes;
 
@@ -29,6 +30,7 @@ public class TestingClass
     public TestClassResult Run(TestsProps props)
     {
         uint passed = 0, failed = 0, ignored = 0, warnings = 0;
+        int initialOrphans = GetOrphans();
 
         _props = props;
 
@@ -41,7 +43,7 @@ public class TestingClass
             if (!TestMethods.Any())
             {
                 Log.PrintError($"No test Methods found with the name '{props.MethodName}'.");
-                return new TestClassResult(0, 0, 0, 1);
+                return new(0, 0, 0, 1);
             }
         }
 
@@ -49,9 +51,18 @@ public class TestingClass
         {
             warnings += RunLifecycleMethod("SetUp");
 
+            int currentOrphans = GetOrphans() - initialOrphans;
+
             TestMethodResult methodResult = method.Run(props);
 
             warnings += RunLifecycleMethod("TearDown");
+
+            int newOrphans = GetOrphans() - initialOrphans;
+            if (currentOrphans < newOrphans)
+            {
+                warnings++;
+                Log.PrintWarning($"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n");
+            }
 
             passed += methodResult.TestsPassed;
             failed += methodResult.TestsFailed;
@@ -109,5 +120,12 @@ public class TestingClass
         }
 
         return method.HasMultiple ? (byte)1 : (byte)0;
+    }
+
+    private static int GetOrphans()
+    {
+        return (int)Performance.Singleton.GetMonitor(
+            Performance.Monitor.ObjectOrphanNodeCount
+        );
     }
 }
