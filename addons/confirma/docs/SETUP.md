@@ -35,8 +35,6 @@ After performing these two actions, you can now compile the project and activate
 
 ## Running tests from the editor
 
-> Note: Tests run from the editor execute much faster.
-
 After activating the plugin, a "Confirma" button should appear in the bottom panel of the editor. Through this button, you can activate tests, and view their results.
 
 ## Running tests via Visual Studio Code
@@ -50,67 +48,67 @@ In the root of your project, create a folder named `.vscode` and place the follo
 
 This will allow you to run/debug tests from within VSCode, just press `F5`.
 
-**tasks.json**
+### tasks.json
 
 ```json
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "build",
-			"command": "dotnet",
-			"type": "process",
-			"args": ["build", "--no-restore"],
-			"problemMatcher": "$msCompile",
-			"presentation": {
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": false
-			}
-		}
-	]
+ "version": "2.0.0",
+ "tasks": [
+  {
+   "label": "build",
+   "command": "dotnet",
+   "type": "process",
+   "args": ["build", "--no-restore"],
+   "problemMatcher": "$msCompile",
+   "presentation": {
+    "echo": true,
+    "reveal": "silent",
+    "focus": false,
+    "panel": "shared",
+    "showReuseMessage": false,
+    "clear": false
+   }
+  }
+ ]
 }
 ```
 
-**launch.json**
+### launch.json
 
 ```json
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"name": "🧪 Run Tests",
-			"type": "coreclr",
-			"request": "launch",
-			"preLaunchTask": "build",
-			"program": "${env:GODOT}",
-			"args": ["--", "--confirma-run"],
-			"cwd": "${workspaceFolder}",
-			"stopAtEntry": false
-		},
-		{
-			"name": "🧪 Run Tests (headless)",
-			"type": "coreclr",
-			"request": "launch",
-			"preLaunchTask": "build",
-			"program": "${env:GODOT}",
-			"args": ["--headless", "--", "--confirma-quit", "--confirma-run"],
-			"cwd": "${workspaceFolder}",
-			"stopAtEntry": false
-		},
-		{
-			"name": "🧪 Run Single Test (headless)",
-			"type": "coreclr",
-			"request": "launch",
-			"preLaunchTask": "build",
-			"program": "${env:GODOT}",
-			"args": ["--headless", "--", "--confirma-quit", "--confirma-run=${fileBasenameNoExtension}"],
-			"cwd": "${workspaceFolder}",
-			"stopAtEntry": false
-		}
-	]
+ "version": "0.2.0",
+ "configurations": [
+  {
+   "name": "🧪 Run Tests",
+   "type": "coreclr",
+   "request": "launch",
+   "preLaunchTask": "build",
+   "program": "${env:GODOT}",
+   "args": ["--", "--confirma-run"],
+   "cwd": "${workspaceFolder}",
+   "stopAtEntry": false
+  },
+  {
+   "name": "🧪 Run Tests (headless)",
+   "type": "coreclr",
+   "request": "launch",
+   "preLaunchTask": "build",
+   "program": "${env:GODOT}",
+   "args": ["--headless", "--", "--confirma-quit", "--confirma-run"],
+   "cwd": "${workspaceFolder}",
+   "stopAtEntry": false
+  },
+  {
+   "name": "🧪 Run Single Test (headless)",
+   "type": "coreclr",
+   "request": "launch",
+   "preLaunchTask": "build",
+   "program": "${env:GODOT}",
+   "args": ["--headless", "--", "--confirma-quit", "--confirma-run=${fileBasenameNoExtension}"],
+   "cwd": "${workspaceFolder}",
+   "stopAtEntry": false
+  }
+ ]
 }
 ```
