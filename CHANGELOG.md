@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- TestsExecutionStarted/Finished signals to TestRunner.
+
+### Changed
+
+- The "Run All Tests" button is no longer available when tests are executed.
+
 ### Fixed
 
 - Resource leak on Godot editor exit.
