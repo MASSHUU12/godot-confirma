@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- [**Experimental**] Information about number of orphans.
+- [**Experimental**] Detecting when orphans are created.
+
+### Changed
+
+- Color.TerminalReset is now static readonly field.
+
 ### Fixed
 
 - Resource leak on Godot editor exit.
