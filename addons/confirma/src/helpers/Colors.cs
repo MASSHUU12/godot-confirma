@@ -7,6 +7,7 @@ public static class Colors
     public static readonly string Success = "#8eef97";
     public static readonly string Warning = "#ffdd65";
     public static readonly string Error = "#ff786b";
+    public static readonly string TerminalReset = "\x1b[0m";
 
     // Note: GD.PrintRich does not support hex color codes
     // this is why we have to use different methods for terminal and Godot
@@ -24,12 +25,7 @@ public static class Colors
 
     public static string ToTerminal(string text, Color color)
     {
-        return $"\x1b[38;2;{color.R * 0xFF};{color.G * 0xFF};{color.B * 0xFF}m{text}{TerminalReset()}";
-    }
-
-    public static string TerminalReset()
-    {
-        return "\x1b[0m";
+        return $"\x1b[38;2;{color.R * 0xFF};{color.G * 0xFF};{color.B * 0xFF}m{text}{TerminalReset}";
     }
 
     public static string ToGodot(string text, Color color)

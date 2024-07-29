@@ -21,7 +21,7 @@ public static class ConfirmSignalTest
     [TearDown]
     public static void TearDown()
     {
-        _button?.QueueFree();
+        _button?.Free();
     }
 
     #region ConfirmSignalExists

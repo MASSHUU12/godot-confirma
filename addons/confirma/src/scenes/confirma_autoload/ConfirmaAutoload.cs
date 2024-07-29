@@ -84,6 +84,12 @@ public partial class ConfirmaAutoload : Node
             if (!Props.DisableParallelization && arg == "--confirma-sequential")
             {
                 Props.DisableParallelization = true;
+                continue;
+            }
+
+            if (!Props.MonitorOrphans && arg == "--experimental-monitor-orphans")
+            {
+                Props.MonitorOrphans = true;
             }
         }
     }

@@ -6,10 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- TestsExecutionStarted/Finished signals to TestRunner.
+- [**Experimental**] Information about number of orphans.
+- [**Experimental**] Detecting when orphans are created.
 
 ### Changed
 
+- Color.TerminalReset is now static readonly field.
+- TestsExecutionStarted/Finished signals to TestRunner.
 - The "Run All Tests" button is no longer available when tests are executed.
 
 ### Fixed

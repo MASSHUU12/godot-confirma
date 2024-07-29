@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
@@ -82,6 +83,10 @@ public static class TestExecutor
             }
         }
 
+        _props.Result.TotalOrphans += (uint)Godot.Performance.GetMonitor(
+            Godot.Performance.Monitor.ObjectOrphanNodeCount
+        );
+
         PrintSummary(testClasses.Count(), startTimeStamp);
     }
 
@@ -102,7 +107,7 @@ public static class TestExecutor
         {
             _props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
 
-            Log.PrintWarning($" ignored.\n");
+            Log.PrintWarning(" ignored.\n");
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
@@ -123,13 +128,17 @@ public static class TestExecutor
     {
         Log.PrintLine(
             string.Format(
-                "\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}.",
+                CultureInfo.InvariantCulture,
+                "\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}{7}.",
                 _props.Result.TotalTests,
                 count,
                 (DateTime.Now - startTimeStamp).TotalSeconds,
                 Colors.ColorText($"{_props.Result.TestsPassed} passed", Colors.Success),
                 Colors.ColorText($"{_props.Result.TestsFailed} failed", Colors.Error),
                 Colors.ColorText($"{_props.Result.TestsIgnored} ignored", Colors.Warning),
+                _props.MonitorOrphans
+                    ? Colors.ColorText($"{_props.Result.TotalOrphans} orphans, ", Colors.Warning)
+                    : string.Empty,
                 Colors.ColorText($"{_props.Result.Warnings} warnings", Colors.Warning)
             )
         );

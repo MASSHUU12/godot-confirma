@@ -66,9 +66,10 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnFile()
     {
-        _ = new StringName("./LICENSE")
+        new StringName("./LICENSE")
             .ConfirmIsFile()
-            .ConfirmFileContains("MIT License");
+            .ConfirmFileContains("MIT License")
+            .Dispose();
     }
 
     [TestCase]
@@ -101,11 +102,10 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnSignal()
     {
-        (
-            (Button)new Button()
+        new Button()
             .ConfirmSignalExists("pressed")
             .ConfirmSignalDoesNotExist("Lorem ipsum")
-        ).QueueFree();
+            .Free();
     }
 
     [TestCase]

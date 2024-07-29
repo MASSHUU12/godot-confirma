@@ -7,7 +7,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmUuidExtensions
+public static class ConfirmUuidExtensionsTest
 {
     private static readonly Random rg = new();
 

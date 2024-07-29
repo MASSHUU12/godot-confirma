@@ -7,7 +7,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmRangeExtensionTest
+public static class ConfirmRangeTest
 {
     [TestCase(1, 0, 2)]
     [TestCase(0, 0, 2)]
