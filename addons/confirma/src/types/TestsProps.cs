@@ -16,6 +16,7 @@ public struct TestsProps
     public string ClassName { get; set; } = string.Empty;
     public string MethodName { get; set; } = string.Empty;
     public bool DisableParallelization { get; set; }
+    public bool MonitorOrphans { get; set; }
 
     public TestsProps() { }
 

@@ -30,7 +30,6 @@ public class TestingClass
     public TestClassResult Run(TestsProps props)
     {
         uint passed = 0, failed = 0, ignored = 0, warnings = 0;
-        int initialOrphans = GetOrphans();
 
         _props = props;
 
@@ -42,7 +41,9 @@ public class TestingClass
 
             if (!TestMethods.Any())
             {
-                Log.PrintError($"No test Methods found with the name '{props.MethodName}'.");
+                Log.PrintError(
+                    $"No test Methods found with the name '{props.MethodName}'."
+                );
                 return new(0, 0, 0, 1);
             }
         }
@@ -51,17 +52,19 @@ public class TestingClass
         {
             warnings += RunLifecycleMethod("SetUp");
 
-            int currentOrphans = GetOrphans() - initialOrphans;
+            int currentOrphans = GetOrphans();
 
             TestMethodResult methodResult = method.Run(props);
 
             warnings += RunLifecycleMethod("TearDown");
 
-            int newOrphans = GetOrphans() - initialOrphans;
+            int newOrphans = GetOrphans();
             if (currentOrphans < newOrphans)
             {
                 warnings++;
-                Log.PrintWarning($"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n");
+                Log.PrintWarning(
+                    $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
+                );
             }
 
             passed += methodResult.TestsPassed;
@@ -122,10 +125,12 @@ public class TestingClass
         return method.HasMultiple ? (byte)1 : (byte)0;
     }
 
-    private static int GetOrphans()
+    private int GetOrphans()
     {
-        return (int)Performance.Singleton.GetMonitor(
-            Performance.Monitor.ObjectOrphanNodeCount
-        );
+        return !_props.MonitorOrphans
+            ? 0
+            : (int)Performance.Singleton.GetMonitor(
+                Performance.Monitor.ObjectOrphanNodeCount
+            );
     }
 }
