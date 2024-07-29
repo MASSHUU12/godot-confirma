@@ -7,6 +7,8 @@
         <LangVersion>11.0</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningLevel>4</WarningLevel>
         <Optimize Condition="'$(Configuration)' == 'ExportRelease'">
             true
         </Optimize>

@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Color.TerminalReset is now static readonly field.
+- TestsExecutionStarted/Finished signals to TestRunner.
+- The "Run All Tests" button is no longer available when tests are executed.
 
 ### Fixed
 

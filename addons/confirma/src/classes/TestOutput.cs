@@ -7,7 +7,7 @@ public static class TestOutput
 {
     public static string GetTestCaseStateString(ETestCaseState state)
     {
-        return state.ToString().ToLower();
+        return state.ToString().ToLowerInvariant();
     }
 
     public static string GetTestCaseStateColor(ETestCaseState state)
@@ -21,7 +21,13 @@ public static class TestOutput
         };
     }
 
-    public static void PrintOutput(string name, string parameters, ETestCaseState state, bool verbose = false, string? message = null)
+    public static void PrintOutput(
+        string name,
+        string parameters,
+        ETestCaseState state,
+        bool verbose = false,
+        string? message = null
+    )
     {
         switch (verbose)
         {
@@ -36,7 +42,12 @@ public static class TestOutput
         }
     }
 
-    private static void PrintDefault(string name, string parameters, ETestCaseState state, string? message = null)
+    private static void PrintDefault(
+        string name,
+        string parameters,
+        ETestCaseState state,
+        string? message = null
+    )
     {
         string color = GetTestCaseStateColor(state);
         string sState = GetTestCaseStateString(state);
@@ -55,7 +66,12 @@ public static class TestOutput
         }
     }
 
-    private static void PrintVerbose(string name, string parameters, ETestCaseState state, string? message = null)
+    private static void PrintVerbose(
+        string name,
+        string parameters,
+        ETestCaseState state,
+        string? message = null
+    )
     {
         string color = GetTestCaseStateColor(state);
         string sState = GetTestCaseStateString(state);
