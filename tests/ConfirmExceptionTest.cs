@@ -13,7 +13,7 @@ public static class ConfirmExceptionTest
     [TestCase]
     public static void ConfirmThrows_WhenThrows()
     {
-        Action action = () => throw new NotImplementedException();
+        Action action = static () => throw new NotImplementedException();
 
         _ = action.ConfirmThrows<NotImplementedException>();
     }
@@ -21,9 +21,9 @@ public static class ConfirmExceptionTest
     [TestCase]
     public static void ConfirmThrows_WhenNotThrows()
     {
-        Action action = () =>
+        Action action = static () =>
         {
-            Action a = () => {/* Not throws */};
+            Action a = static () => {/* Not throws */};
 
             _ = a.ConfirmThrows<NotImplementedException>();
         };
@@ -36,7 +36,7 @@ public static class ConfirmExceptionTest
     [TestCase]
     public static void ConfirmNotThrows_WhenNotThrows()
     {
-        Action action = () => {/* Not throws */};
+        Action action = static () => {/* Not throws */};
 
         _ = action.ConfirmNotThrows<NotImplementedException>();
     }
@@ -44,9 +44,9 @@ public static class ConfirmExceptionTest
     [TestCase]
     public static void ConfirmNotThrows_WhenThrows()
     {
-        Action action = () =>
+        Action action = static () =>
         {
-            Action a = () => throw new NotImplementedException();
+            Action a = static () => throw new NotImplementedException();
 
             _ = a.ConfirmNotThrows<NotImplementedException>();
         };
@@ -100,7 +100,7 @@ public static class ConfirmExceptionTest
     [TestCase("Lorem ipsum")]
     public static void ConfirmNotThrowsWMessage_WhenNotThrows(string actual)
     {
-        Action action = () => {/* Not throws */};
+        Action action = static () => {/* Not throws */};
 
         _ = action.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
     }

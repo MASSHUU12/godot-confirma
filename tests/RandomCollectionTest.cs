@@ -26,7 +26,7 @@ public static class RandomCollectionTest
     [TestCase(new float[] { 0f, 1.1f, 2.2f, 3.3f })]
     public static void NextElement_ValidStringEnumerable(float[] elements)
     {
-        IEnumerable<string> e = elements.Select((f) => f.ToString());
+        IEnumerable<string> e = elements.Select(static (f) => f.ToString());
 
         _ = e.ConfirmContains(_rg.NextElement(e));
     }
@@ -34,7 +34,7 @@ public static class RandomCollectionTest
     [TestCase]
     public static void NextElement_InvalidArray()
     {
-        Action action = () => _rg.NextElement(Array.Empty<string>());
+        Action action = static () => _rg.NextElement(Array.Empty<string>());
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
@@ -54,7 +54,7 @@ public static class RandomCollectionTest
     [TestCase]
     public static void NextElements_TakeZeroElements()
     {
-        Action action = () => _rg.NextElements(0, new int[] { 0, 1, 2 });
+        Action action = static () => _rg.NextElements(0, new int[] { 0, 1, 2 });
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
@@ -63,7 +63,7 @@ public static class RandomCollectionTest
     [TestCase]
     public static void NextElements_InvalidArray()
     {
-        Action action = () => _rg.NextElements(_rg.Next(), Array.Empty<string>());
+        Action action = static () => _rg.NextElements(_rg.Next(), Array.Empty<string>());
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
@@ -104,7 +104,7 @@ public static class RandomCollectionTest
     [TestCase]
     public static void NextShuffle_ThrowsOnEmpty()
     {
-        Action action = () => _rg.NextShuffle(Array.Empty<int>());
+        Action action = static () => _rg.NextShuffle(Array.Empty<int>());
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }

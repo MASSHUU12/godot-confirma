@@ -76,7 +76,7 @@ public static class RandomNumberExtensionsTest
     [TestCase]
     public static void NextDecimal_WInvalidRange()
     {
-        Action action = () => rg.NextDecimal(2M, 0M);
+        Action action = static () => rg.NextDecimal(2M, 0M);
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
@@ -109,7 +109,7 @@ public static class RandomNumberExtensionsTest
     [TestCase]
     public static void NextLong_WInvalidRange()
     {
-        Action action = () => rg.NextLong(2, 0);
+        Action action = static () => rg.NextLong(2, 0);
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
@@ -127,7 +127,7 @@ public static class RandomNumberExtensionsTest
     [TestCase]
     public static void NextDouble_WInvalidRange()
     {
-        Action action = () => rg.NextDouble(2d, 0d);
+        Action action = static () => rg.NextDouble(2d, 0d);
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }

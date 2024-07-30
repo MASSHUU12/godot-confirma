@@ -23,7 +23,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmEmpty_WhenNotEmpty()
     {
-        Action action = () => "not empty".ConfirmEmpty();
+        Action action = static () => "not empty".ConfirmEmpty();
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -39,7 +39,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmNotEmpty_WhenEmpty()
     {
-        Action action = () => "".ConfirmNotEmpty();
+        Action action = static () => "".ConfirmNotEmpty();
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -55,7 +55,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmContains_WhenNotContains()
     {
-        Action action = () => "not contains".ConfirmContains("xxx");
+        Action action = static () => "not contains".ConfirmContains("xxx");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -71,7 +71,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmNotContains_WhenContains()
     {
-        Action action = () => "contains".ConfirmNotContains("tai");
+        Action action = static () => "contains".ConfirmNotContains("tai");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -87,7 +87,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmStartsWith_WhenNotStartsWith()
     {
-        Action action = () => "not starts with".ConfirmStartsWith("xxx");
+        Action action = static () => "not starts with".ConfirmStartsWith("xxx");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -103,7 +103,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmNotStartsWith_WhenStartsWith()
     {
-        Action action = () => "starts with".ConfirmNotStartsWith("sta");
+        Action action = static () => "starts with".ConfirmNotStartsWith("sta");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -119,7 +119,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmEndsWith_WhenNotEndsWith()
     {
-        Action action = () => "not ends with".ConfirmEndsWith("xxx");
+        Action action = static () => "not ends with".ConfirmEndsWith("xxx");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }
@@ -135,7 +135,7 @@ public static class ConfirmStringTest
     [TestCase]
     public static void ConfirmNotEndsWith_WhenEndsWith()
     {
-        Action action = () => "ends with".ConfirmNotEndsWith("ith");
+        Action action = static () => "ends with".ConfirmNotEndsWith("ith");
 
         _ = action.ConfirmThrows<ConfirmAssertException>();
     }

@@ -11,7 +11,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class RandomStringTest
 {
-    private readonly static Random _rg = new();
+    private static readonly Random _rg = new();
 
     [Repeat(3)]
     [TestCase]
@@ -68,7 +68,7 @@ public static class RandomStringTest
         string result = _rg.NextString();
 
         _ = Confirm.IsTrue(result.Length is >= 8 and <= 12);
-        _ = Confirm.IsTrue(result.All((c) => !char.IsDigit(c)));
+        _ = Confirm.IsTrue(result.All(static (c) => !char.IsDigit(c)));
     }
 
     [Repeat(3)]
@@ -81,13 +81,13 @@ public static class RandomStringTest
         string result = _rg.NextString(minLength, maxLength);
 
         _ = Confirm.IsTrue(result.Length is >= minLength and <= maxLength);
-        _ = Confirm.IsTrue(result.All((c) => !char.IsDigit(c)));
+        _ = Confirm.IsTrue(result.All(static (c) => !char.IsDigit(c)));
     }
 
     [TestCase]
     public static void NextString_InvalidLength()
     {
-        Action action = () => _rg.NextString(15, 5);
+        Action action = static () => _rg.NextString(15, 5);
 
         _ = action.ConfirmThrows<ArgumentOutOfRangeException>();
     }
