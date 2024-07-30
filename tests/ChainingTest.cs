@@ -56,7 +56,7 @@ public static class ChainingTest
     [TestCase]
     public static void ChainingOnException()
     {
-        Action action = () => throw new IndexOutOfRangeException();
+        Action action = static () => throw new IndexOutOfRangeException();
 
         _ = action
             .ConfirmThrows<IndexOutOfRangeException>()

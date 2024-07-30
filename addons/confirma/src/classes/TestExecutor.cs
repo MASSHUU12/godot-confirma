@@ -17,11 +17,11 @@ public static class TestExecutor
         get => _props;
         set
         {
-            _props.ExitOnFailure -= () => { };
+            _props.ExitOnFailure -= static () => { };
 
             _props = value;
 
-            _props.ExitOnFailure += () =>
+            _props.ExitOnFailure += static () =>
             {
                 // GetTree().Quit() doesn't close the program immediately
                 // and allows all the remaining tests to run.
@@ -105,7 +105,9 @@ public static class TestExecutor
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
         if (attr?.IsIgnored() == true)
         {
-            _props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(m => m.TestCases.Count());
+            _props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(
+                static m => m.TestCases.Count()
+            );
 
             Log.PrintWarning(" ignored.\n");
 

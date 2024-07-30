@@ -18,7 +18,9 @@ public static class ConfirmBooleanTest
     [TestCase]
     public static void ConfirmTrue_WhenFalse()
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => false.ConfirmTrue());
+        _ = Confirm.Throws<ConfirmAssertException>(
+            static () => false.ConfirmTrue()
+        );
     }
 
     [TestCase]

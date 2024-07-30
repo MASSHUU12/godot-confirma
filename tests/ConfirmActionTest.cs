@@ -14,7 +14,7 @@ public static class ConfirmActionTest
     [TestCase]
     public static void ConfirmCompletesWithin_WhenCompletesWithin()
     {
-        Action action = () => Thread.Sleep(5);
+        Action action = static () => Thread.Sleep(5);
 
         _ = action.ConfirmCompletesWithin(TimeSpan.FromMilliseconds(50));
     }
@@ -22,9 +22,9 @@ public static class ConfirmActionTest
     [TestCase]
     public static void ConfirmCompletesWithin_WhenDoesNotCompletesWithin()
     {
-        Action action = () =>
+        Action action = static () =>
         {
-            Action a = () => Thread.Sleep(10);
+            Action a = static () => Thread.Sleep(10);
 
             _ = a.ConfirmCompletesWithin(TimeSpan.FromMilliseconds(5));
         };
@@ -35,7 +35,7 @@ public static class ConfirmActionTest
     [TestCase]
     public static void ConfirmDoesNotCompleteWithin_WhenDoesNotCompleteWithin()
     {
-        Action action = () => Thread.Sleep(50);
+        Action action = static () => Thread.Sleep(50);
 
         _ = action.ConfirmDoesNotCompleteWithin(TimeSpan.FromMilliseconds(5));
     }
@@ -43,9 +43,9 @@ public static class ConfirmActionTest
     [TestCase]
     public static void ConfirmDoesNotCompleteWithin_WhenCompletesWithin()
     {
-        Action action = () =>
+        Action action = static () =>
         {
-            Action a = () => Thread.Sleep(5);
+            Action a = static () => Thread.Sleep(5);
 
             _ = a.ConfirmDoesNotCompleteWithin(TimeSpan.FromMilliseconds(50));
         };

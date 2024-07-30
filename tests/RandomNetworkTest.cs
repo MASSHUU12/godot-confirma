@@ -60,8 +60,8 @@ public static class RandomNetworkTest
     [TestCase]
     public static void NextEmail_InvalidLengthParameters()
     {
-        _ = Confirm.Throws<ArgumentException>(() => _rg.NextEmail(-1, 12));
-        _ = Confirm.Throws<ArgumentException>(() => _rg.NextEmail(12, 8));
+        _ = Confirm.Throws<ArgumentException>(static () => _rg.NextEmail(-1, 12));
+        _ = Confirm.Throws<ArgumentException>(static () => _rg.NextEmail(12, 8));
     }
 
     [Repeat(5)]
@@ -86,7 +86,9 @@ public static class RandomNetworkTest
         string email = _rg.NextEmail();
 
         string localPart = email.Split('@')[0];
-        _ = Confirm.IsTrue(localPart.All(c => char.IsLetterOrDigit(c) || c == '-' || c == '_'));
+        _ = Confirm.IsTrue(localPart.All(
+            static c => char.IsLetterOrDigit(c) || c == '-' || c == '_')
+        );
     }
     #endregion NextEmail
 }

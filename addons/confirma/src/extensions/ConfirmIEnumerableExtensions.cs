@@ -241,7 +241,7 @@ public static class ConfirmIEnumerableExtensions
         string? message = null
     )
     {
-        if (actual.OrderBy(x => x).SequenceEqual(actual))
+        if (actual.OrderBy(static x => x).SequenceEqual(actual))
         {
             return actual;
         }
@@ -277,7 +277,7 @@ public static class ConfirmIEnumerableExtensions
         string? message = null
     )
     {
-        if (actual.OrderBy(x => x).SequenceEqual(expected.OrderBy(x => x)))
+        if (actual.OrderBy(static x => x).SequenceEqual(expected.OrderBy(static x => x)))
         {
             return actual;
         }
