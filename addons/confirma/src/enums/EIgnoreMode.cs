@@ -2,6 +2,6 @@ namespace Confirma.Enums;
 
 public enum EIgnoreMode
 {
-    Always,
-    InEditor
+    Always = 0,
+    InEditor = 1
 }
