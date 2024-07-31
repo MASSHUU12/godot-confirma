@@ -11,9 +11,9 @@ namespace Confirma.Classes;
 
 public class TestingClass
 {
-    public readonly Type Type;
-    public readonly bool IsParallelizable;
-    public IEnumerable<TestingMethod> TestMethods;
+    public Type Type { get; init; }
+    public bool IsParallelizable { get; init; }
+    public IEnumerable<TestingMethod> TestMethods { get; set; }
 
     private TestsProps _props;
     private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
@@ -105,7 +105,10 @@ public class TestingClass
 
         if (method.HasMultiple)
         {
-            Log.PrintWarning($"Multiple [{name}] methods found in {Type.Name}. Running only the first one.\n");
+            Log.PrintWarning(
+                $"Multiple [{name}] methods found in {Type.Name}. "
+                + "Running only the first one.\n"
+            );
         }
 
         if (_props.IsVerbose)
