@@ -6,19 +6,25 @@ namespace Confirma.Extensions;
 
 public static class ConfirmActionExtensions
 {
-    public static Action ConfirmCompletesWithin(this Action action, TimeSpan timeSpan, string? message = null)
+    public static Action ConfirmCompletesWithin(
+        this Action action,
+        TimeSpan timeSpan,
+        string? message = null
+    )
     {
-        Task task = Task.Run(action);
-
-        return !task.Wait(timeSpan)
+        return !Task.Run(action).Wait(timeSpan)
             ? throw new ConfirmAssertException(
-                message ??
-                $"Action did not complete within {timeSpan.TotalMilliseconds} ms."
+                message
+                ?? $"Expected action to complete within {timeSpan.TotalMilliseconds} ms, but it timed out."
             )
             : action;
     }
 
-    public static Action ConfirmDoesNotCompleteWithin(this Action action, TimeSpan timeSpan, string? message = null)
+    public static Action ConfirmDoesNotCompleteWithin(
+        this Action action,
+        TimeSpan timeSpan,
+        string? message = null
+    )
     {
         try
         {
@@ -30,8 +36,8 @@ public static class ConfirmActionExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Action completed within {timeSpan.TotalMilliseconds} ms, but it should not have."
+            message
+            ?? $"Action should not have completed within {timeSpan.TotalMilliseconds} ms, but it did."
         );
     }
 }

@@ -90,7 +90,8 @@ public static class TestExecutor
         PrintSummary(testClasses.Count(), startTimeStamp);
     }
 
-    private static (IEnumerable<TestingClass>, IEnumerable<TestingClass>) ClassifyTests(IEnumerable<TestingClass> tests)
+    private static (IEnumerable<TestingClass>, IEnumerable<TestingClass>)
+    ClassifyTests(IEnumerable<TestingClass> tests)
     {
         return (
           TestDiscovery.GetParallelTestClasses(tests),

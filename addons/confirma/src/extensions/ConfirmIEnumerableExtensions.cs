@@ -18,8 +18,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected empty enumerable, but it contained {actual.Count()} elements."
+            message
+            ?? $"Expected empty enumerable, but it contained {actual.Count()} elements."
         );
     }
 
@@ -34,8 +34,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected non-empty enumerable, but it was empty."
+            message
+            ?? "Expected non-empty enumerable, but it was empty."
         );
     }
 
@@ -51,14 +51,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {expected} elements, but found {actual.Count()}."
+            message
+            ?? $"Expected {expected} elements, but found {actual.Count()}."
         );
     }
 
     public static IEnumerable<T> ConfirmCountGreaterThan<T>(
         this IEnumerable<T> actual,
-        int expected, string? message = null
+        int expected,
+        string? message = null
     )
     {
         if (actual.Count() > expected)
@@ -67,14 +68,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected more than {expected} elements, but found {actual.Count()}."
+            message
+            ?? $"Expected more than {expected} elements, but found {actual.Count()}."
         );
     }
 
     public static IEnumerable<T> ConfirmCountLessThan<T>(
         this IEnumerable<T> actual,
-        int expected, string? message = null
+        int expected,
+        string? message = null
     )
     {
         if (actual.Count() < expected)
@@ -83,14 +85,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected fewer than {expected} elements, but found {actual.Count()}."
+            message
+            ?? $"Expected fewer than {expected} elements, but found {actual.Count()}."
         );
     }
 
     public static IEnumerable<T> ConfirmCountGreaterThanOrEqual<T>(
         this IEnumerable<T> actual,
-        int expected, string? message = null
+        int expected,
+        string? message = null
     )
     {
         if (actual.Count() >= expected)
@@ -99,14 +102,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected at least {expected} elements, but found {actual.Count()}."
+            message
+            ?? $"Expected at least {expected} elements, but found {actual.Count()}."
         );
     }
 
     public static IEnumerable<T> ConfirmCountLessThanOrEqual<T>(
         this IEnumerable<T> actual,
-        int expected, string? message = null
+        int expected,
+        string? message = null
     )
     {
         if (actual.Count() <= expected)
@@ -115,14 +119,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected at most {expected} elements, but found {actual.Count()}."
+            message
+            ?? $"Expected at most {expected} elements, but found {actual.Count()}."
         );
     }
 
     public static IEnumerable<T> ConfirmContains<T>(
         this IEnumerable<T> actual,
-        T expected, string? message = null
+        T expected,
+        string? message = null
     )
     {
         if (actual.Contains(expected))
@@ -131,14 +136,15 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected '{expected}' to be in the enumerable, but it was not."
+            message
+            ?? $"Expected '{expected}' to be in the enumerable, but it was not."
         );
     }
 
     public static IEnumerable<T> ConfirmNotContains<T>(
         this IEnumerable<T> actual,
-        T expected, string? message = null
+        T expected,
+        string? message = null
     )
     {
         if (!actual.Contains(expected))
@@ -147,8 +153,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected '{expected}' not to be in the enumerable, but it was."
+            message
+            ?? $"Expected '{expected}' not to be in the enumerable, but it was."
         );
     }
 
@@ -164,8 +170,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected all elements to match the predicate, but some did not."
+            message
+            ?? "Expected all elements to match the predicate, but some did not."
         );
     }
 
@@ -181,8 +187,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected at least one element to match the predicate, but none did."
+            message
+            ?? "Expected at least one element to match the predicate, but none did."
         );
     }
 
@@ -198,8 +204,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected no elements to match the predicate, but some did."
+            message
+            ?? "Expected no elements to match the predicate, but some did."
         );
     }
 
@@ -214,8 +220,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected all elements to be unique, but duplicates were found."
+            message
+            ?? "Expected all elements to be unique, but duplicates were found."
         );
     }
 
@@ -231,8 +237,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected elements to be distinct from the expected set, but some were not."
+            message
+            ?? "Expected elements to be distinct from the expected set, but some were not."
         );
     }
 
@@ -247,8 +253,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected elements to be in order, but they were not."
+            message
+            ?? "Expected elements to be in order, but they were not."
         );
     }
 
@@ -266,8 +272,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected all elements to be within the range [{from}, {to}], but some were not."
+            message
+            ?? $"Expected all elements to be within the range [{from}, {to}], but some were not."
         );
     }
 
@@ -283,8 +289,8 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            "Expected elements to be equivalent to the expected set, but they were not."
+            message
+            ?? "Expected elements to be equivalent to the expected set, but they were not."
         );
     }
 }

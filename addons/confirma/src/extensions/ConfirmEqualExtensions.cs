@@ -5,7 +5,11 @@ namespace Confirma.Extensions;
 
 public static class ConfirmEqualExtensions
 {
-    public static T? ConfirmEqual<T>(this T? actual, T? expected, string? message = null)
+    public static T? ConfirmEqual<T>(
+        this T? actual,
+        T? expected,
+        string? message = null
+    )
     {
         if (!(!actual?.Equals(expected) ?? false))
         {
@@ -13,12 +17,16 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-                message ??
-                $"Expected '{expected}' but got '{actual}'."
-            );
+            message
+            ?? $"Expected '{expected}' but got '{actual}'."
+        );
     }
 
-    public static T?[] ConfirmEqual<T>(this T?[] actual, T?[] expected, string? message = null)
+    public static T?[] ConfirmEqual<T>(
+        this T?[] actual,
+        T?[] expected,
+        string? message = null
+    )
     {
         if (actual.SequenceEqual(expected))
         {
@@ -26,12 +34,16 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
+            message
+            ?? $"Expected '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
         );
     }
 
-    public static T? ConfirmNotEqual<T>(this T? actual, T? expected, string? message = null)
+    public static T? ConfirmNotEqual<T>(
+        this T? actual,
+        T? expected,
+        string? message = null
+    )
     {
         if (!(actual?.Equals(expected) ?? false))
         {
@@ -39,12 +51,16 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-                message ??
-                $"Expected not '{expected}' but got '{actual}'."
-            );
+            message
+            ?? $"Expected not '{expected}' but got '{actual}'."
+        );
     }
 
-    public static T?[] ConfirmNotEqual<T>(this T?[] actual, T?[] expected, string? message = null)
+    public static T?[] ConfirmNotEqual<T>(
+        this T?[] actual,
+        T?[] expected,
+        string? message = null
+    )
     {
         if (!actual.SequenceEqual(expected))
         {
@@ -52,8 +68,8 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected not '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
+            message
+            ?? $"Expected not '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
         );
     }
 }

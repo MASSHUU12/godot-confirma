@@ -6,7 +6,8 @@ namespace Confirma.Extensions;
 
 public static class ConfirmDictionaryExtensions
 {
-    public static IDictionary<TKey, TValue> ConfirmContainsKey<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmContainsKey<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         string? message = null
@@ -18,12 +19,13 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary does not contain key '{key}'."
+            message
+            ?? $"Dictionary does not contain key '{key}'."
         );
     }
 
-    public static IDictionary<TKey, TValue> ConfirmNotContainsKey<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmNotContainsKey<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         string? message = null
@@ -35,12 +37,13 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary contains unexpected key '{key}'."
+            message
+            ?? $"Dictionary contains unexpected key '{key}'."
         );
     }
 
-    public static IDictionary<TKey, TValue> ConfirmContainsValue<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmContainsValue<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TValue value,
         string? message = null
@@ -52,12 +55,13 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary does not contain value '{value}'."
+            message
+            ?? $"Dictionary does not contain value '{value}'."
         );
     }
 
-    public static IDictionary<TKey, TValue> ConfirmNotContainsValue<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmNotContainsValue<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TValue value,
         string? message = null
@@ -69,12 +73,13 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary contains unexpected value '{value}'."
+            message
+            ?? $"Dictionary contains unexpected value '{value}'."
         );
     }
 
-    public static IDictionary<TKey, TValue> ConfirmContainsKeyValuePair<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmContainsKeyValuePair<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue? value,
@@ -87,30 +92,32 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary does not contain key-value pair '{key}': '{value}'."
+            message
+            ?? $"Dictionary does not contain key-value pair '{key}': '{value}'."
         );
     }
 
-    public static IDictionary<Variant, Variant> ConfirmContainsKeyValuePair(
+    public static IDictionary<Variant, Variant>
+    ConfirmContainsKeyValuePair(
         this IDictionary<Variant, Variant> dictionary,
         Variant key,
         Variant value,
         string? message = null
     )
     {
-        if (dictionary.TryGetValue(key, out var val) && val.VariantEquals(value))
+        if (dictionary.TryGetValue(key, out Variant val) && val.VariantEquals(value))
         {
             return dictionary;
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary does not contain key-value pair '{key}': '{value}'."
+            message
+            ?? $"Dictionary does not contain key-value pair '{key}': '{value}'."
         );
     }
 
-    public static IDictionary<TKey, TValue> ConfirmNotContainsKeyValuePair<TKey, TValue>(
+    public static IDictionary<TKey, TValue>
+    ConfirmNotContainsKeyValuePair<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue? value,
@@ -123,12 +130,13 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary contains unexpected key-value pair '{key}': '{value}'."
+            message
+            ?? $"Dictionary contains unexpected key-value pair '{key}': '{value}'."
         );
     }
 
-    public static IDictionary<Variant, Variant> ConfirmNotContainsKeyValuePair(
+    public static IDictionary<Variant, Variant>
+    ConfirmNotContainsKeyValuePair(
         this IDictionary<Variant, Variant> dictionary,
         Variant key,
         Variant value,
@@ -141,8 +149,8 @@ public static class ConfirmDictionaryExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Dictionary contains unexpected key-value pair '{key}': '{value}'."
+            message
+            ?? $"Dictionary contains unexpected key-value pair '{key}': '{value}'."
         );
     }
 }

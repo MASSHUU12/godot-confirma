@@ -4,7 +4,11 @@ namespace Confirma.Extensions;
 
 public static class ConfirmReferenceExtensions
 {
-    public static object ConfirmSameReference(this object obj1, object obj2, string? message = "")
+    public static object ConfirmSameReference(
+        this object obj1,
+        object obj2,
+        string? message = null
+    )
     {
         if (ReferenceEquals(obj1, obj2))
         {
@@ -12,12 +16,16 @@ public static class ConfirmReferenceExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {obj1} and {obj2} to have the same reference."
+            message
+            ?? $"Expected {obj1} and {obj2} to have the same reference."
         );
     }
 
-    public static object ConfirmDifferentReference(this object obj1, object obj2, string? message = "")
+    public static object ConfirmDifferentReference(
+        this object obj1,
+        object obj2,
+        string? message = null
+    )
     {
         if (!ReferenceEquals(obj1, obj2))
         {
@@ -25,8 +33,8 @@ public static class ConfirmReferenceExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {obj1} and {obj2} to have different references."
+            message
+            ?? $"Expected {obj1} and {obj2} to have different references."
         );
     }
 
