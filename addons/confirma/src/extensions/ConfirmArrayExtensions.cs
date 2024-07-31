@@ -5,7 +5,11 @@ namespace Confirma.Extensions;
 
 public static class ConfirmArrayExtensions
 {
-    public static T[] ConfirmSize<T>(this T[] array, int expectedSize, string? message = null)
+    public static T[] ConfirmSize<T>(
+        this T[] array,
+        int expectedSize,
+        string? message = null
+    )
     {
         if (array.Length == expectedSize)
         {
@@ -13,8 +17,8 @@ public static class ConfirmArrayExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Array size is {array.Length}, but expected {expectedSize}."
+            message
+            ?? $"Array size is {array.Length}, but expected {expectedSize}."
         );
     }
 
@@ -32,7 +36,11 @@ public static class ConfirmArrayExtensions
             : throw new ConfirmAssertException(message ?? "Array is empty.");
     }
 
-    public static T[] ConfirmContains<T>(this T[] array, T expected, string? message = null)
+    public static T[] ConfirmContains<T>(
+        this T[] array,
+        T expected,
+        string? message = null
+    )
     {
         if (Array.IndexOf(array, expected) != -1)
         {
@@ -40,12 +48,16 @@ public static class ConfirmArrayExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Array does not contain '{expected}'."
+            message
+            ?? $"Array does not contain '{expected}'."
         );
     }
 
-    public static T[] ConfirmNotContains<T>(this T[] array, T expected, string? message = null)
+    public static T[] ConfirmNotContains<T>(
+        this T[] array,
+        T expected,
+        string? message = null
+    )
     {
         if (Array.IndexOf(array, expected) == -1)
         {

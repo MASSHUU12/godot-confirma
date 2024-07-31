@@ -5,7 +5,12 @@ namespace Confirma.Extensions;
 
 public static class ConfirmRangeExtensions
 {
-    public static T ConfirmInRange<T>(this T actual, T min, T max, string? message = null)
+    public static T ConfirmInRange<T>(
+        this T actual,
+        T min,
+        T max,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(min) >= 0 && actual.CompareTo(max) <= 0)
@@ -19,7 +24,12 @@ public static class ConfirmRangeExtensions
         );
     }
 
-    public static T ConfirmNotInRange<T>(this T actual, T min, T max, string? message = null)
+    public static T ConfirmNotInRange<T>(
+        this T actual,
+        T min,
+        T max,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(min) < 0 || actual.CompareTo(max) > 0)
@@ -33,7 +43,11 @@ public static class ConfirmRangeExtensions
         );
     }
 
-    public static T ConfirmGreaterThan<T>(this T actual, T value, string? message = null)
+    public static T ConfirmGreaterThan<T>(
+        this T actual,
+        T value,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(value) > 0)
@@ -47,7 +61,11 @@ public static class ConfirmRangeExtensions
         );
     }
 
-    public static T ConfirmGreaterThanOrEqual<T>(this T actual, T value, string? message = null)
+    public static T ConfirmGreaterThanOrEqual<T>(
+        this T actual,
+        T value,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(value) >= 0)
@@ -61,7 +79,11 @@ public static class ConfirmRangeExtensions
         );
     }
 
-    public static T ConfirmLessThan<T>(this T actual, T value, string? message = null)
+    public static T ConfirmLessThan<T>(
+        this T actual,
+        T value,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(value) < 0)
@@ -75,7 +97,11 @@ public static class ConfirmRangeExtensions
         );
     }
 
-    public static T ConfirmLessThanOrEqual<T>(this T actual, T value, string? message = null)
+    public static T ConfirmLessThanOrEqual<T>(
+        this T actual,
+        T value,
+        string? message = null
+    )
     where T : IComparable, IConvertible, IComparable<T>, IEquatable<T>
     {
         if (actual.CompareTo(value) <= 0)

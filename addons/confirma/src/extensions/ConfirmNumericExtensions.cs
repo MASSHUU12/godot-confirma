@@ -21,8 +21,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to be positive."
+            message
+            ?? $"Expected {actual} to be positive."
         );
     }
 
@@ -35,8 +35,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to not be positive."
+            message
+            ?? $"Expected {actual} to not be positive."
         );
     }
 
@@ -56,8 +56,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to be negative."
+            message
+            ?? $"Expected {actual} to be negative."
         );
     }
 
@@ -70,8 +70,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to not be negative."
+            message
+            ?? $"Expected {actual} to not be negative."
         );
     }
 
@@ -85,10 +85,12 @@ public static class ConfirmNumericExtensions
     public static T ConfirmSign<T>(this T actual, bool sign, string? message = null)
         where T : INumber<T>
     {
+        object? zero = (T)Convert.ChangeType(0, typeof(T), InvariantCulture);
+
         return sign switch
         {
-            true when actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) < 0 => actual,
-            false when actual.CompareTo((T)Convert.ChangeType(0, typeof(T))) > 0 => actual,
+            true when actual.CompareTo(zero) < 0 => actual,
+            false when actual.CompareTo(zero) > 0 => actual,
             _ => throw new ConfirmAssertException(
                 message
                 ?? $"Expected {actual} to have a {(sign ? "negative" : "positive")} sign."
@@ -109,8 +111,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to be zero."
+            message
+            ?? $"Expected {actual} to be zero."
         );
     }
 
@@ -123,8 +125,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"Expected {actual} to not be zero."
+            message
+            ?? $"Expected {actual} to not be zero."
         );
     }
 
@@ -169,8 +171,8 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"{actual} is not close to {expected} within tolerance {tolerance}."
+            message
+            ?? $"{actual} is not close to {expected} within tolerance {tolerance}."
         );
     }
 }

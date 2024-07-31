@@ -53,7 +53,11 @@ public static class RandomNumberExtensions
         return rg.NextNonNegativeDecimal() / decimal.MaxValue * maxValue;
     }
 
-    public static decimal NextDecimal(this Random rg, decimal minValue, decimal maxValue)
+    public static decimal NextDecimal(
+        this Random rg,
+        decimal minValue,
+        decimal maxValue
+    )
     {
         return minValue >= maxValue
             ? throw new InvalidOperationException()

@@ -31,9 +31,9 @@ public static class ConfirmEventExtensions
         }
 
         throw new ConfirmAssertException(
-                message ??
-                $"{eventHandler?.GetType().Name ?? "event"} was not raised."
-            );
+            message
+            ?? $"{eventHandler?.GetType().Name ?? "event"} was not raised."
+        );
 
         void Handler(object? sender, TEventArgs e)
         {
@@ -67,9 +67,9 @@ public static class ConfirmEventExtensions
         }
 
         throw new ConfirmAssertException(
-                message ??
-                $"{eventHandler?.GetType().Name ?? "event"} was raised."
-            );
+            message
+            ?? $"{eventHandler?.GetType().Name ?? "event"} was raised."
+        );
 
         void Handler(object? sender, TEventArgs e)
         {

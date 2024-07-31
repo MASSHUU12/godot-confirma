@@ -11,8 +11,9 @@ public static class TestDiscovery
 {
     public static IEnumerable<Type> GetTestClassesFromAssembly(Assembly assembly)
     {
-        Type[] types = assembly.GetTypes();
-        return types.Where(static type => type.HasAttribute<TestClassAttribute>());
+        return assembly
+                .GetTypes()
+                .Where(static type => type.HasAttribute<TestClassAttribute>());
     }
 
     public static IEnumerable<TestingClass> GetParallelTestClasses(
@@ -31,9 +32,11 @@ public static class TestDiscovery
 
     public static IEnumerable<MethodInfo> GetTestMethodsFromType(Type type)
     {
-        return type.GetMethods().Where(static method => method.CustomAttributes.Any(
-            static attribute => attribute.AttributeType == typeof(TestCaseAttribute)
-        ));
+        return type.GetMethods().Where(
+            static method => method.CustomAttributes.Any(
+                static attribute => attribute.AttributeType == typeof(TestCaseAttribute)
+            )
+        );
     }
 
     public static IEnumerable<TestingClass> DiscoverTestClasses(Assembly assembly)
