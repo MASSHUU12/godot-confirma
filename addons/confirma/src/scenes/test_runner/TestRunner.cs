@@ -14,8 +14,8 @@ public partial class TestRunner : Control
     public delegate void TestsExecutionFinishedEventHandler();
 
 #nullable disable
-    protected ConfirmaAutoload Autoload;
-    protected RichTextLabel Output;
+    protected ConfirmaAutoload Autoload { get; set; }
+    protected RichTextLabel Output { get; set; }
 #nullable restore
 
     private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
