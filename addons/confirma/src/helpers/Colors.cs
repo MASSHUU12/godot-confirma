@@ -9,10 +9,10 @@ public static class Colors
     public static readonly string Error = "#ff786b";
     public static readonly string TerminalReset = "\x1b[0m";
 
-    // Note: GD.PrintRich does not support hex color codes
-    // this is why we have to use different methods for terminal and Godot
     public static string ColorText(string text, string color)
     {
+        // Note: GD.PrintRich does not support hex color codes
+        // this is why we have to use different methods for terminal and Godot
         return Log.IsHeadless
             ? ToTerminal(text, new Color(color))
             : ToGodot(text, new Color(color));
