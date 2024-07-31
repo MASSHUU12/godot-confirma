@@ -68,7 +68,7 @@ public class TestingMethod
         return Result;
     }
 
-    private IEnumerable<TestCase> DiscoverTestCases()
+    private List<TestCase> DiscoverTestCases()
     {
         List<TestCase> cases = new();
         using IEnumerator<System.Attribute> discovered = TestDiscovery
