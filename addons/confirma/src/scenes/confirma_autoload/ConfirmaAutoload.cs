@@ -1,8 +1,9 @@
-using System;
+#if TOOLS
 using Confirma.Classes;
 using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
+using static System.StringComparison;
 
 namespace Confirma.Scenes;
 
@@ -41,7 +42,7 @@ public partial class ConfirmaAutoload : Node
 
         foreach (string arg in args)
         {
-            if (!Props.RunTests && arg.StartsWith("--confirma-run", StringComparison.InvariantCulture))
+            if (!Props.RunTests && arg.StartsWith("--confirma-run", InvariantCulture))
             {
                 Props.RunTests = true;
 
@@ -52,8 +53,8 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
             else if (Props.RunTests
-                && !Props.ClassName.Equals(string.Empty, StringComparison.Ordinal)
-                && arg.StartsWith("--confirma-method", StringComparison.InvariantCulture)
+                && !Props.ClassName.Equals(string.Empty, Ordinal)
+                && arg.StartsWith("--confirma-method", InvariantCulture)
             )
             {
                 Props.MethodName = arg.Find('=') == -1
@@ -104,3 +105,4 @@ public partial class ConfirmaAutoload : Node
         }
     }
 }
+#endif
