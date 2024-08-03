@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes.Discovery;
 using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
@@ -21,7 +22,7 @@ public class TestingClass
     public TestingClass(Type type)
     {
         Type = type;
-        TestMethods = TestDiscovery.DiscoverTestMethods(type);
+        TestMethods = CsTestDiscovery.DiscoverTestMethods(type);
         IsParallelizable = type.GetCustomAttribute<ParallelizableAttribute>() is not null;
 
         InitialLookup();

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes.Discovery;
 using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -71,7 +72,7 @@ public class TestingMethod
     private List<TestCase> DiscoverTestCases()
     {
         List<TestCase> cases = new();
-        using IEnumerator<System.Attribute> discovered = TestDiscovery
+        using IEnumerator<System.Attribute> discovered = CsTestDiscovery
             .GetTestCasesFromMethod(Method)
             .GetEnumerator();
 
