@@ -28,14 +28,14 @@ public partial class TestRunner : Control
         Autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
     }
 
-    public void RunAllTests(string className = "")
+    public void RunAllTests()
     {
         _ = EmitSignal(SignalName.TestsExecutionStarted);
 
         Output.Clear();
 
-        TestExecutor.Props = Autoload.Props;
-        TestExecutor.ExecuteTests(_assembly, className);
+        TestManager.Props = Autoload.Props;
+        TestManager.Run();
 
         _ = EmitSignal(SignalName.TestsExecutionFinished);
     }
