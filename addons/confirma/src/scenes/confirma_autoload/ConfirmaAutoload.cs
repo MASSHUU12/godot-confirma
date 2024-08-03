@@ -91,6 +91,18 @@ public partial class ConfirmaAutoload : Node
             if (!Props.MonitorOrphans && arg == "--experimental-monitor-orphans")
             {
                 Props.MonitorOrphans = true;
+                continue;
+            }
+
+            if (!Props.DisableCsharp && arg == "--confirma-disable-cs")
+            {
+                Props.DisableCsharp = true;
+                continue;
+            }
+
+            if (!Props.DisableGdScript && arg == "--confirma-disable-gd")
+            {
+                Props.DisableGdScript = true;
             }
         }
     }

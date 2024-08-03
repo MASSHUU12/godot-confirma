@@ -17,6 +17,8 @@ public struct TestsProps
     public string MethodName { get; set; } = string.Empty;
     public bool DisableParallelization { get; set; }
     public bool MonitorOrphans { get; set; }
+    public bool DisableCsharp { get; set; }
+    public bool DisableGdScript { get; set; }
 
     public TestsProps() { }
 
