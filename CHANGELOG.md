@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Code style improvements.
 - Minor optimizations.
 - Improved independence from culture.
+- Renamed TestDiscovery to CsTestDiscovery.
 
 ### Fixed
 

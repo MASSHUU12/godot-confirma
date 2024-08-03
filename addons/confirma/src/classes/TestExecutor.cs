@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes.Discovery;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -36,7 +37,7 @@ public static class TestExecutor
 
     public static void ExecuteTests(Assembly assembly, string className)
     {
-        IEnumerable<TestingClass> testClasses = TestDiscovery.DiscoverTestClasses(assembly);
+        IEnumerable<TestingClass> testClasses = CsTestDiscovery.DiscoverTestClasses(assembly);
         DateTime startTimeStamp = DateTime.Now;
 
         if (!string.IsNullOrEmpty(className))
@@ -94,8 +95,8 @@ public static class TestExecutor
     ClassifyTests(IEnumerable<TestingClass> tests)
     {
         return (
-          TestDiscovery.GetParallelTestClasses(tests),
-          TestDiscovery.GetSequentialTestClasses(tests)
+          CsTestDiscovery.GetParallelTestClasses(tests),
+          CsTestDiscovery.GetSequentialTestClasses(tests)
         );
     }
 

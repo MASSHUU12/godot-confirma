@@ -5,9 +5,9 @@ using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Helpers;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.Discovery;
 
-public static class TestDiscovery
+public static class CsTestDiscovery
 {
     public static IEnumerable<Type> GetTestClassesFromAssembly(Assembly assembly)
     {
