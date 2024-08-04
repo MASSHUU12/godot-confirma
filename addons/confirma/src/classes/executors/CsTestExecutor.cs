@@ -6,10 +6,11 @@ using System.Reflection;
 using Confirma.Classes.Discovery;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using Confirma.Interfaces;
 
 namespace Confirma.Classes.Executors;
 
-public class CsTestExecutor
+public class CsTestExecutor : ITestExecutor
 {
     private TestsProps _props;
 
