@@ -1,7 +1,7 @@
 using Confirma.Types;
 using Confirma.Helpers;
+using Confirma.Classes.Executors;
 using System;
-using System.Reflection;
 using System.Globalization;
 
 namespace Confirma.Classes;
@@ -32,18 +32,35 @@ public static class TestManager
 
     public static void Run()
     {
+        int totalClasses = 0;
+        DateTime startTimeStamp = DateTime.Now;
 
+        if (!_props.DisableCsharp)
+        {
+            CsTestExecutor csExecutor = new(_props);
+            int csClasses = csExecutor.Execute(out TestResult? res);
+
+            if (csClasses == -1)
+            {
+                return;
+            }
+
+            totalClasses += csClasses;
+            _props.Result += res!;
+        }
+
+        PrintSummary(totalClasses, (DateTime.Now - startTimeStamp).TotalSeconds);
     }
 
-    private static void PrintSummary(int count, DateTime startTimeStamp)
+    private static void PrintSummary(int classesCount, double seconds)
     {
         Log.PrintLine(
             string.Format(
                 CultureInfo.InvariantCulture,
                 "\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}{7}.",
                 _props.Result.TotalTests,
-                count,
-                (DateTime.Now - startTimeStamp).TotalSeconds,
+                classesCount,
+                seconds,
                 Colors.ColorText($"{_props.Result.TestsPassed} passed", Colors.Success),
                 Colors.ColorText($"{_props.Result.TestsFailed} failed", Colors.Error),
                 Colors.ColorText($"{_props.Result.TestsIgnored} ignored", Colors.Warning),
