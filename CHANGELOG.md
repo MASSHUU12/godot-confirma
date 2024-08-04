@@ -8,10 +8,12 @@ All notable changes to this project will be documented in this file.
 
 - [**Experimental**] Information about number of orphans.
 - [**Experimental**] Detecting when orphans are created.
-- TestManager.cs
 - Arguments:
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDSCript tests.
+- Classes:
+  - TestManager.cs
+  - CsTestExecutor.cs
 
 ### Changed
 
@@ -23,6 +25,10 @@ All notable changes to this project will be documented in this file.
 - Minor optimizations.
 - Improved independence from culture.
 - Renamed TestDiscovery to CsTestDiscovery.
+
+### Removed
+
+- TestExecutor.cs
 
 ### Fixed
 
