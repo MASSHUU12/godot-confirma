@@ -3,6 +3,8 @@ using Confirma.Helpers;
 using Confirma.Classes.Executors;
 using System;
 using System.Globalization;
+using Confirma.Classes.Discovery;
+using Godot;
 
 namespace Confirma.Classes;
 
@@ -47,6 +49,19 @@ public static class TestManager
 
             totalClasses += csClasses;
             _props.Result += res!;
+        }
+
+        if (!_props.DisableGdScript)
+        {
+            foreach (GDScript gdTest in GdTestDiscovery.GetTestScripts("./gdtests"))
+            {
+                Log.Print(gdTest.ResourcePath + "\n");
+                Log.Print(gdTest.GetClass() + "\n");
+                Log.Print(gdTest.GetGlobalName() + "\n");
+                Log.Print(gdTest.GetMetaList() + "\n");
+                // Log.Print(gdTest.GetMethodList() + "\n");
+                Log.Print(gdTest.GetScriptMethodList() + "\n");
+            }
         }
 
         PrintSummary(totalClasses, (DateTime.Now - startTimeStamp).TotalSeconds);
