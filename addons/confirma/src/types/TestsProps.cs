@@ -1,4 +1,5 @@
 using System;
+using Confirma.Scenes;
 
 namespace Confirma.Types;
 
@@ -7,6 +8,7 @@ public struct TestsProps
     public event Action? ExitOnFailure;
 
     public TestResult Result { get; set; } = new();
+    public ConfirmaAutoload? Autoload { get; set; }
 
     public bool RunTests { get; set; }
     public bool IsVerbose { get; set; }

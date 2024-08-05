@@ -10,6 +10,9 @@ namespace Confirma.Scenes;
 [Tool]
 public partial class ConfirmaAutoload : Node
 {
+    [Signal]
+    public delegate void GdAssertionFailedEventHandler(string message);
+
     public TestsProps Props = new();
 
     public override void _Ready()
@@ -21,6 +24,7 @@ public partial class ConfirmaAutoload : Node
             return;
         }
 
+        Props.Autoload = this;
         SetupGlobals();
         ChangeScene();
     }
