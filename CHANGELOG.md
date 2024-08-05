@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 
 - [**Experimental**] Information about number of orphans.
 - [**Experimental**] Detecting when orphans are created.
+- [**Experimental**] Running tests written in GDScript.
+- 'GdAssertionFailed' signal.
 - Arguments:
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDScript tests.
@@ -16,7 +18,6 @@ All notable changes to this project will be documented in this file.
   - ITestExecutor.cs
   - CsTestExecutor.cs
   - GdTestDiscovery.cs
-- 'GdAssertionFailed' signal.
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
