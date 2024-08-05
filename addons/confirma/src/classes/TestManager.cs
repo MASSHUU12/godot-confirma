@@ -4,7 +4,6 @@ using Confirma.Classes.Executors;
 using System;
 using System.Globalization;
 using Confirma.Classes.Discovery;
-using Godot;
 
 namespace Confirma.Classes;
 
@@ -53,15 +52,16 @@ public static class TestManager
 
         if (!_props.DisableGdScript)
         {
-            foreach (GDScript gdTest in GdTestDiscovery.GetTestScripts("./gdtests"))
+            GdTestExecutor gdExecutor = new(_props);
+            int gdClasses = gdExecutor.Execute(out TestResult? res);
+
+            if (gdClasses == -1)
             {
-                Log.Print(gdTest.ResourcePath + "\n");
-                Log.Print(gdTest.GetClass() + "\n");
-                Log.Print(gdTest.GetGlobalName() + "\n");
-                Log.Print(gdTest.GetMetaList() + "\n");
-                // Log.Print(gdTest.GetMethodList() + "\n");
-                Log.Print(gdTest.GetScriptMethodList() + "\n");
+                return;
             }
+
+            totalClasses += gdClasses;
+            _props.Result += res!;
         }
 
         PrintSummary(totalClasses, (DateTime.Now - startTimeStamp).TotalSeconds);

@@ -10,10 +10,15 @@ All notable changes to this project will be documented in this file.
 - [**Experimental**] Detecting when orphans are created.
 - Arguments:
   - "--confirma-disable-cs" to disable C# tests.
-  - "--confirma-disable-gd" to disable GDSCript tests.
-- Classes:
+  - "--confirma-disable-gd" to disable GDScript tests.
+- Files:
   - TestManager.cs
+  - ITestExecutor.cs
   - CsTestExecutor.cs
+  - GdTestDiscovery.cs
+- 'GdAssertionFailed' signal.
+- Assertions for GDScript:
+  - confirm_boolean.gd
 
 ### Changed
 
