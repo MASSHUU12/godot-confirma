@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
   - GdTestDiscovery.cs
 - 'GdAssertionFailed' signal.
 - Assertions for GDScript:
+  - confirm.gd
   - confirm_boolean.gd
 
 ### Changed

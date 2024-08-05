@@ -1,4 +1,4 @@
-class_name ConfirmBooleanTests
+class_name ConfirmBooleanTest
 
 func confirm_true_when_true() -> void:
 	ConfirmBoolean.is_true(true)

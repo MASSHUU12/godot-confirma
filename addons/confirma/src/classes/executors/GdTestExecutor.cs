@@ -60,7 +60,7 @@ public class GdTestExecutor : ITestExecutor
             className = testClass.ResourcePath.GetFile();
         }
 
-        Log.Print($"> {className}...");
+        Log.Print($"> {className}...\n");
 
         GodotObject instance = testClass.New().AsGodotObject();
 
