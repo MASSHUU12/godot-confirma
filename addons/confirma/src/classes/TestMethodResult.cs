@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Reflection;
+
 namespace Confirma.Classes;
 
 public class TestMethodResult
@@ -6,13 +9,15 @@ public class TestMethodResult
     public uint TestsFailed { get; set; }
     public uint TestsIgnored { get; set; }
     public uint Warnings { get; set; }
+    public List<TestOutput> TestedCases {get; set;}
 
-    public TestMethodResult(uint passed, uint failed, uint ignored, uint warnings)
+    public TestMethodResult(uint passed, uint failed, uint ignored, uint warnings,  List<TestOutput> cases)
     {
         TestsPassed = passed;
         TestsFailed = failed;
         TestsIgnored = ignored;
         Warnings = warnings;
+        TestedCases= cases;
     }
 
     public TestMethodResult()
@@ -21,6 +26,7 @@ public class TestMethodResult
         TestsFailed = 0;
         TestsIgnored = 0;
         Warnings = 0;
+        TestedCases = new ();
     }
 
     public void Reset()
@@ -29,5 +35,6 @@ public class TestMethodResult
         TestsFailed = 0;
         TestsIgnored = 0;
         Warnings = 0;
+        TestedCases = new ();
     }
 }

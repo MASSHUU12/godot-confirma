@@ -3,8 +3,26 @@ using Confirma.Helpers;
 
 namespace Confirma.Classes;
 
-public static class TestOutput
+public class TestOutput
 {
+    public string name;
+    public string parameters;
+    public ETestCaseState state;
+    public string? message;
+
+    public TestOutput(
+        string name,
+        string parameters,
+        ETestCaseState state,
+        string? message = ""
+    )
+    {
+        this.name = name;
+        this.parameters = parameters;
+        this.state = state;
+        this.message = message;
+    }
+
     public static string GetTestCaseStateString(ETestCaseState state)
     {
         return state.ToString().ToLowerInvariant();
@@ -21,33 +39,22 @@ public static class TestOutput
         };
     }
 
-    public static void PrintOutput(
-        string name,
-        string parameters,
-        ETestCaseState state,
-        bool verbose = false,
-        string? message = null
-    )
+    public void PrintOutput(bool verbose = false)
     {
         switch (verbose)
         {
             case false when state == ETestCaseState.Passed:
                 return;
             case true:
-                PrintVerbose(name, parameters, state, message);
+                PrintVerbose();
                 break;
             default:
-                PrintDefault(name, parameters, state, message);
+                PrintDefault();
                 break;
         }
     }
 
-    private static void PrintDefault(
-        string name,
-        string parameters,
-        ETestCaseState state,
-        string? message = null
-    )
+    private void PrintDefault()
     {
         string color = GetTestCaseStateColor(state);
         string sState = GetTestCaseStateString(state);
@@ -66,12 +73,7 @@ public static class TestOutput
         }
     }
 
-    private static void PrintVerbose(
-        string name,
-        string parameters,
-        ETestCaseState state,
-        string? message = null
-    )
+    private void PrintVerbose()
     {
         string color = GetTestCaseStateColor(state);
         string sState = GetTestCaseStateString(state);

@@ -35,7 +35,8 @@ public class TestingMethod
                 {
                     Result.TestsIgnored++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, attr.Reason);
+                    TestOutput output = new (Name, test.Params, Ignored, attr.Reason);
+                    Result.TestedCases.Add(output);
                     continue;
                 }
 
@@ -44,13 +45,15 @@ public class TestingMethod
                     test.Run();
                     Result.TestsPassed++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
+                    TestOutput output = new(Name, test.Params, Passed);
+                    Result.TestedCases.Add(output);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
+                    TestOutput output = new(Name, test.Params, Failed, e.Message);
+                    Result.TestedCases.Add(output);
 
                     if (test.Repeat?.FailFast == true)
                     {
@@ -90,6 +93,7 @@ public class TestingMethod
                         $"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
                         "because it does not have the TestCase attribute after it.\n"
                     );
+                    // IDK how trigger this - OpalSoPL
                     Result.Warnings++;
                     continue;
                 case RepeatAttribute when discovered.Current is RepeatAttribute:
