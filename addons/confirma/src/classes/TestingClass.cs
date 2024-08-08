@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Enums;
 using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
@@ -30,10 +31,12 @@ public class TestingClass
     public TestClassResult Run(TestsProps props)
     {
         uint passed = 0, failed = 0, ignored = 0, warnings = 0;
+        List<TestOutput> testDetails = new();
+        List<TestResultMessage> messages = new();
 
         _props = props;
 
-        warnings += RunLifecycleMethod("BeforeAll");
+        warnings += RunLifecycleMethod("BeforeAll", ref messages);
 
         if (!string.IsNullOrEmpty(props.MethodName))
         {
@@ -41,41 +44,43 @@ public class TestingClass
 
             if (!TestMethods.Any())
             {
-                Log.PrintError(
+                messages.Add(new (Elogtype.Error,
                     $"No test Methods found with the name '{props.MethodName}'."
-                );
-                return new(0, 0, 0, 1);
+                ));
+
+                return new(0, 0, 0, 1, null, messages);
             }
         }
 
         foreach (TestingMethod method in TestMethods)
         {
-            warnings += RunLifecycleMethod("SetUp");
+            warnings += RunLifecycleMethod("SetUp", ref messages);
 
             int currentOrphans = GetOrphans();
 
             TestMethodResult methodResult = method.Run(props);
 
-            warnings += RunLifecycleMethod("TearDown");
+            warnings += RunLifecycleMethod("TearDown", ref messages);
 
             int newOrphans = GetOrphans();
             if (currentOrphans < newOrphans)
             {
                 warnings++;
-                Log.PrintWarning(
+                messages.Add(new (Elogtype.Warning,
                     $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
-                );
+                ));
             }
 
             passed += methodResult.TestsPassed;
             failed += methodResult.TestsFailed;
             ignored += methodResult.TestsIgnored;
             warnings += methodResult.Warnings;
+            testDetails.AddRange(methodResult.TestedCases);
         }
 
-        warnings += RunLifecycleMethod("AfterAll");
+        warnings += RunLifecycleMethod("AfterAll", ref messages);
 
-        return new(passed, failed, ignored, warnings);
+        return new(passed, failed, ignored, warnings, testDetails, messages);
     }
 
     private void InitialLookup()
@@ -96,7 +101,7 @@ public class TestingClass
         _lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
     }
 
-    private byte RunLifecycleMethod(string name)
+    private byte RunLifecycleMethod(string name, ref List<TestResultMessage> resultMessages)
     {
         if (!_lifecycleMethods.TryGetValue(name, out LifecycleMethodData? method))
         {
@@ -105,15 +110,17 @@ public class TestingClass
 
         if (method.HasMultiple)
         {
-            Log.PrintWarning(
+            resultMessages.Add(new (Elogtype.Warning,
                 $"Multiple [{name}] methods found in {Type.Name}. "
                 + "Running only the first one.\n"
-            );
+            ));
         }
 
         if (_props.IsVerbose)
         {
-            Log.PrintLine($"[{name}] {Type.Name}");
+            resultMessages.Add(new(Elogtype.Info,
+                $"[{name}] {Type.Name}"
+            ));
         }
 
         try
@@ -122,7 +129,9 @@ public class TestingClass
         }
         catch (Exception e)
         {
-            Log.PrintError($"- {e.Message}");
+            resultMessages.Add(new(Elogtype.Error,
+                $"- {e.Message}"
+            ));
         }
 
         return method.HasMultiple ? (byte)1 : (byte)0;
