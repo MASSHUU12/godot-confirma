@@ -93,7 +93,6 @@ public class TestingMethod
                         $"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
                         "because it does not have the TestCase attribute after it.\n"
                     );
-                    // IDK how trigger this - OpalSoPL
                     Result.Warnings++;
                     continue;
                 case RepeatAttribute when discovered.Current is RepeatAttribute:
