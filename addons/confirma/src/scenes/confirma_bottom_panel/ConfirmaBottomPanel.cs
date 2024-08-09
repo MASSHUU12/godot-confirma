@@ -80,11 +80,15 @@ public partial class ConfirmaBottomPanel : Control
     private void OnTestsExecutionStarted()
     {
         _runAllTests.Disabled = true;
+        _runCSharpTests.Disabled = true;
+        _runGdScriptTests.Disabled = true;
     }
 
     private void OnTestsExecutionFinished()
     {
         _runAllTests.Disabled = false;
+        _runCSharpTests.Disabled = false;
+        _runGdScriptTests.Disabled = false;
     }
 }
 
