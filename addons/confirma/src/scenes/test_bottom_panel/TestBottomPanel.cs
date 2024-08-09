@@ -8,8 +8,7 @@ namespace Confirma.Scenes;
 public partial class TestBottomPanel : Control
 {
 #nullable disable
-    private Button _runAllTests;
-    private Button _clearOutput;
+    private Button _runAllTests, _runCSharpTests, _runGdScriptTests, _clearOutput;
     private CheckBox _verbose;
     private TestRunnerEditor _testRunner;
     private ConfirmaAutoload _autoload;
@@ -19,6 +18,12 @@ public partial class TestBottomPanel : Control
     {
         _runAllTests = GetNode<Button>("%RunAllTests");
         _runAllTests.Pressed += OnRunAllTestsPressed;
+
+        _runCSharpTests = GetNode<Button>("%RunCSharpTests");
+        _runCSharpTests.Pressed += OnRunCSharpTestsPressed;
+
+        _runGdScriptTests = GetNode<Button>("%RunGDScriptTests");
+        _runGdScriptTests.Pressed += OnRunGdScriptTestsPressed;
 
         _clearOutput = GetNode<Button>("%ClearOutput");
         _clearOutput.Pressed += OnClearOutputPressed;
@@ -39,8 +44,31 @@ public partial class TestBottomPanel : Control
         _verbose.Toggled += (bool on) => _autoload.Props.IsVerbose = on;
     }
 
+    private void ResetLanguagesToggle()
+    {
+        _autoload.Props.DisableCsharp = false;
+        _autoload.Props.DisableGdScript = false;
+    }
+
+    private void OnRunCSharpTestsPressed()
+    {
+        ResetLanguagesToggle();
+
+        _autoload.Props.DisableGdScript = true;
+        _testRunner.RunAllTests();
+    }
+
+    private void OnRunGdScriptTestsPressed()
+    {
+        ResetLanguagesToggle();
+
+        _autoload.Props.DisableCsharp = true;
+        _testRunner.RunAllTests();
+    }
+
     private void OnRunAllTestsPressed()
     {
+        ResetLanguagesToggle();
         _testRunner.RunAllTests();
     }
 
