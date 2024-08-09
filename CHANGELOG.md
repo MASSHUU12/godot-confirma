@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
+- "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
 
 ### Changed
 
@@ -31,7 +32,9 @@ All notable changes to this project will be documented in this file.
 - Code style improvements.
 - Minor optimizations.
 - Improved independence from culture.
-- Renamed TestDiscovery to CsTestDiscovery.
+- Renamed:
+  - TestDiscovery -> CsTestDiscovery
+  - TestBottomPanel -> ConfirmaBottomPanel
 
 ### Removed
 

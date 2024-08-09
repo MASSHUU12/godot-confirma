@@ -13,7 +13,7 @@ public partial class Plugin : EditorPlugin
     public override void _EnterTree()
     {
         _testBottomPanel = GD.Load<PackedScene>(
-            GetPluginPath() + "/src/scenes/test_bottom_panel/TestBottomPanel.tscn"
+            GetPluginPath() + "/src/scenes/confirma_bottom_panel/ConfirmaBottomPanel.tscn"
         ).Instantiate<Control>();
         _ = AddControlToBottomPanel(_testBottomPanel, "Confirma");
 
