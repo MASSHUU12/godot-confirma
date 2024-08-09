@@ -19,14 +19,18 @@ public partial class ConfirmaAutoload : Node
     {
         CheckArguments();
 
-        if (!Props.RunTests)
+        if (!Props.RunTests && !Engine.IsEditorHint())
         {
             return;
         }
 
         Props.Autoload = this;
         SetupGlobals();
-        ChangeScene();
+
+        if (!Engine.IsEditorHint())
+        {
+            ChangeScene();
+        }
     }
 
     private void SetupGlobals()

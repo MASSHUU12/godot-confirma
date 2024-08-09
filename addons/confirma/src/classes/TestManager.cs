@@ -36,6 +36,8 @@ public static class TestManager
         int totalClasses = 0;
         DateTime startTimeStamp = DateTime.Now;
 
+        _props.ResetStats();
+
         if (!_props.DisableCsharp)
         {
             CsTestExecutor csExecutor = new(_props);

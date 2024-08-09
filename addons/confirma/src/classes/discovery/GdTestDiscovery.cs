@@ -20,7 +20,7 @@ public static class GdTestDiscovery
 
             if (!script.CanInstantiate())
             {
-                script.Free();
+                script.Dispose();
                 continue;
             }
 
