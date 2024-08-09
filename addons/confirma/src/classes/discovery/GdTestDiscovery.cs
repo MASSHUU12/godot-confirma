@@ -24,7 +24,9 @@ public static class GdTestDiscovery
 
             GDScript script = GD.Load<GDScript>(filePath);
 
-            if (!script.CanInstantiate())
+            // For some reason, when running plugin in the editor,
+            // the scripts are considered impossible to instantiate.
+            if (!script.CanInstantiate() && !Engine.IsEditorHint())
             {
                 script.Dispose();
                 continue;

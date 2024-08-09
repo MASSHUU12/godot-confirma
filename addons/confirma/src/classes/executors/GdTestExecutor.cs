@@ -72,16 +72,18 @@ public class GdTestExecutor : ITestExecutor
         {
             _ = instance.Call(method);
 
-            if (!_testFailed)
+            if (_testFailed)
             {
-                _props.Result.TestsPassed++;
-                TestOutput.PrintOutput(
-                    "TODO: Name",
-                    "TODO: Params",
-                    Passed,
-                    _props.IsVerbose
-                );
+                continue;
             }
+
+            _props.Result.TestsPassed++;
+            TestOutput.PrintOutput(
+                "TODO: Name",
+                "TODO: Params",
+                Passed,
+                _props.IsVerbose
+            );
 
             _testFailed = false;
         }

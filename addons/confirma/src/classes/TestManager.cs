@@ -3,7 +3,6 @@ using Confirma.Helpers;
 using Confirma.Classes.Executors;
 using System;
 using System.Globalization;
-using Confirma.Classes.Discovery;
 
 namespace Confirma.Classes;
 
