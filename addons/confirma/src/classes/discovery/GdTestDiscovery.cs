@@ -9,6 +9,12 @@ public static class GdTestDiscovery
 {
     public static IEnumerable<GDScript> GetTestScripts(string pathToTests)
     {
+        // TODO: Check only once.
+        if (!Directory.Exists(pathToTests))
+        {
+            yield break;
+        }
+
         foreach (string filePath in Directory.EnumerateFiles(pathToTests))
         {
             if (!filePath.EndsWith(".gd", StringComparison.Ordinal))
