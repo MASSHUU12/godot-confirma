@@ -5,7 +5,7 @@ using Godot;
 namespace Confirma.Scenes;
 
 [Tool]
-public partial class TestBottomPanel : Control
+public partial class ConfirmaBottomPanel : Control
 {
 #nullable disable
     private Button _runAllTests, _runCSharpTests, _runGdScriptTests, _clearOutput;
