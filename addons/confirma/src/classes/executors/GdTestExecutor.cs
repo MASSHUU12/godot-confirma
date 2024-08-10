@@ -26,7 +26,7 @@ public class GdTestExecutor : ITestExecutor
         result = null;
 
         IEnumerable<GDScript> testClasses = GdTestDiscovery.GetTestScripts(
-            "./gdtests" // TODO
+            _props.GdTestPath
         );
 
         if (!string.IsNullOrEmpty(_props.ClassName))

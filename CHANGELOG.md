@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Arguments:
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDScript tests.
+  - "--confirma-gd-path" to specify path with GDScript tests.
 - Files:
   - TestManager.cs
   - ITestExecutor.cs

@@ -14,13 +14,14 @@ public struct TestsProps
     public bool IsVerbose { get; set; }
     public bool IsHeadless { get; set; }
     public bool ExitOnFail { get; set; }
+    public bool DisableCsharp { get; set; }
+    public bool MonitorOrphans { get; set; }
     public bool QuitAfterTests { get; set; }
+    public bool DisableGdScript { get; set; }
+    public bool DisableParallelization { get; set; }
     public string ClassName { get; set; } = string.Empty;
     public string MethodName { get; set; } = string.Empty;
-    public bool DisableParallelization { get; set; }
-    public bool MonitorOrphans { get; set; }
-    public bool DisableCsharp { get; set; }
-    public bool DisableGdScript { get; set; }
+    public string GdTestPath { get; set; } = "./gdtests";
 
     public TestsProps() { }
 

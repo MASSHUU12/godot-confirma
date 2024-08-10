@@ -53,10 +53,7 @@ public partial class ConfirmaAutoload : Node
             if (!Props.RunTests && arg.StartsWith("--confirma-run", InvariantCulture))
             {
                 Props.RunTests = true;
-
-                Props.ClassName = arg.Find('=') == -1
-                    ? string.Empty
-                    : arg.Split('=')[1];
+                Props.ClassName = ParseArgumentContent(arg);
 
                 continue;
             }
@@ -65,9 +62,7 @@ public partial class ConfirmaAutoload : Node
                 && arg.StartsWith("--confirma-method", InvariantCulture)
             )
             {
-                Props.MethodName = arg.Find('=') == -1
-                                    ? string.Empty
-                                    : arg.Split('=')[1];
+                Props.MethodName = ParseArgumentContent(arg);
 
                 continue;
             }
@@ -111,8 +106,21 @@ public partial class ConfirmaAutoload : Node
             if (!Props.DisableGdScript && arg == "--confirma-disable-gd")
             {
                 Props.DisableGdScript = true;
+                continue;
+            }
+
+            if (arg.StartsWith("--confirma-gd-path", InvariantCulture))
+            {
+                Props.GdTestPath = ParseArgumentContent(arg);
             }
         }
+    }
+
+    private static string ParseArgumentContent(string argument)
+    {
+        return argument.Find('=') == -1
+            ? string.Empty
+            : argument.Split('=')[1];
     }
 
     private void ChangeScene()
