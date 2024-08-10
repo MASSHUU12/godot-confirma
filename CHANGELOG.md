@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
+  - confirm_array.gd
 - "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
 
 ### Changed
