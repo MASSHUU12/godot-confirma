@@ -13,4 +13,5 @@
 | --experimental-monitor-orphans | Experimental. Allows monitoring the number of orphans, and when they arise.                        |
 | --confirma-disable-cs          | Do not run C# tests.                                                                               |
 | --confirma-disable-gd          | Do not run GDScript tests.                                                                         |
+| --confirma-gd-path             | Specifies the path where tests written in GDScript are located, the default path is "./gdtests".   |
 | --headless                     | Runs Godot in server mode (without windows), an argument built into Godot.                         |
