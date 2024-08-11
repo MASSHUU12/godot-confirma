@@ -7,10 +7,13 @@ namespace Confirma.Classes.Discovery;
 
 public static class GdTestDiscovery
 {
+    private static bool? _testScriptsDirectoryCached = null;
+
     public static IEnumerable<ScriptInfo> GetTestScripts(string pathToTests)
     {
-        // TODO: Check only once.
-        if (!Directory.Exists(pathToTests))
+        _testScriptsDirectoryCached ??= Directory.Exists(pathToTests);
+
+        if (_testScriptsDirectoryCached == false)
         {
             yield break;
         }
