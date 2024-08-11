@@ -8,21 +8,21 @@ public class TestLog
     readonly string? message;
     readonly string? name;
     readonly ETestCaseState state = ETestCaseState.Ignored;
-    readonly Elogtype type;
+    readonly ELogType type;
 
-    public TestLog(Elogtype type)
+    public TestLog(ELogType type)
     {
         this.type = type;
     }
 
-    public TestLog(Elogtype type, string message)
+    public TestLog(ELogType type, string message)
     {
         this.type = type;
         this.message = message;
     }
 
     public TestLog(
-        Elogtype type,
+        ELogType type,
         string name,
         ETestCaseState state,
         string parameters = "",
@@ -55,7 +55,7 @@ public class TestLog
     {
         switch (type)
         {
-            case Elogtype.Method:
+            case ELogType.Method:
                 switch (verbose)
                 {
                     case false when state == ETestCaseState.Passed:
@@ -68,28 +68,28 @@ public class TestLog
                         break;
                 }
                 break;
-            case Elogtype.Class:
+            case ELogType.Class:
                 Log.Print($"> {message}...");
                 break;
-            case Elogtype.Info:
+            case ELogType.Info:
                 if (message != null)
                 {
                     Log.PrintLine(message);
                 }
                 break;
-            case Elogtype.Error:
+            case ELogType.Error:
                 if (message != null)
                 {
                     Log.PrintError(message);
                 }
                 break;
-            case Elogtype.Warning:
+            case ELogType.Warning:
                 if (message != null)
                 {
                     Log.PrintLine(message);
                 }
                 break;
-            case Elogtype.Newline:
+            case ELogType.Newline:
                 Log.PrintLine();
                 break;
         }

@@ -36,7 +36,7 @@ public class TestingMethod
                 {
                     Result.TestsIgnored++;
 
-                    TestLog log = new(Enums.Elogtype.Method, Name, Ignored, test.Params, attr.Reason);
+                    TestLog log = new(Enums.ELogType.Method, Name, Ignored, test.Params, attr.Reason);
                     Result.TestLogs.Add(log);
                     continue;
                 }
@@ -46,14 +46,14 @@ public class TestingMethod
                     test.Run();
                     Result.TestsPassed++;
 
-                    TestLog log = new(Enums.Elogtype.Method, Name, Passed, test.Params);
+                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params);
                     Result.TestLogs.Add(log);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestLog log = new(Enums.Elogtype.Method, Name, Failed, test.Params, e.Message);
+                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message);
                     Result.TestLogs.Add(log);
 
                     if (test.Repeat?.FailFast == true)

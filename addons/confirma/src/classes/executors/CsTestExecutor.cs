@@ -84,7 +84,7 @@ public class CsTestExecutor : ITestExecutor
     {
         List<TestLog> testLogs = new()
         {
-            new(Elogtype.Class, testClass.Type.Name)
+            new(ELogType.Class, testClass.Type.Name)
         };
         Log.Print($"> {testClass.Type.Name}...");
 
@@ -95,17 +95,17 @@ public class CsTestExecutor : ITestExecutor
                 static m => m.TestCases.Count()
             );
 
-            testLogs.Add(new(Elogtype.Warning, "  ignored.\n"));
+            testLogs.Add(new(ELogType.Warning, "  ignored.\n"));
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
                 return;
             }
 
-            testLogs.Add(new(Elogtype.Warning, $"- {attr.Reason}\n"));
+            testLogs.Add(new(ELogType.Warning, $"- {attr.Reason}\n"));
         }
 
-        testLogs.Add(new(Elogtype.Newline));
+        testLogs.Add(new(ELogType.Newline));
 
         TestClassResult classResult = testClass.Run(_props);
 

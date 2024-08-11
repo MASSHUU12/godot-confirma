@@ -1,6 +1,6 @@
 namespace Confirma.Enums;
 
-public enum Elogtype
+public enum ELogType
 {
     Info = 0,
     Error = 1,

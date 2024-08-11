@@ -44,7 +44,7 @@ public class TestingClass
 
             if (!TestMethods.Any())
             {
-                testLogs.Add(new(Elogtype.Error,
+                testLogs.Add(new(ELogType.Error,
                     $"No test Methods found with the name '{props.MethodName}'."
                 ));
 
@@ -67,7 +67,7 @@ public class TestingClass
             if (currentOrphans < newOrphans)
             {
                 warnings++;
-                testLogs.Add(new(Elogtype.Warning,
+                testLogs.Add(new(ELogType.Warning,
                     $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
                 ));
             }
@@ -110,7 +110,7 @@ public class TestingClass
 
         if (method.HasMultiple)
         {
-            testLogs.Add(new(Elogtype.Warning,
+            testLogs.Add(new(ELogType.Warning,
                 $"Multiple [{name}] methods found in {Type.Name}. "
                 + "Running only the first one.\n"
             ));
@@ -118,7 +118,7 @@ public class TestingClass
 
         if (_props.IsVerbose)
         {
-            testLogs.Add(new(Elogtype.Info,
+            testLogs.Add(new(ELogType.Info,
                 $"[{name}] {Type.Name}"
             ));
         }
@@ -129,7 +129,7 @@ public class TestingClass
         }
         catch (Exception e)
         {
-            testLogs.Add(new(Elogtype.Error,
+            testLogs.Add(new(ELogType.Error,
                 $"- {e.Message}"
             ));
         }

@@ -67,7 +67,7 @@ public class GdTestExecutor : ITestExecutor
 
         _testLogs = new()
         {
-            new(Elogtype.Class, className)
+            new(ELogType.Class, className)
         };
 
         Log.Print($"> {className}...\n");
@@ -105,7 +105,7 @@ public class GdTestExecutor : ITestExecutor
     private TestLog GetTestResult(ETestCaseState state, string? message = null)
     {
         return new(
-            Elogtype.Method,
+            ELogType.Method,
             _currentMethod!.Name,
             state,
             ArrayHelper.ToString(
