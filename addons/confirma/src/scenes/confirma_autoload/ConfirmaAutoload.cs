@@ -10,19 +10,27 @@ namespace Confirma.Scenes;
 [Tool]
 public partial class ConfirmaAutoload : Node
 {
+    [Signal]
+    public delegate void GdAssertionFailedEventHandler(string message);
+
     public TestsProps Props = new();
 
     public override void _Ready()
     {
         CheckArguments();
 
-        if (!Props.RunTests)
+        if (!Props.RunTests && !Engine.IsEditorHint())
         {
             return;
         }
 
+        Props.Autoload = this;
         SetupGlobals();
-        ChangeScene();
+
+        if (!Engine.IsEditorHint())
+        {
+            ChangeScene();
+        }
     }
 
     private void SetupGlobals()
@@ -45,10 +53,7 @@ public partial class ConfirmaAutoload : Node
             if (!Props.RunTests && arg.StartsWith("--confirma-run", InvariantCulture))
             {
                 Props.RunTests = true;
-
-                Props.ClassName = arg.Find('=') == -1
-                    ? string.Empty
-                    : arg.Split('=')[1];
+                Props.ClassName = ParseArgumentContent(arg);
 
                 continue;
             }
@@ -57,9 +62,7 @@ public partial class ConfirmaAutoload : Node
                 && arg.StartsWith("--confirma-method", InvariantCulture)
             )
             {
-                Props.MethodName = arg.Find('=') == -1
-                                    ? string.Empty
-                                    : arg.Split('=')[1];
+                Props.MethodName = ParseArgumentContent(arg);
 
                 continue;
             }
@@ -91,8 +94,33 @@ public partial class ConfirmaAutoload : Node
             if (!Props.MonitorOrphans && arg == "--experimental-monitor-orphans")
             {
                 Props.MonitorOrphans = true;
+                continue;
+            }
+
+            if (!Props.DisableCsharp && arg == "--confirma-disable-cs")
+            {
+                Props.DisableCsharp = true;
+                continue;
+            }
+
+            if (!Props.DisableGdScript && arg == "--confirma-disable-gd")
+            {
+                Props.DisableGdScript = true;
+                continue;
+            }
+
+            if (arg.StartsWith("--confirma-gd-path", InvariantCulture))
+            {
+                Props.GdTestPath = ParseArgumentContent(arg);
             }
         }
+    }
+
+    private static string ParseArgumentContent(string argument)
+    {
+        return argument.Find('=') == -1
+            ? string.Empty
+            : argument.Split('=')[1];
     }
 
     private void ChangeScene()

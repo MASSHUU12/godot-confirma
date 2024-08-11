@@ -1,4 +1,3 @@
-using System.Reflection;
 using Confirma.Classes;
 using Confirma.Helpers;
 using Godot;
@@ -18,24 +17,26 @@ public partial class TestRunner : Control
     protected RichTextLabel Output { get; set; }
 #nullable restore
 
-    private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
-
     public override void _Ready()
     {
         Output = GetNode<RichTextLabel>("%Output");
         Log.RichOutput = Output;
 
-        Autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
+        // I use GetNodeOrNull instead of the usual GetNode
+        // because GetNode prints an error in the editor
+        // even though the method execution is successful.
+        // This will never be null.
+        Autoload = GetNodeOrNull<ConfirmaAutoload>("/root/Confirma");
     }
 
-    public void RunAllTests(string className = "")
+    public void RunAllTests()
     {
         _ = EmitSignal(SignalName.TestsExecutionStarted);
 
         Output.Clear();
 
-        TestExecutor.Props = Autoload.Props;
-        TestExecutor.ExecuteTests(_assembly, className);
+        TestManager.Props = Autoload.Props;
+        TestManager.Run();
 
         _ = EmitSignal(SignalName.TestsExecutionFinished);
     }

@@ -10,28 +10,28 @@ public class TestLog
     readonly ETestCaseState state = ETestCaseState.Ignored;
     readonly Elogtype type;
 
-    public TestLog (Elogtype type)
+    public TestLog(Elogtype type)
     {
         this.type = type;
     }
 
-    public TestLog (Elogtype type, string message)
+    public TestLog(Elogtype type, string message)
     {
         this.type = type;
         this.message = message;
     }
 
-    public TestLog (
+    public TestLog(
         Elogtype type,
         string name,
         ETestCaseState state,
         string parameters = "",
         string? message = null
-        )
+    )
     {
         this.type = type;
         this.message = message;
-        this.name = $"{name}{(parameters?.Length > 0 ? $"({parameters})" : string.Empty)}";
+        this.name = name + (parameters?.Length > 0 ? $"({parameters})" : string.Empty);
         this.state = state;
     }
 

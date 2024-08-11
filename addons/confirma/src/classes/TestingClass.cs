@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Classes.Discovery;
 using Confirma.Enums;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -22,7 +23,7 @@ public class TestingClass
     public TestingClass(Type type)
     {
         Type = type;
-        TestMethods = TestDiscovery.DiscoverTestMethods(type);
+        TestMethods = CsTestDiscovery.DiscoverTestMethods(type);
         IsParallelizable = type.GetCustomAttribute<ParallelizableAttribute>() is not null;
 
         InitialLookup();
@@ -43,7 +44,7 @@ public class TestingClass
 
             if (!TestMethods.Any())
             {
-                testLogs.Add(new (Elogtype.Error,
+                testLogs.Add(new(Elogtype.Error,
                     $"No test Methods found with the name '{props.MethodName}'."
                 ));
 
@@ -66,7 +67,7 @@ public class TestingClass
             if (currentOrphans < newOrphans)
             {
                 warnings++;
-                testLogs.Add(new (Elogtype.Warning,
+                testLogs.Add(new(Elogtype.Warning,
                     $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
                 ));
             }
@@ -109,7 +110,7 @@ public class TestingClass
 
         if (method.HasMultiple)
         {
-            testLogs.Add(new (Elogtype.Warning,
+            testLogs.Add(new(Elogtype.Warning,
                 $"Multiple [{name}] methods found in {Type.Name}. "
                 + "Running only the first one.\n"
             ));
