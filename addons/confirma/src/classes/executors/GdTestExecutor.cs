@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Classes.Discovery;
+using Confirma.Enums;
 using Confirma.Helpers;
 using Confirma.Interfaces;
 using Confirma.Types;
@@ -14,6 +15,7 @@ public class GdTestExecutor : ITestExecutor
 {
     private TestsProps _props;
     private bool _testFailed;
+    private ScriptMethodInfo? _currentMethod;
 
     public GdTestExecutor(TestsProps props)
     {
@@ -25,13 +27,13 @@ public class GdTestExecutor : ITestExecutor
     {
         result = null;
 
-        IEnumerable<GDScript> testClasses = GdTestDiscovery.GetTestScripts(
+        IEnumerable<ScriptInfo> testClasses = GdTestDiscovery.GetTestScripts(
             _props.GdTestPath
         );
 
         if (!string.IsNullOrEmpty(_props.ClassName))
         {
-            testClasses = testClasses.Where(tc => tc.GetClass() == _props.ClassName);
+            testClasses = testClasses.Where(tc => tc.Script.GetClass() == _props.ClassName);
 
             if (!testClasses.Any())
             {
@@ -42,7 +44,7 @@ public class GdTestExecutor : ITestExecutor
 
         _props.ResetStats();
 
-        foreach (GDScript testClass in testClasses)
+        foreach (ScriptInfo testClass in testClasses)
         {
             ExecuteClass(testClass);
         }
@@ -51,26 +53,25 @@ public class GdTestExecutor : ITestExecutor
         return testClasses.Count();
     }
 
-    private void ExecuteClass(GDScript testClass)
+    private void ExecuteClass(ScriptInfo testClass)
     {
-        string className = testClass.GetGlobalName();
+        GDScript script = (GDScript)testClass.Script;
+        string className = script.GetGlobalName();
 
         if (string.IsNullOrEmpty(className))
         {
-            className = testClass.ResourcePath.GetFile();
+            className = script.ResourcePath.GetFile();
         }
 
         Log.Print($"> {className}...\n");
 
-        GodotObject instance = testClass.New().AsGodotObject();
+        GodotObject instance = script.New().AsGodotObject();
 
-        IEnumerable<string> methods = testClass
-            .GetScriptMethodList()
-            .Select(static method => method["name"].AsString());
-
-        foreach (string method in methods)
+        foreach (ScriptMethodInfo method in testClass.Methods)
         {
-            _ = instance.Call(method);
+            _currentMethod = method;
+
+            _ = instance.Call(method.Name);
 
             if (_testFailed)
             {
@@ -78,14 +79,9 @@ public class GdTestExecutor : ITestExecutor
             }
 
             _props.Result.TestsPassed++;
-            TestOutput.PrintOutput(
-                "TODO: Name",
-                "TODO: Params",
-                Passed,
-                _props.IsVerbose
-            );
-
             _testFailed = false;
+
+            PrintTestResult(Passed);
         }
 
         instance.Dispose();
@@ -94,13 +90,21 @@ public class GdTestExecutor : ITestExecutor
     private void OnAssertionFailed(string message)
     {
         _props.Result.TestsFailed++;
+        _testFailed = true;
+
+        PrintTestResult(Failed, message);
+    }
+
+    private void PrintTestResult(ETestCaseState state, string? message = null)
+    {
         TestOutput.PrintOutput(
-            "TODO: Name",
-            "TODO: Params",
-            Failed,
+            _currentMethod!.Name,
+            ArrayHelper.ToString(
+                _currentMethod.Args.Select(static a => a.Name).ToArray()
+            ),
+            state,
             _props.IsVerbose,
             message
         );
-        _testFailed = true;
     }
 }

@@ -7,7 +7,7 @@ namespace Confirma.Classes.Discovery;
 
 public static class GdTestDiscovery
 {
-    public static IEnumerable<GDScript> GetTestScripts(string pathToTests)
+    public static IEnumerable<ScriptInfo> GetTestScripts(string pathToTests)
     {
         // TODO: Check only once.
         if (!Directory.Exists(pathToTests))
@@ -32,7 +32,7 @@ public static class GdTestDiscovery
                 continue;
             }
 
-            yield return script;
+            yield return ScriptInfo.Parse(script);
         }
     }
 }

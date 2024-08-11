@@ -9,12 +9,13 @@ All notable changes to this project will be documented in this file.
 - [**Experimental**] Information about number of orphans.
 - [**Experimental**] Detecting when orphans are created.
 - [**Experimental**] Running tests written in GDScript.
-- 'GdAssertionFailed' signal.
+- 'GdAssertionFailed' signal to ConfirmaAutoload.
 - Arguments:
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDScript tests.
   - "--confirma-gd-path" to specify path with GDScript tests.
 - Files:
+  - ScriptInfo.cs
   - TestManager.cs
   - ITestExecutor.cs
   - CsTestExecutor.cs
@@ -24,11 +25,12 @@ All notable changes to this project will be documented in this file.
   - confirm_boolean.gd
   - confirm_array.gd
 - "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
+- ScriptMethodInfo, ScriptMethodReturnInfo & ScriptMethodArgumentsInfo records.
 
 ### Changed
 
 - Color.TerminalReset is now static readonly field.
-- TestsExecutionStarted/Finished signals to TestRunner.
+- Moved TestsExecutionStarted/Finished signals to TestRunner.
 - The "Run All Tests" button is no longer available when tests are executed.
 - Minor changes in exceptions messages.
 - Code style improvements.
