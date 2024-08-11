@@ -1,8 +1,8 @@
-using Confirma.Types;
-using Confirma.Helpers;
-using Confirma.Classes.Executors;
 using System;
 using System.Globalization;
+using Confirma.Classes.Executors;
+using Confirma.Helpers;
+using Confirma.Types;
 
 namespace Confirma.Classes;
 
@@ -65,7 +65,16 @@ public static class TestManager
             _props.Result += res!;
         }
 
+        PrintTestLogs();
         PrintSummary(totalClasses, (DateTime.Now - startTimeStamp).TotalSeconds);
+    }
+
+    private static void PrintTestLogs()
+    {
+        foreach (TestLog log in _props.Result.TestLogs)
+        {
+            log.PrintOutput(_props.IsVerbose);
+        }
     }
 
     private static void PrintSummary(int classesCount, double seconds)

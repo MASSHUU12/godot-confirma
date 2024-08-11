@@ -36,7 +36,8 @@ public class TestingMethod
                 {
                     Result.TestsIgnored++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Ignored, props.IsVerbose, attr.Reason);
+                    TestLog log = new(Enums.ELogType.Method, Name, Ignored, test.Params, attr.Reason);
+                    Result.TestLogs.Add(log);
                     continue;
                 }
 
@@ -45,13 +46,15 @@ public class TestingMethod
                     test.Run();
                     Result.TestsPassed++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Passed, props.IsVerbose);
+                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params);
+                    Result.TestLogs.Add(log);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestOutput.PrintOutput(Name, test.Params, Failed, props.IsVerbose, e.Message);
+                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message);
+                    Result.TestLogs.Add(log);
 
                     if (test.Repeat?.FailFast == true)
                     {

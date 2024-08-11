@@ -20,13 +20,15 @@ All notable changes to this project will be documented in this file.
   - ITestExecutor.cs
   - CsTestExecutor.cs
   - GdTestDiscovery.cs
+  - ELogType.cs
+  - TestLog.cs
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
   - confirm_array.gd
 - "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
 - ScriptMethodInfo, ScriptMethodReturnInfo & ScriptMethodArgumentsInfo records.
-
+- TestLog list in TestResult and TestClassResult records
 ### Changed
 
 - Color.TerminalReset is now static readonly field.
@@ -43,9 +45,11 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 - TestExecutor.cs
+- TestOutput.cs
 
 ### Fixed
 
+- Parallelizable tests log is out of order
 - Resource leak on Godot editor exit.
 
 ## [0.7.1-beta 2024-07-24]

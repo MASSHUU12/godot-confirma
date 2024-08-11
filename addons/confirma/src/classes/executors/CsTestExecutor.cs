@@ -1,12 +1,13 @@
-using Confirma.Types;
-using Confirma.Helpers;
-using Confirma.Attributes;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Confirma.Attributes;
 using Confirma.Classes.Discovery;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
+using Confirma.Enums;
+using Confirma.Helpers;
 using Confirma.Interfaces;
+using Confirma.Types;
 
 namespace Confirma.Classes.Executors;
 
@@ -81,7 +82,10 @@ public class CsTestExecutor : ITestExecutor
 
     private void ExecuteClass(TestingClass testClass, TestResult result)
     {
-        Log.Print($"> {testClass.Type.Name}...");
+        List<TestLog> testLogs = new()
+        {
+            new(ELogType.Class, testClass.Type.Name)
+        };
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
         if (attr?.IsIgnored() == true)
@@ -90,20 +94,21 @@ public class CsTestExecutor : ITestExecutor
                 static m => m.TestCases.Count()
             );
 
-            Log.PrintWarning(" ignored.\n");
+            testLogs.Add(new(ELogType.Warning, "  ignored.\n"));
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
                 return;
             }
 
-            Log.PrintWarning($"- {attr.Reason}\n");
+            testLogs.Add(new(ELogType.Warning, $"- {attr.Reason}\n"));
         }
 
-        Log.PrintLine();
+        testLogs.Add(new(ELogType.Newline));
 
         TestClassResult classResult = testClass.Run(_props);
 
+        classResult.TestLogs.InsertRange(0, testLogs);
         result += classResult;
     }
 

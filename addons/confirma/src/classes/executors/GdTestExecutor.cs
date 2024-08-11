@@ -15,6 +15,7 @@ public class GdTestExecutor : ITestExecutor
 {
     private TestsProps _props;
     private bool _testFailed;
+    private List<TestLog>? _testLogs;
     private ScriptMethodInfo? _currentMethod;
 
     public GdTestExecutor(TestsProps props)
@@ -50,6 +51,7 @@ public class GdTestExecutor : ITestExecutor
         }
 
         result = _props.Result;
+        result.TestLogs.AddRange(_testLogs!);
         return testClasses.Count();
     }
 
@@ -63,7 +65,12 @@ public class GdTestExecutor : ITestExecutor
             className = script.ResourcePath.GetFile();
         }
 
-        Log.Print($"> {className}...\n");
+        _testLogs = new()
+        {
+            new(ELogType.Class, className),
+            new(ELogType.Newline)
+        };
+
 
         GodotObject instance = script.New().AsGodotObject();
 
@@ -81,7 +88,7 @@ public class GdTestExecutor : ITestExecutor
             _props.Result.TestsPassed++;
             _testFailed = false;
 
-            PrintTestResult(Passed);
+            _testLogs.Add(GetTestResult(Passed));
         }
 
         instance.Dispose();
@@ -92,18 +99,18 @@ public class GdTestExecutor : ITestExecutor
         _props.Result.TestsFailed++;
         _testFailed = true;
 
-        PrintTestResult(Failed, message);
+        _testLogs!.Add(GetTestResult(Failed, message));
     }
 
-    private void PrintTestResult(ETestCaseState state, string? message = null)
+    private TestLog GetTestResult(ETestCaseState state, string? message = null)
     {
-        TestOutput.PrintOutput(
+        return new(
+            ELogType.Method,
             _currentMethod!.Name,
+            state,
             ArrayHelper.ToString(
                 _currentMethod.Args.Select(static a => a.Name).ToArray()
             ),
-            state,
-            _props.IsVerbose,
             message
         );
     }
