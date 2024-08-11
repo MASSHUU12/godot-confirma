@@ -2,7 +2,7 @@ namespace Confirma.Types;
 
 public record ScriptMethodInfo(
     string Name,
-    string[] Args,
+    ScriptMethodArgumentInfo[] Args,
     string[] DefaultArgs,
     int Flags,
     int Id,

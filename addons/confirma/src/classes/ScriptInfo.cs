@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Confirma.Types;
 using Godot;
 using Godot.Collections;
@@ -20,14 +21,29 @@ public class ScriptInfo
     {
         LinkedList<ScriptMethodInfo> list = new();
 
-        foreach (Dictionary method in script.GetMethodList())
+        foreach (Dictionary method in script.GetScriptMethodList())
         {
             Dictionary returnInfo = (Dictionary)method["return"];
+            LinkedList<ScriptMethodArgumentInfo> arg = new();
+
+            foreach (Dictionary argInfo in method["args"].AsGodotArray<Dictionary>())
+            {
+                _ = arg.AddLast(
+                    new ScriptMethodArgumentInfo(
+                        argInfo["name"].AsString(),
+                        argInfo["class_name"].AsString(),
+                        argInfo["type"].AsInt32(),
+                        argInfo["hint"].AsInt32(),
+                        argInfo["hint_string"].AsString(),
+                        argInfo["usage"].AsInt32()
+                    )
+                );
+            }
 
             _ = list.AddLast(
                 new ScriptMethodInfo(
                     method["name"].AsString(),
-                    method["args"].AsStringArray(),
+                    arg.ToArray(),
                     method["default_args"].AsStringArray(),
                     method["flags"].AsInt32(),
                     method["id"].AsInt32(),
