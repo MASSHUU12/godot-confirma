@@ -10,17 +10,23 @@ public class TestLog
     readonly ETestCaseState state = ETestCaseState.Ignored;
     readonly Elogtype type;
 
+    public TestLog (Elogtype type)
+    {
+        this.type = type;
+    }
+
     public TestLog (Elogtype type, string message)
     {
         this.type = type;
         this.message = message;
     }
+
     public TestLog (
         Elogtype type,
         string name,
-        ETestCaseState state = ETestCaseState.Ignored,
+        ETestCaseState state,
         string parameters = "",
-        string message = ""
+        string? message = null
         )
     {
         this.type = type;
@@ -63,7 +69,7 @@ public class TestLog
                 }
                 break;
             case Elogtype.Class:
-                Log.PrintLine($"> {name}...");
+                Log.Print($"> {message}...");
                 break;
             case Elogtype.Info:
                 if (message != null)
@@ -82,6 +88,9 @@ public class TestLog
                 {
                     Log.PrintLine(message);
                 }
+                break;
+            case Elogtype.Newline:
+                Log.PrintLine();
                 break;
         }
     }

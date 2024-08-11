@@ -5,6 +5,7 @@ public enum Elogtype
     Info = 0,
     Error = 1,
     Warning = 2,
-    Method = 3,
-    Class = 4
+    Newline = 3,
+    Method = 4,
+    Class = 5
 }

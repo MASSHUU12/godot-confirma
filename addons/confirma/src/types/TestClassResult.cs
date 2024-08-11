@@ -8,6 +8,5 @@ public record TestClassResult(
     uint TestsFailed,
     uint TestsIgnored,
     uint Warnings,
-    List<TestOutput>? TestCases = null,
-    List<TestResultMessage>? TestResultMessage = null
+    List<TestLog> TestLogs
 );

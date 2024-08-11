@@ -9,15 +9,15 @@ public class TestMethodResult
     public uint TestsFailed { get; set; }
     public uint TestsIgnored { get; set; }
     public uint Warnings { get; set; }
-    public List<TestOutput> TestedCases {get; set;}
+    public List<TestLog> TestLogs {get; set;}
 
-    public TestMethodResult(uint passed, uint failed, uint ignored, uint warnings,  List<TestOutput> cases)
+    public TestMethodResult(uint passed, uint failed, uint ignored, uint warnings,  List<TestLog> logs)
     {
         TestsPassed = passed;
         TestsFailed = failed;
         TestsIgnored = ignored;
         Warnings = warnings;
-        TestedCases= cases;
+        TestLogs= logs;
     }
 
     public TestMethodResult()
@@ -26,7 +26,7 @@ public class TestMethodResult
         TestsFailed = 0;
         TestsIgnored = 0;
         Warnings = 0;
-        TestedCases = new ();
+        TestLogs = new ();
     }
 
     public void Reset()
@@ -35,6 +35,6 @@ public class TestMethodResult
         TestsFailed = 0;
         TestsIgnored = 0;
         Warnings = 0;
-        TestedCases = new ();
+        TestLogs = new ();
     }
 }

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Enums;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -87,6 +88,7 @@ public static class TestExecutor
             Godot.Performance.Monitor.ObjectOrphanNodeCount
         );
 
+        PrintTestLogs();
         PrintSummary(testClasses.Count(), startTimeStamp);
     }
 
@@ -101,7 +103,13 @@ public static class TestExecutor
 
     private static void ExecuteSingleClass(TestingClass testClass, TestResult result)
     {
-        Log.Print($"> {testClass.Type.Name}...");
+        List<TestLog> testLogs = new()
+        {
+            new(
+            Elogtype.Class,
+            testClass.Type.Name
+        )
+        };
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
         if (attr?.IsIgnored() == true)
@@ -110,23 +118,36 @@ public static class TestExecutor
                 static m => m.TestCases.Count()
             );
 
-            Log.PrintWarning(" ignored.\n");
+            testLogs.Add(new(
+                Elogtype.Warning,
+                "  ignored.\n"
+                ));
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
                 return;
             }
 
-            Log.PrintWarning($"- {attr.Reason}\n");
+            testLogs.Add(new(
+                Elogtype.Warning,
+                $"- {attr.Reason}\n"
+                ));
         }
 
-        Log.PrintLine();
+        testLogs.Add(new(Elogtype.Newline));
 
         TestClassResult classResult = testClass.Run(_props);
 
+        classResult.TestLogs.InsertRange(0,testLogs);
         result += classResult;
     }
 
+    private static void PrintTestLogs() {
+        foreach (TestLog log in _props.Result.TestLogs)
+        {
+            log.PrintOutput(_props.IsVerbose);
+        }
+    }
     private static void PrintSummary(int count, DateTime startTimeStamp)
     {
         Log.PrintLine(
