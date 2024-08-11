@@ -67,10 +67,10 @@ public class GdTestExecutor : ITestExecutor
 
         _testLogs = new()
         {
-            new(ELogType.Class, className)
+            new(ELogType.Class, className),
+            new(ELogType.Newline)
         };
 
-        Log.Print($"> {className}...\n");
 
         GodotObject instance = script.New().AsGodotObject();
 

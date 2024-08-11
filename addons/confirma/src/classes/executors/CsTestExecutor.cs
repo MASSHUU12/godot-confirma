@@ -86,7 +86,6 @@ public class CsTestExecutor : ITestExecutor
         {
             new(ELogType.Class, testClass.Type.Name)
         };
-        Log.Print($"> {testClass.Type.Name}...");
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
         if (attr?.IsIgnored() == true)
