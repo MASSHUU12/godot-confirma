@@ -1,24 +1,25 @@
 using Confirma.Enums;
+using Confirma.Extensions;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
 
 public class TestLog
 {
-    readonly string? message;
-    readonly string? name;
-    readonly ETestCaseState state = ETestCaseState.Ignored;
-    readonly ELogType type;
+    private readonly string? _message;
+    private readonly string? _name;
+    private readonly ETestCaseState _state = ETestCaseState.Ignored;
+    private readonly ELogType _type;
 
     public TestLog(ELogType type)
     {
-        this.type = type;
+        _type = type;
     }
 
     public TestLog(ELogType type, string message)
     {
-        this.type = type;
-        this.message = message;
+        _type = type;
+        _message = message;
     }
 
     public TestLog(
@@ -29,10 +30,14 @@ public class TestLog
         string? message = null
     )
     {
-        this.type = type;
-        this.message = message;
-        this.name = name + (parameters?.Length > 0 ? $"({parameters})" : string.Empty);
-        this.state = state;
+        _type = type;
+        _message = message;
+        _name = name + (
+            parameters?.Length > 0
+            ? $"({parameters.EscapeInvisibleCharacters()})"
+            : string.Empty
+        );
+        _state = state;
     }
 
     public static string GetTestCaseStateString(ETestCaseState state)
@@ -53,12 +58,12 @@ public class TestLog
 
     public void PrintOutput(bool verbose = false)
     {
-        switch (type)
+        switch (_type)
         {
             case ELogType.Method:
                 switch (verbose)
                 {
-                    case false when state == ETestCaseState.Passed:
+                    case false when _state == ETestCaseState.Passed:
                         return;
                     case true:
                         PrintMethodVerbose();
@@ -69,24 +74,24 @@ public class TestLog
                 }
                 break;
             case ELogType.Class:
-                Log.Print($"> {message}...");
+                Log.Print($"> {_message}...");
                 break;
             case ELogType.Info:
-                if (message != null)
+                if (_message != null)
                 {
-                    Log.PrintLine(message);
+                    Log.PrintLine(_message);
                 }
                 break;
             case ELogType.Error:
-                if (message != null)
+                if (_message != null)
                 {
-                    Log.PrintError(message);
+                    Log.PrintError(_message);
                 }
                 break;
             case ELogType.Warning:
-                if (message != null)
+                if (_message != null)
                 {
-                    Log.PrintLine(message);
+                    Log.PrintLine(_message);
                 }
                 break;
             case ELogType.Newline:
@@ -97,33 +102,33 @@ public class TestLog
 
     private void PrintMethodDefault()
     {
-        string color = GetTestCaseStateColor(state);
-        string sState = GetTestCaseStateString(state);
+        string color = GetTestCaseStateColor(_state);
+        string sState = GetTestCaseStateString(_state);
 
-        Log.PrintLine($"| {name}... ");
+        Log.PrintLine($"| {_name}... ");
 
-        if (state != ETestCaseState.Passed)
+        if (_state != ETestCaseState.Passed)
         {
-            Log.Print($"\\_ {name}... ");
+            Log.Print($"\\_ {_name}... ");
             Log.PrintLine($"{Colors.ColorText(sState, color)}.");
         }
 
-        if (message is not null)
+        if (_message is not null)
         {
-            Log.PrintLine($"  |- {Colors.ColorText(message, color)}");
+            Log.PrintLine($"  |- {Colors.ColorText(_message, color)}");
         }
     }
 
     private void PrintMethodVerbose()
     {
-        string color = GetTestCaseStateColor(state);
-        string sState = GetTestCaseStateString(state);
+        string color = GetTestCaseStateColor(_state);
+        string sState = GetTestCaseStateString(_state);
 
-        Log.PrintLine($"| {name}... {Colors.ColorText(sState, color)}.");
+        Log.PrintLine($"| {_name}... {Colors.ColorText(sState, color)}.");
 
-        if (message is not null)
+        if (_message is not null)
         {
-            Log.PrintLine($"- {Colors.ColorText(message, color)}");
+            Log.PrintLine($"- {Colors.ColorText(_message, color)}");
         }
     }
 }
