@@ -1,4 +1,5 @@
 using Confirma.Enums;
+using Confirma.Extensions;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
@@ -31,7 +32,11 @@ public class TestLog
     {
         _type = type;
         _message = message;
-        _name = name + (parameters?.Length > 0 ? $"({parameters})" : string.Empty);
+        _name = name + (
+            parameters?.Length > 0
+            ? $"({parameters.EscapeInvisibleCharacters()})"
+            : string.Empty
+        );
         _state = state;
     }
 

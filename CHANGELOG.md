@@ -28,7 +28,9 @@ All notable changes to this project will be documented in this file.
   - confirm_array.gd
 - "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
 - ScriptMethodInfo, ScriptMethodReturnInfo & ScriptMethodArgumentsInfo records.
-- TestLog list in TestResult and TestClassResult records
+- TestLog list in TestResult and TestClassResult records.
+- EscapeInvisibleCharacters string extension.
+
 ### Changed
 
 - Color.TerminalReset is now static readonly field.
@@ -49,8 +51,9 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Parallelizable tests log is out of order
 - Resource leak on Godot editor exit.
+- Parallelizable tests log is out of order.
+- Printed newline characters in arguments messes up the output.
 
 ## [0.7.1-beta 2024-07-24]
 
