@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - ScriptMethodInfo, ScriptMethodReturnInfo & ScriptMethodArgumentsInfo records.
 - TestLog list in TestResult and TestClassResult records.
 - EscapeInvisibleCharacters string extension.
+- Class names are colored to help distinguish classes from tests.
 
 ### Changed
 
