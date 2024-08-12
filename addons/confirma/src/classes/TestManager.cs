@@ -32,6 +32,7 @@ public static class TestManager
 
     public static void Run()
     {
+        bool isCs = false;
         int totalClasses = 0;
         DateTime startTimeStamp = DateTime.Now;
 
@@ -44,14 +45,20 @@ public static class TestManager
 
             if (csClasses == -1)
             {
-                return;
+                if (_props.ClassName?.Length == 0)
+                {
+                    return;
+                }
+            }
+            else {
+                isCs = true;
             }
 
             totalClasses += csClasses;
             _props.Result += res!;
         }
 
-        if (!_props.DisableGdScript)
+        if (!_props.DisableGdScript && !isCs)
         {
             GdTestExecutor gdExecutor = new(_props);
             int gdClasses = gdExecutor.Execute(out TestResult? res);
