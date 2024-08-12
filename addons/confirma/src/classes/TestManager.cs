@@ -50,7 +50,7 @@ public static class TestManager
                     return;
                 }
             }
-            else {
+            else if (_props.ClassName?.Length != 0) {
                 isCs = true;
             }
 
