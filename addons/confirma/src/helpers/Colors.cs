@@ -7,6 +7,7 @@ public static class Colors
     public static readonly string Success = "#8eef97";
     public static readonly string Warning = "#ffdd65";
     public static readonly string Error = "#ff786b";
+    public static readonly string Class = "#22A7EB";
     public static readonly string TerminalReset = "\x1b[0m";
 
     public static string ColorText(string text, string color)
