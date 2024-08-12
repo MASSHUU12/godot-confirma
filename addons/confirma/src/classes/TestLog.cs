@@ -74,7 +74,7 @@ public class TestLog
                 }
                 break;
             case ELogType.Class:
-                Log.Print($"> {_message}...");
+                Log.Print($"> {Colors.ColorText(_message!, Colors.Class)}...");
                 break;
             case ELogType.Info:
                 if (_message != null)
