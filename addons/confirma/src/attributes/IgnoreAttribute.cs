@@ -8,8 +8,8 @@ namespace Confirma.Attributes;
 [AttributeUsage(Class | Method, AllowMultiple = false)]
 public class IgnoreAttribute : Attribute
 {
-    public EIgnoreMode Mode { get; }
-    public string? Reason { get; }
+    public EIgnoreMode Mode { get; init; }
+    public string? Reason { get; init; }
 
     public IgnoreAttribute(EIgnoreMode mode = EIgnoreMode.Always, string? reason = null)
     {
