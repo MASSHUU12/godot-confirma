@@ -14,23 +14,26 @@ All notable changes to this project will be documented in this file.
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDScript tests.
   - "--confirma-gd-path" to specify path with GDScript tests.
-- Files:
-  - ScriptInfo.cs
-  - TestManager.cs
-  - ITestExecutor.cs
-  - CsTestExecutor.cs
-  - GdTestDiscovery.cs
-  - ELogType.cs
-  - TestLog.cs
+- Classes:
+  - ScriptInfo
+  - TestManager
+  - CsTestExecutor
+  - GdTestDiscovery
+  - TestLog
+  - Json
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
   - confirm_array.gd
+- ITestExecutor interface.
 - "Run C# Tests" and "Run GDScript Tests" buttons to editor bottom panel.
 - ScriptMethodInfo, ScriptMethodReturnInfo & ScriptMethodArgumentsInfo records.
 - TestLog list in TestResult and TestClassResult records.
 - EscapeInvisibleCharacters string extension.
-- Class names are colored to help distinguish classes from tests.
+- Enums:
+  - ELogType
+  - ELogOutputType
+- Alternative JSON output of test results.
 
 ### Changed
 
@@ -44,6 +47,7 @@ All notable changes to this project will be documented in this file.
 - Renamed:
   - TestDiscovery -> CsTestDiscovery
   - TestBottomPanel -> ConfirmaBottomPanel
+  - Class names are colored to help distinguish classes from tests.
 
 ### Removed
 

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using Confirma.Classes.Executors;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -50,7 +51,8 @@ public static class TestManager
                     return;
                 }
             }
-            else if (_props.ClassName?.Length != 0) {
+            else if (_props.ClassName?.Length != 0)
+            {
                 isCs = true;
             }
 
@@ -72,8 +74,10 @@ public static class TestManager
             _props.Result += res!;
         }
 
+        _props.Result.TotalTime = (DateTime.Now - startTimeStamp).TotalSeconds;
+
         PrintTestLogs();
-        PrintSummary(totalClasses, (DateTime.Now - startTimeStamp).TotalSeconds);
+        PrintSummary(totalClasses);
     }
 
     private static void PrintTestLogs()
@@ -84,7 +88,7 @@ public static class TestManager
         }
     }
 
-    private static void PrintSummary(int classesCount, double seconds)
+    private static void PrintSummary(int classesCount)
     {
         Log.PrintLine(
             string.Format(
@@ -92,7 +96,7 @@ public static class TestManager
                 "\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}{7}.",
                 _props.Result.TotalTests,
                 classesCount,
-                seconds,
+                _props.Result.TotalTime,
                 Colors.ColorText($"{_props.Result.TestsPassed} passed", Colors.Success),
                 Colors.ColorText($"{_props.Result.TestsFailed} failed", Colors.Error),
                 Colors.ColorText($"{_props.Result.TestsIgnored} ignored", Colors.Warning),
@@ -102,5 +106,12 @@ public static class TestManager
                 Colors.ColorText($"{_props.Result.Warnings} warnings", Colors.Warning)
             )
         );
+
+        Task task = Task.Run(
+            static async () => await Json.DumpToFileAsync("test_results.json", _props.Result, true)
+        );
+        task.Wait();
+
+        Log.Print("Done\n");
     }
 }
