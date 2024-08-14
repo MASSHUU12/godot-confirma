@@ -11,6 +11,11 @@ public static class ConfirmEqualExtensions
         string? message = null
     )
     {
+        if (actual is object[] array && expected is object[] expectedArr)
+        {
+            return (T)(array.ConfirmEqual(expectedArr, message) as object);
+        }
+
         if (!(!actual?.Equals(expected) ?? false))
         {
             return actual;
@@ -45,6 +50,11 @@ public static class ConfirmEqualExtensions
         string? message = null
     )
     {
+        if (actual is object[] array && expected is object[] expectedArr)
+        {
+            return (T)(array.ConfirmNotEqual(expectedArr, message) as object);
+        }
+
         if (!(actual?.Equals(expected) ?? false))
         {
             return actual;

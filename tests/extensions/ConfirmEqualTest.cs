@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
@@ -9,6 +10,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class ConfirmEqualTest
 {
+    #region ConfirmEqual
     [TestCase(1, 1)]
     [TestCase("Lorem ipsum", "Lorem ipsum")]
     [TestCase(null, null)]
@@ -40,6 +42,24 @@ public static class ConfirmEqualTest
         _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
     }
 
+    [TestCase]
+    public static void ConfirmEqual_ArrayAsObject_NotEqual_ThrowsExceptionWMessage()
+    {
+        Action action = static () =>
+        {
+            object arr1 = new object[] { 0, 1, 2 };
+            object arr2 = new object[] { 1, 2, 3 };
+
+            _ = arr1.ConfirmEqual(arr2);
+        };
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Expected '1, 2, 3' but got '0, 1, 2'."
+        );
+    }
+    #endregion ConfirmEqual
+
+    #region ConfirmNotEqual
     [TestCase(1, 2)]
     [TestCase("Lorem ipsum", "Dolor sit amet")]
     [TestCase(null, 1)]
@@ -70,4 +90,21 @@ public static class ConfirmEqualTest
     {
         _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
     }
+
+    [TestCase]
+    public static void ConfirmNotEqual_ArrayAsObject_Equal_ThrowsExceptionWMessage()
+    {
+        Action action = static () =>
+        {
+            object arr1 = new object[] { 0, 1, 2 };
+            object arr2 = new object[] { 0, 1, 2 };
+
+            _ = arr1.ConfirmNotEqual(arr2);
+        };
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Expected not '0, 1, 2' but got '0, 1, 2'."
+        );
+    }
+    #endregion ConfirmNotEqual
 }
