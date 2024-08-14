@@ -55,6 +55,8 @@ All notable changes to this project will be documented in this file.
 - Resource leak on Godot editor exit.
 - Parallelizable tests log is out of order.
 - Printed newline characters in arguments messes up the output.
+- `ConfirmEqual`/`ConfirmNotEqual` for arrays passed as object
+in case of an exception returns only the type instead of the actual values.
 
 ## [0.7.1-beta 2024-07-24]
 
