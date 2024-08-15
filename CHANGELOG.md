@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
   - GdTestDiscovery
   - TestLog
   - Json
+  - EnumHelper
 - Assertions for GDScript:
   - confirm.gd
   - confirm_boolean.gd
@@ -34,6 +35,7 @@ All notable changes to this project will be documented in this file.
   - ELogType
   - ELogOutputType
 - Alternative JSON output of test results.
+- Total number of test classes to TestResult record.
 
 ### Changed
 
@@ -48,6 +50,7 @@ All notable changes to this project will be documented in this file.
   - TestDiscovery -> CsTestDiscovery
   - TestBottomPanel -> ConfirmaBottomPanel
   - Class names are colored to help distinguish classes from tests.
+- `Log.Print` prints to the stdio by default.
 
 ### Removed
 
@@ -61,6 +64,7 @@ All notable changes to this project will be documented in this file.
 - Printed newline characters in arguments messes up the output.
 - `ConfirmEqual`/`ConfirmNotEqual` for arrays passed as object
 in case of an exception returns only the type instead of the actual values.
+- `Log.Print` throws exception when used too early.
 
 ## [0.7.1-beta 2024-07-24]
 
