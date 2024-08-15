@@ -5,12 +5,12 @@ namespace Confirma.Helpers;
 public static class Log
 {
     public static RichTextLabel? RichOutput { get; set; }
-    public static bool IsHeadless { get; set; }
+    public static bool IsHeadless { get; set; } = true;
 
     public static void Print(string message)
     {
         // Note: GD.PrintRich does not support hex color codes
-        if (IsHeadless)
+        if (IsHeadless || RichOutput is null)
         {
             GD.PrintRaw(message);
         }
