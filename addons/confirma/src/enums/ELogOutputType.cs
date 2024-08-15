@@ -3,8 +3,9 @@ using System;
 namespace Confirma.Enums;
 
 [Flags]
-public enum ELogOutputType
+public enum ELogOutputType : byte
 {
-    Log = 0,
-    Json = 1
+    None = 0,
+    Log = 1 << 0,
+    Json = 1 << 1
 }
