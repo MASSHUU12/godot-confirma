@@ -1,0 +1,5646 @@
+{
+  "TotalTests": 858,
+  "TestsPassed": 858,
+  "TestsFailed": 0,
+  "TestsIgnored": 0,
+  "TotalOrphans": 0,
+  "TotalClasses": 46,
+  "TotalTime": 0.1027437,
+  "Warnings": 0,
+  "TestLogs": [
+    {
+      "Message": "GlobalTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "RootIsNotNull",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "RootIsWindow",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "RootHasChildren",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmDictionaryTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists(key)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists_Variant(key)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists_Variant(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists_Variant(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists_Variant(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyExists_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist(key2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist(6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist_Variant(key2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist_Variant(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist_Variant(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKey_WhenKeyDoesNotExist_Variant(6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist(key2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist(6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(key2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists(key)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists_Variant(key)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists_Variant(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists_Variant(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists_Variant(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKey_WhenKeyExists_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists(value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists(222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists(333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists(444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists_Variant(value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists_Variant(222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists_Variant(333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists_Variant(444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueExists_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist(value2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist(420)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist_Variant(value2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist_Variant(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist_Variant(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist_Variant(420)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsValue_WhenValueDoesNotExist_Variant(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist(value2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist(420)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(value2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(420)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists(value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists(222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists(333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists(444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists_Variant(value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists_Variant(222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists_Variant(333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists_Variant(444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsValue_WhenValueExists_Variant(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists(key, value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists(2, 222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists(3, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists(4, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists(5, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(key, value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(2, 222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(3, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(4, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(5, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(kdey, vdalue)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(2, -222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(3f, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(5, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(5, -)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(kdey, vdalue)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(2, -222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(3f, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(5, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(5, -)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(kdey, vdalue)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(2, -222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(3f, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(5, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(5, -)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(kdey, vdalue)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(2, -222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(3f, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(5, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(5, -)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(key, value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(2, 222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(3, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(4, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(5, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(key, value)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(2, 222)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(3, 333)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(4, 444)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(5, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmActionTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCompletesWithin_WhenCompletesWithin",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCompletesWithin_WhenDoesNotCompletesWithin",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotCompleteWithin_WhenDoesNotCompleteWithin",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotCompleteWithin_WhenCompletesWithin",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ColorsTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ColorText_WithHexColorCode_ReturnsColoredText",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ColorText_WithColorObject_ReturnsColoredText",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ColorText_WithInvalidColorCode_ThrowsException(#Invalid)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ColorText_WithInvalidColorCode_ThrowsException(#1234567)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToTerminal_WithColor_ReturnsColoredText",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToGodot_WithColor_ReturnsColoredText",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ChainingTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnArray",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnBoolean",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnDictionary",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnEqual",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnException",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnFile",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnIEnumerable",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnConfirmNull",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnNumeric",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnRange",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnSignal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnString",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnUuid",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ChainingOnVector",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomNumberExtensionsTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextInt32",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextInt32",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextInt32",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonZeroDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonZeroDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonZeroDigit",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WSign(True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WSign(False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeDecimal",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WMaxValue(20)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WMaxValue(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WRange(0, 69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WRange(-10, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WRange(10, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WRange(-15, -10)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WRange(0.1, 0.2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDecimal_WInvalidRange",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeLong",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeLong",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNonNegativeLong",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WMaxValue(20)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WMaxValue(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WRange(0, 69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WRange(-10, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WRange(10, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WRange(-15, -10)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WRange(-9223372036854775808, 9223372036854775807)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLong_WInvalidRange",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WRange(0, 69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WRange(-10, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WRange(10, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WRange(-15, -10)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WRange(0.1, 0.2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDouble_WInvalidRange",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ScriptInfoTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_SetsPropertiesCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Parse_MethodsAreParsedCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomStringTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_Mixed_ReturnsUpperOrLowerChar",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_Mixed_ReturnsUpperOrLowerChar",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_Mixed_ReturnsUpperOrLowerChar",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_AllowedChars_ReturnsCharFromAllowedChars(abc)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_AllowedChars_ReturnsCharFromAllowedChars(123)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextChar_AllowedChars_ReturnsCharFromAllowedChars(A$B2c_)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLowerChar_GeneratesLowercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLowerChar_GeneratesLowercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextLowerChar_GeneratesLowercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextUpperChar_GeneratesUppercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextUpperChar_GeneratesUppercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextUpperChar_GeneratesUppercaseLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigitChar_GeneratesDigitLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigitChar_GeneratesDigitLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextDigitChar_GeneratesDigitLetter",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DefaultLength_ReturnsStringWithDefaultLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DefaultLength_ReturnsStringWithDefaultLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DefaultLength_ReturnsStringWithDefaultLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_CustomLength_ReturnsStringWithCustomLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_CustomLength_ReturnsStringWithCustomLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_CustomLength_ReturnsStringWithCustomLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_InvalidLength",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_UpperType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_UpperType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_UpperType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_LowerType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_LowerType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_LowerType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DigitType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DigitType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextString_DigitType_ReturnsStringWithCustomType",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomEnumTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEnumName",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmDateTimeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsBefore(5, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsBefore(0, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsBefore(2137, 6969)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsNotBefore(15, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsNotBefore(15, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsBefore_WhenIsNotBefore(6969, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsOnOrBefore(0, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsOnOrBefore(5, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsOnOrBefore(2137, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsOnOrBefore(2137, 6969)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(15, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(6969, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsAfter(15, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsAfter(15, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsAfter(6969, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsNotAfter(15, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsNotAfter(0, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsAfter_WhenIsNotAfter(2137, 6969)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsOnOrAfter(0, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsOnOrAfter(15, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsOnOrAfter(2137, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsOnOrAfter(6969, 2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(0, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(2137, 6969)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomBooleanTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNullableBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNullableBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNullableBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNullableBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextNullableBool",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenIsEnumValue(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenIsEnumValue(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenIsEnumValue(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenIsEnumValue(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenIsEnumValue(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenISNotEnumValue(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumValue_WhenISNotEnumValue(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsNotEnumValue(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsNotEnumValue(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsEnumValue(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsEnumValue(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsEnumValue(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsEnumValue(3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsNotEnumValue_WhenIsEnumValue(4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(A, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(a, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(B, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(b, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(C, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(c, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(D, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(d, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(E, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumName(e, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumNameIncorrectCase(a)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumNameIncorrectCase(b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsEnumNameIncorrectCase(c)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsNotEnumName(0, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsNotEnumName(F, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsNotEnumName(0, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsEnumName_WhenIsNotEnumName(f, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsTrue_WhenIsTrue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsTrue_WhenIsFalse",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsFalse_WhenIsTrue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmVectorTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenEqual(1, 2, 1, 2, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenEqual(1, 2, 1.00001, 2.00001, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenEqual(1, 1, 1.3, 1.3, 0.5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenNotEqual(1, 2, 1.1, 2.1, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenNotEqual(1, 2, 1.0001, 2.0001, 1E-05)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualApprox_WhenNotEqual(1, 1, 1.3, 1.3, 0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenNotEqual(1, 2, 1.1, 2.1, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenNotEqual(1, 2, 1.0001, 2.0001, 1E-05)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenNotEqual(1, 1, 1.3, 1.3, 0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenEqual(1, 2, 1, 2, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenEqual(1, 2, 1.00001, 2.00001, 0.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualApprox_WhenEqual(1, 1, 1.3, 1.3, 0.5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenLessThan(-5, -5, 0, -2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenLessThan(1, 2, 1.1, 2.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenLessThan(1, 2, 1.0001, 2.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenNotLessThan(1, 2, -5, -5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenNotLessThan(1, 2, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenNotLessThan(1.00001, 2.00001, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(1, 2, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(-5, -5, 0, -2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(1.1, 2, 1.1, 2.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(1, 2, 1.0001, 2.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(1, 2, -5, -5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(1.1, 2.1, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(1.00001, 2.00001, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenGreaterThan(0, -2, -5, -5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenGreaterThan(1.1, 2.1, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenGreaterThan(1.0001, 2.0001, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenNotGreaterThan(-5, -5, 0, -2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenNotGreaterThan(1, 2, 1.1, 2.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenNotGreaterThan(1, 2, 1.0001, 2.0001)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(0, -2, -5, -5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(1, 2, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(1, 2.1, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(-5, -5, 0, -2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(1.1, 2.1, 1.1, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(1.00001, 0, 1.0001, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenBetween(0.5, 0.5, 0, 0, 1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenBetween(0.5, 0.5, 0.5, 0.5, 1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenBetween(0.5, 0.5, 0.5, 0.5, 0.5, 0.5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenNotBetween(0.5, 0.5, 0, 0, 0.4, 0.4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenNotBetween(0.5, 0.5, 0.5, 0.5, 0.4, 0.4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmBetween_WhenNotBetween(-0.5, 0.5, 0.5, 0.5, 0.6, 0.6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenNotBetween(0.5, 0.5, 0, 0, 0.4, 0.4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenNotBetween(0.5, 0.5, 0.5, 0.5, 0.4, 0.4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenNotBetween(-0.5, 0.5, 0.5, 0.5, 0.6, 0.6)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenBetween(0.5, 0.5, 0, 0, 1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenBetween(0.5, 0.5, 0.5, 0.5, 1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotBetween_WhenBetween(0.5, 0.5, 0.5, 0.5, 0.5, 0.5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmExceptionTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrows_WhenThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrows_WhenNotThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrows_WhenNotThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrows_WhenThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenThrows(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenNotThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenNotThrows(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenThrowsWWrongMessage(, Expected)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenThrowsWWrongMessage(Actual, )",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmThrowsWMessage_WhenThrowsWWrongMessage(Lorem ipsum, dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenNotThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenNotThrows(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenThrows",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenThrows(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(, Expected)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(Actual, )",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(Lorem ipsum, dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomNetworkTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_GeneratesValidIPv4Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_GeneratesValidIPv4Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_GeneratesValidIPv4Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_GeneratesValidIPv4Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_GeneratesValidIPv4Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_FirstOctetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_FirstOctetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_FirstOctetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_FirstOctetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIPAddress_FirstOctetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_GeneratesValidIPv6Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_GeneratesValidIPv6Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_GeneratesValidIPv6Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_GeneratesValidIPv6Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_GeneratesValidIPv6Address",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_FirstHextetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_FirstHextetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_FirstHextetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_FirstHextetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextIP6Address_FirstHextetIsAlwaysOdd",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_InvalidLengthParameters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_ReturnsValidEmail",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_ReturnsValidEmail",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_ReturnsValidEmail",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_ReturnsValidEmail",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_ReturnsValidEmail",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_LocalPartContainsValidCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_LocalPartContainsValidCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_LocalPartContainsValidCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_LocalPartContainsValidCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextEmail_LocalPartContainsValidCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmTypeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenOfType(Lorem ipsum, System.String)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenOfType(42, System.Int32)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenOfType(3.14, System.Double)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenOfType(True, System.Boolean)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenNotOfType(Lorem ipsum, System.Int32)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenNotOfType(42, System.Double)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmType_WhenNotOfType(3.14, System.Boolean)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenNotOfType(Lorem ipsum, System.Int32)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenNotOfType(42, System.Double)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenNotOfType(3.14, System.Boolean)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenOfType(Lorem ipsum, System.String)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenOfType(42, System.Int32)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenOfType(3.14, System.Double)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotType_WhenOfType(True, System.Boolean)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmEqualTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenEqual(1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenEqual(Lorem ipsum, Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenEqual(null, null)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenArrEqual([Hello,, world!], [Hello,, world!])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenNotEqual(1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenNotEqual(Lorem ipsum, Dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenNotEqual(2, 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenNotEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_WhenArrNotEqual([Hello,, world!], [Hi,, world!])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqual_ArrayAsObject_NotEqual_ThrowsExceptionWMessage",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenNotEqual(1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenNotEqual(Lorem ipsum, Dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenNotEqual(null, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenNotEqual(2, 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenNotEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenArrNotEqual([Hello,, world!], [Hi,, world!])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenEqual(1, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenEqual(Lorem ipsum, Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenEqual(2, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_WhenArrEqual([Hello,, world!], [Hello,, world!])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqual_ArrayAsObject_Equal_ThrowsExceptionWMessage",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmStringTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenNotEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenNotEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenNotContains",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenContains",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmStartsWith_WhenStartsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmStartsWith_WhenNotStartsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotStartsWith_WhenNotStartsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotStartsWith_WhenStartsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEndsWith_WhenEndsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEndsWith_WhenNotEndsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEndsWith_WhenNotEndsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEndsWith_WhenEndsWith",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmHasLength_WhenHasLength(Lorem ipsum, 11)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmHasLength_WhenHasLength(Lorem ipsum\\n, 12)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmHasLength_WhenNotHasLength(Lorem ipsum, 12)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmHasLength_WhenNotHasLength(Lorem ipsum\\n, 11)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotHasLength_WhenNotHasLength(Lorem ipsum, 12)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotHasLength_WhenNotHasLength(Lorem ipsum\\n, 11)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotHasLength_WhenHasLength(Lorem ipsum, 11)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotHasLength_WhenHasLength(Lorem ipsum\\n, 12)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenEquals(Lorem ipsum, lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenEquals(Lorem ipsum, LOREM IPSUM)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenEquals(Lorem ipsum, lOrEm IpSuM)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, lorem)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, lorem ipsum )",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, lorem)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenNotEquals(Lorem ipsum, lorem ipsum )",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenEquals(Lorem ipsum, lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenEquals(Lorem ipsum, LOREM IPSUM)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEqualsCaseInsensitive_WhenEquals(Lorem ipsum, lOrEm IpSuM)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmMatchesPattern_WhenPatternMatches(Lorem ipsum, \\bL\\w*\\b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmMatchesPattern_WhenPatternMatches(123-456-789, \\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3}))",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmMatchesPattern_WhenPatternNotMatches(Dorem ipsum, \\bL\\w*\\b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmMatchesPattern_WhenPatternNotMatches(123-456-789, \\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotMatchPattern_WhenPatternNotMatches(Dorem ipsum, \\bL\\w*\\b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotMatchPattern_WhenPatternNotMatches(123-456-789, \\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotMatchPattern_WhenPatternMatches(Lorem ipsum, \\bL\\w*\\b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDoesNotMatchPattern_WhenPatternMatches(123-456-789, \\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3}))",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLowercase_ReturnsTrue_WhenStringIsLowercase",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLowercase_WhenStringIsNotLowercase(Hello)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLowercase_WhenStringIsNotLowercase(heLlo)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLowercase_WhenStringIsNotLowercase(hellO)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLowercase_WhenStringIsNotLowercase(HELLO)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmUppercase_ReturnsTrue_WhenStringIsUppercase",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmUppercase_WhenStringIsNotUppercase(hello)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmUppercase_WhenStringIsNotUppercase(Hello)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmUppercase_WhenStringIsNotUppercase(heLlo)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmUppercase_WhenStringIsNotUppercase(hellO)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "TestCaseTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_SetsPropertiesCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Run_MethodInvokesSuccessfully",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Run_ThrowsTargetInvocationException",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Run_ThrowsArgumentException",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Run_ThrowsOtherException",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ReflectionTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "GetClassesFromAssembly_ReturnsOnlyConcreteClasses",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "GetMethodsWithAttribute_ReturnsMethodsMarkedWithAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "GetMethodsWithAttribute_ReturnsNoMethodsWhenNoAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "HasAttribute_ReturnsTrueForObjectWithAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "HasAttribute_ReturnsFalseForObjectWithoutAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "HasAttribute_ReturnsTrueForTypeWithAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "HasAttribute_ReturnsFalseForTypeWithoutAttribute",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ArrayHelperTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayIsNull",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayIsEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasOneItem",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([1, 2], 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([1], 1, null)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([2], null, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([[...]], [1, 2])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([[...], [...]], [1, 2], [3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToString_WhenArrayHasMultipleItems([Hello, World, [...], 32], Hello, World, [2, bbbb], 32)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomUuidExtensionsTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextUuid4",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextUuid4",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextUuid4",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmSignalTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalExists(pressed)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalExists(toggled)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalExists(button_down)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalDoesNotExist(signal_that_does_not_exist)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalDoesNotExist(signal_that_is_not_here)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSignalExists_WhenSignalDoesNotExist(signal_that_is_nowhere_to_be_found)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmArrayTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsOfSize([], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsOfSize([1], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsOfSize([1, 2], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsNotOfSize([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsNotOfSize([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSize_WhenIsNotOfSize([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenIsEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenIsNotEmpty([1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenIsNotEmpty([1, 2])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenIsNotEmpty([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([1], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([1, 2], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([1], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([1, 2], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([1, 2, 3], 4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RandomCollectionTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidIntArray([0])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidStringEnumerable([0])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidStringEnumerable([0, 1.1, 2.2, 3.3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidStringEnumerable([0, 1.1, 2.2, 3.3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_ValidStringEnumerable([0, 1.1, 2.2, 3.3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElement_InvalidArray",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_ValidIntArray([0])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_ValidIntArray([0, 1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_TakeZeroElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_InvalidArray",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_InvalidArray",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextElements_InvalidArray",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ChangesOrderOfElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ChangesOrderOfElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ChangesOrderOfElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ContainsSameElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ContainsSameElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ContainsSameElements",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_IsRandom",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_IsRandom",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_IsRandom",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "NextShuffle_ThrowsOnEmpty",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmReferenceTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenSameReference(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenSameReference([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenSameReference(Lorem ipsum dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenDifferentReferences(5, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenDifferentReferences([1, 2, 3], [1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSameReference_WhenDifferentReferences(Lorem ipsum, Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenDifferentReferences(5, 15)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenDifferentReferences([1, 2, 3], [1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenDifferentReferences(Lorem ipsum, Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenSameReference(5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenSameReference([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmDifferentReference_WhenSameReference(Lorem ipsum dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmEventTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "TestRaises_WhenTestRaises",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestRaises_WhenTestDoesNotRaise",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestDoesNotRaise_WhenTestDoesNotRaise",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestDoesNotRaise_WhenTestRaises",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "TestResultTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_SetsDefaultValues",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "OperatorPlus_AddsTestClassResult",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "OperatorPlus_AddsTestResult",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "SingleRunTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ShouldRunOnce",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "EnumHelperTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "TryParseFlagsEnum_ValidInput_ReturnsTrueAndParsedValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TryParseFlagsEnum_InvalidInput_ReturnsFalseAndDefault",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TryParseFlagsEnum_MultipleInvalidInputs_ReturnsFalseAndDefault",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TryParseFlagsEnum_EmptyInput_ReturnsFalseAndDefault",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TryParseFlagsEnum_SingleValidInput_ReturnsTrueAndParsedValue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "StringExtensionsTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_EmptyString_ReturnsEmptyString",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_NoInvisibleCharacters_ReturnsOriginalString",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\0, \\0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\a, \\a)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\b, \\b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\f, \\f)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\n, \\n)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\r, \\r)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\t, \\t)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(\\v, \\v)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "EscapeInvisibleCharacters_MultipleInvisibleCharacters_ReturnsEscapedInvisibleCharacters",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmRangeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInRange_WhenInRange(1, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInRange_WhenInRange(0, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInRange_WhenInRange(2, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInRange_WhenNotInRange(0, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInRange_WhenNotInRange(3, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotInRange_WhenNotInRange(0, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotInRange_WhenNotInRange(3, 1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotInRange_WhenInRange(1, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotInRange_WhenInRange(0, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotInRange_WhenInRange(2, 0, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenGreaterThan(1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenGreaterThan(0, -1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenNotGreaterThan(0, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThan_WhenNotGreaterThan(-1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(2, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(-1, -1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(0, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(-1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenLessThan(0, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenLessThan(-1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenNotLessThan(1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThan_WhenNotLessThan(0, -1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(1, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenLessThanOrEqual(0, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(1, 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(0, -1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "RepeatAttributeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "TestMethod_RunsMultipleTimes",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestMethod_RunsMultipleTimes",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestMethod_RunsMultipleTimes",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestMethod_RunsMultipleTimes",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "TestMethod_RunsMultipleTimes",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmNumericTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsPositive_WhenPositive(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsPositive_WhenPositive(0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsPositive_WhenNotPositive(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsPositive_WhenNotPositive(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotPositive_WhenNotPositive(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotPositive_WhenNotPositive(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotPositive_WhenPositive(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotPositive_WhenPositive(0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNegative_WhenNegative(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNegative_WhenNegative(-0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNegative_WhenNotNegative(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNegative_WhenNotNegative(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotNegative_WhenNotNegative(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotNegative_WhenNotNegative(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotNegative_WhenNegative(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotNegative_WhenNegative(-0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSign_WhenCorrect(-5, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSign_WhenCorrect(5, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSign_WhenIncorrect(-5, False)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmSign_WhenIncorrect(5, True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsZero_WhenZero(0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsZero_WhenNotZero(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsZero_WhenNotZero(-1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsOdd(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsOdd(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsOdd(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsEven(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsEven(70)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsOdd_WhenIsEven(2138)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsEven(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsEven(70)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsEven(2138)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsOdd(1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsOdd(69)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsEven_WhenIsOdd(2137)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenCloseTo(5, 6, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenCloseTo(5, 5.1, 0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenCloseTo(6, 5, 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenCloseTo(5.1, 5, 0.1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenCloseTo(-5, -4.5, 0.5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenNotCloseTo(5, 0, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenNotCloseTo(5, 15, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCloseTo_WhenNotCloseTo(0, 0.1, 0.01)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "TestMethodResultTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_WithParameters_SetsPropertiesCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_WithoutParameters_SetsPropertiesToDefaultValues",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Reset_ResetsPropertiesToDefaultValues",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConverterTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Null_ReturnsDefaultVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Value_ReturnsValueVariant(True)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Value_ReturnsValueVariant(123)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Value_ReturnsValueVariant(3.14)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Value_ReturnsValueVariant(Hello)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Int32_ReturnsInt32Variant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Float_ReturnsFloatVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Char_ReturnsCharVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_ByteArray_Returns_ByteArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Int32Array_Returns_Int32ArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Int64Array_Returns_Int64ArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_FloatArray_Returns_FloatArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_DoubleArray_Returns_DoubleArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Vector2_ReturnsVector2Variant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_Vector2Array_ReturnsVector2ArrayVariant",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ToVariant_UnknownType_ThrowsNotSupportedException",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmUuidExtensionsTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmValidUuid4_WhenValid",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmValidUuid4_WhenInvalid(aaa)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmValidUuid4_WhenInvalid(aaa-aaa-aaa-aaa)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmValidUuid4_WhenInvalid(Lorem ipsum dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInvalidUuid4_WhenInvalid(aaa)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInvalidUuid4_WhenInvalid(aaa-aaa-aaa-aaa)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInvalidUuid4_WhenInvalid(Lorem ipsum dolor sit amet)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmInvalidUuid4_WhenValid",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmNullTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNull_WhenNull(null)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNull_WhenNotNull(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNull_WhenNotNull(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotNull_WhenNotNull(Lorem ipsum)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotNull_WhenNotNull(2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotNull_WhenNull(null)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmAttributeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDecoratedWith_WhenIsDecoratedWith(Confirma.Tests.ConfirmAttributeTest, Confirma.Attributes.TestClassAttribute)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDecoratedWith_WhenIsDecoratedWith(Confirma.Tests.ConfirmAttributeTest, Confirma.Attributes.ParallelizableAttribute)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(Confirma.Attributes.ParallelizableAttribute, Confirma.Tests.ConfirmAttributeTest)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(Confirma.Attributes.TestClassAttribute, Confirma.Tests.ConfirmAttributeTest)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmIEnumerableTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenEmpty([])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenNotEmpty([1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenNotEmpty([1, 2])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmEmpty_WhenNotEmpty([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenNotEmpty([1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenNotEmpty([1, 2])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenNotEmpty([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotEmpty_WhenEmpty([])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenEqual([], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenEqual([1], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenEqual([1, 2], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenEqual([1, 2, 3], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenNotEqual([], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenNotEqual([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenNotEqual([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCount_WhenNotEqual([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenGreaterThan([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenGreaterThan([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenGreaterThan([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenNotGreaterThan([], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenNotGreaterThan([1], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenNotGreaterThan([1, 2], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThan_WhenNotGreaterThan([1, 2, 3], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenLessThan([], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenLessThan([1], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenLessThan([1, 2], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenNotLessThan([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenNotLessThan([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenNotLessThan([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThan_WhenNotLessThan([1, 2, 3, 4], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual([], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenGreaterThanOrEqual([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual([], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual([1], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual([1, 2], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountGreaterThanOrEqual_WhenNotGreaterThanOrEqual([1, 2, 3], 4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenLessThanOrEqual([], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenLessThanOrEqual([1], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenLessThanOrEqual([1, 2], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenLessThanOrEqual([1, 2, 3], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual([1], 0)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual([1, 2], 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual([1, 2, 3], 2)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmCountLessThanOrEqual_WhenNotLessThanOrEqual([1, 2, 3, 4], 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([a, b, c], a)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([a, b, c], b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenContains([a, b, c], c)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([a, b, c], d)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([a, b, c], e)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmContains_WhenNotContains([a, b, c], f)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenNotContains([a, b, c], d)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenNotContains([a, b, c], e)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenNotContains([a, b, c], f)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenContains([a, b, c], a)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenContains([a, b, c], b)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNotContains_WhenContains([a, b, c], c)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenAllMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenAllMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenAllMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenNotAllMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenNotAllMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAllMatch_WhenNotAllMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenAnyMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenAnyMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenAnyMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenNotAnyMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenNotAnyMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmAnyMatch_WhenNotAnyMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNoneMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNoneMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNoneMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNotNoneMatch([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNotNoneMatch([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmNoneMatch_WhenNotNoneMatch([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenUnique([a, b, c])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenUnique([a, b, c, d])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenUnique([a, b, c, d, e])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenNotUnique([a, a, c])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenNotUnique([a, b, b, d])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreUnique_WhenNotUnique([a, b, c, c, e])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenDistinct([a, b, c], [d, e, f])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenDistinct([a, b, c, d], [e, f, g, h])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenDistinct([a, b, c, d, e], [f, g, h, i, j])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenNotDistinct([a, a, c], [d, e, f])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenNotDistinct([a, b, b, d], [e, f, g, h])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreDistinct_WhenNotDistinct([a, b, c, c, e], [f, g, h, i, j])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenOrdered([1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenOrdered([1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenOrdered([1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenNotOrdered([3, 2, 1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenNotOrdered([4, 3, 2, 1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreOrdered_WhenNotOrdered([5, 4, 3, 2, 1])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenInRange([1, 2, 3], 1, 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenInRange([1, 2, 3, 4], 1, 4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenInRange([1, 2, 3, 4, 5], 1, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenNotInRange([1, 2, 3], 2, 3)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenNotInRange([1, 2, 3, 4], 3, 4)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreInRange_WhenNotInRange([1, 2, 3, 4, 5], 4, 5)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenEquivalent([1, 2, 3], [1, 2, 3])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenEquivalent([1, 2, 3, 4], [1, 2, 3, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenEquivalent([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenNotEquivalent_Data([1, 2, 3], [1, 2, 4])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenNotEquivalent_Data([1, 2, 3, 4], [1, 2, 3, 5])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmElementsAreEquivalent_WhenNotEquivalent_Data([1, 2, 3, 4, 5], [1, 2, 3, 4, 6])",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "IgnoreAttributeTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_IgnoreMode_SetsValuesCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_All_SetsValuesCorrectly",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "Constructor_EmptyReason_SetsReasonToNull",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsIgnored_ModeAlways_ReturnsTrue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "IsIgnored_ModeInEditor_ReturnsTrueWhenInEditor",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmFileTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsFile_WhenFileExists(./tests/extensions/ConfirmFileTest.cs)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsFile_WhenFileDoesNotExist(./tests/extensions/ConfirmFileTest.cs.d)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotFile_WhenFileDoesNotExist(./tests/extensions/ConfirmFileTest.cs.d)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotFile_WhenFileExists(./tests/extensions/ConfirmFileTest.cs)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDirectory_WhenDirectoryExists(./tests)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsDirectory_WhenDirectoryDoesNotExist(./test)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotDirectory_WhenDirectoryDoesNotExist(./test)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmIsNotDirectory_WhenDirectoryExists(./tests)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileContains_WhenFileContainsContent(./tests/extensions/ConfirmFileTest.cs, ConfirmFileTest)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileContains_WhenFileDoesNotContainContent(./LICENSE, ConfirmFileTest.cs)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotContain_WhenFileDoesNotContainContent(./LICENSE, ConfirmFileTest.cs)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotContain_WhenFileContainsContent(./tests/extensions/ConfirmFileTest.cs, ConfirmFileTest)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileHasLength_WhenFileHasLength(./LICENSE, 1066)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileHasLength_WhenFileDoesNotHaveLength(./LICENSE, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotHaveLength_WhenFileDoesNotHaveLength(./LICENSE, 1)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotHaveLength_WhenFileHasLength(./LICENSE, 1066)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileHasAttributes_WhenFileHasAttributes(./LICENSE, Normal)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileHasAttributes_WhenFileDoesNotHaveAttributes(./LICENSE, Hidden)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotHaveAttributes_WhenFileDoesNotHaveAttributes(./LICENSE, Hidden)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFileDoesNotHaveAttributes_WhenFileHasAttributes(./LICENSE, Normal)",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmBooleanTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmTrue_WhenTrue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmTrue_WhenFalse",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFalse_WhenFalse",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "ConfirmFalse_WhenTrue",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": "ConfirmTest",
+      "Name": null,
+      "State": 2,
+      "Type": 5
+    },
+    {
+      "Message": null,
+      "Name": null,
+      "State": 2,
+      "Type": 3
+    },
+    {
+      "Message": null,
+      "Name": "confirm_null_when_null",
+      "State": 0,
+      "Type": 4
+    },
+    {
+      "Message": null,
+      "Name": "confirm_not_null_when_not_null",
+      "State": 0,
+      "Type": 4
+    }
+  ]
+}
