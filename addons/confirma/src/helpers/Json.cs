@@ -6,7 +6,7 @@ namespace Confirma.Helpers;
 
 public static class Json
 {
-    private static readonly JsonSerializerOptions options = new()
+    private static JsonSerializerOptions options = new()
     {
         WriteIndented = true
     };
@@ -17,7 +17,13 @@ public static class Json
         bool pretty
     )
     {
-        options.WriteIndented = pretty;
+        if (options.WriteIndented != pretty)
+        {
+            options = new()
+            {
+                WriteIndented = pretty
+            };
+        }
 
         await using FileStream stream = new(fileName, FileMode.Create);
         await JsonSerializer.SerializeAsync(stream, data, options);
