@@ -1,5 +1,6 @@
 #if TOOLS
 using Confirma.Classes;
+using Confirma.Enums;
 using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
@@ -17,11 +18,16 @@ public partial class ConfirmaAutoload : Node
 
     public override void _Ready()
     {
-        CheckArguments();
+        if (!CheckArguments())
+        {
+            Props.RunTests = false;
+            GetTree().Quit(1);
+            return;
+        }
 
         if (!Props.RunTests && !Engine.IsEditorHint())
         {
-            return;
+            GetTree().Quit();
         }
 
         Props.Autoload = this;
@@ -39,9 +45,10 @@ public partial class ConfirmaAutoload : Node
         Global.Root = GetTree().Root;
     }
 
-    private void CheckArguments()
+    private bool CheckArguments()
     {
         string[] args = OS.GetCmdlineUserArgs();
+        const string prefix = "--confirma-";
 
         if (DisplayServer.GetName() == "headless")
         {
@@ -50,7 +57,7 @@ public partial class ConfirmaAutoload : Node
 
         foreach (string arg in args)
         {
-            if (!Props.RunTests && arg.StartsWith("--confirma-run", InvariantCulture))
+            if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
             {
                 Props.RunTests = true;
                 Props.ClassName = ParseArgumentContent(arg);
@@ -59,7 +66,7 @@ public partial class ConfirmaAutoload : Node
             }
             else if (Props.RunTests
                 && !Props.ClassName.Equals(string.Empty, Ordinal)
-                && arg.StartsWith("--confirma-method", InvariantCulture)
+                && arg.StartsWith(prefix + "method", InvariantCulture)
             )
             {
                 Props.MethodName = ParseArgumentContent(arg);
@@ -67,25 +74,25 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (!Props.QuitAfterTests && arg == "--confirma-quit")
+            if (!Props.QuitAfterTests && arg == prefix + "quit")
             {
                 Props.QuitAfterTests = true;
                 continue;
             }
 
-            if (!Props.ExitOnFail && arg == "--confirma-exit-on-failure")
+            if (!Props.ExitOnFail && arg == prefix + "exit-on-failure")
             {
                 Props.ExitOnFail = true;
                 continue;
             }
 
-            if (!Props.IsVerbose && arg == "--confirma-verbose")
+            if (!Props.IsVerbose && arg == prefix + "verbose")
             {
                 Props.IsVerbose = true;
                 continue;
             }
 
-            if (!Props.DisableParallelization && arg == "--confirma-sequential")
+            if (!Props.DisableParallelization && arg == prefix + "sequential")
             {
                 Props.DisableParallelization = true;
                 continue;
@@ -97,23 +104,39 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (!Props.DisableCsharp && arg == "--confirma-disable-cs")
+            if (!Props.DisableCsharp && arg == prefix + "disable-cs")
             {
                 Props.DisableCsharp = true;
                 continue;
             }
 
-            if (!Props.DisableGdScript && arg == "--confirma-disable-gd")
+            if (!Props.DisableGdScript && arg == prefix + "disable-gd")
             {
                 Props.DisableGdScript = true;
                 continue;
             }
 
-            if (arg.StartsWith("--confirma-gd-path", InvariantCulture))
+            if (arg.StartsWith(prefix + "gd-path", InvariantCulture))
             {
                 Props.GdTestPath = ParseArgumentContent(arg);
+                continue;
+            }
+
+            if (arg.StartsWith(prefix + "output", InvariantCulture))
+            {
+                string value = ParseArgumentContent(arg);
+
+                if (!EnumHelper.TryParseFlagsEnum(value, out ELogOutputType type))
+                {
+                    Log.PrintError($"Invalid value '{value}' for '{prefix}output' argument.\n");
+                    return false;
+                }
+
+                Props.OutputType = type;
             }
         }
+
+        return true;
     }
 
     private static string ParseArgumentContent(string argument)

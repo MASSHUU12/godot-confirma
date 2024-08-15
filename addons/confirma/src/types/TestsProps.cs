@@ -1,4 +1,5 @@
 using System;
+using Confirma.Enums;
 using Confirma.Scenes;
 
 namespace Confirma.Types;
@@ -20,8 +21,9 @@ public struct TestsProps
     public bool DisableGdScript { get; set; }
     public bool DisableParallelization { get; set; }
     public string ClassName { get; set; } = string.Empty;
-    public string MethodName { get; set; } = string.Empty;
     public string GdTestPath { get; set; } = "./gdtests";
+    public string MethodName { get; set; } = string.Empty;
+    public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 
     public TestsProps() { }
 
