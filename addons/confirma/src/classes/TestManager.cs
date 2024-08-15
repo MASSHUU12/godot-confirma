@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Confirma.Classes.Executors;
 using Confirma.Helpers;
 using Confirma.Types;
+using Confirma.Enums;
 
 namespace Confirma.Classes;
 
@@ -75,9 +76,18 @@ public static class TestManager
         }
 
         _props.Result.TotalTime = (DateTime.Now - startTimeStamp).TotalSeconds;
+        _props.Result.TotalClasses = (uint)totalClasses;
 
-        PrintTestLogs();
-        PrintSummary(totalClasses);
+        if ((_props.OutputType & ELogOutputType.Log) == ELogOutputType.Log)
+        {
+            PrintTestLogs();
+            PrintSummary();
+        }
+
+        if ((_props.OutputType & ELogOutputType.Json) == ELogOutputType.Json)
+        {
+            DumpJson();
+        }
     }
 
     private static void PrintTestLogs()
@@ -88,14 +98,14 @@ public static class TestManager
         }
     }
 
-    private static void PrintSummary(int classesCount)
+    private static void PrintSummary()
     {
         Log.PrintLine(
             string.Format(
                 CultureInfo.InvariantCulture,
                 "\nConfirma ran {0} tests in {1} test classes. Tests took {2}s.\n{3}, {4}, {5}, {6}{7}.",
                 _props.Result.TotalTests,
-                classesCount,
+                _props.Result.TotalClasses,
                 _props.Result.TotalTime,
                 Colors.ColorText($"{_props.Result.TestsPassed} passed", Colors.Success),
                 Colors.ColorText($"{_props.Result.TestsFailed} failed", Colors.Error),
@@ -106,12 +116,17 @@ public static class TestManager
                 Colors.ColorText($"{_props.Result.Warnings} warnings", Colors.Warning)
             )
         );
+    }
 
+    public static void DumpJson()
+    {
         Task task = Task.Run(
-            static async () => await Json.DumpToFileAsync("test_results.json", _props.Result, true)
+            static async () => await Json.DumpToFileAsync(
+                "test_results.json",
+                _props.Result,
+                true
+            )
         );
         task.Wait();
-
-        Log.Print("Done\n");
     }
 }
