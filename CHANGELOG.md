@@ -14,6 +14,9 @@ All notable changes to this project will be documented in this file.
   - "--confirma-disable-cs" to disable C# tests.
   - "--confirma-disable-gd" to disable GDScript tests.
   - "--confirma-gd-path" to specify path with GDScript tests.
+  - "--confirma-output" specifies how to return test result information.
+  - "--confirma-output-path" specifies the path
+  in which to create a report of the tests performed.
 - Classes:
   - ScriptInfo
   - TestManager

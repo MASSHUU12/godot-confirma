@@ -120,13 +120,25 @@ public static class TestManager
 
     public static void DumpJson()
     {
+        bool success = true;
+
+        // This weird wrapper is needed because of this error:
+        // https://github.com/godotengine/godot/issues/94510.
         Task task = Task.Run(
-            static async () => await Json.DumpToFileAsync(
-                "test_results.json",
+            async () => success = await Json.DumpToFileAsync(
+                _props.OutputPath,
                 _props.Result,
                 true
             )
         );
         task.Wait();
+
+        if (!success)
+        {
+            Log.PrintError(
+                $"Dumping results to JSON file in '{_props.OutputPath}' failed.\n"
+            );
+            _props.Autoload!.GetTree().Quit(1);
+        }
     }
 }
