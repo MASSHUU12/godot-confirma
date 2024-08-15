@@ -23,6 +23,7 @@ public struct TestsProps
     public string ClassName { get; set; } = string.Empty;
     public string GdTestPath { get; set; } = "./gdtests";
     public string MethodName { get; set; } = string.Empty;
+    public string OutputPath { get; set; } = "./test_results.json";
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 
     public TestsProps() { }

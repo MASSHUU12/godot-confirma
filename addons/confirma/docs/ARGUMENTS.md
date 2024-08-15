@@ -15,4 +15,5 @@
 | --confirma-disable-gd          | Do not run GDScript tests.                                                                         |
 | --confirma-gd-path             | Specifies the path where tests written in GDScript are located, the default path is "./gdtests".   |
 | --confirma-output              | Specifies how to return test result information (log and/or JSON).                                 |
+| --confirma-output-path         | Specifies the path in which to create a report of the tests performed (directories must exist).    |
 | --headless                     | Runs Godot in server mode (without windows), an argument built into Godot.                         |
