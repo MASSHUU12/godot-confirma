@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ public static class Json
         WriteIndented = true
     };
 
-    public static async Task DumpToFileAsync<T>(
+    public static async Task<bool> DumpToFileAsync<T>(
         string fileName,
         T data,
         bool pretty
@@ -25,7 +26,22 @@ public static class Json
             };
         }
 
-        await using FileStream stream = new(fileName, FileMode.Create);
-        await JsonSerializer.SerializeAsync(stream, data, options);
+        try
+        {
+            await using FileStream stream = new(fileName, FileMode.Create);
+            await JsonSerializer.SerializeAsync(stream, data, options);
+        }
+        catch (Exception e) when (
+            e is FileNotFoundException
+            or UnauthorizedAccessException
+            or IOException
+            or DirectoryNotFoundException
+            or PathTooLongException
+        )
+        {
+            return false;
+        }
+
+        return true;
     }
 }
