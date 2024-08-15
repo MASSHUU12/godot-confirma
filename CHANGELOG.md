@@ -54,6 +54,7 @@ All notable changes to this project will be documented in this file.
   - TestBottomPanel -> ConfirmaBottomPanel
   - Class names are colored to help distinguish classes from tests.
 - `Log.Print` prints to the stdio by default.
+- Methods in `Log` and `Colors` are generic.
 
 ### Removed
 
