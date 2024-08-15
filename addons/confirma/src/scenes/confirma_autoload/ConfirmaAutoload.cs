@@ -1,4 +1,6 @@
 #if TOOLS
+using System;
+using System.IO;
 using Confirma.Classes;
 using Confirma.Enums;
 using Confirma.Helpers;
@@ -122,7 +124,7 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (arg.StartsWith(prefix + "output", InvariantCulture))
+            if (arg.StartsWith(prefix + "output=", InvariantCulture))
             {
                 string value = ParseArgumentContent(arg);
 
@@ -133,6 +135,20 @@ public partial class ConfirmaAutoload : Node
                 }
 
                 Props.OutputType = type;
+                continue;
+            }
+
+            if (arg.StartsWith(prefix + "output-path", InvariantCulture))
+            {
+                string value = ParseArgumentContent(arg);
+
+                if (!Path.Exists(value) || Path.GetExtension(value) != ".json")
+                {
+                    Log.PrintError($"Invalid output path: {value}.\n");
+                    return false;
+                }
+
+                Props.OutputPath = value;
             }
         }
 
