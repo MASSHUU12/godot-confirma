@@ -10,6 +10,7 @@ public record TestResult
     public uint TestsFailed { get; set; }
     public uint TestsIgnored { get; set; }
     public uint TotalOrphans { get; set; }
+    public uint TotalClasses { get; set; }
     public double TotalTime { get; set; }
     public uint Warnings { get; set; }
     public List<TestLog> TestLogs { get; set; } = new List<TestLog>();
@@ -34,6 +35,7 @@ public record TestResult
         a.TestsPassed += b.TestsPassed;
         a.TestsFailed += b.TestsFailed;
         a.TotalOrphans += b.TotalOrphans;
+        a.TotalClasses += b.TotalClasses;
         a.TestsIgnored += b.TestsIgnored;
         a.Warnings += b.Warnings;
         a.TestLogs.AddRange(b.TestLogs);
