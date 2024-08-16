@@ -76,12 +76,6 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (!Props.QuitAfterTests && arg == prefix + "quit")
-            {
-                Props.QuitAfterTests = true;
-                continue;
-            }
-
             if (!Props.ExitOnFail && arg == prefix + "exit-on-failure")
             {
                 Props.ExitOnFail = true;
@@ -166,7 +160,7 @@ public partial class ConfirmaAutoload : Node
     {
         _ = GetTree().CallDeferred("change_scene_to_file", "uid://cq76c14wl2ti3");
 
-        if (Props.QuitAfterTests)
+        if (!Engine.IsEditorHint())
         {
             GetTree().Quit();
         }

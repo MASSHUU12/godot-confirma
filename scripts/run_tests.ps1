@@ -15,5 +15,5 @@ process {
         exit 1
     }
 
-    & $env:GODOT ./ --headless -- --confirma-run --confirma-quit $params
+    & $env:GODOT ./ --headless -- --confirma-run $params
 }
