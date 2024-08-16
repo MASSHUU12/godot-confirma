@@ -1,5 +1,4 @@
 #if TOOLS
-using System;
 using System.IO;
 using Confirma.Classes;
 using Confirma.Enums;
@@ -136,7 +135,9 @@ public partial class ConfirmaAutoload : Node
             {
                 string value = ParseArgumentContent(arg);
 
-                if (!Path.Exists(value) || Path.GetExtension(value) != ".json")
+                if (!Path.Exists(Path.GetDirectoryName(value))
+                    || Path.GetExtension(value) != ".json"
+                )
                 {
                     Log.PrintError($"Invalid output path: {value}.\n");
                     return false;
