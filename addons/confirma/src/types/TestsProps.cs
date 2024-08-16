@@ -17,7 +17,6 @@ public struct TestsProps
     public bool ExitOnFail { get; set; }
     public bool DisableCsharp { get; set; }
     public bool MonitorOrphans { get; set; }
-    public bool QuitAfterTests { get; set; }
     public bool DisableGdScript { get; set; }
     public bool DisableParallelization { get; set; }
     public string ClassName { get; set; } = string.Empty;
