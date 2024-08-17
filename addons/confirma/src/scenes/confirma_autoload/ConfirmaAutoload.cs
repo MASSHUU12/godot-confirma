@@ -117,11 +117,14 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (arg.StartsWith(prefix + "output=", InvariantCulture))
+            if (arg.StartsWith(prefix + "output", InvariantCulture)
+                && !arg.StartsWith(prefix + "output-path", InvariantCulture)
+            )
             {
                 string value = ParseArgumentContent(arg);
 
-                if (!EnumHelper.TryParseFlagsEnum(value, out ELogOutputType type))
+                if (!EnumHelper.TryParseFlagsEnum(value, out ELogOutputType type)
+                )
                 {
                     Log.PrintError($"Invalid value '{value}' for '{prefix}output' argument.\n");
                     return false;
