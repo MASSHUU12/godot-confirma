@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { getProjectPath, runGodot } from "../utils";
+import { JSON_FILE_PATH, runGodot } from "../utils";
 
 test("Passed empty value, returns with error", async () => {
   const { exitCode, stderr } = await runGodot(
@@ -11,10 +11,20 @@ test("Passed empty value, returns with error", async () => {
   expect(stderr.toString()).toContain("Invalid output path: .");
 });
 
+test("Passed empty value with '=', returns with error", async () => {
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    "--confirma-output-path=",
+  );
+
+  expect(exitCode).toBe(1);
+  expect(stderr.toString()).toContain("Invalid output path: .");
+});
+
 test("Passed valid path, stderr empty", async () => {
   const { exitCode, stderr } = await runGodot(
     "--confirma-run",
-    `--confirma-output-path=${getProjectPath()}/result.json`,
+    `--confirma-output-path=${JSON_FILE_PATH}`,
   );
 
   expect(exitCode).toBe(0);
