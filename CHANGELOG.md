@@ -55,6 +55,7 @@ All notable changes to this project will be documented in this file.
   - Class names are colored to help distinguish classes from tests.
 - `Log.Print` prints to the stdio by default.
 - Methods in `Log` and `Colors` are generic.
+- Errors from `Log.PrintError` are printed to stderr instead of stdout.
 
 ### Removed
 
