@@ -1,48 +1,44 @@
 import { expect, test } from "bun:test";
-import { $ } from "bun";
-import { getProjectPath } from "../utils";
-
-// TODO: Find a better solution
-const PATH = await getProjectPath();
+import { getProjectPath, runGodot } from "../utils";
 
 test("Passed empty value, returns with error", async () => {
-  const out =
-    await $`$GODOT --path ${PATH} --headless -- --confirma-run --confirma-output-path`
-      .nothrow()
-      .quiet();
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    "--confirma-output-path",
+  );
 
-  expect(out.exitCode).toBe(1);
-  expect(out.stderr.toString()).toContain("Invalid output path: .");
+  expect(exitCode).toBe(1);
+  expect(stderr.toString()).toContain("Invalid output path: .");
 });
 
 test("Passed valid path, stderr empty", async () => {
-  const out =
-    await $`$GODOT --path ${PATH} --headless -- --confirma-run --confirma-output-path=${PATH}/result.json`
-      .nothrow()
-      .quiet();
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    `--confirma-output-path=${getProjectPath()}/result.json`,
+  );
 
-  expect(out.exitCode).toBe(0);
-  expect(out.stderr.toString()).toBeEmpty();
+  expect(exitCode).toBe(0);
+  expect(stderr.toString()).toBeEmpty();
 });
 
 test("Passed invalid path, returns with error", async () => {
-  const out =
-    await $`$GODOT --path ${PATH} --headless -- --confirma-run --confirma-output-path=invalid`
-      .nothrow()
-      .quiet();
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    "--confirma-output-path=invalid",
+  );
 
-  expect(out.exitCode).toBe(1);
-  expect(out.stderr.toString()).toContain("Invalid output path: invalid.");
+  expect(exitCode).toBe(1);
+  expect(stderr.toString()).toContain("Invalid output path: invalid.");
 });
 
 test("Passed valid, non-existing path, returns with error", async () => {
-  const out =
-    await $`$GODOT --path ${PATH} --headless -- --confirma-run --confirma-output-path=./lorem/ipsum.json`
-      .nothrow()
-      .quiet();
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    "--confirma-output-path=./lorem/ipsum.json",
+  );
 
-  expect(out.exitCode).toBe(1);
-  expect(out.stderr.toString()).toContain(
+  expect(exitCode).toBe(1);
+  expect(stderr.toString()).toContain(
     "Invalid output path: ./lorem/ipsum.json.",
   );
 });
