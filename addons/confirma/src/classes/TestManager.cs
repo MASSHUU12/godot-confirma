@@ -49,7 +49,7 @@ public static class TestManager
             {
                 return;
             }
-            else if (_props.Target.Name.Length != 0)
+            else if (!string.IsNullOrEmpty(_props.Target.Name))
             {
                 isCs = true;
             }
