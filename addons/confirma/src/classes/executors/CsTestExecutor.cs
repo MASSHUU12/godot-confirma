@@ -34,7 +34,7 @@ public class CsTestExecutor : ITestExecutor
 
             if (!testClasses.Any())
             {
-                Log.PrintError($"No test class found with the name '{_props.Target.Name}'.");
+                Log.PrintError($"No test class found with the name '{_props.Target.Name}'.\n");
                 return -1;
             }
         }

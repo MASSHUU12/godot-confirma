@@ -75,6 +75,8 @@ All notable changes to this project will be documented in this file.
 - `ConfirmEqual`/`ConfirmNotEqual` for arrays passed as object
 in case of an exception returns only the type instead of the actual values.
 - `Log.Print` throws exception when used too early.
+-  Argument '--confirma-run' with invalid class name
+  throws a NullReferenceException.
 
 ## [0.7.1-beta 2024-07-24]
 
