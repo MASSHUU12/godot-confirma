@@ -18,7 +18,7 @@ public static class ColorsTest
         _ = result.ConfirmEqual(
             Log.IsHeadless
                 ? "\x1b[38;2;255;0;0mHello, World!\x1b[0m"
-                : "[color=#FF0000]Hello, World![/color]"
+                : "[color=#ff0000ff]Hello, World![/color]"
         );
     }
 
@@ -30,7 +30,7 @@ public static class ColorsTest
         _ = result.ConfirmEqual(
             Log.IsHeadless
                 ? "\x1b[38;2;255;0;0mHello, World!\x1b[0m"
-                : "[color=#FF0000]Hello, World![/color]"
+                : "[color=#ff0000ff]Hello, World![/color]"
         );
     }
 
