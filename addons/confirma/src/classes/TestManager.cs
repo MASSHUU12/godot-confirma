@@ -47,10 +47,7 @@ public static class TestManager
 
             if (csClasses == -1)
             {
-                if (_props.Target.Name.Length == 0)
-                {
-                    return;
-                }
+                return;
             }
             else if (_props.Target.Name.Length != 0)
             {
