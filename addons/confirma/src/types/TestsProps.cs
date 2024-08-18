@@ -8,6 +8,7 @@ public struct TestsProps
 {
     public event Action? ExitOnFailure;
 
+    public RunTarget Target { get; set; }
     public TestResult Result { get; set; } = new();
     public ConfirmaAutoload? Autoload { get; set; }
 
@@ -19,9 +20,7 @@ public struct TestsProps
     public bool MonitorOrphans { get; set; }
     public bool DisableGdScript { get; set; }
     public bool DisableParallelization { get; set; }
-    public string ClassName { get; set; } = string.Empty;
     public string GdTestPath { get; set; } = "./gdtests";
-    public string MethodName { get; set; } = string.Empty;
     public string OutputPath { get; set; } = "./test_results.json";
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 

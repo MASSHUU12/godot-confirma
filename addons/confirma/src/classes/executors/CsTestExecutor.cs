@@ -28,13 +28,13 @@ public class CsTestExecutor : ITestExecutor
             Assembly.GetExecutingAssembly()
         );
 
-        if (!string.IsNullOrEmpty(_props.ClassName))
+        if (!string.IsNullOrEmpty(_props.Target.Name))
         {
-            testClasses = testClasses.Where(tc => tc.Type.Name == _props.ClassName);
+            testClasses = testClasses.Where(tc => tc.Type.Name == _props.Target.Name);
 
             if (!testClasses.Any())
             {
-                Log.PrintError($"No test class found with the name '{_props.ClassName}'.");
+                Log.PrintError($"No test class found with the name '{_props.Target.Name}'.");
                 return -1;
             }
         }
