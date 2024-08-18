@@ -60,17 +60,39 @@ public partial class ConfirmaAutoload : Node
         {
             if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
             {
+                string name = ParseArgumentContent(arg);
+
                 Props.RunTests = true;
-                Props.ClassName = ParseArgumentContent(arg);
+                Props.Target = Props.Target with
+                {
+                    Target = string.IsNullOrEmpty(name)
+                        ? ERunTargetType.All
+                        : ERunTargetType.Class,
+                    Name = name
+                };
 
                 continue;
             }
             else if (Props.RunTests
-                && !Props.ClassName.Equals(string.Empty, Ordinal)
+                && !Props.Target.Name.Equals(string.Empty, Ordinal)
                 && arg.StartsWith(prefix + "method", InvariantCulture)
             )
             {
-                Props.MethodName = ParseArgumentContent(arg);
+                string method = ParseArgumentContent(arg);
+
+                if (string.IsNullOrEmpty(method))
+                {
+                    Log.PrintError(
+                        "Invalid value: '--confirma-method' cannot be empty.\n"
+                    );
+                    return false;
+                }
+
+                Props.Target = Props.Target with
+                {
+                    Target = ERunTargetType.Method,
+                    DetailedName = method
+                };
 
                 continue;
             }

@@ -37,8 +37,10 @@ All notable changes to this project will be documented in this file.
 - Enums:
   - ELogType
   - ELogOutputType
+  - ERunTargetType
 - Alternative JSON output of test results.
 - Total number of test classes to TestResult record.
+- RunTarget struct and added it to TestsProps struct.
 
 ### Changed
 
@@ -56,12 +58,14 @@ All notable changes to this project will be documented in this file.
 - `Log.Print` prints to the stdio by default.
 - Methods in `Log` and `Colors` are generic.
 - Errors from `Log.PrintError` are printed to stderr instead of stdout.
+- Argument '--confirma-method' no longer allows empty value.
 
 ### Removed
 
 - TestExecutor.cs
 - TestOutput.cs
 - Argument "--confirma-quit".
+- `ClassName` & `MethodName` from TestsProps.cs.
 
 ### Fixed
 

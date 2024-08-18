@@ -47,12 +47,12 @@ public static class TestManager
 
             if (csClasses == -1)
             {
-                if (_props.ClassName?.Length == 0)
+                if (_props.Target.Name.Length == 0)
                 {
                     return;
                 }
             }
-            else if (_props.ClassName?.Length != 0)
+            else if (_props.Target.Name.Length != 0)
             {
                 isCs = true;
             }

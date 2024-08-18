@@ -32,13 +32,17 @@ public class GdTestExecutor : ITestExecutor
             _props.GdTestPath
         );
 
-        if (!string.IsNullOrEmpty(_props.ClassName))
+        if (!string.IsNullOrEmpty(_props.Target.Name))
         {
-            testClasses = testClasses.Where(tc => tc.Script.GetClass() == _props.ClassName);
+            testClasses = testClasses.Where(
+                tc => tc.Script.GetClass() == _props.Target.Name
+            );
 
             if (!testClasses.Any())
             {
-                Log.PrintError($"No test class found with the name '{_props.ClassName}'.");
+                Log.PrintError(
+                    $"No test class found with the name '{_props.Target.Name}'."
+                );
                 return -1;
             }
         }
