@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- Arguments:
+  - '--confirma-category'
+
 ## [0.8.1-beta 2024-08-20]
 
 ### Added
