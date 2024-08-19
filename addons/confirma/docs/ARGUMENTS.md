@@ -6,6 +6,7 @@
 | ------------------------------ | -------------------------------------------------------------------------------------------------- |
 | --confirma-run                 | Launches tests, allow specifying class name after '=' to run only this class.                      |
 | --confirma-method              | Launches single test, requires a method name after '=' and '--confirma-run' with the target class. |
+| --confirma-category            | Launches tests located in the specified category.                                                  |
 | --confirma-verbose             | Displays more information available about the tests being run.                                     |
 | --confirma-sequential          | Disables parallelization.                                                                          |
 | --confirma-exit-on-failure     | Confirma terminates after the first error occurs.                                                  |

@@ -97,6 +97,29 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
+            if (!string.IsNullOrEmpty(Props.Target.Name)
+                && arg.StartsWith(prefix + "category", InvariantCulture)
+            )
+            {
+                string category = ParseArgumentContent(arg);
+
+                if (string.IsNullOrEmpty(category))
+                {
+                    Log.PrintError(
+                        "Invalid value: '--confirma-category' cannot be empty.\n"
+                    );
+                    return false;
+                }
+
+                Props.Target = Props.Target with
+                {
+                    Target = ERunTargetType.Category,
+                    Name = category
+                };
+
+                continue;
+            }
+
             if (!Props.ExitOnFail && arg == prefix + "exit-on-failure")
             {
                 Props.ExitOnFail = true;
