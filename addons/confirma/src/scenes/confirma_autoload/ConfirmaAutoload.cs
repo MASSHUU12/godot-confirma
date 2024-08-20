@@ -92,9 +92,7 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (!string.IsNullOrEmpty(Props.Target.Name)
-                && arg.StartsWith(prefix + "category", InvariantCulture)
-            )
+            if (arg.StartsWith(prefix + "category", InvariantCulture))
             {
                 string category = ParseArgumentContent(arg);
 

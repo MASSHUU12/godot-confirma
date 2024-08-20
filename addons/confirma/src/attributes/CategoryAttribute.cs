@@ -2,7 +2,7 @@ using System;
 
 namespace Confirma.Attributes;
 
-[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class CategoryAttribute : Attribute
 {
     public string Category { get; init; }

@@ -30,12 +30,32 @@ public class CsTestExecutor : ITestExecutor
 
         if (!string.IsNullOrEmpty(_props.Target.Name))
         {
-            testClasses = testClasses.Where(tc => tc.Type.Name == _props.Target.Name);
-
-            if (!testClasses.Any())
+            if (_props.Target.Target is ERunTargetType.Class or ERunTargetType.Method)
             {
-                Log.PrintError($"No test class found with the name '{_props.Target.Name}'.\n");
-                return -1;
+                testClasses = testClasses.Where(tc => tc.Type.Name == _props.Target.Name);
+
+                if (!testClasses.Any())
+                {
+                    Log.PrintError($"No test class found with the name '{_props.Target.Name}'.\n");
+                    return -1;
+                }
+            }
+
+            if (_props.Target.Target == ERunTargetType.Category)
+            {
+                testClasses = testClasses.Where(
+                    tc => tc.Type.GetCustomAttributes<CategoryAttribute>().Count(
+                        c => c.Category == _props.Target.Name
+                    ) == 1
+                );
+
+                if (!testClasses.Any())
+                {
+                    Log.PrintError(
+                        $"No test classes found with category '{_props.Target.Name}'.\n"
+                    );
+                    return -1;
+                }
             }
         }
 
