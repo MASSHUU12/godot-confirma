@@ -15,13 +15,14 @@ public class GdTestExecutor : ITestExecutor
 {
     private TestsProps _props;
     private bool _testFailed;
-    private List<TestLog>? _testLogs;
+    private readonly List<TestLog> _testLogs;
     private ScriptMethodInfo? _currentMethod;
 
     public GdTestExecutor(TestsProps props)
     {
         _props = props;
         _props.Autoload!.GdAssertionFailed += OnAssertionFailed;
+        _testLogs = new();
     }
 
     public int Execute(out TestResult? result)
@@ -55,7 +56,7 @@ public class GdTestExecutor : ITestExecutor
         }
 
         result = _props.Result;
-        result.TestLogs.AddRange(_testLogs!);
+        result.TestLogs.AddRange(_testLogs);
         return testClasses.Count();
     }
 
@@ -69,12 +70,9 @@ public class GdTestExecutor : ITestExecutor
             className = script.ResourcePath.GetFile();
         }
 
-        _testLogs = new()
-        {
-            new(ELogType.Class, className),
-            new(ELogType.Newline)
-        };
-
+        _testLogs.Clear();
+        _testLogs.Add(new(ELogType.Class, className));
+        _testLogs.Add(new(ELogType.Newline));
 
         GodotObject instance = script.New().AsGodotObject();
 
