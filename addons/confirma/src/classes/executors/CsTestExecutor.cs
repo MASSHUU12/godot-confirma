@@ -108,8 +108,14 @@ public class CsTestExecutor : ITestExecutor
         };
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
-        if (attr?.IsIgnored() == true)
+
+        if (attr?.IsIgnored(_props.Target) == true)
         {
+            if (attr.HideFromResults == true)
+            {
+                return;
+            }
+
             _props.Result.TestsIgnored += (uint)testClass.TestMethods.Sum(
                 static m => m.TestCases.Count()
             );

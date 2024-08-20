@@ -32,8 +32,14 @@ public class TestingMethod
             for (ushort i = 0; i <= (test.Repeat?.Repeat ?? 0); i++)
             {
                 IgnoreAttribute? attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
-                if (attr?.IsIgnored() == true)
+
+                if (attr?.IsIgnored(props.Target) == true)
                 {
+                    if (attr.HideFromResults == true)
+                    {
+                        continue;
+                    }
+
                     Result.TestsIgnored++;
 
                     TestLog log = new(Enums.ELogType.Method, Name, Ignored, test.Params, attr.Reason);

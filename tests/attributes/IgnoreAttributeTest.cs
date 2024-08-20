@@ -41,7 +41,7 @@ public static class IgnoreAttributeTest
     {
         IgnoreAttribute attribute = new(EIgnoreMode.Always);
 
-        _ = attribute.IsIgnored().ConfirmTrue();
+        _ = attribute.IsIgnored(new()).ConfirmTrue();
     }
 
     [TestCase]
@@ -49,6 +49,32 @@ public static class IgnoreAttributeTest
     {
         IgnoreAttribute attribute = new(EIgnoreMode.InEditor);
 
-        _ = attribute.IsIgnored().ConfirmEqual(Engine.IsEditorHint());
+        _ = attribute.IsIgnored(new()).ConfirmEqual(Engine.IsEditorHint());
+    }
+
+    [TestCase]
+    public static void IsIgnored_WhenNotRunningCategory_ReturnsTrueWhenNotRunning()
+    {
+        IgnoreAttribute attribute = new(
+            EIgnoreMode.InEditor,
+            category: "Ipsum"
+        );
+
+        _ = attribute
+            .IsIgnored(new(Name: "Lorem"))
+            .ConfirmEqual(Engine.IsEditorHint());
+    }
+
+    [TestCase]
+    public static void IsIgnored_WhenNotRunningCategory_ReturnsFalseWhenRunning()
+    {
+        IgnoreAttribute attribute = new(
+            EIgnoreMode.InEditor,
+            category: "Lorem"
+        );
+
+        _ = attribute
+            .IsIgnored(new(Name: "Lorem"))
+            .ConfirmEqual(Engine.IsEditorHint());
     }
 }

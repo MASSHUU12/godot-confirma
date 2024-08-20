@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - Arguments:
   - '--confirma-category'
 - Warning when trying to run tests without '--confirma-run' argument.
+- `WhenNotRunningCategory` value to `EIgnoreMode` enum.
+- `HideFromResults` field to `Ignore` attribute.
 
 ## [0.8.1-beta 2024-08-20]
 
