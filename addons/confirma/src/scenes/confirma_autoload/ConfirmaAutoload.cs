@@ -17,6 +17,8 @@ public partial class ConfirmaAutoload : Node
 
     public TestsProps Props = new();
 
+    private bool _usedConfirmaApi = false;
+
     public override void _Ready()
     {
         if (!CheckArguments())
@@ -53,6 +55,11 @@ public partial class ConfirmaAutoload : Node
 
         foreach (string arg in args)
         {
+            if (arg.StartsWith(prefix, InvariantCulture))
+            {
+                _usedConfirmaApi = true;
+            }
+
             if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
             {
                 string name = ParseArgumentContent(arg);
@@ -202,6 +209,13 @@ public partial class ConfirmaAutoload : Node
     {
         if (!Props.RunTests)
         {
+            if (_usedConfirmaApi)
+            {
+                Log.PrintWarning(
+                    "You're trying to use Confirma without '--confirma-run' argument."
+                    + " The game continues normally.\n"
+                );
+            }
             return;
         }
 
