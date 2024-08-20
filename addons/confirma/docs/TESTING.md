@@ -1,12 +1,14 @@
-<div align="center">
- <h3>Testing</h1>
-</div>
+# Testing
+
+## C#
+
+### Writing tests
 
 Confirma will detect all tests, regardless of where in the project you place them.
 
 Each class that contains tests must be labelled with the `TestClass` attribute.
 
-Each method, however, must be tagged with the `TestCase` attribute.
+Each test method, however, must be tagged with the `TestCase` attribute.
 
 Chaining assertions is allowed, so something like this is possible:
 
@@ -27,60 +29,68 @@ public static class TestSomething
 }
 ```
 
-## Accessing scene tree
+### Accessing scene tree
 
 Access to the scene tree is enabled by the static `Global` class. It provides the variable `Root` where the tree's root Window is located.
 
-## Attributes
+### Attributes
 
-### TestClass
+#### TestClass
 
 The TestClass attribute is used to identify the classes in which the tests are located.
 It is required, Confirma ignores all classes that do not have this attribute.
 
-### TestCase
+#### TestCase
 
 The TestCase attribute is used to mark the methods that perform the tests.
 It also accepts arguments, which allows parameterized tests.
 
-### AfterAll
+#### AfterAll
 
 Runs after all test methods in the class.
 
-### BeforeAll
+#### BeforeAll
 
 Runs before all test methods in the class.
 
-### Category
+#### Category
 
 Not implemented.
 
-### Ignore
+#### Ignore
 
 Ignore class/method during testing.
 
-Can ignore always or only when ran from editor.
+Can ignore always, only when run from the editor
+or when tests are not run from the specified category.
+The third option can be a bit confusing,
+but allows creating tests that will not be always run,
+but only under certain circumstances.
 
-### SetUp
+#### SetUp
 
 Runs before every test method in the class.
 
-### TearDown
+#### TearDown
 
 Runs after every test method in the class.
 
-### TestName
+#### TestName
 
 Used to display a different name for the test than the method name.
 
-### Parallelizable
+#### Parallelizable
 
 Allows to run all the tests included in the class on separate CPU cores.
 
-### Repeat
+#### Repeat
 
 The Repeat attribute allows you to run a particular TestCase several times.
 Repeat refers to the next TestCase, so the order in which the attributes are defined matters.
 
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
+
+## GDScript
+
+*TODO*
