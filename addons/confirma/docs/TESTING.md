@@ -4,11 +4,11 @@
 
 ### Writing tests
 
-Confirma will detect all tests, regardless of where in the project you place them.
+Confirma will detect all tests,
+regardless of where in the project they're placed them.
 
 Each class that contains tests must be labelled with the `TestClass` attribute.
-
-Each test method, however, must be tagged with the `TestCase` attribute.
+Each test method must be tagged with the `TestCase` attribute.
 
 Chaining assertions is allowed, so something like this is possible:
 
@@ -24,26 +24,41 @@ public static class TestSomething
     public static void Something()
     {
         5.ConfirmInRange(0, 15)
-        .ConfirmNotEqual(7);
+            .ConfirmNotEqual(7);
     }
 }
 ```
 
 ### Accessing scene tree
 
-Access to the scene tree is enabled by the static `Global` class. It provides the variable `Root` where the tree's root Window is located.
+Access to the scene tree is enabled by the static `Global` class.
+It provides the variable `Root` where the tree's root Window is located.
 
 ### Attributes
 
-#### TestClass
+#### TestClass (required)
 
-The TestClass attribute is used to identify the classes in which the tests are located.
+The TestClass attribute is used to identify the classes
+in which the tests are located.
 It is required, Confirma ignores all classes that do not have this attribute.
 
-#### TestCase
+#### TestCase (required)
 
-The TestCase attribute is used to mark the methods that perform the tests.
-It also accepts arguments, which allows parameterized tests.
+It is used to create test methods.
+Each method can take multiple of these attributes,
+which is especially useful for parameterized tests.
+
+Example:
+
+```cs
+[TestCase("abc")]
+[TestCase("123")]
+[TestCase("A$B2c_")]
+public static void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allowedChars)
+{
+    _ = allowedChars.ConfirmContains(_rg.NextChar(allowedChars));
+}
+```
 
 #### AfterAll
 
@@ -55,7 +70,9 @@ Runs before all test methods in the class.
 
 #### Category
 
-Not implemented.
+Allows to assign a category to a test class.
+The category can be used to run only tests from the category,
+or to exclude them from running.
 
 #### Ignore
 
@@ -85,12 +102,13 @@ Allows to run all the tests included in the class on separate CPU cores.
 
 #### Repeat
 
-The Repeat attribute allows you to run a particular TestCase several times.
-Repeat refers to the next TestCase, so the order in which the attributes are defined matters.
+The Repeat attribute allows to run a particular TestCase several times.
+Repeat refers to the next TestCase,
+so the order in which the attributes are defined matters.
 
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
 
-## GDScript
+## GDScript (experimental)
 
-*TODO*
+The entire GDScript testing system will be revamped.
