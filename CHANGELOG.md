@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
 
+### Changed
+
+- Included 'scripts' folder in exported ZIP.
+- Documentation has been refreshed (more information, better described).
+
 ## [0.8.1-beta 2024-08-20]
 
 ### Fixed
