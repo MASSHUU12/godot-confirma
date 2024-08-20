@@ -26,11 +26,6 @@ public partial class ConfirmaAutoload : Node
             return;
         }
 
-        if (!Props.RunTests && !Engine.IsEditorHint())
-        {
-            GetTree().Quit();
-        }
-
         Props.Autoload = this;
         SetupGlobals();
 
@@ -184,6 +179,11 @@ public partial class ConfirmaAutoload : Node
 
     private void ChangeScene()
     {
+        if (!Props.RunTests)
+        {
+            return;
+        }
+
         _ = GetTree().CallDeferred("change_scene_to_file", "uid://cq76c14wl2ti3");
 
         if (!Engine.IsEditorHint())
