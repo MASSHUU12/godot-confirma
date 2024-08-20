@@ -23,3 +23,4 @@
 /example/**             !export-ignore
 /script_templates       !export-ignore
 /script_templates/**    !export-ignore
+/scripts                !export-ignore
