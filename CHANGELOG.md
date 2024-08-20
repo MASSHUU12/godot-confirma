@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- Arguments:
+  - '--confirma-category'
+- Warning when trying to run tests without '--confirma-run' argument.
+
 ## [0.8.1-beta 2024-08-20]
 
 ### Fixed

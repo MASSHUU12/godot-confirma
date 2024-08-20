@@ -38,7 +38,9 @@ public class TestingClass
 
         warnings += RunLifecycleMethod("BeforeAll", ref testLogs);
 
-        if (!string.IsNullOrEmpty(props.Target.DetailedName))
+        if (_props.Target.Target == ERunTargetType.Method
+            && !string.IsNullOrEmpty(props.Target.DetailedName)
+        )
         {
             TestMethods = TestMethods.Where(
                 tm => tm.Name == props.Target.DetailedName
@@ -47,10 +49,10 @@ public class TestingClass
             if (!TestMethods.Any())
             {
                 testLogs.Add(new(ELogType.Error,
-                    $"No test Methods found with the name '{props.Target.DetailedName}'."
+                    $"No test methods found with the name '{props.Target.DetailedName}'."
                 ));
 
-                return new(0, 0, 0, 1, testLogs);
+                return new(0, 1, 0, 0, testLogs);
             }
         }
 
