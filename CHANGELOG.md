@@ -8,6 +8,14 @@ All notable changes to this project will be documented in this file.
 
 - Arguments:
   - '--confirma-category'
+- Warning when trying to run tests without '--confirma-run' argument.
+
+## [0.8.1-beta 2024-08-20]
+
+### Fixed
+
+- `NullReferenceException` when there is not GDScript tests.
+- Confirma run tests and closes immediately after start instead of launching the game.
 
 ## [0.8.0-beta 2024-08-18]
 
