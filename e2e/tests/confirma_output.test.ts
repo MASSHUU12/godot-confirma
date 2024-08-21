@@ -1,11 +1,9 @@
 import { expect, test, afterEach } from "bun:test";
-import { unlink } from "node:fs/promises";
-import { getE2eTestsPath, JSON_FILE_PATH, runGodot } from "../utils";
+import { deleteFile, JSON_FILE_PATH, runGodot } from "../utils";
+import type { BunFile } from "bun";
 
 afterEach(async (): Promise<void> => {
-  if (await Bun.file(JSON_FILE_PATH).exists()) {
-    await unlink(JSON_FILE_PATH);
-  }
+  await deleteFile(JSON_FILE_PATH);
 });
 
 test("Passed empty output type, returns with error", async (): Promise<void> => {
@@ -55,7 +53,12 @@ test("Passed 'json' output type, JSON created", async (): Promise<void> => {
 
   expect(exitCode).toBe(0);
   expect(stderr.toString()).toBeEmpty();
-  expect(await Bun.file(JSON_FILE_PATH).exists()).toBeTrue();
+
+  const file: BunFile = Bun.file(JSON_FILE_PATH);
+  expect(await file.exists()).toBeTrue();
+
+  await file.json();
+  expect(file.type).toBe("application/json;charset=utf-8");
 });
 
 test("Passed 'log,json' output type, JSON created", async (): Promise<void> => {
