@@ -1,5 +1,7 @@
 import { expect, test } from "bun:test";
-import { runGodot } from "../utils";
+import { deleteFile, JSON_FILE_PATH, runGodot } from "../utils";
+import type { BunFile } from "bun";
+import type { TestResult } from "../types/test_result";
 
 test("Passed empty value, returns with error", async () => {
   const { exitCode, stderr } = await runGodot(
@@ -37,6 +39,26 @@ test("Passed non-existing category, returns with error", async () => {
   );
 });
 
-test.todo("Passed valid category", () => {
-  expect(false).toBeTrue();
+test("Passed valid category, runs only DummyTests", async () => {
+  deleteFile(JSON_FILE_PATH);
+
+  const { exitCode, stderr } = await runGodot(
+    "--confirma-run",
+    "--confirma-category=DummyTests",
+    "--confirma-output=json",
+    `--confirma-output-path=${JSON_FILE_PATH}`,
+  );
+
+  expect(exitCode).toBe(0);
+  expect(stderr.toString()).toBeEmpty();
+
+  const file: BunFile = Bun.file(JSON_FILE_PATH);
+  expect(await file.exists()).toBeTrue();
+
+  const json: TestResult = await file.json();
+  expect(file.type).toBe("application/json;charset=utf-8");
+  expect(json.TotalTests).toBe(1);
+  expect(json.TestsPassed).toBe(1);
+
+  deleteFile(JSON_FILE_PATH);
 });

@@ -1,4 +1,5 @@
 import { $, type ShellOutput } from "bun";
+import { unlink } from "node:fs/promises";
 
 export const JSON_FILE_NAME = "results.json";
 export const TESTS_PATH = getE2eTestsPath() + "/";
@@ -16,4 +17,10 @@ export async function runGodot(...args: string[]): Promise<ShellOutput> {
   return await $`$GODOT --path ${getProjectPath()} --headless -- ${{ raw: args.join(" ") }}`
     .nothrow()
     .quiet();
+}
+
+export async function deleteFile(path: string): Promise<void> {
+  if (!(await Bun.file(path).exists())) return;
+
+  await unlink(path);
 }
