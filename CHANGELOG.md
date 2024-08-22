@@ -17,6 +17,11 @@ All notable changes to this project will be documented in this file.
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
 
+### Fixed
+
+- Empty argument '--confirma-method' was allowed
+when argument '--confirma-run' was also empty.
+
 ## [0.8.1-beta 2024-08-20]
 
 ### Fixed

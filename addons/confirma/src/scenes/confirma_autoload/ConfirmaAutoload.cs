@@ -75,11 +75,20 @@ public partial class ConfirmaAutoload : Node
 
                 continue;
             }
-            else if (Props.RunTests
-                && !Props.Target.Name.Equals(string.Empty, Ordinal)
+
+            if (Props.RunTests
                 && arg.StartsWith(prefix + "method", InvariantCulture)
             )
             {
+                if (string.IsNullOrEmpty(Props.Target.Name))
+                {
+                    Log.PrintError(
+                        "Invalid value: argument '--confirma-run' cannot be empty"
+                        + " when using argument '--confirma-method'.\n"
+                    );
+                    return false; ;
+                }
+
                 string method = ParseArgumentContent(arg);
 
                 if (string.IsNullOrEmpty(method))
