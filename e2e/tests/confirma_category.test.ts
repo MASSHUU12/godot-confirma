@@ -57,8 +57,8 @@ test("Passed valid category, runs only DummyTests", async () => {
 
   const json: TestResult = await file.json();
   expect(file.type).toBe("application/json;charset=utf-8");
-  expect(json.TotalTests).toBe(1);
-  expect(json.TestsPassed).toBe(1);
+  expect(json.TotalTests).toBe(2);
+  expect(json.TestsPassed).toBe(2);
 
   deleteFile(JSON_FILE_PATH);
 });

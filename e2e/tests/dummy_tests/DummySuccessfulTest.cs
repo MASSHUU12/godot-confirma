@@ -13,4 +13,10 @@ public static class DummySuccessfulTest
     {
         _ = true.ConfirmTrue();
     }
+
+    [TestCase]
+    public static void SuperPlusTest()
+    {
+        _ = false.ConfirmFalse();
+    }
 }
