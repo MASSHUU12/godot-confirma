@@ -1,14 +1,10 @@
 using Confirma.Exceptions;
 using Confirma.Extensions;
-using Confirma.Types;
-using Godot;
 
 namespace Confirma.Wrappers;
 
-public partial class ConfirmBooleanWrapper : CSharpScript
+public partial class ConfirmBooleanWrapper : WrapperBase
 {
-    public static TestsProps? Props { get; set; }
-
     public bool ConfirmTrue(bool actual, string? message = null)
     {
         try
@@ -17,7 +13,7 @@ public partial class ConfirmBooleanWrapper : CSharpScript
         }
         catch (ConfirmAssertException e)
         {
-            Props?.CallGdAssertionFailed(e.Message);
+            CallGdAssertionFailed(e);
         }
 
         return actual;
@@ -31,7 +27,7 @@ public partial class ConfirmBooleanWrapper : CSharpScript
         }
         catch (ConfirmAssertException e)
         {
-            Props?.CallGdAssertionFailed(e.Message);
+            CallGdAssertionFailed(e);
         }
 
         return actual;

@@ -7,7 +7,6 @@ namespace Confirma.Types;
 public struct TestsProps
 {
     public event Action? ExitOnFailure;
-    public event Action<string>? GdAssertionFailed;
 
     public RunTarget Target { get; set; }
     public TestResult Result { get; set; } = new();
@@ -35,10 +34,5 @@ public struct TestsProps
     public readonly void CallExitOnFailure()
     {
         ExitOnFailure?.Invoke();
-    }
-
-    public readonly void CallGdAssertionFailed(string message)
-    {
-        GdAssertionFailed?.Invoke(message);
     }
 }
