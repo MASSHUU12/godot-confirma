@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
-using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Interfaces;
 using Confirma.Types;
+using Confirma.Wrappers;
 using Godot;
 
 using static Confirma.Enums.ETestCaseState;
@@ -15,7 +14,7 @@ namespace Confirma.Classes.Executors;
 
 public class GdTestExecutor : ITestExecutor
 {
-    private TestsProps _props;
+    private readonly TestsProps _props;
     private bool _testFailed;
     private readonly List<TestLog> _testLogs;
     private ScriptMethodInfo? _currentMethod;
@@ -23,6 +22,10 @@ public class GdTestExecutor : ITestExecutor
     public GdTestExecutor(TestsProps props)
     {
         _props = props;
+        _props.GdAssertionFailed += OnAssertionFailed;
+
+        ConfirmBooleanWrapper.Props = props;
+
         _testLogs = new();
     }
 
@@ -50,6 +53,7 @@ public class GdTestExecutor : ITestExecutor
         }
 
         _props.ResetStats();
+
 
         foreach (ScriptInfo testClass in testClasses)
         {
@@ -79,29 +83,27 @@ public class GdTestExecutor : ITestExecutor
 
         foreach (ScriptMethodInfo method in testClass.Methods)
         {
-            _currentMethod = method;
-
-            try
-            {
-                _ = instance.Call(method.Name);
-            }
-            catch (ConfirmAssertException e)
-            {
-                OnAssertionFailed(e.Message);
-            }
-
-            if (_testFailed)
-            {
-                continue;
-            }
-
-            _props.Result.TestsPassed++;
-            _testFailed = false;
-
-            _testLogs.Add(GetTestResult(Passed));
+            ExecuteMethod(instance, method);
         }
 
         instance.Dispose();
+    }
+
+    private void ExecuteMethod(GodotObject instance, ScriptMethodInfo method)
+    {
+        _currentMethod = method;
+
+        _ = instance.Call(method.Name);
+
+        if (_testFailed)
+        {
+            return;
+        }
+
+        _props.Result.TestsPassed++;
+        _testFailed = false;
+
+        _testLogs.Add(GetTestResult(Passed));
     }
 
     private void OnAssertionFailed(string message)
