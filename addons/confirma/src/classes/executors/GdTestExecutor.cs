@@ -22,11 +22,9 @@ public class GdTestExecutor : ITestExecutor
     public GdTestExecutor(TestsProps props)
     {
         _props = props;
-
-        WrapperBase.Props = props;
-        WrapperBase.GdAssertionFailed += OnAssertionFailed;
-
         _testLogs = new();
+
+        WrapperBase.GdAssertionFailed += OnAssertionFailed;
     }
 
     public int Execute(out TestResult? result)
@@ -96,6 +94,7 @@ public class GdTestExecutor : ITestExecutor
 
         if (_testFailed)
         {
+            _testFailed = false;
             return;
         }
 
