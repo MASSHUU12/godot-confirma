@@ -1,12 +1,11 @@
 class_name ConfirmArray
 
 static var exts: CSharpScript = load(
-	GdHelper.get_plugin_path() + "/wrappers/ConfirmArrayWrapper.cs"
+	GdHelper.get_plugin_path() + "wrappers/ConfirmArrayWrapper.cs"
 ).new()
 
 
 static func is_of_size(actual: Array, expected: int, message: String = "") -> Array:
-	print(exts.get_script_method_list())
 	exts.ConfirmSize(actual, expected, message)
 
 	return actual

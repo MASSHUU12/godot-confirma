@@ -1,7 +1,7 @@
 class_name ConfirmBoolean
 
 static var exts: CSharpScript = load(
-	GdHelper.get_plugin_path() + "/wrappers/ConfirmBooleanWrapper.cs"
+	GdHelper.get_plugin_path() + "wrappers/ConfirmBooleanWrapper.cs"
 ).new()
 
 

@@ -1,7 +1,7 @@
 class_name Confirm
 
 static var exts: CSharpScript = load(
-	GdHelper.get_plugin_path() + "/wrappers/ConfirmWrapper.cs"
+	GdHelper.get_plugin_path() + "wrappers/ConfirmWrapper.cs"
 ).new()
 
 
