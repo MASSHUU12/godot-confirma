@@ -11,11 +11,21 @@ All notable changes to this project will be documented in this file.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
+- WrapperBase class.
+- Wrappers for C# assertions for GDScript:
+  - ConfirmWrapper
+  - ConfirmArrayWrapper
+  - ConfirmBooleanWrapper
 
 ### Changed
 
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
+- Adjusted GDScript assertions to use C# wrappers.
+
+### Removed
+
+- GdAssertionFailed signal.
 
 ### Fixed
 

@@ -1,21 +1,17 @@
 class_name Confirm
 
-
-static func is_null(obj, message := ""):
-	if (obj != null):
-		Confirma.emit_signal(
-			"GdAssertionFailed", 
-			"Expected null but got '%s'." % obj \
-			if message.is_empty() else message
-		)
-	return obj
+static var exts: CSharpScript = load(
+	GdHelper.get_plugin_path() + "/wrappers/ConfirmWrapper.cs"
+).new()
 
 
-static func is_not_null(obj, message := ""):
-	if (obj == null):
-		Confirma.emit_signal(
-			"GdAssertionFailed", 
-			"Expected a non-null value." \
-			if message.is_empty() else message
-		)
-	return obj
+static func is_null(actual, message := ""):
+	exts.ConfirmNull(actual, message)
+
+	return actual
+
+
+static func is_not_null(actual, message := ""):
+	exts.ConfirmNotNull(actual, message)
+
+	return actual
