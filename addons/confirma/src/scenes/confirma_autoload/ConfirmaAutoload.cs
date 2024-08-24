@@ -12,9 +12,6 @@ namespace Confirma.Scenes;
 [Tool]
 public partial class ConfirmaAutoload : Node
 {
-    [Signal]
-    public delegate void GdAssertionFailedEventHandler(string message);
-
     public TestsProps Props = new();
 
     private bool _usedConfirmaApi = false;

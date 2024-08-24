@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
+using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Interfaces;
 using Confirma.Types;
@@ -21,7 +23,6 @@ public class GdTestExecutor : ITestExecutor
     public GdTestExecutor(TestsProps props)
     {
         _props = props;
-        _props.Autoload!.GdAssertionFailed += OnAssertionFailed;
         _testLogs = new();
     }
 
@@ -80,7 +81,14 @@ public class GdTestExecutor : ITestExecutor
         {
             _currentMethod = method;
 
-            _ = instance.Call(method.Name);
+            try
+            {
+                _ = instance.Call(method.Name);
+            }
+            catch (ConfirmAssertException e)
+            {
+                OnAssertionFailed(e.Message);
+            }
 
             if (_testFailed)
             {
