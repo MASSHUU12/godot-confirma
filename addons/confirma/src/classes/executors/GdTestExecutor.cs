@@ -14,7 +14,7 @@ namespace Confirma.Classes.Executors;
 
 public class GdTestExecutor : ITestExecutor
 {
-    private readonly TestsProps _props;
+    private TestsProps _props;
     private bool _testFailed;
     private readonly List<TestLog> _testLogs;
     private ScriptMethodInfo? _currentMethod;
@@ -53,7 +53,6 @@ public class GdTestExecutor : ITestExecutor
         }
 
         _props.ResetStats();
-
 
         foreach (ScriptInfo testClass in testClasses)
         {
