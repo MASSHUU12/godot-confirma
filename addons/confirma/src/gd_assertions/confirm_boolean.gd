@@ -6,8 +6,12 @@ static var exts: CSharpScript = load(
 
 
 static func is_true(actual: bool, message: String = "") -> bool:
-	return exts.ConfirmTrue(actual, message)
+	exts.ConfirmTrue(actual, message)
+	
+	return actual
 
 
 static func is_false(actual: bool, message: String = "") -> bool:
-	return exts.ConfirmFalse(actual, message)
+	exts.ConfirmFalse(actual, message)
+	
+	return actual
