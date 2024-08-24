@@ -9,7 +9,8 @@ public partial class ConfirmBooleanWrapper : WrapperBase
     {
         try
         {
-            return actual.ConfirmTrue(message);
+            Godot.GD.Print(message);
+            return actual.ConfirmTrue(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
         {
@@ -23,7 +24,7 @@ public partial class ConfirmBooleanWrapper : WrapperBase
     {
         try
         {
-            return actual.ConfirmFalse(message);
+            return actual.ConfirmFalse(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
         {
