@@ -1,15 +1,15 @@
-using Confirma.Exceptions;
 using Confirma.Extensions;
+using Confirma.Exceptions;
 
 namespace Confirma.Wrappers;
 
-public partial class ConfirmBooleanWrapper : WrapperBase
+public partial class ConfirmWrapper : WrapperBase
 {
-    public bool ConfirmTrue(bool actual, string? message = null)
+    public static object? ConfirmNull(object? actual, string? message = null)
     {
         try
         {
-            return actual.ConfirmTrue(ParseMessage(message));
+            return actual.ConfirmNull(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
         {
@@ -19,11 +19,11 @@ public partial class ConfirmBooleanWrapper : WrapperBase
         return actual;
     }
 
-    public bool ConfirmFalse(bool actual, string? message = null)
+    public static object? ConfirmNotNull(object? actual, string? message = null)
     {
         try
         {
-            return actual.ConfirmFalse(ParseMessage(message));
+            return actual.ConfirmNotNull(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
         {
