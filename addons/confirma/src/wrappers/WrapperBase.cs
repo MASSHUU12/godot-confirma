@@ -23,7 +23,7 @@ public partial class WrapperBase : CSharpScript
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
-    protected static string? ParseMessage(string? message)
+    public static string? ParseMessage(string? message)
     {
         return string.IsNullOrEmpty(message) ? null : message;
     }
