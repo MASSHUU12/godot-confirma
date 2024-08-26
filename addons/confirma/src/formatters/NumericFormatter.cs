@@ -40,7 +40,7 @@ public class NumericFormatter : IFormatter
 
     private static string FormatFloats<T>(T number) where T : INumber<T>
     {
-        // F2 formats the number with two decimal places.
-        return number.ToString("F2", CultureInfo.InvariantCulture);
+        // F5 formats the number with two decimal places.
+        return number.ToString("F5", CultureInfo.InvariantCulture);
     }
 }
