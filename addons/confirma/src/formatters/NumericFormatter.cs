@@ -7,9 +7,9 @@ namespace Confirma.Formatters;
 
 public class NumericFormatter : IFormatter
 {
-    public string Format(object value)
+    public string Format(object? value)
     {
-        return value.GetType() switch
+        return value?.GetType() switch
         {
             // Signed integers
             Type t when t == typeof(short) => FormatInteger((short)value),
