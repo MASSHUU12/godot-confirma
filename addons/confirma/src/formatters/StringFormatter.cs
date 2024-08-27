@@ -6,6 +6,6 @@ public class StringFormatter : IFormatter
 {
     public string Format(object? value)
     {
-        return $"\"{value}\"";
+        return $"\"{value?.ToString() ?? "null"}\"";
     }
 }

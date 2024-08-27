@@ -28,6 +28,9 @@ public class NumericFormatter : IFormatter
             Type t when t == typeof(float) => FormatFloats((float)value),
             Type t when t == typeof(double) => FormatFloats((double)value),
             Type t when t == typeof(decimal) => FormatFloats((decimal)value),
+            // Other
+            Type t when typeof(INumber<>).IsAssignableFrom(value?.GetType())
+                => value?.ToString() ?? "null",
             _ => new DefaultFormatter().Format(value),
         };
     }
