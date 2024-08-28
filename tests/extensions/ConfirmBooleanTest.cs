@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
@@ -18,8 +19,10 @@ public static class ConfirmBooleanTest
     [TestCase]
     public static void ConfirmTrue_WhenFalse()
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            static () => false.ConfirmTrue()
+        Action action = static () => false.ConfirmTrue();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmTrue failed: Expected True but was False."
         );
     }
 
@@ -32,6 +35,10 @@ public static class ConfirmBooleanTest
     [TestCase]
     public static void ConfirmFalse_WhenTrue()
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => true.ConfirmFalse());
+        Action action = static () => true.ConfirmFalse();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFalse failed: Expected False but was True."
+        );
     }
 }
