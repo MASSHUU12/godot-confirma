@@ -8,23 +8,18 @@ namespace Confirma.Formatters;
 
 public class CollectionFormatter : IFormatter
 {
-    public string Format(object? value)
+    public string Format(object value)
     {
         string result = "null";
 
-        if (value is null)
+        ICollection<object?>? c = value as ICollection<object?>;
+        if (c is not null)
         {
-            return result;
-        }
-
-        if (value is IEnumerable<object> e)
-        {
-            result = ArrayHelper.ToString(e.ToArray());
+            return CollectionHelper.ToString(c);
         }
         else if (value is Array a)
         {
-            Log.PrintLine("aaa");
-            result = ArrayHelper.ToString((object?[]?)a);
+            result = CollectionHelper.ToString((ICollection<object?>)a);
         }
         else
         {

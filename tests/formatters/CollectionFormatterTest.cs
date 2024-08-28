@@ -20,15 +20,6 @@ public static class CollectionFormatterTest
     }
 
     [TestCase]
-    public static void Format_NullValue_ReturnsNullString()
-    {
-        object? value = null;
-        string result = _formatter!.Format(value);
-
-        _ = result.ConfirmEqual("null");
-    }
-
-    [TestCase]
     public static void Format_EmptyEnumerable_ReturnsEmptyArrayString()
     {
         IEnumerable<object> value = Enumerable.Empty<object>();
@@ -40,25 +31,25 @@ public static class CollectionFormatterTest
     [TestCase]
     public static void Format_SingleElementEnumerable_ReturnsSingleElementArrayString()
     {
-        IEnumerable<object> value = new[] { "Hello" };
+        IEnumerable<string> value = new[] { "Hello" };
         string result = _formatter!.Format(value);
 
         _ = result.ConfirmEqual("[Hello]");
     }
 
     [TestCase]
-    public static void Format_MultipleElementEnumerable_ReturnsMultipleElementArrayString()
+    public static void Format_MultipleElementList_ReturnsMultipleElementArrayString()
     {
-        IEnumerable<object> value = new[] { "Hello", "World" };
+        List<int> value = new() { 20, 25 };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[Hello, World]");
+        _ = result.ConfirmEqual("[20, 25]");
     }
 
     [TestCase]
     public static void Format_EmptyArray_ReturnsEmptyArrayString()
     {
-        object[] value = Array.Empty<object>();
+        float[] value = Array.Empty<float>();
         string result = _formatter!.Format(value);
 
         _ = result.ConfirmEqual("[]");

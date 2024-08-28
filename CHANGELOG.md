@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
+- CollectionHelper class.
 - AssertionMessageGenerator class.
 - IFormatter interface.
 - Formatters:
