@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
@@ -19,7 +20,11 @@ public static class ConfirmNullTest
     [TestCase(2)]
     public static void ConfirmNull_WhenNotNull(object? actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNull());
+        Action action = () => actual.ConfirmNull();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            $"Assertion ConfirmNull failed: Expected \"null\" but was {actual}."
+        );
     }
 
     [TestCase("Lorem ipsum")]
@@ -32,6 +37,10 @@ public static class ConfirmNullTest
     [TestCase(new object?[] { null })]
     public static void ConfirmNotNull_WhenNull(object? actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNotNull());
+        Action action = () => actual.ConfirmNotNull();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotNull failed: Expected \"not-null\" but was \"null\"."
+        );
     }
 }

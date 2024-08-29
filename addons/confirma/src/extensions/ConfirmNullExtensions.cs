@@ -11,7 +11,13 @@ public static class ConfirmNullExtensions
             return obj;
         }
 
-        throw new ConfirmAssertException(message ?? $"Expected null, but got {obj}.");
+        return message is not null
+            ? throw new ConfirmAssertException(message)
+            : throw new ConfirmAssertException(
+                nameof(ConfirmNull),
+                "null",
+                obj
+            );
     }
 
     public static object? ConfirmNotNull(this object? obj, string? message = null)
@@ -21,6 +27,12 @@ public static class ConfirmNullExtensions
             return obj;
         }
 
-        throw new ConfirmAssertException(message ?? "Expected a non-null value.");
+        return message is not null
+            ? throw new ConfirmAssertException(message)
+            : throw new ConfirmAssertException(
+                nameof(ConfirmNotNull),
+                "not-null",
+                "null"
+            );
     }
 }

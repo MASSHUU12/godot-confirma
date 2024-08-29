@@ -41,6 +41,8 @@ public class AssertionMessageGenerator
         IFormatter expectedFormatter = GetFormatter(expected.GetType());
         IFormatter actualFormatter = GetFormatter(actual.GetType());
 
+        // TODO: Add support for custom messages for different types.
+        // TODO: Update null extensions.
         return string.Format(
             CultureInfo.InvariantCulture,
             "Assertion {0} failed: Expected {1} but was {2}.",
