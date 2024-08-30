@@ -19,7 +19,7 @@ public static class StringFormatterTest
     [TestCase]
     public static void Format_NullValue_ReturnsNullString()
     {
-        object? value = null;
+        object value = new Person { Name = null };
         string result = _formatter!.Format(value);
 
         _ = result.ConfirmEqual("\"null\"");
@@ -49,16 +49,16 @@ public static class StringFormatterTest
         object value = new Person { Name = "John Doe" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("\"Person: John Doe\"");
+        _ = result.ConfirmEqual("\"John Doe\"");
     }
 
     private class Person
     {
         public string? Name { get; set; }
 
-        public override string ToString()
+        public override string? ToString()
         {
-            return $"Person: {Name}";
+            return Name;
         }
     }
 }

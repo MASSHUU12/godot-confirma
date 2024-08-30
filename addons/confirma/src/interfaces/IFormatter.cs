@@ -2,5 +2,6 @@ namespace Confirma.Interfaces;
 
 public interface IFormatter
 {
-    string Format(object value);
+    public string Format(object value);
+    public string? GetPattern(object value);
 }

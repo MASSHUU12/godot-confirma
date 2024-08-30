@@ -45,7 +45,8 @@ public class AssertionMessageGenerator
         // TODO: Update null extensions.
         return string.Format(
             CultureInfo.InvariantCulture,
-            "Assertion {0} failed: Expected {1} but was {2}.",
+            expectedFormatter.GetPattern(expected.GetType())
+            ?? "Assertion {0} failed: Expected {1} but was {2}.",
             assertion,
             expectedFormatter.Format(expected),
             actualFormatter.Format(actual)

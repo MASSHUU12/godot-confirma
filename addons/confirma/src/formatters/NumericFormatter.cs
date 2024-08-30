@@ -1,13 +1,12 @@
 using System;
 using System.Globalization;
 using System.Numerics;
-using Confirma.Interfaces;
 
 namespace Confirma.Formatters;
 
-public class NumericFormatter : IFormatter
+public class NumericFormatter : Formatter
 {
-    public string Format(object? value)
+    public override string Format(object? value)
     {
         return value?.GetType() switch
         {
