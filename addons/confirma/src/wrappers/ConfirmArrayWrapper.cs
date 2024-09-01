@@ -3,6 +3,14 @@ using Confirma.Extensions;
 using Godot;
 using Godot.Collections;
 
+// Wrappers:
+// Dictionary
+// Numeric
+// Range
+// Signal
+// String
+// Vector
+
 namespace Confirma.Wrappers;
 
 public partial class ConfirmArrayWrapper : WrapperBase

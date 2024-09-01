@@ -1,3 +1,4 @@
+@tool
 class_name ConfirmBoolean
 
 static var exts: CSharpScript = load(

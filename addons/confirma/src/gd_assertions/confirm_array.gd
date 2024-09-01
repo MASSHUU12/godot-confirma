@@ -1,3 +1,4 @@
+@tool
 class_name ConfirmArray
 
 static var exts: CSharpScript = load(
