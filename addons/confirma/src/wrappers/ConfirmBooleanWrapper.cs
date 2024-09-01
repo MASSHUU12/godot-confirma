@@ -5,7 +5,7 @@ namespace Confirma.Wrappers;
 
 public partial class ConfirmBooleanWrapper : WrapperBase
 {
-    public bool ConfirmTrue(bool actual, string? message = null)
+    public static bool ConfirmTrue(bool actual, string? message = null)
     {
         try
         {
@@ -19,7 +19,7 @@ public partial class ConfirmBooleanWrapper : WrapperBase
         return actual;
     }
 
-    public bool ConfirmFalse(bool actual, string? message = null)
+    public static bool ConfirmFalse(bool actual, string? message = null)
     {
         try
         {
