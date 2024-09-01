@@ -1,4 +1,3 @@
-using Confirma.Exceptions;
 using Confirma.Extensions;
 using Godot;
 using Godot.Collections;
@@ -13,17 +12,9 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmContainsKey(
-                key,
-                ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => dict.ConfirmContainsKey(key, ParseMessage(message))
+        );
 
         return dict;
     }
@@ -34,17 +25,9 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmNotContainsKey(
-                key,
-                ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => dict.ConfirmNotContainsKey(key, ParseMessage(message))
+        );
 
         return dict;
     }
@@ -55,17 +38,9 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmContainsValue(
-                value,
-                ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => dict.ConfirmContainsValue(value, ParseMessage(message))
+        );
 
         return dict;
     }
@@ -76,17 +51,9 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmNotContainsValue(
-                value,
-                ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => dict.ConfirmNotContainsValue(value, ParseMessage(message))
+        );
 
         return dict;
     }
@@ -98,18 +65,13 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmContainsKeyValuePair(
+        CallAssertion(
+            () => dict.ConfirmContainsKeyValuePair(
                 key,
                 value,
                 ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+            )
+        );
 
         return dict;
     }
@@ -121,18 +83,13 @@ public partial class ConfirmDictionaryWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Dictionary)dict.ConfirmNotContainsKeyValuePair(
+        CallAssertion(
+            () => dict.ConfirmNotContainsKeyValuePair(
                 key,
                 value,
                 ParseMessage(message)
-            );
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+            )
+        );
 
         return dict;
     }

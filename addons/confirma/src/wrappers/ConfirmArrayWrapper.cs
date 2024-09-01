@@ -1,4 +1,3 @@
-using Confirma.Exceptions;
 using Confirma.Extensions;
 using Godot;
 using Godot.Collections;
@@ -13,45 +12,27 @@ public partial class ConfirmArrayWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Array)actual
-                .ConfirmCount(expected, ParseMessage(message));
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => actual.ConfirmCount(expected, ParseMessage(message))
+        );
 
         return actual;
     }
 
     public static Array ConfirmEmpty(Array actual, string? message = null)
     {
-        try
-        {
-            return (Array)actual
-                .ConfirmEmpty(ParseMessage(message));
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => actual.ConfirmEmpty(ParseMessage(message))
+        );
 
         return actual;
     }
 
     public static Array ConfirmNotEmpty(Array actual, string? message = null)
     {
-        try
-        {
-            return (Array)actual
-                .ConfirmNotEmpty(ParseMessage(message));
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => actual.ConfirmNotEmpty(ParseMessage(message))
+        );
 
         return actual;
     }
@@ -62,15 +43,9 @@ public partial class ConfirmArrayWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Array)actual
-                .ConfirmContains(expected, ParseMessage(message));
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => actual.ConfirmContains(expected, ParseMessage(message))
+        );
 
         return actual;
     }
@@ -81,15 +56,9 @@ public partial class ConfirmArrayWrapper : WrapperBase
         string? message = null
     )
     {
-        try
-        {
-            return (Array)actual
-                .ConfirmNotContains(expected, ParseMessage(message));
-        }
-        catch (ConfirmAssertException e)
-        {
-            CallGdAssertionFailed(e);
-        }
+        CallAssertion(
+            () => actual.ConfirmNotContains(expected, ParseMessage(message))
+        );
 
         return actual;
     }
