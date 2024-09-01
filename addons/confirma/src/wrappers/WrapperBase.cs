@@ -27,4 +27,16 @@ public partial class WrapperBase : CSharpScript
     {
         return string.IsNullOrEmpty(message) ? null : message;
     }
+
+    protected static void CallAssertion(Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (ConfirmAssertException e)
+        {
+            CallGdAssertionFailed(e);
+        }
+    }
 }
