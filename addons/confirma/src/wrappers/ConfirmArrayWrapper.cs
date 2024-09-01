@@ -1,19 +1,21 @@
-using System;
-using System.Linq;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 using Godot;
+using Godot.Collections;
 
 namespace Confirma.Wrappers;
 
 public partial class ConfirmArrayWrapper : WrapperBase
 {
-    public Array ConfirmSize(Array actual, int expected, string? message = null)
+    public static Array ConfirmSize(
+        Array actual,
+        int expected,
+        string? message = null
+    )
     {
         try
         {
             return (Array)actual
-                .Cast<Variant>()
                 .ConfirmCount(expected, ParseMessage(message));
         }
         catch (ConfirmAssertException e)
@@ -24,12 +26,11 @@ public partial class ConfirmArrayWrapper : WrapperBase
         return actual;
     }
 
-    public Array ConfirmEmpty(Array actual, string? message = null)
+    public static Array ConfirmEmpty(Array actual, string? message = null)
     {
         try
         {
             return (Array)actual
-                .Cast<Variant>()
                 .ConfirmEmpty(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
@@ -40,12 +41,11 @@ public partial class ConfirmArrayWrapper : WrapperBase
         return actual;
     }
 
-    public Array ConfirmNotEmpty(Array actual, string? message = null)
+    public static Array ConfirmNotEmpty(Array actual, string? message = null)
     {
         try
         {
             return (Array)actual
-                .Cast<Variant>()
                 .ConfirmNotEmpty(ParseMessage(message));
         }
         catch (ConfirmAssertException e)
@@ -56,7 +56,7 @@ public partial class ConfirmArrayWrapper : WrapperBase
         return actual;
     }
 
-    public Array ConfirmContains(
+    public static Array ConfirmContains(
         Array actual,
         Variant expected,
         string? message = null
@@ -65,7 +65,6 @@ public partial class ConfirmArrayWrapper : WrapperBase
         try
         {
             return (Array)actual
-                .Cast<Variant>()
                 .ConfirmContains(expected, ParseMessage(message));
         }
         catch (ConfirmAssertException e)
@@ -76,7 +75,7 @@ public partial class ConfirmArrayWrapper : WrapperBase
         return actual;
     }
 
-    public Array ConfirmNotContains(
+    public static Array ConfirmNotContains(
         Array actual,
         Variant expected,
         string? message = null
@@ -85,7 +84,6 @@ public partial class ConfirmArrayWrapper : WrapperBase
         try
         {
             return (Array)actual
-                .Cast<Variant>()
                 .ConfirmNotContains(expected, ParseMessage(message));
         }
         catch (ConfirmAssertException e)
