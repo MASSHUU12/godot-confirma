@@ -15,7 +15,12 @@ All notable changes to this project will be documented in this file.
 - Wrappers for C# assertions for GDScript:
   - ConfirmWrapper
   - ConfirmArrayWrapper
+  - ConfirmRangeWrapper
+  - ConfirmSignalWrapper
+  - ConfirmStringWrapper
   - ConfirmBooleanWrapper
+  - ConfirmNumericWrapper
+  - ConfirmDictionaryWrapper
 
 ### Changed
 
