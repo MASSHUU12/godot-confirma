@@ -29,6 +29,8 @@ All notable changes to this project will be documented in this file.
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
 - Adjusted GDScript assertions to use C# wrappers.
+- [#170] Confirma recursively checks every folder for GDScript tests
+(max depth is 16).
 
 ### Removed
 
