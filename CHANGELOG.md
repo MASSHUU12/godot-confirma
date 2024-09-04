@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmBooleanWrapper
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
+- Docs about testing GDScript code.
 
 ### Changed
 

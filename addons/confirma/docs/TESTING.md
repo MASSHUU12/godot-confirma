@@ -109,6 +109,21 @@ so the order in which the attributes are defined matters.
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
 
-## GDScript (experimental)
+## GDScript
 
-The entire GDScript testing system will be revamped.
+### Writing tests
+
+Testing of GDScript code is possible via exposed wrappers for C# assertions.
+Confirma's current architecture does not allow native assertions
+to be created in GDScript, as the language does not support exceptions.
+
+Confirma searches the selected folder for tests and runs them one by one.
+
+"Chaining" assertions is allowed, so something like this is possible:
+
+```gd
+class_name TestSomething
+
+func something() -> void:
+	ConfirmRange.in_range_int(ConfirmEqual.not_equal(5, 7), 0, 15)
+```
