@@ -9,7 +9,10 @@ public static class GdTestDiscovery
 {
     private static bool? _testScriptsDirectoryCached = null;
 
-    public static IEnumerable<ScriptInfo> GetTestScripts(string pathToTests)
+    public static IEnumerable<ScriptInfo> GetTestScripts(
+        string pathToTests,
+        int maxDepth = 16
+    )
     {
         _testScriptsDirectoryCached ??= Directory.Exists(pathToTests);
 
@@ -36,6 +39,17 @@ public static class GdTestDiscovery
             }
 
             yield return ScriptInfo.Parse(script);
+        }
+
+        if (maxDepth > 1)
+        {
+            foreach (string dirPath in Directory.EnumerateDirectories(pathToTests))
+            {
+                foreach (ScriptInfo scriptInfo in GetTestScripts(dirPath, maxDepth - 1))
+                {
+                    yield return scriptInfo;
+                }
+            }
         }
     }
 }
