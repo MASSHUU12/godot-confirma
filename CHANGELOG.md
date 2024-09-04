@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - `HideFromResults` field to `Ignore` attribute.
 - WrapperBase class.
 - Wrappers for C# assertions for GDScript:
-  - ConfirmWrapper
+  - ConfirmEqual
   - ConfirmArrayWrapper
   - ConfirmRangeWrapper
   - ConfirmSignalWrapper
