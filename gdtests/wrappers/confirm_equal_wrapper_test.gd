@@ -1,4 +1,4 @@
-class_name ConfirmEqualWrapperTest
+class_name ConfirmEqualWrapperTest extends TestClass
 
 
 func confirm_equal_when_equal() -> void:

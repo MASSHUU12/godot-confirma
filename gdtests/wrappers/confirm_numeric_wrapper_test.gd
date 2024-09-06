@@ -1,4 +1,4 @@
-class_name ConfirmNumericWrapperTest
+class_name ConfirmNumericWrapperTest extends TestClass
 
 func confirm_is_positive_when_is_positive() -> void:
 	ConfirmNumeric.is_positive(2137)

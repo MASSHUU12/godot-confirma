@@ -1,4 +1,4 @@
-class_name ConfirmSignalWrapperTest
+class_name ConfirmSignalWrapperTest extends TestClass
 
 func confirm_signal_exists_when_exists() -> void:
 	var btn := Button.new()

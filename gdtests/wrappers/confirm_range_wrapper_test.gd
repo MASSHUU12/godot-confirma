@@ -1,4 +1,4 @@
-class_name ConfirmRangeWrapperTest
+class_name ConfirmRangeWrapperTest extends TestClass
 
 func confirm_in_range_when_in_range() -> void:
 	ConfirmRange.in_range_int(5, 0, 6)

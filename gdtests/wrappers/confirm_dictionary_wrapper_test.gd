@@ -1,4 +1,4 @@
-class_name ConfirmDictionaryWrapperTest
+class_name ConfirmDictionaryWrapperTest extends TestClass
 
 
 const TEST_DICT := {

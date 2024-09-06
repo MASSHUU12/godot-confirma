@@ -1,4 +1,4 @@
-class_name ConfirmVectorWrapperTest
+class_name ConfirmVectorWrapperTest extends TestClass
 
 func confirm_equal_approx_when_equal_approx() -> void:
 	ConfirmVector.equal_approx_2(
