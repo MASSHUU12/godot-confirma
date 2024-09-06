@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Confirma.Helpers;
 using Godot;
 
 namespace Confirma.Classes.Discovery;
@@ -30,15 +31,10 @@ public static class GdTestDiscovery
 
             GDScript script = GD.Load<GDScript>(filePath);
 
-            // For some reason, when running plugin in the editor,
-            // the scripts are considered impossible to instantiate.
-            if (!script.CanInstantiate() && !Engine.IsEditorHint())
+            if (script.GetBaseScript()?.GetGlobalName().ToString() == "TestClass")
             {
-                script.Dispose();
-                continue;
+                yield return ScriptInfo.Parse(script);
             }
-
-            yield return ScriptInfo.Parse(script);
         }
 
         if (maxDepth > 1)
