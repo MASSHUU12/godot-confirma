@@ -1,1 +1,1 @@
-class_name TestClass extends Object
+class_name TestClass
