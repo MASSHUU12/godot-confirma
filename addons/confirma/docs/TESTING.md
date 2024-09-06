@@ -118,11 +118,12 @@ Confirma's current architecture does not allow native assertions
 to be created in GDScript, as the language does not support exceptions.
 
 Confirma searches the selected folder for tests and runs them one by one.
+Each class that contains tests must extends `TestClass` class.
 
 "Chaining" assertions is allowed, so something like this is possible:
 
 ```gd
-class_name TestSomething
+class_name TestSomething extends TestClass
 
 func something() -> void:
 	ConfirmRange.in_range_int(ConfirmEqual.not_equal(5, 7), 0, 15)
