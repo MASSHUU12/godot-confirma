@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
 - Docs about testing GDScript code.
+- TestClass.gd
 
 ### Changed
 
@@ -31,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - Adjusted GDScript assertions to use C# wrappers.
 - [#170] Confirma recursively checks every folder for GDScript tests
 (max depth is 16).
+- All GDScript test classes need to extend TestClass.
 
 ### Removed
 
