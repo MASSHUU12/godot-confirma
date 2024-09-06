@@ -1,4 +1,4 @@
-class_name ConfirmBooleanWrapperTest
+class_name ConfirmBooleanWrapperTest extends TestClass
 
 func confirm_true_when_true() -> void:
 	ConfirmBoolean.is_true(true)

@@ -1,4 +1,4 @@
-class_name ConfirmArrayWrapperTest
+class_name ConfirmArrayWrapperTest extends TestClass
 
 
 func confirm_is_of_size_when_is_of_size() -> void:

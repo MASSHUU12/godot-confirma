@@ -1,4 +1,4 @@
-class_name ConfirmStringWrapperTest
+class_name ConfirmStringWrapperTest extends TestClass
 
 func confirm_empty_when_empty() -> void:
 	ConfirmString.empty("")
