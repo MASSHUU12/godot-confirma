@@ -18,6 +18,14 @@ public class GdTestExecutor : ITestExecutor
     private bool _testFailed;
     private readonly List<TestLog> _testLogs;
     private ScriptMethodInfo? _currentMethod;
+    private static readonly string[] _lifecycleMethodNames = {
+        "after_all",
+        "before_all",
+        "category",
+        "ignore",
+        "set_up",
+        "tear_down"
+    };
 
     public GdTestExecutor(TestsProps props)
     {
@@ -80,6 +88,11 @@ public class GdTestExecutor : ITestExecutor
 
         foreach (ScriptMethodInfo method in testClass.Methods)
         {
+            if (_lifecycleMethodNames.Contains(method.Name))
+            {
+                continue;
+            }
+
             ExecuteMethod(instance, method);
         }
 
