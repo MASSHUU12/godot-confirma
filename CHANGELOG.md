@@ -23,7 +23,15 @@ All notable changes to this project will be documented in this file.
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
 - Docs about testing GDScript code.
-- TestClass.gd
+- Classes:
+  - TestClass.gd
+  - GdScriptInfo.cs
+- ELifecycleMethodName enum.
+- Support for lifecycle methods in GDScript:
+  - after_all
+  - before_all
+  - set_up
+  - tear_down
 
 ### Changed
 
@@ -33,6 +41,7 @@ All notable changes to this project will be documented in this file.
 - [#170] Confirma recursively checks every folder for GDScript tests
 (max depth is 16).
 - All GDScript test classes need to extend TestClass.
+- GdTestDiscovery & GdTestExecutor now use GdScriptInfo instead of ScriptInfo.
 
 ### Removed
 

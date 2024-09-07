@@ -128,3 +128,29 @@ class_name TestSomething extends TestClass
 func something() -> void:
 	ConfirmRange.in_range_int(ConfirmEqual.not_equal(5, 7), 0, 15)
 ```
+
+### Overrideable methods
+
+#### after_all
+
+Runs after all test methods in the class.
+
+#### before_all
+
+Runs before all test methods in the class.
+
+#### set_up
+
+Runs before every test method in the class.
+
+#### tear_down
+
+Runs after every test method in the class.
+
+#### category
+
+Not implemented.
+
+#### ignore
+
+Not implemented.
