@@ -9,6 +9,7 @@ using Confirma.Wrappers;
 using Godot;
 
 using static Confirma.Enums.ETestCaseState;
+using static Confirma.Enums.ELifecycleMethodName;
 
 namespace Confirma.Classes.Executors;
 
@@ -18,14 +19,6 @@ public class GdTestExecutor : ITestExecutor
     private bool _testFailed;
     private readonly List<TestLog> _testLogs;
     private ScriptMethodInfo? _currentMethod;
-    private static readonly string[] _lifecycleMethodNames = {
-        "after_all",
-        "before_all",
-        "category",
-        "ignore",
-        "set_up",
-        "tear_down"
-    };
 
     public GdTestExecutor(TestsProps props)
     {
@@ -39,7 +32,7 @@ public class GdTestExecutor : ITestExecutor
     {
         result = null;
 
-        IEnumerable<ScriptInfo> testClasses = GdTestDiscovery.GetTestScripts(
+        IEnumerable<GdScriptInfo> testClasses = GdTestDiscovery.GetTestScripts(
             _props.GdTestPath
         );
 
@@ -60,7 +53,7 @@ public class GdTestExecutor : ITestExecutor
 
         _props.ResetStats();
 
-        foreach (ScriptInfo testClass in testClasses)
+        foreach (GdScriptInfo testClass in testClasses)
         {
             ExecuteClass(testClass);
         }
@@ -70,7 +63,7 @@ public class GdTestExecutor : ITestExecutor
         return testClasses.Count();
     }
 
-    private void ExecuteClass(ScriptInfo testClass)
+    private void ExecuteClass(GdScriptInfo testClass)
     {
         GDScript script = (GDScript)testClass.Script;
         string className = script.GetGlobalName();
@@ -88,15 +81,23 @@ public class GdTestExecutor : ITestExecutor
 
         foreach (ScriptMethodInfo method in testClass.Methods)
         {
-            if (_lifecycleMethodNames.Contains(method.Name))
-            {
-                continue;
-            }
-
             ExecuteMethod(instance, method);
         }
 
+        ExecuteLifecycleMethod(instance, testClass, AfterAll);
+
         instance.Dispose();
+    }
+
+    private void ExecuteLifecycleMethod(
+        GodotObject instance,
+        GdScriptInfo script,
+        ELifecycleMethodName name
+    )
+    {
+        ScriptMethodInfo method = script.LifecycleMethods[name];
+
+        _ = instance.Call(method.Name);
     }
 
     private void ExecuteMethod(GodotObject instance, ScriptMethodInfo method)
