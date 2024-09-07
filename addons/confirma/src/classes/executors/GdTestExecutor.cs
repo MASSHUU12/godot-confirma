@@ -79,9 +79,15 @@ public class GdTestExecutor : ITestExecutor
 
         GodotObject instance = script.New().AsGodotObject();
 
+        ExecuteLifecycleMethod(instance, testClass, BeforeAll);
+
         foreach (ScriptMethodInfo method in testClass.Methods)
         {
+            ExecuteLifecycleMethod(instance, testClass, SetUp);
+
             ExecuteMethod(instance, method);
+
+            ExecuteLifecycleMethod(instance, testClass, TearDown);
         }
 
         ExecuteLifecycleMethod(instance, testClass, AfterAll);
@@ -89,7 +95,7 @@ public class GdTestExecutor : ITestExecutor
         instance.Dispose();
     }
 
-    private void ExecuteLifecycleMethod(
+    private static void ExecuteLifecycleMethod(
         GodotObject instance,
         GdScriptInfo script,
         ELifecycleMethodName name

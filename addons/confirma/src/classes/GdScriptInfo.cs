@@ -39,7 +39,7 @@ public class GdScriptInfo : ScriptInfo
                 {
                     "after_all" => AfterAll,
                     "before_all" => BeforeAll,
-                    "set_up" => SeUp,
+                    "set_up" => SetUp,
                     "tear_down" => TearDown,
                     "category" => Category,
                     "ignore" => Ignore,
