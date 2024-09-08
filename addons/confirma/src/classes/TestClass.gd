@@ -10,7 +10,6 @@ func before_all() -> void:
 
 
 func category() -> String:
-	print("Not implemented.")
 	return ""
 
 

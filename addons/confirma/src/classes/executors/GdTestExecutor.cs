@@ -38,16 +38,34 @@ public class GdTestExecutor : ITestExecutor
 
         if (!string.IsNullOrEmpty(_props.Target.Name))
         {
-            testClasses = testClasses.Where(
-                tc => tc.Script.GetClass() == _props.Target.Name
-            );
-
-            if (!testClasses.Any())
+            if (_props.Target.Target is ERunTargetType.Class or ERunTargetType.Method)
             {
-                Log.PrintError(
-                    $"No test class found with the name '{_props.Target.Name}'."
+                testClasses = testClasses.Where(
+                    tc => tc.Script.GetClass() == _props.Target.Name
                 );
-                return -1;
+
+                if (!testClasses.Any())
+                {
+                    Log.PrintError(
+                        $"No test class found with the name '{_props.Target.Name}'."
+                    );
+                    return -1;
+                }
+            }
+
+            if (_props.Target.Target == ERunTargetType.Category)
+            {
+                testClasses = testClasses.Where(
+                    tc => GetCategory(tc) == _props.Target.Name
+                );
+
+                if (!testClasses.Any())
+                {
+                    Log.PrintError(
+                        $"No test classes found with category '{_props.Target.Name}'.\n"
+                    );
+                    return -1;
+                }
             }
         }
 
@@ -63,15 +81,31 @@ public class GdTestExecutor : ITestExecutor
         return testClasses.Count();
     }
 
-    private void ExecuteClass(GdScriptInfo testClass)
+    private static string GetCategory(GdScriptInfo testClass)
     {
         GDScript script = (GDScript)testClass.Script;
+        using GodotObject instance = script.New().AsGodotObject();
+        ScriptMethodInfo method = testClass.LifecycleMethods[Category];
+
+        return instance.Call(method.Name).AsString();
+    }
+
+    private static string GetClassName(GDScript script)
+    {
         string className = script.GetGlobalName();
 
         if (string.IsNullOrEmpty(className))
         {
             className = script.ResourcePath.GetFile();
         }
+
+        return className;
+    }
+
+    private void ExecuteClass(GdScriptInfo testClass)
+    {
+        GDScript script = (GDScript)testClass.Script;
+        string className = GetClassName(script);
 
         _testLogs.Clear();
         _testLogs.Add(new(ELogType.Class, className));
