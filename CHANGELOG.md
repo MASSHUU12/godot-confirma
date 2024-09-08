@@ -32,6 +32,7 @@ All notable changes to this project will be documented in this file.
   - before_all
   - set_up
   - tear_down
+  - category
 
 ### Changed
 
