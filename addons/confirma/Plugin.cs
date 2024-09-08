@@ -36,5 +36,14 @@ public partial class Plugin : EditorPlugin
     {
         return GetScript().As<Script>().ResourcePath.GetBaseDir();
     }
+
+    public static string GetPluginLocation()
+    {
+        // Read the information from the project settings
+        // because addons can be installed in various locations,
+        // so it cannot be assumed that it will always be in the default location.
+        string p = ProjectSettings.GetSetting("autoload/Confirma").AsString();
+        return p[1..].Remove(p.Length - 51);
+    }
 }
 #endif
