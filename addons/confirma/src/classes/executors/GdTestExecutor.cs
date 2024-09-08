@@ -17,14 +17,12 @@ public class GdTestExecutor : ITestExecutor
 {
     private TestsProps _props;
     private bool _testFailed;
-    private readonly List<TestLog> _testLogs;
+    private readonly List<TestLog> _testLogs = new();
     private ScriptMethodInfo? _currentMethod;
 
     public GdTestExecutor(TestsProps props)
     {
         _props = props;
-        _testLogs = new();
-
         WrapperBase.GdAssertionFailed += OnAssertionFailed;
     }
 
@@ -32,53 +30,60 @@ public class GdTestExecutor : ITestExecutor
     {
         result = null;
 
-        IEnumerable<GdScriptInfo> testClasses = GdTestDiscovery.GetTestScripts(
-            _props.GdTestPath
-        );
+        IEnumerable<GdScriptInfo> testClasses = GetTestClasses(_props.GdTestPath);
 
-        if (!string.IsNullOrEmpty(_props.Target.Name))
+        if (!testClasses.Any())
         {
-            if (_props.Target.Target is ERunTargetType.Class or ERunTargetType.Method)
-            {
-                testClasses = testClasses.Where(
-                    tc => tc.Script.GetClass() == _props.Target.Name
-                );
-
-                if (!testClasses.Any())
-                {
-                    Log.PrintError(
-                        $"No test class found with the name '{_props.Target.Name}'."
-                    );
-                    return -1;
-                }
-            }
-
-            if (_props.Target.Target == ERunTargetType.Category)
-            {
-                testClasses = testClasses.Where(
-                    tc => GetCategory(tc) == _props.Target.Name
-                );
-
-                if (!testClasses.Any())
-                {
-                    Log.PrintError(
-                        $"No test classes found with category '{_props.Target.Name}'.\n"
-                    );
-                    return -1;
-                }
-            }
+            LogErrorIfNoTestClassesFound();
+            return -1;
         }
 
         _props.ResetStats();
 
         foreach (GdScriptInfo testClass in testClasses)
         {
-            ExecuteClass(testClass);
+            ExecuteTestClass(testClass);
         }
 
         result = _props.Result;
         result.TestLogs.AddRange(_testLogs);
         return testClasses.Count();
+    }
+
+    private void LogErrorIfNoTestClassesFound()
+    {
+        string message = _props.Target.Target == ERunTargetType.Category
+            ? $"No test classes found with category '{_props.Target.Name}'.\n"
+            : $"No test class found with the name '{_props.Target.Name}'.\n";
+        Log.PrintError(message);
+    }
+
+    private IEnumerable<GdScriptInfo> GetTestClasses(string testPath)
+    {
+        IEnumerable<GdScriptInfo> testClasses = GdTestDiscovery
+            .GetTestScripts(testPath);
+
+        if (!string.IsNullOrEmpty(_props.Target.Name))
+        {
+            testClasses = FilterTestClasses(testClasses, _props.Target);
+        }
+
+        return testClasses;
+    }
+
+    private static IEnumerable<GdScriptInfo> FilterTestClasses(
+        IEnumerable<GdScriptInfo> testClasses,
+        RunTarget target
+    )
+    {
+        if (target.Target is ERunTargetType.Class or ERunTargetType.Method)
+        {
+            return testClasses.Where(tc => tc.Script.GetClass() == target.Name);
+        }
+
+        return target.Target == ERunTargetType.Category
+            ? testClasses.Where(tc => GetCategory(tc) == target.Name)
+            : testClasses;
     }
 
     private static string GetCategory(GdScriptInfo testClass)
@@ -102,7 +107,7 @@ public class GdTestExecutor : ITestExecutor
         return className;
     }
 
-    private void ExecuteClass(GdScriptInfo testClass)
+    private void ExecuteTestClass(GdScriptInfo testClass)
     {
         GDScript script = (GDScript)testClass.Script;
         string className = GetClassName(script);
@@ -111,7 +116,7 @@ public class GdTestExecutor : ITestExecutor
         _testLogs.Add(new(ELogType.Class, className));
         _testLogs.Add(new(ELogType.Newline));
 
-        GodotObject instance = script.New().AsGodotObject();
+        using GodotObject instance = script.New().AsGodotObject();
 
         ExecuteLifecycleMethod(instance, testClass, BeforeAll);
 
@@ -125,8 +130,6 @@ public class GdTestExecutor : ITestExecutor
         }
 
         ExecuteLifecycleMethod(instance, testClass, AfterAll);
-
-        instance.Dispose();
     }
 
     private static void ExecuteLifecycleMethod(
