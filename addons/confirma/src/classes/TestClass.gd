@@ -13,8 +13,7 @@ func category() -> String:
 	return ""
 
 
-func ignore() -> PackedStringArray:
-	print("Not implemented.")
+func ignore() -> Array[Ignore]:
 	return []
 
 
