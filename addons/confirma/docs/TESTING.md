@@ -149,7 +149,8 @@ Runs after every test method in the class.
 
 #### category
 
-Not implemented.
+Allows to assign a category to a test class.
+The category can be used to run only tests from the category.
 
 #### ignore
 
