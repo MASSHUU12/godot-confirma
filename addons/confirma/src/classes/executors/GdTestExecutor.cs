@@ -10,7 +10,6 @@ using Godot;
 
 using static Confirma.Enums.ETestCaseState;
 using static Confirma.Enums.ELifecycleMethodName;
-using Godot.Collections;
 
 namespace Confirma.Classes.Executors;
 
