@@ -13,8 +13,9 @@ func category() -> String:
 	return ""
 
 
-func ignore() -> Array[Ignore]:
-	return []
+# TODO: Allow ignoring methods
+func ignore() -> Ignore:
+	return null
 
 
 func set_up() -> void:

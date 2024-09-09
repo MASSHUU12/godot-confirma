@@ -1,4 +1,4 @@
-class_name RunTarget
+class_name RunTarget extends Resource
 
 enum RunTargetType {
 	ALL = 0,
@@ -12,11 +12,11 @@ var name: String = ""
 var detailed_name: String = ""
 
 
-func _init(
-	target: RunTargetType,
-	name: String,
-	detailed_name: String
-) -> void:
-	self.target = target
-	self.name = name
-	self.detailed_name = detailed_name
+# func _init(
+# 	target: RunTargetType,
+# 	name: String,
+# 	detailed_name: String
+# ) -> void:
+# 	self.target = target
+# 	self.name = name
+# 	self.detailed_name = detailed_name
