@@ -10,6 +10,7 @@ using Godot;
 
 using static Confirma.Enums.ETestCaseState;
 using static Confirma.Enums.ELifecycleMethodName;
+using Godot.Collections;
 
 namespace Confirma.Classes.Executors;
 
@@ -40,14 +41,29 @@ public class GdTestExecutor : ITestExecutor
 
         _props.ResetStats();
 
+        Resource runTarget = CreateRunTargetForGd();
+
         foreach (GdScriptInfo testClass in testClasses)
         {
-            ExecuteTestClass(testClass);
+            ExecuteTestClass(runTarget, testClass);
         }
 
         result = _props.Result;
         result.TestLogs.AddRange(_testLogs);
         return testClasses.Count();
+    }
+
+    private Resource CreateRunTargetForGd()
+    {
+        Resource runTarget = GD.Load<Resource>(
+            Plugin.GetPluginLocation() + "src/types/RunTarget.tres"
+        );
+        // TODO: Find a way to pass data to constructor (_init).
+        runTarget.Set("target", (byte)_props.Target.Target);
+        runTarget.Set("name", _props.Target.Name);
+        runTarget.Set("detailed_name", _props.Target.DetailedName);
+
+        return runTarget;
     }
 
     private void LogErrorIfNoTestClassesFound()
@@ -107,16 +123,39 @@ public class GdTestExecutor : ITestExecutor
         return className;
     }
 
-    private void ExecuteTestClass(GdScriptInfo testClass)
+    private void ExecuteTestClass(Resource runTarget, GdScriptInfo testClass)
     {
         GDScript script = (GDScript)testClass.Script;
         string className = GetClassName(script);
 
+        using GodotObject instance = script.New().AsGodotObject();
+
+        RefCounted? ignore = instance.Call("ignore").As<RefCounted?>();
+        bool isIgnored = ignore?.Call("is_ignored", runTarget).AsBool() ?? false;
+
+        if (isIgnored)
+        {
+            if (ignore!.Get("hide_from_results").AsBool())
+            {
+                return;
+            }
+
+            _props.Result.TestsIgnored += (uint)testClass.Methods.Count;
+
+            _testLogs.Add(new(ELogType.Warning, " ignored.\n"));
+
+            string reason = ignore.Get("reason").AsString();
+            if (string.IsNullOrEmpty(reason))
+            {
+                return;
+            }
+
+            _testLogs.Add(new(ELogType.Warning, $"- {reason}\n"));
+        }
+
         _testLogs.Clear();
         _testLogs.Add(new(ELogType.Class, className));
         _testLogs.Add(new(ELogType.Newline));
-
-        using GodotObject instance = script.New().AsGodotObject();
 
         ExecuteLifecycleMethod(instance, testClass, BeforeAll);
 

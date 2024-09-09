@@ -6,17 +6,17 @@ enum IgnoreMode {
 	WHEN_NOT_RUNNING_CATEGORY = 1 << 1
 }
 
-var mode: IgnoreMode = IgnoreMode.ALWAYS
-var reason: String = ""
-var hide_from_results: bool = false
-var category: String = ""
+var mode: IgnoreMode
+var reason: String
+var hide_from_results: bool
+var category: String
 
 
 func _init(
-	mode: IgnoreMode,
-	reason: String,
-	hide_from_results: bool,
-	category: String
+	mode: IgnoreMode = IgnoreMode.ALWAYS,
+	reason: String = "",
+	hide_from_results: bool = false,
+	category: String = ""
 ) -> void:
 	self.mode = mode
 	self.reason = reason
