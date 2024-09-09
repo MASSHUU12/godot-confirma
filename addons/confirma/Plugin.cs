@@ -1,4 +1,5 @@
 #if TOOLS
+using Confirma.Helpers;
 using Godot;
 
 namespace Confirma;
@@ -13,11 +14,18 @@ public partial class Plugin : EditorPlugin
     public override void _EnterTree()
     {
         _testBottomPanel = GD.Load<PackedScene>(
-            GetPluginPath() + "/src/scenes/confirma_bottom_panel/ConfirmaBottomPanel.tscn"
+            GetPluginPath()
+            + "/src/scenes/confirma_bottom_panel/ConfirmaBottomPanel.tscn"
         ).Instantiate<Control>();
         _ = AddControlToBottomPanel(_testBottomPanel, "Confirma");
 
-        AddAutoloadSingleton("Confirma", GetPluginPath() + "/src/scenes/confirma_autoload/ConfirmaAutoload.tscn");
+        AddAutoloadSingleton(
+            "Confirma",
+            GetPluginPath()
+            + "/src/scenes/confirma_autoload/ConfirmaAutoload.tscn"
+        );
+
+        SetUpSettings();
 
         GD.Print("Confirma is ready!");
     }
@@ -44,6 +52,16 @@ public partial class Plugin : EditorPlugin
         // so it cannot be assumed that it will always be in the default location.
         string p = ProjectSettings.GetSetting("autoload/Confirma").AsString();
         return p[1..].Remove(p.Length - 51);
+    }
+
+    public static void SetUpSettings()
+    {
+        _ = Settings.CreateSetting(
+            "confirma/config/gdscript_tests_folder",
+            "res://gdtests/",
+            "res://gdtests/",
+            true
+        );
     }
 }
 #endif
