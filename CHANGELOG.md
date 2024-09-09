@@ -26,6 +26,8 @@ All notable changes to this project will be documented in this file.
 - Classes:
   - TestClass.gd
   - GdScriptInfo.cs
+  - Ignore.gd
+  - RunTarget.gd
 - ELifecycleMethodName enum.
 - Support for lifecycle methods in GDScript:
   - after_all
@@ -33,6 +35,7 @@ All notable changes to this project will be documented in this file.
   - set_up
   - tear_down
   - category
+  - ignore
 
 ### Changed
 

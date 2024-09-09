@@ -154,4 +154,28 @@ The category can be used to run only tests from the category.
 
 #### ignore
 
-Not implemented.
+Ignore class during testing.
+
+Can ignore always, only when run from the editor
+or when tests are not run from the specified category.
+The third option can be a bit confusing,
+but allows creating tests that will not be always run,
+but only under certain circumstances.
+
+To ignore a class, it is required to override the `ignore` method
+and return an `Ignore` object.
+This object accepts `mode`, `reason`, `hide_from_results` and `category`.
+
+The following example shows a method that tells Confirma
+that a class is to be run only when category "SomeCategory" is tested:
+
+```gd
+func ignore() -> Ignore:
+	return Ignore.new(
+		# Or use numeric value, 2 in this case.
+		Ignore.IgnoreMode.WHEN_NOT_RUNNING_CATEGORY,
+		"Interesting reason",
+		false,
+		"SomeCategory"
+	)
+```
