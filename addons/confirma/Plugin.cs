@@ -56,6 +56,8 @@ public partial class Plugin : EditorPlugin
 
     public static void SetUpSettings()
     {
+        // Note: When changing path here,
+        // remember to change it also in TestsProps.cs.
         _ = Settings.CreateSetting(
             "confirma/config/gdscript_tests_folder",
             "res://gdtests/",

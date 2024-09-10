@@ -14,10 +14,16 @@ public partial class ConfirmaAutoload : Node
 {
     public TestsProps Props = new();
 
-    private bool _usedConfirmaApi = false;
+    private bool _usedConfirmaApi;
 
     public override void _Ready()
     {
+        Log.PrintLine(
+            ProjectSettings
+            .GetSetting("confirma/config/gdscript_tests_folder")
+            .AsString()
+        );
+
         if (!CheckArguments())
         {
             Props.RunTests = false;
@@ -83,7 +89,7 @@ public partial class ConfirmaAutoload : Node
                         "Invalid value: argument '--confirma-run' cannot be empty"
                         + " when using argument '--confirma-method'.\n"
                     );
-                    return false; ;
+                    return false;
                 }
 
                 string method = ParseArgumentContent(arg);
