@@ -18,12 +18,6 @@ public partial class ConfirmaAutoload : Node
 
     public override void _Ready()
     {
-        Log.PrintLine(
-            ProjectSettings
-            .GetSetting("confirma/config/gdscript_tests_folder")
-            .AsString()
-        );
-
         if (!CheckArguments())
         {
             Props.RunTests = false;
