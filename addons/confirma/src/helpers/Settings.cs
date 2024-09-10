@@ -48,4 +48,22 @@ public static class Settings
 
         return true;
     }
+
+    public static bool CreateSetting(
+        string path,
+        Variant value,
+        Variant initialValue,
+        bool isBasic,
+        bool requireRestart
+    )
+    {
+        if (!CreateSetting(path, value, initialValue, isBasic))
+        {
+            return false;
+        }
+
+        ProjectSettings.SetRestartIfChanged(path, requireRestart);
+
+        return true;
+    }
 }
