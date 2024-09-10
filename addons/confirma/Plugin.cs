@@ -60,6 +60,7 @@ public partial class Plugin : EditorPlugin
             "confirma/config/gdscript_tests_folder",
             "res://gdtests/",
             "res://gdtests/",
+            true,
             true
         );
     }
