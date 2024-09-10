@@ -14,14 +14,23 @@ public static class GdTestDiscovery
         int maxDepth = 16
     )
     {
-        _testScriptsDirectoryCached ??= Directory.Exists(pathToTests);
+        string globalizedPath = ProjectSettings.GlobalizePath(pathToTests);
+
+        try
+        {
+            _testScriptsDirectoryCached ??= Directory.Exists(globalizedPath);
+        }
+        catch (DirectoryNotFoundException)
+        {
+            yield break;
+        }
 
         if (_testScriptsDirectoryCached == false)
         {
             yield break;
         }
 
-        foreach (string filePath in Directory.EnumerateFiles(pathToTests))
+        foreach (string filePath in Directory.EnumerateFiles(globalizedPath))
         {
             if (!filePath.EndsWith(".gd", StringComparison.Ordinal))
             {
@@ -38,7 +47,7 @@ public static class GdTestDiscovery
 
         if (maxDepth > 1)
         {
-            foreach (string dirPath in Directory.EnumerateDirectories(pathToTests))
+            foreach (string dirPath in Directory.EnumerateDirectories(globalizedPath))
             {
                 foreach (GdScriptInfo scriptInfo in GetTestScripts(dirPath, maxDepth - 1))
                 {
