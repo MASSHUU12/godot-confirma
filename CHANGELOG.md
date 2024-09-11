@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
   - GdScriptInfo.cs
   - Ignore.gd
   - RunTarget.gd
+  - Settings.cs
 - ELifecycleMethodName enum.
 - Support for lifecycle methods in GDScript:
   - after_all
@@ -36,6 +37,8 @@ All notable changes to this project will be documented in this file.
   - tear_down
   - category
   - ignore
+- "GDScript Tests Folder" project setting.
+- Documentation for settings.
 
 ### Changed
 
@@ -46,6 +49,9 @@ All notable changes to this project will be documented in this file.
 (max depth is 16).
 - All GDScript test classes need to extend TestClass.
 - GdTestDiscovery & GdTestExecutor now use GdScriptInfo instead of ScriptInfo.
+- GDScript tests folder can be passed as global or localized path.
+- `Print` and `PrintLine` methods from Log class support list of arguments.
+- Rewritten docs for arguments.
 
 ### Removed
 
