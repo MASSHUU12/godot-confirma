@@ -10,6 +10,7 @@ public class TestLog
     public string? Name { get; }
     public ETestCaseState State { get; } = ETestCaseState.Ignored;
     public ELogType Type { get; }
+    public ELangType Lang { get; set; }
 
     public TestLog(ELogType type)
     {
@@ -20,6 +21,13 @@ public class TestLog
     {
         Type = type;
         Message = message;
+    }
+
+    public TestLog(ELogType type, ELangType testLang ,string message)
+    {
+        Type = type;
+        Message = message;
+        Lang = testLang;
     }
 
     public TestLog(
@@ -74,7 +82,7 @@ public class TestLog
                 }
                 break;
             case ELogType.Class:
-                Log.Print($"> {Colors.ColorText(Message!, Colors.Class)}...");
+                Log.Print($"> {GetLangHeader()} {Colors.ColorText(Message!, Colors.Class)}...");
                 break;
             case ELogType.Info:
                 if (Message != null)
@@ -130,5 +138,25 @@ public class TestLog
         {
             Log.PrintLine($"- {Colors.ColorText(Message, color)}");
         }
+    }
+
+    private string GetLangHeader ()
+    {
+        string langText = "N/A";
+        string color = Colors.Error;
+
+        switch (Lang)
+        {
+            case ELangType.Csharp:
+                langText = "C#";
+                color = Colors.CSharp;
+                break;
+            case ELangType.Gdscript:
+                langText = "GDScript";
+                color = Colors.Gdscript;
+                break;
+        }
+
+        return Colors.ColorText($"[{langText}]",color);
     }
 }

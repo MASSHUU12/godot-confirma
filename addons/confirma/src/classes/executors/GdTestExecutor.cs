@@ -153,7 +153,7 @@ public class GdTestExecutor : ITestExecutor
         }
 
         _testLogs.Clear();
-        _testLogs.Add(new(ELogType.Class, className));
+        _testLogs.Add(new(ELogType.Class, ELangType.Gdscript, className));
         _testLogs.Add(new(ELogType.Newline));
 
         ExecuteLifecycleMethod(instance, testClass, BeforeAll);
