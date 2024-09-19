@@ -104,7 +104,7 @@ public class CsTestExecutor : ITestExecutor
     {
         List<TestLog> testLogs = new()
         {
-            new(ELogType.Class, testClass.Type.Name)
+            new(ELogType.Class, ELangType.Csharp, testClass.Type.Name)
         };
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
