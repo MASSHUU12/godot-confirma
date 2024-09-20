@@ -42,13 +42,14 @@ public class GdTestExecutor : ITestExecutor
 
         Resource runTarget = CreateRunTargetForGd();
 
+        result = _props.Result;
+
         foreach (GdScriptInfo testClass in testClasses)
         {
             ExecuteTestClass(runTarget, testClass);
+            result.TestLogs.AddRange(_testLogs);
         }
 
-        result = _props.Result;
-        result.TestLogs.AddRange(_testLogs);
         return testClasses.Count();
     }
 
