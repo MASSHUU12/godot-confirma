@@ -61,6 +61,7 @@ All notable changes to this project will be documented in this file.
 
 - Empty argument '--confirma-method' was allowed
 when argument '--confirma-run' was also empty.
+- Not every GDScript test is shown in results
 
 ## [0.8.1-beta 2024-08-20]
 
