@@ -104,7 +104,7 @@ public class CsTestExecutor : ITestExecutor
     {
         List<TestLog> testLogs = new()
         {
-            new(ELogType.Class, ELangType.Csharp, testClass.Type.Name)
+            new(ELogType.Class, ELangType.CSharp, testClass.Type.Name)
         };
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
@@ -120,14 +120,14 @@ public class CsTestExecutor : ITestExecutor
                 static m => m.TestCases.Count()
             );
 
-            testLogs.Add(new(ELogType.Warning, "  ignored.\n"));
+            testLogs.Add(new(ELogType.Warning, ELangType.CSharp, "  ignored.\n"));
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
                 return;
             }
 
-            testLogs.Add(new(ELogType.Warning, $"- {attr.Reason}\n"));
+            testLogs.Add(new(ELogType.Warning, ELangType.CSharp, $"- {attr.Reason}\n"));
         }
 
         testLogs.Add(new(ELogType.Newline));

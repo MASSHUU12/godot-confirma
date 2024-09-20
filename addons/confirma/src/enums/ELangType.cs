@@ -2,9 +2,9 @@ using System;
 
 namespace Confirma.Enums;
 
-[Flags]
 public enum ELangType
 {
-    Csharp = 0,
-    Gdscript = 1
+    None = -1,
+    CSharp = 0,
+    GDScript = 1
 }

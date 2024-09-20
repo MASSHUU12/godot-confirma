@@ -149,11 +149,11 @@ public class GdTestExecutor : ITestExecutor
                 return;
             }
 
-            _testLogs.Add(new(ELogType.Warning, $"- {reason}\n"));
+            _testLogs.Add(new(ELogType.Warning, ELangType.GDScript, $"- {reason}\n"));
         }
 
         _testLogs.Clear();
-        _testLogs.Add(new(ELogType.Class, ELangType.Gdscript, className));
+        _testLogs.Add(new(ELogType.Class, ELangType.GDScript, className));
         _testLogs.Add(new(ELogType.Newline));
 
         ExecuteLifecycleMethod(instance, testClass, BeforeAll);
@@ -216,7 +216,8 @@ public class GdTestExecutor : ITestExecutor
             ArrayHelper.ToString(
                 _currentMethod.Args.Select(static a => a.Name).ToArray()
             ),
-            message
+            message,
+            ELangType.GDScript
         );
     }
 }
