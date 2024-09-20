@@ -49,6 +49,7 @@ public class TestingClass
             if (!TestMethods.Any())
             {
                 testLogs.Add(new(ELogType.Error,
+                    ELangType.CSharp,
                     $"No test methods found with the name '{props.Target.DetailedName}'."
                 ));
 
@@ -72,6 +73,7 @@ public class TestingClass
             {
                 warnings++;
                 testLogs.Add(new(ELogType.Warning,
+                    ELangType.CSharp,
                     $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
                 ));
             }

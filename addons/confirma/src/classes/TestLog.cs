@@ -10,7 +10,7 @@ public class TestLog
     public string? Name { get; }
     public ETestCaseState State { get; } = ETestCaseState.Ignored;
     public ELogType Type { get; }
-    public ELangType Lang { get; set; }
+    public ELangType Lang { get; set; } = ELangType.None;
 
     public TestLog(ELogType type)
     {
@@ -35,7 +35,8 @@ public class TestLog
         string name,
         ETestCaseState state,
         string parameters = "",
-        string? message = null
+        string? message = null,
+        ELangType lang = ELangType.None
     )
     {
         Type = type;
@@ -46,6 +47,7 @@ public class TestLog
             : string.Empty
         );
         State = state;
+        Lang = lang;
     }
 
     public static string GetTestCaseStateString(ETestCaseState state)
@@ -112,8 +114,9 @@ public class TestLog
     {
         string color = GetTestCaseStateColor(State);
         string sState = GetTestCaseStateString(State);
+        string langColor = getLangColor();
 
-        Log.PrintLine($"| {Name}... ");
+        Log.PrintLine($"{Colors.ColorText("|",langColor)} {Name}... ");
 
         if (State != ETestCaseState.Passed)
         {
@@ -123,7 +126,7 @@ public class TestLog
 
         if (Message is not null)
         {
-            Log.PrintLine($"  |- {Colors.ColorText(Message, color)}");
+            Log.PrintLine($"{Colors.ColorText("|",langColor)}- {Colors.ColorText(Message, color)}");
         }
     }
 
@@ -131,32 +134,43 @@ public class TestLog
     {
         string color = GetTestCaseStateColor(State);
         string sState = GetTestCaseStateString(State);
+        string langColor = getLangColor();
 
-        Log.PrintLine($"| {Name}... {Colors.ColorText(sState, color)}.");
+        Log.PrintLine($" {Colors.ColorText("|",langColor)} {Name}... {Colors.ColorText(sState, color)}.");
 
         if (Message is not null)
         {
-            Log.PrintLine($"- {Colors.ColorText(Message, color)}");
+            Log.PrintLine($"{Colors.ColorText("|",langColor)}- {Colors.ColorText(Message, color)}");
         }
     }
 
     private string GetLangHeader ()
     {
         string langText = "N/A";
-        string color = Colors.Error;
+        string color = getLangColor();
 
         switch (Lang)
         {
-            case ELangType.Csharp:
+            case ELangType.CSharp:
                 langText = "C#";
-                color = Colors.CSharp;
                 break;
-            case ELangType.Gdscript:
+            case ELangType.GDScript:
                 langText = "GDScript";
-                color = Colors.Gdscript;
                 break;
         }
 
         return Colors.ColorText($"[{langText}]",color);
+    }
+
+    private string getLangColor ()
+    {
+        switch (Lang)
+        {
+            case ELangType.CSharp:
+                return Colors.CSharp;
+            case ELangType.GDScript:
+                return Colors.Gdscript;
+        }
+        return Colors.Error;
     }
 }
