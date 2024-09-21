@@ -39,6 +39,7 @@ All notable changes to this project will be documented in this file.
   - ignore
 - "GDScript Tests Folder" project setting.
 - Documentation for settings.
+- A clear distinction between C# and GDScript tests when displaying results.
 
 ### Changed
 
@@ -61,7 +62,7 @@ All notable changes to this project will be documented in this file.
 
 - Empty argument '--confirma-method' was allowed
 when argument '--confirma-run' was also empty.
-- Not every GDScript test is shown in results
+- Not every GDScript test is shown in results.
 
 ## [0.8.1-beta 2024-08-20]
 
