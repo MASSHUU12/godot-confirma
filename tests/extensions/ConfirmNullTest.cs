@@ -23,7 +23,7 @@ public static class ConfirmNullTest
         Action action = () => actual.ConfirmNull();
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            $"Assertion ConfirmNull failed: Expected \"null\" but was {actual}."
+            $"Assertion ConfirmNull failed: Expected null but got {actual}."
         );
     }
 
@@ -40,7 +40,7 @@ public static class ConfirmNullTest
         Action action = () => actual.ConfirmNotNull();
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Assertion ConfirmNotNull failed: Expected \"not-null\" but was \"null\"."
+            "Assertion ConfirmNotNull failed: Expected non-null value."
         );
     }
 }
