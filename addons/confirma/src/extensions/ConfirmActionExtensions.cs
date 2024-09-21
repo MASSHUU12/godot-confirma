@@ -18,8 +18,8 @@ public static class ConfirmActionExtensions
                 "Expected action to complete within {1} ms, but it timed out.",
                 nameof(ConfirmCompletesWithin),
                 new NumericFormatter(2),
-                timeSpan.TotalMilliseconds,
                 null,
+                timeSpan.TotalMilliseconds,
                 message
             )
             : action;
@@ -44,8 +44,8 @@ public static class ConfirmActionExtensions
             "Expected action to not complete within {1} ms, but it did.",
             nameof(ConfirmDoesNotCompleteWithin),
             new NumericFormatter(2),
-            timeSpan.TotalMilliseconds,
             null,
+            timeSpan.TotalMilliseconds,
             message
         );
     }

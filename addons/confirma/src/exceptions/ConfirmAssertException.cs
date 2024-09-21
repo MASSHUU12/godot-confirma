@@ -30,8 +30,8 @@ public class ConfirmAssertException : Exception
     public ConfirmAssertException(
         string format,
         string assertion,
-        Formatter formatter,
-        object actual,
+        Formatter? formatter,
+        object? actual,
         object? expected,
         string? customMessage
     )
@@ -40,9 +40,9 @@ public class ConfirmAssertException : Exception
         ?? new AssertionMessageGenerator(
             format,
             assertion,
-            formatter,
-            actual,
-            expected
+            formatter ?? new DefaultFormatter(),
+            expected,
+            actual
         ).GenerateMessage()
     )
     { }
