@@ -45,4 +45,18 @@ public static class NumericFormatterTest
     {
         _ = _formatter!.Format(actual).ConfirmEqual(expected);
     }
+
+    [TestCase(12345, "12,345", 2)]
+    [TestCase(123.456f, "123.5", 1)]
+    [TestCase(50.12345678d, "50.12346", 5)]
+    public static void Format_Precision_ReturnsCorrectlyFormattedString(
+        object actual,
+        string expected,
+        int precision
+    )
+    {
+        _ = new NumericFormatter((ushort)precision)
+            .Format(actual)
+            .ConfirmEqual(expected);
+    }
 }
