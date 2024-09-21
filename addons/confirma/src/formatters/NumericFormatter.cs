@@ -6,6 +6,13 @@ namespace Confirma.Formatters;
 
 public class NumericFormatter : Formatter
 {
+    private readonly ushort _precision;
+
+    public NumericFormatter(ushort precision = 5)
+    {
+        _precision = precision;
+    }
+
     public override string Format(object? value)
     {
         return value?.GetType() switch
@@ -40,9 +47,10 @@ public class NumericFormatter : Formatter
         return number.ToString("N0", CultureInfo.InvariantCulture);
     }
 
-    private static string FormatFloats<T>(T number) where T : INumber<T>
+    private string FormatFloats<T>(T number)
+    where T : INumber<T>
     {
-        // F5 formats the number with two decimal places.
-        return number.ToString("F5", CultureInfo.InvariantCulture);
+        // Format the number with the specified number of decimal places.
+        return number.ToString($"F{_precision}", CultureInfo.InvariantCulture);
     }
 }
