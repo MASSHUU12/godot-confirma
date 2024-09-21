@@ -6,9 +6,4 @@ public class StringFormatter : Formatter
     {
         return $"\"{value.ToString() ?? "null"}\"";
     }
-
-    public override string? GetPattern(object value)
-    {
-        return null;
-    }
 }
