@@ -1,43 +1,39 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Numerics;
 using Confirma.Formatters;
-using Confirma.Interfaces;
 
 namespace Confirma.Helpers;
 
-public static class AssertionMessageGenerator
+public class AssertionMessageGenerator
 {
-    private static IFormatter GetFormatter(Type type)
-    {
-        if (type == typeof(string))
-        { return new StringFormatter(); }
-        else if (type == typeof(IEnumerable<object>))
-        { return new CollectionFormatter(); }
-        else if (typeof(INumber<>).IsAssignableFrom(type))
-        { return new NumericFormatter(); }
-        else
-        { return new DefaultFormatter(); }
-    }
+    private readonly string _format;
+    private readonly string _assertion;
+    private readonly object _expected;
+    private readonly object? _actual;
+    private readonly Formatter _formatter;
 
-    public static string GenerateAssertionMessage(
+    public AssertionMessageGenerator(
+        string format,
         string assertion,
+        Formatter formatter,
         object expected,
-        object actual
+        object? actual
     )
     {
-        IFormatter expectedFormatter = GetFormatter(expected.GetType());
-        IFormatter actualFormatter = GetFormatter(actual.GetType());
+        _format = format;
+        _assertion = assertion;
+        _formatter = formatter;
+        _expected = expected;
+        _actual = actual;
+    }
 
-        // TODO: Add support for custom messages for different types.
-        // TODO: Update null extensions.
+    public string GenerateMessage()
+    {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "Assertion {0} failed: Expected {1} but was {2}.",
-            assertion,
-            expectedFormatter.Format(expected),
-            actualFormatter.Format(actual)
+            "Assertion {0} failed: " + _format,
+            _assertion,
+            _formatter.Format(_expected),
+            _actual ?? _formatter.Format(_actual!)
         );
     }
 }
