@@ -11,14 +11,6 @@ namespace Confirma.Tests;
 [Parallelizable]
 public static class AssertionMessageGeneratorTest
 {
-    private static AssertionMessageGenerator? _generator;
-
-    [SetUp]
-    public static void SetUp()
-    {
-        _generator = new();
-    }
-
     [TestCase(
         "ConfirmTrue",
         true,
@@ -50,8 +42,7 @@ public static class AssertionMessageGeneratorTest
         string expectedMessage
     )
     {
-        _ = _generator!
-            .GenerateAssertionMessage(assertionName, expectedValue, actualValue)
+        _ = AssertionMessageGenerator.GenerateAssertionMessage(assertionName, expectedValue, actualValue)
             .ConfirmEqual(expectedMessage);
     }
 
@@ -61,7 +52,7 @@ public static class AssertionMessageGeneratorTest
         const string assertion = "Test Assertion";
         List<int> expected = new() { 1, 2, 3 };
         List<int> actual = new() { 4, 5, 6 };
-        string result = _generator!.GenerateAssertionMessage(assertion, expected, actual);
+        string result = AssertionMessageGenerator.GenerateAssertionMessage(assertion, expected, actual);
 
         _ = result.ConfirmEqual(
             string.Format(
@@ -80,7 +71,7 @@ public static class AssertionMessageGeneratorTest
         const string assertion = "Test Assertion";
         int[,] expected = { { 1, 2 }, { 3, 4 } };
         int[,] actual = { { 5, 6 }, { 7, 8 } };
-        string result = _generator!.GenerateAssertionMessage(assertion, expected, actual);
+        string result = AssertionMessageGenerator.GenerateAssertionMessage(assertion, expected, actual);
 
         _ = result.ConfirmEqual(
             string.Format(
@@ -99,7 +90,7 @@ public static class AssertionMessageGeneratorTest
         const string assertion = "Test Assertion";
         object expected = new();
         object actual = new();
-        string result = _generator!.GenerateAssertionMessage(assertion, expected, actual);
+        string result = AssertionMessageGenerator.GenerateAssertionMessage(assertion, expected, actual);
 
         _ = result.ConfirmEqual(
             string.Format(
