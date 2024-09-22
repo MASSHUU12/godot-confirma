@@ -8,8 +8,6 @@ public class CollectionFormatter : Formatter
 {
     public override string Format(object value)
     {
-        string result = "null";
-
         ICollection<object?>? c = value as ICollection<object?>;
         if (c is not null)
         {
@@ -17,13 +15,12 @@ public class CollectionFormatter : Formatter
         }
         else if (value is Array a)
         {
-            result = CollectionHelper.ToString((ICollection<object?>)a);
+            string result = CollectionHelper.ToString((ICollection<object?>)a);
+            return $"[{result}]";
         }
         else
         {
             return new DefaultFormatter().Format(value);
         }
-
-        return $"[{result}]";
     }
 }
