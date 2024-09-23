@@ -40,6 +40,7 @@ All notable changes to this project will be documented in this file.
 - "GDScript Tests Folder" project setting.
 - Documentation for settings.
 - A clear distinction between C# and GDScript tests when displaying results.
+- Base class for lifecycle attributes (LifecycleAttribute).
 
 ### Changed
 
@@ -53,6 +54,9 @@ All notable changes to this project will be documented in this file.
 - GDScript tests folder can be passed as global or localized path.
 - `Print` and `PrintLine` methods from Log class support list of arguments.
 - Rewritten docs for arguments.
+- From now on, lifecycle attributes are assigned to a class,
+not to a specific method, and take the name of the method to run.
+One attribute of a given type is allowed.
 
 ### Removed
 
