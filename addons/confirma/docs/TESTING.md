@@ -60,14 +60,6 @@ public static void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allo
 }
 ```
 
-#### AfterAll
-
-Runs after all test methods in the class.
-
-#### BeforeAll
-
-Runs before all test methods in the class.
-
 #### Category
 
 Allows to assign a category to a test class.
@@ -83,14 +75,6 @@ or when tests are not run from the specified category.
 The third option can be a bit confusing,
 but allows creating tests that will not be always run,
 but only under certain circumstances.
-
-#### SetUp
-
-Runs before every test method in the class.
-
-#### TearDown
-
-Runs after every test method in the class.
 
 #### TestName
 
@@ -108,6 +92,29 @@ so the order in which the attributes are defined matters.
 
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
+
+### Lifecycle attributes
+
+All lifecycle attributes are assignable to the test class
+and **not** the method.
+
+They take the name of the method to run, by default the attribute name.
+
+#### AfterAll
+
+Runs after all test methods in the class.
+
+#### BeforeAll
+
+Runs before all test methods in the class.
+
+#### SetUp
+
+Runs before every test method in the class.
+
+#### TearDown
+
+Runs after every test method in the class.
 
 ## GDScript
 
