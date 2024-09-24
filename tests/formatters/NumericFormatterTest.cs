@@ -59,4 +59,18 @@ public static class NumericFormatterTest
             .Format(actual)
             .ConfirmEqual(expected);
     }
+
+    [TestCase]
+    public static void Format_NullableObject_ReturnsCorrectlyFormattedString()
+    {
+        object? value = 5.0001f;
+        _ = new NumericFormatter(2).Format(value).ConfirmEqual("5.00");
+    }
+
+    [TestCase]
+    public static void Format_NullableFloat_ReturnsCorrectlyFormattedString()
+    {
+        float? value = 5.0001f;
+        _ = new NumericFormatter(2).Format(value).ConfirmEqual("5.00");
+    }
 }
