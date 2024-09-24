@@ -32,8 +32,8 @@ public class AssertionMessageGenerator
             CultureInfo.InvariantCulture,
             "Assertion {0} failed: " + _format,
             _assertion,
-            _expected ?? _formatter.Format(_expected!),
-            _actual ?? _formatter.Format(_actual!)
+            _expected is not null ? _formatter.Format(_expected) : null,
+            _actual is not null ? _formatter.Format(_actual) : null
         );
     }
 }
