@@ -15,8 +15,8 @@ public static class ConfirmNullExtensions
             "Expected null but got {2}.",
             nameof(ConfirmNull),
             null,
-            obj, // TODO: Implement automatic formatter
             null,
+            obj, // TODO: Implement automatic formatter
             message
         );
     }
@@ -32,8 +32,8 @@ public static class ConfirmNullExtensions
             "Expected non-null value.",
             nameof(ConfirmNotNull),
             null,
-            null,
             obj, // TODO: Implement automatic formatter
+            null,
             message
         );
     }

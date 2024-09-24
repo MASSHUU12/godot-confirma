@@ -31,8 +31,8 @@ public class ConfirmAssertException : Exception
         string format,
         string assertion,
         Formatter? formatter,
-        object? actual,
         object? expected,
+        object? actual,
         string? customMessage
     )
     : base(
