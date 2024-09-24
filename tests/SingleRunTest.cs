@@ -3,6 +3,7 @@ using Confirma.Extensions;
 
 namespace Confirma.Tests;
 
+[AfterAll]
 [TestClass]
 [Parallelizable]
 public static class SingleRunTest
@@ -16,7 +17,6 @@ public static class SingleRunTest
         _ = _runCount.ConfirmEqual(1);
     }
 
-    [AfterAll]
     public static void AfterAll()
     {
         _ = _runCount.ConfirmEqual(1);

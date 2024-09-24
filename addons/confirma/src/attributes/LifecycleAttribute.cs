@@ -9,10 +9,10 @@ namespace Confirma.Attributes;
 )]
 public class LifecycleAttribute : Attribute
 {
-    public string ClassName { get; init; }
+    public string MethodName { get; init; }
 
     public LifecycleAttribute(string className)
     {
-        ClassName = className;
+        MethodName = className;
     }
 }
