@@ -8,13 +8,14 @@ using Godot.Collections;
 
 namespace Confirma.Tests;
 
+[AfterAll]
+[BeforeAll]
 [TestClass]
 [Parallelizable]
 public static class ScriptInfoTest
 {
     private static CSharpScript? _script;
 
-    [BeforeAll]
     public static void BeforeAll()
     {
         _script = GD.Load<CSharpScript>(
@@ -22,7 +23,6 @@ public static class ScriptInfoTest
         ).New().As<CSharpScript>();
     }
 
-    [AfterAll]
     public static void AfterAll()
     {
         _script!.Dispose();
