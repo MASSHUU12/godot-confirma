@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
   - StringFormatter
   - CollectionFormatter
 - Constructor to ConfirmAssertException which automatically generates a message.
+- Documentation for custom assertions.
 
 ### Changed
 
