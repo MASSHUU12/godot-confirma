@@ -17,8 +17,12 @@ public static class ConfirmTypeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected object of type {1}, but got {2}.",
+            nameof(ConfirmType),
+            null,
+            expected.Name,
+            actual?.GetType().Name,
             message
-            ?? $"Expected object of type {expected} but found: {actual?.GetType().Name}"
         );
     }
 
@@ -40,8 +44,12 @@ public static class ConfirmTypeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected object not to be of type {1}.",
+            nameof(ConfirmNotType),
+            null,
+            expected.Name,
+            null,
             message
-            ?? $"Expected object not to be of type {expected} but found: {actual?.GetType().Name}"
         );
     }
 

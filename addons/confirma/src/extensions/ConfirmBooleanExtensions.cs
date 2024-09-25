@@ -1,4 +1,5 @@
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -11,13 +12,14 @@ public static class ConfirmBooleanExtensions
             return actual;
         }
 
-        return message is not null
-            ? throw new ConfirmAssertException(message)
-            : throw new ConfirmAssertException(
-                nameof(ConfirmTrue),
-                true,
-                actual
-            );
+        throw new ConfirmAssertException(
+            Formatter.DefaultFormat,
+            nameof(ConfirmTrue),
+            null,
+            true,
+            actual,
+            message
+        );
     }
 
     public static bool ConfirmFalse(this bool actual, string? message = null)
@@ -27,12 +29,13 @@ public static class ConfirmBooleanExtensions
             return actual;
         }
 
-        return message is not null
-            ? throw new ConfirmAssertException(message)
-            : throw new ConfirmAssertException(
-                nameof(ConfirmFalse),
-                false,
-                actual
-            );
+        throw new ConfirmAssertException(
+            Formatter.DefaultFormat,
+            nameof(ConfirmFalse),
+            null,
+            false,
+            actual,
+            message
+        );
     }
 }
