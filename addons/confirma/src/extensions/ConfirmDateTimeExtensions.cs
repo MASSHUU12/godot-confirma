@@ -1,4 +1,6 @@
 using System;
+using Confirma.Formatters;
+using Confirma.Helpers;
 
 namespace Confirma.Extensions;
 
@@ -12,8 +14,13 @@ public static class ConfirmDateTimeExtensions
     {
         return actual.ConfirmLessThan(
             dateTime,
-            message
-            ?? $"{actual.ToUniversalTime()} is not before {dateTime.ToUniversalTime()}."
+            message ?? new AssertionMessageGenerator(
+                "Expected {1} to be before {2}.",
+                nameof(ConfirmIsBefore),
+                new DefaultFormatter(),
+                dateTime.ToUniversalTime(),
+                actual.ToUniversalTime()
+            ).GenerateMessage()
         );
     }
 
@@ -25,8 +32,13 @@ public static class ConfirmDateTimeExtensions
     {
         return actual.ConfirmLessThanOrEqual(
             dateTime,
-            message
-            ?? $"{actual.ToUniversalTime()} is not on or before {dateTime.ToUniversalTime()}."
+            message ?? new AssertionMessageGenerator(
+                "Expected {1} to be on or before {2}.",
+                nameof(ConfirmIsOnOrBefore),
+                new DefaultFormatter(),
+                dateTime.ToUniversalTime(),
+                actual.ToUniversalTime()
+            ).GenerateMessage()
         );
     }
 
@@ -38,8 +50,13 @@ public static class ConfirmDateTimeExtensions
     {
         return actual.ConfirmGreaterThan(
             dateTime,
-            message
-            ?? $"{actual.ToUniversalTime()} is not after {dateTime.ToUniversalTime()}."
+            message ?? new AssertionMessageGenerator(
+                "Expected {1} to be after {2}.",
+                nameof(ConfirmIsAfter),
+                new DefaultFormatter(),
+                dateTime.ToUniversalTime(),
+                actual.ToUniversalTime()
+            ).GenerateMessage()
         );
     }
 
@@ -51,8 +68,13 @@ public static class ConfirmDateTimeExtensions
     {
         return actual.ConfirmGreaterThanOrEqual(
             dateTime,
-            message
-            ?? $"{actual.ToUniversalTime()} is not on or after {dateTime.ToUniversalTime()}."
+            message ?? new AssertionMessageGenerator(
+                "Expected {1} to be on or after {2}.",
+                nameof(ConfirmIsOnOrAfter),
+                new DefaultFormatter(),
+                dateTime.ToUniversalTime(),
+                actual.ToUniversalTime()
+            ).GenerateMessage()
         );
     }
 }

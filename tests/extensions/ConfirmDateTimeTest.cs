@@ -13,7 +13,10 @@ public static class ConfirmDateTimeTest
     [TestCase(5, 15)]
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsBefore_WhenIsBefore(long actualTicks, long dateTicks)
+    public static void ConfirmIsBefore_WhenIsBefore(
+        long actualTicks,
+        long dateTicks
+    )
     {
         _ = new DateTime(actualTicks).ConfirmIsBefore(new(dateTicks));
     }
@@ -21,11 +24,21 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 15)]
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsBefore_WhenIsNotBefore(long actualTicks, long dateTicks)
+    public static void ConfirmIsBefore_WhenIsNotBefore(
+        long actualTicks,
+        long dateTicks
+    )
     {
-        Action action = () => new DateTime(actualTicks).ConfirmIsBefore(new(dateTicks));
+        DateTime expected = new(dateTicks);
+        DateTime actual = new(actualTicks);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        Action action = () => actual.ConfirmIsBefore(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsBefore failed: "
+            + $"Expected {actual.ToUniversalTime()} to be "
+            + $"before {expected.ToUniversalTime()}."
+        );
     }
     #endregion ConfirmIsBefore
 
@@ -34,18 +47,31 @@ public static class ConfirmDateTimeTest
     [TestCase(5, 15)]
     [TestCase(2137, 2137)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsOnOrBefore_WhenIsOnOrBefore(long actualTicks, long dateTicks)
+    public static void ConfirmIsOnOrBefore_WhenIsOnOrBefore(
+        long actualTicks,
+        long dateTicks
+    )
     {
         _ = new DateTime(actualTicks).ConfirmIsOnOrBefore(new(dateTicks));
     }
 
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(long actualTicks, long dateTicks)
+    public static void ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(
+        long actualTicks,
+        long dateTicks
+    )
     {
-        Action action = () => new DateTime(actualTicks).ConfirmIsOnOrBefore(new(dateTicks));
+        DateTime expected = new(dateTicks);
+        DateTime actual = new(actualTicks);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        Action action = () => actual.ConfirmIsOnOrBefore(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsOnOrBefore failed: "
+            + $"Expected {actual.ToUniversalTime()} to be on or "
+            + $"before {expected.ToUniversalTime()}."
+        );
     }
     #endregion ConfirmIsOnOrBefore
 
@@ -53,7 +79,10 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 5)]
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsAfter_WhenIsAfter(long actualTicks, long dateTicks)
+    public static void ConfirmIsAfter_WhenIsAfter(
+        long actualTicks,
+        long dateTicks
+    )
     {
         _ = new DateTime(actualTicks).ConfirmIsAfter(new(dateTicks));
     }
@@ -61,11 +90,21 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 15)]
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsAfter_WhenIsNotAfter(long actualTicks, long dateTicks)
+    public static void ConfirmIsAfter_WhenIsNotAfter(
+        long actualTicks,
+        long dateTicks
+    )
     {
-        Action action = () => new DateTime(actualTicks).ConfirmIsAfter(new(dateTicks));
+        DateTime expected = new(dateTicks);
+        DateTime actual = new(actualTicks);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        Action action = () => actual.ConfirmIsAfter(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsAfter failed: "
+            + $"Expected {actual.ToUniversalTime()} to be "
+            + $"after {expected.ToUniversalTime()}."
+        );
     }
     #endregion ConfirmIsAfter
 
@@ -74,18 +113,31 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 5)]
     [TestCase(2137, 2137)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsOnOrAfter_WhenIsOnOrAfter(long actualTicks, long dateTicks)
+    public static void ConfirmIsOnOrAfter_WhenIsOnOrAfter(
+        long actualTicks,
+        long dateTicks
+    )
     {
         _ = new DateTime(actualTicks).ConfirmIsOnOrAfter(new(dateTicks));
     }
 
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(long actualTicks, long dateTicks)
+    public static void ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(
+        long actualTicks,
+        long dateTicks
+    )
     {
-        Action action = () => new DateTime(actualTicks).ConfirmIsOnOrAfter(new(dateTicks));
+        DateTime expected = new(dateTicks);
+        DateTime actual = new(actualTicks);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        Action action = () => actual.ConfirmIsOnOrAfter(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsOnOrAfter failed: "
+            + $"Expected {actual.ToUniversalTime()} to be on or "
+            + $"after {expected.ToUniversalTime()}."
+        );
     }
     #endregion ConfirmIsOnOrAfter
 }
