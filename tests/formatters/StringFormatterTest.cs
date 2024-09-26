@@ -35,6 +35,12 @@ public static class StringFormatterTest
     }
 
     [TestCase]
+    public static void Format_Char_ReturnsValidString()
+    {
+        _ = new StringFormatter('\'')!.Format('c').ConfirmEqual("'c'");
+    }
+
+    [TestCase]
     public static void Format_ValueToString_ReturnsExpectedString()
     {
         object value = "Hello, World!";
