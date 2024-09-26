@@ -11,6 +11,7 @@ public static class AutomaticFormatterTest
     private static readonly AutomaticFormatter _formatter = new();
 
     [TestCase("Hello, World!", "\"Hello, World!\"")]
+    [TestCase('c', "'c'")]
     [TestCase(12345, "12,345")]
     [TestCase(12345u, "12,345")]
     [TestCase((byte)123, "123")]
