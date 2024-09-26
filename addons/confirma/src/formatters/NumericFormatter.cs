@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Numerics;
 
 namespace Confirma.Formatters;
@@ -35,8 +36,10 @@ public class NumericFormatter : Formatter
             Type t when t == typeof(double) => FormatFloats((double)value),
             Type t when t == typeof(decimal) => FormatFloats((decimal)value),
             // Other
-            Type t when typeof(INumber<>).IsAssignableFrom(value?.GetType())
-                => value?.ToString() ?? "null",
+            Type t when t.GetInterfaces().Any(
+                static i => i.IsGenericType
+                && i.GetGenericTypeDefinition() == typeof(INumber<>)
+            ) => value?.ToString() ?? "null",
             _ => new DefaultFormatter().Format(value),
         };
     }

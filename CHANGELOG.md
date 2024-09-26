@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
   - CollectionHelper
   - Formatter
 - Formatters:
+  - AutomaticFormatter
   - DefaultFormatter
   - NumericFormatter
   - StringFormatter
@@ -28,6 +29,7 @@ All notable changes to this project will be documented in this file.
 
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
+- Adjusted most of the assertion messages.
 
 ### Fixed
 
