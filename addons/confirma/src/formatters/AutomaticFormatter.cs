@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Godot;
 
 namespace Confirma.Formatters;
 
@@ -14,7 +15,9 @@ public class AutomaticFormatter : Formatter
             Type t when t == typeof(string)
                 => new StringFormatter().Format(value),
             Type t when t == typeof(char)
-                => new StringFormatter('\'')!.Format(value),
+                => new StringFormatter('\'').Format(value),
+            Type t when t == typeof(Variant)
+                => new VariantFormatter().Format(value),
             Type t when t.GetInterfaces().Any(
                 static i => i.IsGenericType
                 && i.GetGenericTypeDefinition() == typeof(INumber<>)
