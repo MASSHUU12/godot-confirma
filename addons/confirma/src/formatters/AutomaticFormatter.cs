@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Numerics;
 using Confirma.Helpers;
 using Godot;
@@ -18,10 +17,8 @@ public class AutomaticFormatter : Formatter
                 => new StringFormatter('\'').Format(value),
             Type t when t == typeof(Variant)
                 => new VariantFormatter().Format(value),
-            Type t when t.GetInterfaces().Any(
-                static i => i.IsGenericType
-                && i.GetGenericTypeDefinition() == typeof(INumber<>)
-            ) => new NumericFormatter().Format(value),
+            Type t when t.ImplementsAny(typeof(INumber<>))
+                => new NumericFormatter().Format(value),
             Type t when t.IsCollection()
                 => new CollectionFormatter().Format(value),
             _ => new DefaultFormatter().Format(value),

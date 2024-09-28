@@ -69,7 +69,7 @@ public static class ConfirmArrayExtensions
         throw new ConfirmAssertException(
             "Expected array to contain: {1}.",
             nameof(ConfirmContains),
-            null, // TODO: Create automatic formatter
+            new AutomaticFormatter(),
             expected,
             null,
             message
@@ -90,7 +90,7 @@ public static class ConfirmArrayExtensions
         throw new ConfirmAssertException(
             "Expected array to not contain: {1}.",
             nameof(ConfirmNotContains),
-            null, // TODO: Create automatic formatter
+            new AutomaticFormatter(),
             expected,
             null,
             message

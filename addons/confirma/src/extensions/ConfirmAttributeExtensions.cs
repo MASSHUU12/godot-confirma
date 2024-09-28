@@ -1,6 +1,5 @@
 using System;
 using Confirma.Exceptions;
-using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
