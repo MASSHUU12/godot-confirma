@@ -10,17 +10,12 @@ public class VectorFormatter : Formatter
         return value?.GetType() switch
         {
             Type t when t == typeof(Vector2)
-                => $"Vector2{value}",
-            Type t when t == typeof(Vector2I)
-                => $"Vector2I{value}",
-            Type t when t == typeof(Vector3)
-                => $"Vector3{value}",
-            Type t when t == typeof(Vector3I)
-                => $"Vector3I{value}",
-            Type t when t == typeof(Vector4)
-                => $"Vector4{value}",
-            Type t when t == typeof(Vector4I)
-                => $"Vector4I{value}",
+            || t == typeof(Vector2I)
+            || t == typeof(Vector3)
+            || t == typeof(Vector3I)
+            || t == typeof(Vector4)
+            || t == typeof(Vector4I)
+                => $"{t.Name}{value}",
             _ => new DefaultFormatter().Format(value),
         };
     }
