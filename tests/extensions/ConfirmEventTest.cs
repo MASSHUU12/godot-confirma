@@ -19,7 +19,7 @@ public static class ConfirmEventTest
     private class TestEventArgs : EventArgs { }
 
     [TestCase]
-    public static void TestRaises_WhenTestRaises()
+    public static void ConfirmRaisesEvent_WhenTestRaises()
     {
         Action action = static () => OnTestEvent(new());
 
@@ -27,7 +27,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void TestRaises_WhenTestDoesNotRaise()
+    public static void ConfirmRaisesEvent_WhenTestDoesNotRaise()
     {
         Action action = static () =>
         {
@@ -39,7 +39,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void TestDoesNotRaise_WhenTestDoesNotRaise()
+    public static void ConfirmDoesNotRaiseEvent_WhenTestDoesNotRaise()
     {
         Action action = static () => { /* No event raise here */ };
 
@@ -47,7 +47,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void TestDoesNotRaise_WhenTestRaises()
+    public static void ConfirmDoesNotRaiseEvent_WhenTestRaises()
     {
         Action action = static () =>
         {

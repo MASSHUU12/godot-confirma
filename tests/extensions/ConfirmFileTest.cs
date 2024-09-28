@@ -25,7 +25,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmIsFile();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsFile failed: "
+            + $"Expected file \"{path}\" to exist."
+        );
     }
     #endregion ConfirmIsFile
 
@@ -41,7 +44,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmIsNotFile();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotFile failed: "
+            + $"Expected file \"{path}\" to not exist."
+        );
     }
     #endregion ConfirmIsNotFile
 
@@ -57,7 +63,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmIsDirectory();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsDirectory failed: "
+            + $"Expected directory \"{path}\" to exist."
+        );
     }
     #endregion ConfirmIsDirectory
 
@@ -73,7 +82,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmIsNotDirectory();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotDirectory failed: "
+            + $"Expected directory \"{path}\" to not exist."
+        );
     }
     #endregion ConfirmIsNotDirectory
 
@@ -95,7 +107,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileContains(content);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileContains failed: "
+            + $"Expected file \"{path}\" to contain \"{content}\"."
+        );
     }
     #endregion ConfirmFileContains
 
@@ -117,7 +132,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileDoesNotContain(content);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileDoesNotContain failed: "
+            + $"Expected file \"{path}\" to not contain \"{content}\"."
+        );
     }
     #endregion ConfirmFileDoesNotContain
 
@@ -139,7 +157,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileHasLength(length);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileHasLength failed: "
+            + $"Expected file \"{path}\" to has length 1, but got 1,066."
+        );
     }
     #endregion ConfirmFileHasLength
 
@@ -161,7 +182,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileDoesNotHaveLength(length);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileDoesNotHaveLength failed: "
+            + $"Expected file \"{path}\" to not have length of 1,066"
+        );
     }
     #endregion ConfirmFileDoesNotHaveLength
 
@@ -183,7 +207,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileHasAttributes(attributes);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileDoesNotContain failed: "
+            + $"Expected file \"{path}\" to have attributes \"Hidden\"."
+        );
     }
     #endregion ConfirmFileHasAttributes
 
@@ -205,7 +232,10 @@ public static class ConfirmFileTest
     {
         Action action = () => ((StringName)path).ConfirmFileDoesNotHaveAttributes(attributes);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmFileDoesNotContain failed: "
+            + $"Expected file \"{path}\" to not have attributes \"Normal\"."
+        );
     }
     #endregion ConfirmFileDoesNotHaveAttributes
 }

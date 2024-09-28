@@ -1,5 +1,6 @@
 using System.Linq;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -22,8 +23,12 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1}, but got {2}.",
+            nameof(ConfirmEqual),
+            new AutomaticFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected '{expected}' but got '{actual}'."
         );
     }
 
@@ -39,8 +44,12 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1}, but got {2}.",
+            nameof(ConfirmEqual),
+            new AutomaticFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
         );
     }
 
@@ -61,8 +70,12 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected not {1}, but got {2}.",
+            nameof(ConfirmNotEqual),
+            new AutomaticFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected not '{expected}' but got '{actual}'."
         );
     }
 
@@ -78,8 +91,12 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected not {1}, but got {2}.",
+            nameof(ConfirmNotEqual),
+            new AutomaticFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected not '{string.Join(", ", expected)}' but got '{string.Join(", ", actual)}'."
         );
     }
 }

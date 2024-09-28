@@ -1,5 +1,6 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -24,14 +25,22 @@ public static class ConfirmExceptionExtensions
             }
 
             throw new ConfirmAssertException(
+                "Expected {1} to be thrown instead of {2}.",
+                nameof(ConfirmThrows),
+                null,
+                e.Name,
+                ex.GetType().Name,
                 message
-                ?? $"Expected {e.Name} exception, but got {ex.GetType().Name} instead."
             );
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be thrown, but no exception was thrown.",
+            nameof(ConfirmThrows),
+            null,
+            e.Name,
+            null,
             message
-            ?? $"Expected {e.Name} exception, but no exception was thrown."
         );
     }
 
@@ -77,8 +86,12 @@ public static class ConfirmExceptionExtensions
             if (ex.GetType() == e)
             {
                 throw new ConfirmAssertException(
+                    "Expected {1} not to be thrown.",
+                    nameof(ConfirmNotThrows),
+                    null,
+                    e.Name,
+                    null,
                     message
-                    ?? $"Did not expect {e.Name} exception, but it was thrown."
                 );
             }
         }
@@ -134,37 +147,52 @@ public static class ConfirmExceptionExtensions
             if (ex.GetType() != e && ex.Message != exMessage)
             {
                 throw new ConfirmAssertException(
-                    message
-                    ?? $"Expected {e.Name} exception with message '{exMessage}', "
-                    + $"but got {ex.GetType().Name} exception {(
-                        string.IsNullOrEmpty(ex.Message)
+                    $"Expected {e.Name} to be thrown with message "
+                    + "{1}, but got {2} "
+                    + $"{ex.GetType().Name} instead.",
+                    nameof(ConfirmThrowsWMessage),
+                    new StringFormatter(),
+                    exMessage,
+                    string.IsNullOrEmpty(ex.Message)
                         ? "without a message"
-                        : $"with message '{ex.Message}'"
-                    )} instead."
+                        : $"with message \"{ex.Message}\"",
+                    message
                 );
             }
 
             if (ex.GetType() != e)
             {
                 throw new ConfirmAssertException(
+                    "Expected {1} to be thrown, but got {2} instead.",
+                    nameof(ConfirmThrowsWMessage),
+                    null,
+                    e.Name,
+                    ex.GetType().Name,
                     message
-                    ?? $"Expected {e.Name} exception, but got {ex.GetType().Name} exception instead."
                 );
             }
 
             if (ex.Message != exMessage)
             {
                 throw new ConfirmAssertException(
+                    $"Expected {e.Name} to be thrown with message "
+                    + "{1} but got {2} instead.",
+                    nameof(ConfirmThrowsWMessage),
+                    new StringFormatter(),
+                    exMessage,
+                    ex.Message,
                     message
-                    ?? $"Expected exception to be thrown with message '{exMessage}', "
-                    + $"but got message '{ex.Message}' instead."
                 );
             }
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be thrown, but no exception was thrown.",
+            nameof(ConfirmThrowsWMessage),
+            null,
+            e.Name,
+            null,
             message
-            ?? $"Expected {e.Name} exception, but no exception was thrown."
         );
     }
 
@@ -214,8 +242,13 @@ public static class ConfirmExceptionExtensions
             if (ex.GetType() == e)
             {
                 throw new ConfirmAssertException(
+                    $"Expected {e.Name} not to be thrown with message "
+                    + "{1}.",
+                    nameof(ConfirmNotThrowsWMessage),
+                    new StringFormatter(),
+                    exMessage,
+                    null,
                     message
-                    ?? $"Did not expect {e.Name} exception with message '{exMessage}', but it was thrown."
                 );
             }
         }

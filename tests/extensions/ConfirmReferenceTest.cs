@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
@@ -18,16 +19,31 @@ public static class ConfirmReferenceTest
         _ = obj.ConfirmSameReference(obj);
     }
 
-    [TestCase(5, 15)]
-    [TestCase(new byte[] { 1, 2, 3 }, new byte[] { 1, 2, 3 })]
-    [TestCase("Lorem ipsum", "Lorem ipsum")]
+    [TestCase(5, "5", 15, "15")]
+    [TestCase(
+        new byte[] { 1, 2, 3 },
+        "[1, 2, 3]",
+        new byte[] { 1, 2, 3 },
+        "[1, 2, 3]"
+    )]
+    [TestCase(
+        "Lorem ipsum",
+        "\"Lorem ipsum\"",
+        "Lorem ipsum",
+        "\"Lorem ipsum\""
+    )]
     public static void ConfirmSameReference_WhenDifferentReferences(
         object obj,
-        object obj2
+        string fobj1,
+        object obj2,
+        string fobj2
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => obj.ConfirmSameReference(obj2)
+        Action action = () => obj.ConfirmSameReference(obj2);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmSameReference failed: "
+            + $"Expected {fobj1} and {fobj2} to be of the same reference."
         );
     }
     #endregion ConfirmSameReference
@@ -44,13 +60,22 @@ public static class ConfirmReferenceTest
         _ = obj.ConfirmDifferentReference(obj2);
     }
 
-    [TestCase(5)]
-    [TestCase(new byte[] { 1, 2, 3 })]
-    [TestCase("Lorem ipsum dolor sit amet")]
-    public static void ConfirmDifferentReference_WhenSameReference(object obj)
+    [TestCase(5, "5")]
+    [TestCase(new byte[] { 1, 2, 3 }, "[1, 2, 3]")]
+    [TestCase(
+        "Lorem ipsum dolor sit amet",
+        "\"Lorem ipsum dolor sit amet\""
+    )]
+    public static void ConfirmDifferentReference_WhenSameReference(
+        object obj,
+        string fobj
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => obj.ConfirmDifferentReference(obj)
+        Action action = () => obj.ConfirmDifferentReference(obj);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmDifferentReference failed: "
+            + $"Expected {fobj} and {fobj} to be of different references."
         );
     }
     #endregion ConfirmDifferentReference

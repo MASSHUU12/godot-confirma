@@ -16,14 +16,17 @@ public static class ConfirmNullTest
         _ = actual.ConfirmNull();
     }
 
-    [TestCase("Lorem ipsum")]
-    [TestCase(2)]
-    public static void ConfirmNull_WhenNotNull(object? actual)
+    [TestCase("Lorem ipsum", "\"Lorem ipsum\"")]
+    [TestCase(2, "2")]
+    public static void ConfirmNull_WhenNotNull(
+        object? actual,
+        string formatted
+    )
     {
         Action action = () => actual.ConfirmNull();
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            $"Assertion ConfirmNull failed: Expected null but got {actual}."
+            $"Assertion ConfirmNull failed: Expected null but got {formatted}."
         );
     }
 

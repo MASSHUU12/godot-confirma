@@ -1,5 +1,6 @@
 using System.IO;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 using Godot;
 
 namespace Confirma.Extensions;
@@ -17,8 +18,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to exist.",
+            nameof(ConfirmIsFile),
+            new StringFormatter(),
+            path,
+            null,
             message
-            ?? $"File '{path}' does not exist."
         );
     }
 
@@ -33,8 +38,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to not exist.",
+            nameof(ConfirmIsNotFile),
+            new StringFormatter(),
+            path,
+            null,
             message
-            ?? $"File '{path}' exists, but was not expected to."
         );
     }
 
@@ -49,8 +58,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected directory {1} to exist.",
+            nameof(ConfirmIsDirectory),
+            new StringFormatter(),
+            path,
+            null,
             message
-            ?? $"Directory '{path}' does not exist."
         );
     }
 
@@ -65,8 +78,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected directory {1} to not exist.",
+            nameof(ConfirmIsNotDirectory),
+            new StringFormatter(),
+            path,
+            null,
             message
-            ?? $"Directory '{path}' exists, but was not expected to."
         );
     }
 
@@ -82,8 +99,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to contain {2}.",
+            nameof(ConfirmFileContains),
+            new StringFormatter(),
+            path,
+            content,
             message
-            ?? $"File '{path}' does not contain '{content}'."
         );
     }
 
@@ -99,8 +120,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to not contain {2}.",
+            nameof(ConfirmFileDoesNotContain),
+            new StringFormatter(),
+            path,
+            content,
             message
-            ?? $"File '{path}' contains '{content}', but was not expected to."
         );
     }
 
@@ -116,8 +141,13 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            $"Expected file {new StringFormatter().Format(path)} to has length "
+            + "{1}, but got {2}.",
+            nameof(ConfirmFileHasLength),
+            new NumericFormatter(),
+            length,
+            new FileInfo(path).Length,
             message
-            ?? $"File '{path}' has length {new FileInfo(path).Length}, but expected {length}."
         );
     }
 
@@ -133,8 +163,13 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            $"Expected file {new StringFormatter().Format(path)} to not have "
+            + "length of {1}",
+            nameof(ConfirmFileDoesNotHaveLength),
+            new NumericFormatter(),
+            length,
+            null,
             message
-            ?? $"File '{path}' has length {length}, but was not expected to."
         );
     }
 
@@ -150,8 +185,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to have attributes {2}.",
+            nameof(ConfirmFileDoesNotContain),
+            new StringFormatter(),
+            path,
+            attributes,
             message
-            ?? $"File '{path}' does not have attributes '{attributes}'."
         );
     }
 
@@ -167,8 +206,12 @@ public static class ConfirmFileExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected file {1} to not have attributes {2}.",
+            nameof(ConfirmFileDoesNotContain),
+            new StringFormatter(),
+            path,
+            attributes,
             message
-            ?? $"File '{path}' has attributes '{attributes}', but was not expected to."
         );
     }
 }

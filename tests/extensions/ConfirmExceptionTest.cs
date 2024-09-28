@@ -28,7 +28,11 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmThrows<NotImplementedException>();
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmThrows failed: "
+            + "Expected NotImplementedException to be thrown, "
+            + "but no exception was thrown."
+        );
     }
     #endregion ConfirmThrows
 
@@ -51,7 +55,10 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmNotThrows<NotImplementedException>();
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotThrows failed: "
+            + "Expected NotImplementedException not to be thrown."
+        );
     }
     #endregion ConfirmThrows
 
@@ -76,13 +83,20 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmThrowsWMessage<NotImplementedException>(actual);
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmThrowsWMessage failed: "
+            + "Expected NotImplementedException to be thrown, "
+            + "but no exception was thrown."
+        );
     }
 
     [TestCase("", "Expected")]
     [TestCase("Actual", "")]
     [TestCase("Lorem ipsum", "dolor sit amet")]
-    public static void ConfirmThrowsWMessage_WhenThrowsWWrongMessage(string actual, string expected)
+    public static void ConfirmThrowsWMessage_WhenThrowsWWrongMessage(
+        string actual,
+        string expected
+    )
     {
         Action action = () =>
         {
@@ -91,7 +105,11 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmThrowsWMessage<NotImplementedException>(expected);
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmThrowsWMessage failed: "
+            + "Expected NotImplementedException to be thrown with message "
+            + $"\"{expected}\" but got \"{actual}\" instead."
+        );
     }
     #endregion ConfirmThrowsWMessage
 
@@ -116,13 +134,20 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmNotThrowsWMessage<NotImplementedException>(actual);
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotThrowsWMessage failed: "
+            + "Expected NotImplementedException not to be thrown with message "
+            + $"\"{actual}\"."
+        );
     }
 
     [TestCase("", "Expected")]
     [TestCase("Actual", "")]
     [TestCase("Lorem ipsum", "dolor sit amet")]
-    public static void ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(string actual, string expected)
+    public static void ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(
+        string actual,
+        string expected
+    )
     {
         Action action = () =>
         {
@@ -131,7 +156,11 @@ public static class ConfirmExceptionTest
             _ = a.ConfirmNotThrowsWMessage<NotImplementedException>(expected);
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotThrowsWMessage failed: "
+            + "Expected NotImplementedException not to be thrown with message "
+            + $"\"{expected}\"."
+        );
     }
     #endregion ConfirmNotThrowsWMessage
 }
