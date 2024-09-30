@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bl21wviqvff84"]
+[gd_scene load_steps=14 format=3 uid="uid://bl21wviqvff84"]
 
 [ext_resource type="Script" path="res://addons/confirma/src/scenes/confirma_bottom_panel/ConfirmaBottomPanel.cs" id="1_cnf8q"]
 [ext_resource type="PackedScene" uid="uid://baxebi0q3s62s" path="res://addons/confirma/src/scenes/test_runner_editor/TestRunnerEditor.tscn" id="2_80bgg"]
+[ext_resource type="PackedScene" uid="uid://dfsrvti4y1gl5" path="res://addons/confirma/src/scenes/confirma_bottom_panel_options/confirmaBotomPanelOptions.tscn" id="3_kfbqn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfib7"]
 content_margin_left = 12.0
@@ -212,10 +213,12 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_swiyr")
 
-[node name="Options" type="VBoxContainer" parent="PanelContainer/HSplitContainer/Menu/VBoxContainer"]
-layout_mode = 2
-
-[node name="Verbose" type="CheckBox" parent="PanelContainer/HSplitContainer/Menu/VBoxContainer/Options"]
+[node name="Settings" type="Button" parent="PanelContainer/HSplitContainer/Menu/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Verbose"
+text = "Settings
+"
+
+[node name="SettingsWindow" parent="." instance=ExtResource("3_kfbqn")]
+unique_name_in_owner = true
+visible = false
