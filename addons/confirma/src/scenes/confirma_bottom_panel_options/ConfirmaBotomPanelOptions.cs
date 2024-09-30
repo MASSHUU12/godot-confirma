@@ -8,7 +8,7 @@ using Godot;
 public partial class ConfirmaBotomPanelOptions : Window
 {
     #nullable disable
-    private CheckBox _verbose;
+    private CheckBox _verbose, _parallelize;
     private TextEdit _category;
     private ConfirmaAutoload _autoload;
     #nullable restore
@@ -18,6 +18,7 @@ public partial class ConfirmaBotomPanelOptions : Window
         CloseRequested += CloseRequest;
 
         _verbose = GetNode<CheckBox>("%Verbose");
+        _parallelize = GetNode<CheckBox>("%Parallelize");
         _category = GetNode<TextEdit>("%Category");
 
         _ = CallDeferred("LateInit");
@@ -28,6 +29,8 @@ public partial class ConfirmaBotomPanelOptions : Window
         _autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
         _verbose.Toggled += (bool on) => _autoload.Props.IsVerbose = on;
+
+        _parallelize.Toggled += (bool on) => _autoload.Props.DisableParallelization = on;
 
         _category.TextChanged += () =>
         {

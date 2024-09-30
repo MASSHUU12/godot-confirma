@@ -180,6 +180,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_bktxl")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -206,8 +208,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Verbose"
 
-[node name="Parallelization" type="CheckBox" parent="PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="Parallelize" type="CheckBox" parent="PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-disabled = true
 text = "Disable parallelization"
