@@ -3,6 +3,7 @@ using Confirma.Extensions;
 
 namespace Confirma.Tests;
 
+[AfterAll]
 [TestClass]
 [Parallelizable]
 public static class RepeatAttributeTest
@@ -17,7 +18,6 @@ public static class RepeatAttributeTest
         _ = _runCount.ConfirmIsPositive().ConfirmLessThanOrEqual(5);
     }
 
-    [AfterAll]
     public static void AfterAll()
     {
         _ = _runCount.ConfirmEqual(5);

@@ -2,5 +2,9 @@ using System;
 
 namespace Confirma.Attributes;
 
-[AttributeUsage(AttributeTargets.Method)]
-public class SetUpAttribute : Attribute { }
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+public class SetUpAttribute : LifecycleAttribute
+{
+    public SetUpAttribute(string methodName = "SetUp")
+    : base(methodName) { }
+}
