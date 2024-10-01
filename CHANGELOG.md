@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
   - Ignore.gd
   - RunTarget.gd
   - Settings.cs
+  - ConfirmaBotomPanelOptions.cs
 - ELifecycleMethodName enum.
 - Support for lifecycle methods in GDScript:
   - after_all
@@ -40,6 +41,9 @@ All notable changes to this project will be documented in this file.
 - "GDScript Tests Folder" project setting.
 - Documentation for settings.
 - A clear distinction between C# and GDScript tests when displaying results.
+- New settings window
+- [#178] Allow changing category via editor
+- Allow disabling parallelization via editor
 - Base class for lifecycle attributes (LifecycleAttribute).
 
 ### Changed
@@ -53,6 +57,7 @@ All notable changes to this project will be documented in this file.
 - GdTestDiscovery & GdTestExecutor now use GdScriptInfo instead of ScriptInfo.
 - GDScript tests folder can be passed as global or localized path.
 - `Print` and `PrintLine` methods from Log class support list of arguments.
+- Move verbose switch to new settings window
 - From now on, lifecycle attributes are assigned to a class,
 not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
