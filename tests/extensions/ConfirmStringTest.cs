@@ -25,7 +25,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "not empty".ConfirmEmpty();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEmpty failed: "
+            + "Expected empty string, but got \"not empty\"."
+        );
     }
     #endregion ConfirmEmpty
 
@@ -41,7 +44,9 @@ public static class ConfirmStringTest
     {
         Action action = static () => "".ConfirmNotEmpty();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEmpty failed: Expected non-empty string."
+        );
     }
     #endregion ConfirmNotEmpty
 
@@ -57,7 +62,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "not contains".ConfirmContains("xxx");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContains failed: "
+            + "Expected string to contain \"xxx\", but got \"not contains\"."
+        );
     }
     #endregion ConfirmContains
 
@@ -73,7 +81,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "contains".ConfirmNotContains("tai");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContains failed: "
+            + "Expected string to not contain \"tai\", but got \"contains\"."
+        );
     }
     #endregion ConfirmNotContains
 
@@ -89,7 +100,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "not starts with".ConfirmStartsWith("xxx");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmStartsWith failed: Expected string "
+            + "to start with \"xxx\", but got \"not starts with\"."
+        );
     }
     #endregion ConfirmStartsWith
 
@@ -105,7 +119,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "starts with".ConfirmNotStartsWith("sta");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotStartsWith failed: Expected string "
+            + "to not start with \"sta\", but got \"starts with\"."
+        );
     }
     #endregion ConfirmNotStartsWith
 
@@ -121,7 +138,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "not ends with".ConfirmEndsWith("xxx");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEndsWith failed: Expected string "
+            + "to end with \"xxx\", but got \"not ends with\"."
+        );
     }
     #endregion ConfirmEndsWith
 
@@ -137,7 +157,10 @@ public static class ConfirmStringTest
     {
         Action action = static () => "ends with".ConfirmNotEndsWith("ith");
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEndsWith failed: Expected string "
+            + "to not end with \"ith\", but got \"ends with\"."
+        );
     }
     #endregion ConfirmNotEndsWith
 
@@ -155,7 +178,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmHasLength(length);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmHasLength failed: Expected string "
+            + $"to have length of {length}, but got {value.Length}."
+        );
     }
     #endregion ConfirmHasLength
 
@@ -173,7 +199,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmNotHasLength(length);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotHasLength failed: Expected string "
+            + $"to not have length of {length}."
+        );
     }
     #endregion ConfirmNotHasLength
 
@@ -199,7 +228,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmEqualsCaseInsensitive(expected);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqualsCaseInsensitive failed: Expected string "
+            + $"to equal \"{value}\", but got \"{expected}\"."
+        );
     }
     #endregion ConfirmEqualsCaseInsensitive
 
@@ -225,7 +257,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmNotEqualsCaseInsensitive(expected);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEqualsCaseInsensitive failed: Expected string "
+            + $"to not equal \"{value}\"."
+        );
     }
     #endregion ConfirmNotEqualsCaseInsensitive
 
@@ -249,7 +284,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmMatchesPattern(pattern);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmMatchesPattern failed: Expected string "
+            + $"\"{value}\" to match pattern \"{pattern}\"."
+        );
     }
     #endregion ConfirmMatchesPattern
 
@@ -273,7 +311,10 @@ public static class ConfirmStringTest
     {
         Action action = () => value.ConfirmDoesNotMatchPattern(pattern);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmDoesNotMatchPattern failed: Expected string "
+            + $"\"{value}\" to not match pattern \"{pattern}\"."
+        );
     }
     #endregion ConfirmDoesNotMatchPattern
 
@@ -290,7 +331,12 @@ public static class ConfirmStringTest
     [TestCase("HELLO")]
     public static void ConfirmLowercase_WhenStringIsNotLowercase(string str)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => str.ConfirmLowercase());
+        Action action = () => str.ConfirmLowercase();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmLowercase failed: Expected "
+            + $"\"{str}\" to be lowercase."
+        );
     }
     #endregion ConfirmLowercase
 
@@ -307,7 +353,12 @@ public static class ConfirmStringTest
     [TestCase("hellO")]
     public static void ConfirmUppercase_WhenStringIsNotUppercase(string str)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => str.ConfirmUppercase());
+        Action action = () => str.ConfirmUppercase();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmUppercase failed: Expected "
+            + $"\"{str}\" to be uppercase."
+        );
     }
     #endregion ConfirmUppercase
 }

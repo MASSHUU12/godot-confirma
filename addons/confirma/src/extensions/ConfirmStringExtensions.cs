@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 using static System.StringComparison;
 
 namespace Confirma.Extensions;
@@ -19,8 +20,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected empty string, but got {1}.",
+            nameof(ConfirmEmpty),
+            new StringFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected empty string but found: {actual}"
         );
     }
 
@@ -35,8 +40,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected non-empty string.",
+            nameof(ConfirmNotEmpty),
+            null,
+            null,
+            null,
             message
-            ?? $"Expected non-empty string but found: {actual}"
         );
     }
     #endregion ConfirmEmpty
@@ -55,8 +64,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to contain {1}, but got {2}.",
+            nameof(ConfirmContains),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to contain: {expected} but found: {actual}"
         );
     }
 
@@ -72,8 +85,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to not contain {1}, but got {2}.",
+            nameof(ConfirmNotContains),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to not contain: {expected} but found: {actual}"
         );
     }
     #endregion ConfirmContains
@@ -91,8 +108,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to start with {1}, but got {2}.",
+            nameof(ConfirmStartsWith),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to start with: {expected} but found: {actual}"
         );
     }
 
@@ -108,8 +129,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to not start with {1}, but got {2}.",
+            nameof(ConfirmNotStartsWith),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to not start with: {expected} but found: {actual}"
         );
     }
     #endregion ConfirmStartsWith
@@ -127,8 +152,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to end with {1}, but got {2}.",
+            nameof(ConfirmEndsWith),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to end with: {expected} but found: {actual}"
         );
     }
 
@@ -144,44 +173,56 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to not end with {1}, but got {2}.",
+            nameof(ConfirmNotEndsWith),
+            new StringFormatter(),
+            expected,
+            actual,
             message
-            ?? $"Expected string to not end with: {expected} but found: {actual}"
         );
     }
     #endregion ConfirmEndsWith
 
     #region ConfirmHasLength
-    public static string? ConfirmHasLength(
-        this string? actual,
+    public static string ConfirmHasLength(
+        this string actual,
         int expected,
         string? message = null
     )
     {
-        if (actual?.Length == expected)
+        if (actual.Length == expected)
         {
             return actual;
         }
 
         throw new ConfirmAssertException(
+            "Expected string to have length of {1}, but got {2}.",
+            nameof(ConfirmHasLength),
+            new NumericFormatter(),
+            expected,
+            actual.Length,
             message
-            ?? $"Expected string to have length: {expected} but found: {actual?.Length}"
         );
     }
 
-    public static string? ConfirmNotHasLength(
-        this string? actual,
+    public static string ConfirmNotHasLength(
+        this string actual,
         int expected,
         string? message = null
     )
     {
-        if (actual?.Length != expected)
+        if (actual.Length != expected)
         {
             return actual;
         }
 
         throw new ConfirmAssertException(
+            "Expected string to not have length of {1}.",
+            nameof(ConfirmNotHasLength),
+            new NumericFormatter(),
+            expected,
+            null,
             message
-            ?? $"Expected string to not have length: {expected} but found: {actual?.Length}"
         );
     }
     #endregion ConfirmHasLength
@@ -199,8 +240,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to equal {1}, but got {2}.",
+            nameof(ConfirmEqualsCaseInsensitive),
+            new StringFormatter(),
+            actual,
+            expected,
             message
-            ?? $"Expected string to equal: {expected} but found: {actual}"
         );
     }
 
@@ -216,8 +261,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string to not equal {1}.",
+            nameof(ConfirmNotEqualsCaseInsensitive),
+            new StringFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected string to not equal: {expected} but found: {actual}"
         );
     }
     #endregion ConfirmEqualsCaseInsensitive
@@ -235,8 +284,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string {1} to match pattern {2}.",
+            nameof(ConfirmMatchesPattern),
+            new StringFormatter(),
+            value,
+            pattern,
             message
-            ?? $"Expected string to match pattern '{pattern}'."
         );
     }
 
@@ -252,8 +305,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected string {1} to not match pattern {2}.",
+            nameof(ConfirmDoesNotMatchPattern),
+            new StringFormatter(),
+            value,
+            pattern,
             message
-            ?? $"Expected string to not match pattern '{pattern}'."
         );
     }
     #endregion ConfirmMatchesPattern
@@ -266,8 +323,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be lowercase.",
+            nameof(ConfirmLowercase),
+            new StringFormatter(),
+            value,
+            null,
             message
-            ?? $"Expected {value} to be lowercase."
         );
     }
 
@@ -279,8 +340,12 @@ public static class ConfirmStringExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be uppercase.",
+            nameof(ConfirmUppercase),
+            new StringFormatter(),
+            value,
+            null,
             message
-            ?? $"Expected {value} to be uppercase."
         );
     }
 }
