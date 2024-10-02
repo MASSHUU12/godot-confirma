@@ -1,5 +1,6 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -19,8 +20,13 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            $"Expected {new NumericFormatter().Format(actual)} "
+            + "to be within the range [{1}, {2}].",
+            nameof(ConfirmInRange),
+            new NumericFormatter(),
+            min,
+            max,
             message
-            ?? $"Expected {actual} to be within the range [{min}, {max}]."
         );
     }
 
@@ -38,8 +44,13 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            $"Expected {new NumericFormatter().Format(actual)} "
+            + "to be outside the range [{1}, {2}].",
+            nameof(ConfirmNotInRange),
+            new NumericFormatter(),
+            min,
+            max,
             message
-            ?? $"Expected {actual} to be outside the range [{min}, {max}]."
         );
     }
 
@@ -56,8 +67,12 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be greater than {2}.",
+            nameof(ConfirmGreaterThan),
+            new NumericFormatter(),
+            actual,
+            value,
             message
-            ?? $"Expected {actual} to be greater than {value}."
         );
     }
 
@@ -74,8 +89,12 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be greater than or equal {2}.",
+            nameof(ConfirmGreaterThanOrEqual),
+            new NumericFormatter(),
+            actual,
+            value,
             message
-            ?? $"Expected object to be greater than or equal to {value}, but {actual} was provided."
         );
     }
 
@@ -92,8 +111,12 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be less than {2}.",
+            nameof(ConfirmLessThan),
+            new NumericFormatter(),
+            actual,
+            value,
             message
-            ?? $"Expected object to be less than {value}, but {actual} was provided."
         );
     }
 
@@ -110,8 +133,12 @@ public static class ConfirmRangeExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be less than or equal {2}.",
+            nameof(ConfirmLessThanOrEqual),
+            new NumericFormatter(),
+            actual,
+            value,
             message
-            ?? $"Expected object to be less than or equal to {value}, but {actual} was provided."
         );
     }
 }
