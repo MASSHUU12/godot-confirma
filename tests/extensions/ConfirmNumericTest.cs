@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
@@ -17,11 +18,19 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmIsPositive();
     }
 
-    [TestCase(0f)]
-    [TestCase(-1f)]
-    public static void ConfirmIsPositive_WhenNotPositive(float actual)
+    [TestCase(0f, "0.00000")]
+    [TestCase(-1f, "-1.00000")]
+    public static void ConfirmIsPositive_WhenNotPositive(
+        float actual,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsPositive());
+        Action action = () => actual.ConfirmIsPositive();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsPositive failed: "
+            + $"Expected {formatted} to be positive."
+        );
     }
     #endregion ConfirmIsPositive
 
@@ -33,11 +42,19 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmIsNotPositive();
     }
 
-    [TestCase(1f)]
-    [TestCase(0.1f)]
-    public static void ConfirmIsNotPositive_WhenPositive(float actual)
+    [TestCase(1f, "1.00000")]
+    [TestCase(0.1f, "0.10000")]
+    public static void ConfirmIsNotPositive_WhenPositive(
+        float actual,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsNotPositive());
+        Action action = () => actual.ConfirmIsNotPositive();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotPositive failed: "
+            + $"Expected {formatted} to be not positive."
+        );
     }
     #endregion ConfirmIsNotPositive
 
@@ -49,11 +66,19 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmIsNegative();
     }
 
-    [TestCase(0f)]
-    [TestCase(1f)]
-    public static void ConfirmIsNegative_WhenNotNegative(float actual)
+    [TestCase(0f, "0.00000")]
+    [TestCase(1f, "1.00000")]
+    public static void ConfirmIsNegative_WhenNotNegative(
+        float actual,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsNegative());
+        Action action = () => actual.ConfirmIsNegative();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNegative failed: "
+            + $"Expected {formatted} to be negative."
+        );
     }
     #endregion ConfirmIsNegative
 
@@ -65,11 +90,19 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmIsNotNegative();
     }
 
-    [TestCase(-1f)]
-    [TestCase(-0.1f)]
-    public static void ConfirmIsNotNegative_WhenNegative(float actual)
+    [TestCase(-1f, "-1.00000")]
+    [TestCase(-0.1f, "-0.10000")]
+    public static void ConfirmIsNotNegative_WhenNegative(
+        float actual,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsNotNegative());
+        Action action = () => actual.ConfirmIsNotNegative();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotNegative failed: "
+            + $"Expected {formatted} to be not negative."
+        );
     }
     #endregion ConfirmIsNotNegative
 
@@ -83,9 +116,15 @@ public static class ConfirmNumericTest
 
     [TestCase(-5, false)]
     [TestCase(5, true)]
-    public static void ConfirmSign_WhenIncorrect(int number, bool expected)
+    public static void ConfirmSign_WhenIncorrect(int actual, bool expected)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => number.ConfirmSign(expected));
+        Action action = () => actual.ConfirmSign(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmSign failed: "
+            + $"Expected {actual} to have a "
+            + $"{(expected ? "negative" : "positive")} sign."
+        );
     }
     #endregion ConfirmSign
 
@@ -96,18 +135,46 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmIsZero();
     }
 
-    [TestCase(1f)]
-    [TestCase(-1f)]
-    public static void ConfirmIsZero_WhenNotZero(float actual)
+    [TestCase(1f, "1.00000")]
+    [TestCase(-1f, "-1.00000")]
+    public static void ConfirmIsZero_WhenNotZero(
+        float actual,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsZero());
+        Action action = () => actual.ConfirmIsZero();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsZero failed: "
+            + $"Expected {formatted} to be zero."
+        );
     }
     #endregion ConfirmIsZero
+
+    #region ConfirmIsNotZero
+    [TestCase(1f)]
+    [TestCase(-1f)]
+    public static void ConfirmIsNotZero_WhenNotZero(float actual)
+    {
+        _ = actual.ConfirmIsNotZero();
+    }
+
+    [TestCase(0)]
+    public static void ConfirmIsNotZero_WhenZero(int actual)
+    {
+        Action action = () => actual.ConfirmIsNotZero();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotZero failed: "
+            + $"Expected {actual} to be not zero."
+        );
+    }
+    #endregion ConfirmIsNotZero
 
     #region ConfirmIsOdd
     [TestCase(1)]
     [TestCase(69)]
-    [TestCase(2137)]
+    [TestCase(421)]
     public static void ConfirmIsOdd_WhenIsOdd(int actual)
     {
         _ = actual.ConfirmIsOdd();
@@ -115,17 +182,22 @@ public static class ConfirmNumericTest
 
     [TestCase(2)]
     [TestCase(70)]
-    [TestCase(2138)]
+    [TestCase(420)]
     public static void ConfirmIsOdd_WhenIsEven(int actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsOdd());
+        Action action = () => actual.ConfirmIsOdd();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsOdd failed: "
+            + $"Expected {actual} to be odd."
+        );
     }
     #endregion ConfirmIsOdd
 
     #region ConfirmIsEven
     [TestCase(2)]
     [TestCase(70)]
-    [TestCase(2138)]
+    [TestCase(420)]
     public static void ConfirmIsEven_WhenIsEven(int actual)
     {
         _ = actual.ConfirmIsEven();
@@ -133,10 +205,15 @@ public static class ConfirmNumericTest
 
     [TestCase(1)]
     [TestCase(69)]
-    [TestCase(2137)]
+    [TestCase(421)]
     public static void ConfirmIsEven_WhenIsOdd(int actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmIsEven());
+        Action action = () => actual.ConfirmIsEven();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsEven failed: "
+            + $"Expected {actual} to be even."
+        );
     }
     #endregion ConfirmIsEven
 
@@ -155,17 +232,22 @@ public static class ConfirmNumericTest
         _ = actual.ConfirmCloseTo(expected, tolerance);
     }
 
-    [TestCase(5d, 0d, 1d)]
-    [TestCase(5d, 15d, 1d)]
-    [TestCase(0d, 0.1d, 0.01d)]
+    [TestCase(5d, "5.00000", 0d, "0.00000", 1d)]
+    [TestCase(5d, "5.00000", 15d, "15.00000", 1d)]
+    [TestCase(0d, "0.00000", 0.1d, "0.10000", 0.01d)]
     public static void ConfirmCloseTo_WhenNotCloseTo(
         double actual,
+        string aFormatted,
         double expected,
+        string eFormatted,
         double tolerance
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmCloseTo(expected, tolerance)
+        Action action = () => actual.ConfirmCloseTo(expected, tolerance);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCloseTo failed: "
+            + $"Expected {aFormatted} to be close to {eFormatted}."
         );
     }
     #endregion ConfirmCloseTo
