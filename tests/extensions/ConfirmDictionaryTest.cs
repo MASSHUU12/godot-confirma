@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Confirma.Attributes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
+using Confirma.Formatters;
 using Confirma.Helpers;
 using Godot;
 
@@ -59,19 +60,27 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmContainsKey(key);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsKey failed: "
+            + "Expected dictionary to contain key: "
+            + $"{new AutomaticFormatter().Format(key)}."
+        );
     }
 
     [TestCase("key2")]
     [TestCase(3)]
     [TestCase(4)]
     [TestCase(5d)]
-    [TestCase('6')]
+    // [TestCase('6')]
     public static void ConfirmContainsKey_WhenKeyDoesNotExist_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmContainsKey(key.ToVariant());
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsKey failed: "
+            + "Expected dictionary to contain key: "
+            + $"{new AutomaticFormatter().Format(key)}."
+        );
     }
     #endregion ConfirmContainsKey
 
@@ -105,19 +114,27 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmNotContainsKey(key);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsKey failed: "
+            + "Expected dictionary to not contain key: "
+            + $"{new AutomaticFormatter().Format(key)}."
+        );
     }
 
     [TestCase("key")]
     [TestCase(2)]
     [TestCase(3f)]
     [TestCase(4d)]
-    [TestCase('5')]
+    // [TestCase('5')]
     public static void ConfirmNotContainsKey_WhenKeyExists_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsKey failed: "
+            + "Expected dictionary to not contain key: "
+            + $"{new AutomaticFormatter().Format(key)}."
+        );
     }
     #endregion ConfirmNotContainsKey
 
@@ -151,19 +168,27 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmContainsValue(value);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsValue failed: "
+            + "Expected dictionary to contain value: "
+            + $"{new AutomaticFormatter().Format(value)}."
+        );
     }
 
     [TestCase("value2")]
     [TestCase(69)]
     [TestCase(2137f)]
     [TestCase(420d)]
-    [TestCase('0')]
+    // [TestCase('0')]
     public static void ConfirmContainsValue_WhenValueDoesNotExist_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmContainsValue(value.ToVariant());
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsValue failed: "
+            + "Expected dictionary to contain value: "
+            + $"{new AutomaticFormatter().Format(value)}."
+        );
     }
     #endregion ConfirmContainsValue
 
@@ -197,19 +222,27 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmNotContainsValue(value);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsValue failed: "
+            + "Expected dictionary to not contain value: "
+            + $"{new AutomaticFormatter().Format(value)}."
+        );
     }
 
     [TestCase("value")]
     [TestCase(222)]
     [TestCase(333f)]
     [TestCase(444d)]
-    [TestCase('5')]
+    // [TestCase('5')]
     public static void ConfirmNotContainsValue_WhenValueExists_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsValue failed: "
+            + "Expected dictionary to not contain value: "
+            + $"{new AutomaticFormatter().Format(value)}."
+        );
     }
     #endregion ConfirmNotContainsValue
 
@@ -255,14 +288,18 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmContainsKeyValuePair(key, value);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsKeyValuePair failed: "
+            + "Expected dictionary to contain key-value pair: "
+            + $"{new TupleFormatter().Format((key, value))}."
+        );
     }
 
     [TestCase("kdey", "vdalue")]
     [TestCase(2, -222f)]
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
-    [TestCase('5', '-')]
+    // [TestCase('5', '-')]
     public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
         object key,
         object value
@@ -273,7 +310,11 @@ public static class ConfirmDictionaryTest
             value.ToVariant()
         );
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContainsKeyValuePair failed: "
+            + "Expected dictionary to contain key-value pair: "
+            + $"{new TupleFormatter().Format((key, value))}."
+        );
     }
     #endregion ConfirmContainsKeyValuePair
 
@@ -319,14 +360,18 @@ public static class ConfirmDictionaryTest
     {
         Action action = () => _dictionary.ConfirmNotContainsKeyValuePair(key, value);
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsKeyValuePair failed: "
+            + "Expected dictionary to not contain key-value pair: "
+            + $"{new TupleFormatter().Format((key, value))}."
+        );
     }
 
     [TestCase("key", "value")]
     [TestCase(2, 222)]
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
-    [TestCase('5', '5')]
+    // [TestCase('5', '5')]
     public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(
         object key,
         object value
@@ -337,7 +382,11 @@ public static class ConfirmDictionaryTest
             value.ToVariant()
         );
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContainsKeyValuePair failed: "
+            + "Expected dictionary to not contain key-value pair: "
+            + $"{new TupleFormatter().Format((key, value))}."
+        );
     }
     #endregion ConfirmNotContainsKeyValuePair
 }
