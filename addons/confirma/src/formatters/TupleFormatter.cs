@@ -4,13 +4,12 @@ using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Reflection;
 using Confirma.Helpers;
-using Confirma.Interfaces;
 
 namespace Confirma.Formatters;
 
-public class TupleFormatter : IFormatter
+public class TupleFormatter : Formatter
 {
-    public string Format(object value)
+    public override string Format(object? value)
     {
         return value?.GetType() switch
         {
