@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using Confirma.Helpers;
 using Godot;
 
@@ -21,6 +22,8 @@ public class AutomaticFormatter : Formatter
                 => new NumericFormatter().Format(value),
             Type t when t.IsCollection()
                 => new CollectionFormatter().Format(value),
+            Type t when t.ImplementsAny(typeof(ITuple))
+                => new TupleFormatter().Format(value),
             _ => new DefaultFormatter().Format(value),
         };
     }
