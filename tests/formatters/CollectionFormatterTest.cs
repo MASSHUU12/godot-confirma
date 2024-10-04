@@ -34,16 +34,16 @@ public static class CollectionFormatterTest
         IEnumerable<string> value = new[] { "Hello" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[Hello]");
+        _ = result.ConfirmEqual("[\"Hello\"]");
     }
 
     [TestCase]
     public static void Format_MultipleElementList_ReturnsMultipleElementArrayString()
     {
-        List<int> value = new() { 20, 25 };
+        List<float> value = new() { 20f, 25f };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[20, 25]");
+        _ = result.ConfirmEqual("[20.00000, 25.00000]");
     }
 
     [TestCase]
@@ -61,7 +61,7 @@ public static class CollectionFormatterTest
         object[] value = new[] { "Hello" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[Hello]");
+        _ = result.ConfirmEqual("[\"Hello\"]");
     }
 
     [TestCase]
@@ -70,7 +70,7 @@ public static class CollectionFormatterTest
         object[] value = new[] { "Hello", "World" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[Hello, World]");
+        _ = result.ConfirmEqual("[\"Hello\", \"World\"]");
     }
 
     [TestCase]

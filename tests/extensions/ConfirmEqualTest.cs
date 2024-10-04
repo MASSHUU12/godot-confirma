@@ -98,27 +98,25 @@ public static class ConfirmEqualTest
         _ = o1.ConfirmNotEqual(o2);
     }
 
-    [TestCase(1, "1", 1, "1")]
+    [TestCase(1, 1, "1")]
     [TestCase(
         "Lorem ipsum",
-        "\"Lorem ipsum\"",
         "Lorem ipsum",
         "\"Lorem ipsum\""
     )]
-    [TestCase(3d, "3.00000", 3d, "3.00000")]
-    [TestCase(2f, "2.00000", 2f, "2.00000")]
+    [TestCase(3d, 3d, "3.00000")]
+    [TestCase(2f, 2f, "2.00000")]
     public static void ConfirmNotEqual_WhenEqual(
         object o1,
-        string fo1,
         object o2,
-        string fo2
+        string formatted
     )
     {
         Action action = () => o1.ConfirmNotEqual(o2);
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
             "Assertion ConfirmNotEqual failed: "
-            + $"Expected not {fo2}, but got {fo1}."
+            + $"Expected not {formatted}."
         );
     }
 
@@ -135,8 +133,7 @@ public static class ConfirmEqualTest
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
             "Assertion ConfirmNotEqual failed: "
-            + "Expected not [\"Hello,\", \"world!\"], "
-            + "but got [\"Hello,\", \"world!\"]."
+            + "Expected not [\"Hello,\", \"world!\"]."
         );
     }
 
@@ -152,7 +149,7 @@ public static class ConfirmEqualTest
         };
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Assertion ConfirmNotEqual failed: Expected not [0, 1, 2], but got [0, 1, 2]."
+            "Assertion ConfirmNotEqual failed: Expected not [0, 1, 2]."
         );
     }
     #endregion ConfirmNotEqual

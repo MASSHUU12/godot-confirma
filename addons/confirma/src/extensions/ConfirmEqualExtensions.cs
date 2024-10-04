@@ -70,11 +70,11 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-            "Expected not {1}, but got {2}.",
+            "Expected not {1}.",
             nameof(ConfirmNotEqual),
             new AutomaticFormatter(),
             expected,
-            actual,
+            null,
             message
         );
     }
@@ -91,11 +91,11 @@ public static class ConfirmEqualExtensions
         }
 
         throw new ConfirmAssertException(
-            "Expected not {1}, but got {2}.",
+            "Expected not {1}.",
             nameof(ConfirmNotEqual),
             new AutomaticFormatter(),
             expected,
-            actual,
+            null,
             message
         );
     }

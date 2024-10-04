@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Confirma.Formatters;
 
 namespace Confirma.Helpers;
 
@@ -40,7 +41,7 @@ public static class CollectionHelper
                 continue;
             }
 
-            list.Add(item.ToString() ?? "null");
+            list.Add(new AutomaticFormatter().Format(item));
         }
 
         return $"[{string.Join(", ", list)}]";
