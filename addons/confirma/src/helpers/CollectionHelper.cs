@@ -1,24 +1,25 @@
 using System.Collections.Generic;
+using System.Linq;
 using Confirma.Formatters;
 
 namespace Confirma.Helpers;
 
 public static class CollectionHelper
 {
-    public static string ToString(
-        ICollection<object?> collection,
+    public static string ToString<T>(
+        IEnumerable<T> collection,
         uint depth = 0,
         uint maxDepth = 1
     )
     {
-        if (depth > maxDepth || collection.Count == 0)
+        if (depth > maxDepth || !collection.Any())
         {
             return "[]";
         }
 
         List<string> list = new();
 
-        foreach (object? item in collection)
+        foreach (T item in collection)
         {
             if (item is null)
             {
@@ -26,7 +27,7 @@ public static class CollectionHelper
                 continue;
             }
 
-            if (item is ICollection<object?> e)
+            if (item is IEnumerable<object> e && !(item is string))
             {
                 if (depth + 1 > maxDepth)
                 {
@@ -35,9 +36,7 @@ public static class CollectionHelper
                 }
 
                 string result = ToString(e, depth + 1, maxDepth);
-
                 list.Add($"[{string.Join(", ", result)}]");
-
                 continue;
             }
 

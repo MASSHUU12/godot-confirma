@@ -15,7 +15,7 @@ public class CollectionFormatter : Formatter
         }
         else if (value is IEnumerable b and not string)
         {
-            object?[] array = b.Cast<object?>().ToArray();
+            IEnumerable<object?> array = b.Cast<object?>();
 
             return CollectionHelper.ToString(array);
         }

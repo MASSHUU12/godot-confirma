@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Attributes;
@@ -14,9 +13,7 @@ public static class CollectionHelperTest
     public static void ToString_EmptyEnumerable_ReturnsEmptyArrayString()
     {
         IEnumerable<object> value = Enumerable.Empty<object>();
-        _ = CollectionHelper
-            .ToString((ICollection<object?>)value)
-            .ConfirmEqual("[]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("[]");
     }
 
     [TestCase]
@@ -24,9 +21,7 @@ public static class CollectionHelperTest
     {
         IEnumerable<string> value = new[] { "Hello" };
 
-        _ = CollectionHelper
-            .ToString((ICollection<object?>)value)
-            .ConfirmEqual("[\"Hello\"]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\"]");
     }
 
     [TestCase]
@@ -34,9 +29,7 @@ public static class CollectionHelperTest
     {
         List<float> value = new() { 20f, 25f };
 
-        _ = CollectionHelper
-            .ToString((ICollection<object?>)(value.AsEnumerable()))
-            .ConfirmEqual("[20.00000, 25.00000]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("[20.00000, 25.00000]");
     }
 
     [TestCase]
@@ -44,9 +37,7 @@ public static class CollectionHelperTest
     {
         object[] value = new[] { "Hello" };
 
-        _ = CollectionHelper
-            .ToString(value)
-            .ConfirmEqual("[\"Hello\"]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\"]");
     }
 
     [TestCase]
@@ -54,8 +45,6 @@ public static class CollectionHelperTest
     {
         object[] value = new[] { "Hello", "World" };
 
-        _ = CollectionHelper
-            .ToString(value)
-            .ConfirmEqual("[\"Hello\", \"World\"]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\", \"World\"]");
     }
 }
