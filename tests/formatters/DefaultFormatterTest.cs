@@ -4,13 +4,13 @@ using Confirma.Formatters;
 
 namespace Confirma.Tests;
 
+[SetUp]
 [TestClass]
 [Parallelizable]
 public static class DefaultFormatterTest
 {
     private static DefaultFormatter? _formatter;
 
-    [SetUp]
     public static void SetUp()
     {
         _formatter = new DefaultFormatter();
