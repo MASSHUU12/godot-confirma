@@ -5,7 +5,6 @@ using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
-using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
 
@@ -17,8 +16,12 @@ public class TestingClass
     public bool IsParallelizable { get; init; }
     public IEnumerable<TestingMethod> TestMethods { get; set; }
 
+    private readonly string? _setUpName;
+    private readonly string? _tearDownName;
+    private readonly string? _afterAllName;
+    private readonly string? _beforeAllName;
+
     private TestsProps _props;
-    private readonly Dictionary<string, LifecycleMethodData> _lifecycleMethods = new();
 
     public TestingClass(Type type)
     {
@@ -26,7 +29,11 @@ public class TestingClass
         TestMethods = CsTestDiscovery.DiscoverTestMethods(type);
         IsParallelizable = type.GetCustomAttribute<ParallelizableAttribute>() is not null;
 
-        InitialLookup();
+        _afterAllName = FindLifecycleMethodName(typeof(AfterAllAttribute));
+        _beforeAllName = FindLifecycleMethodName(typeof(BeforeAllAttribute));
+
+        _setUpName = FindLifecycleMethodName(typeof(SetUpAttribute));
+        _tearDownName = FindLifecycleMethodName(typeof(TearDownAttribute));
     }
 
     public TestClassResult Run(TestsProps props)
@@ -36,7 +43,7 @@ public class TestingClass
 
         _props = props;
 
-        warnings += RunLifecycleMethod("BeforeAll", ref testLogs);
+        warnings += RunLifecycleMethod(_beforeAllName, ref testLogs);
 
         if (_props.Target.Target == ERunTargetType.Method
             && !string.IsNullOrEmpty(props.Target.DetailedName)
@@ -49,6 +56,7 @@ public class TestingClass
             if (!TestMethods.Any())
             {
                 testLogs.Add(new(ELogType.Error,
+                    ELangType.CSharp,
                     $"No test methods found with the name '{props.Target.DetailedName}'."
                 ));
 
@@ -58,20 +66,21 @@ public class TestingClass
 
         foreach (TestingMethod method in TestMethods)
         {
-            warnings += RunLifecycleMethod("SetUp", ref testLogs);
+            warnings += RunLifecycleMethod(_setUpName, ref testLogs);
 
             int currentOrphans = GetOrphans();
 
             TestMethodResult methodResult = method.Run(props);
             testLogs.AddRange(methodResult.TestLogs);
 
-            warnings += RunLifecycleMethod("TearDown", ref testLogs);
+            warnings += RunLifecycleMethod(_tearDownName, ref testLogs);
 
             int newOrphans = GetOrphans();
             if (currentOrphans < newOrphans)
             {
                 warnings++;
                 testLogs.Add(new(ELogType.Warning,
+                    ELangType.CSharp,
                     $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
                 ));
             }
@@ -82,63 +91,55 @@ public class TestingClass
             warnings += methodResult.Warnings;
         }
 
-        warnings += RunLifecycleMethod("AfterAll", ref testLogs);
+        warnings += RunLifecycleMethod(_afterAllName, ref testLogs);
 
         return new(passed, failed, ignored, warnings, testLogs);
     }
 
-    private void InitialLookup()
+    private string? FindLifecycleMethodName(Type attributeType)
     {
-        AddLifecycleMethod("BeforeAll", Reflection.GetMethodsWithAttribute<BeforeAllAttribute>(Type));
-        AddLifecycleMethod("AfterAll", Reflection.GetMethodsWithAttribute<AfterAllAttribute>(Type));
-        AddLifecycleMethod("SetUp", Reflection.GetMethodsWithAttribute<SetUpAttribute>(Type));
-        AddLifecycleMethod("TearDown", Reflection.GetMethodsWithAttribute<TearDownAttribute>(Type));
+        Attribute? attribute = Type.GetCustomAttribute(attributeType);
+
+        return attribute is not LifecycleAttribute la
+            ? null
+            : la.MethodName;
     }
 
-    private void AddLifecycleMethod(string name, IEnumerable<MethodInfo> methods)
+    private byte RunLifecycleMethod(string? methodName, ref List<TestLog> testLogs)
     {
-        if (!methods.Any())
-        {
-            return;
-        }
-
-        _lifecycleMethods.Add(name, new(methods.First(), name, methods.Count() > 1));
-    }
-
-    private byte RunLifecycleMethod(string name, ref List<TestLog> testLogs)
-    {
-        if (!_lifecycleMethods.TryGetValue(name, out LifecycleMethodData? method))
+        if (methodName is null)
         {
             return 0;
         }
 
-        if (method.HasMultiple)
-        {
-            testLogs.Add(new(ELogType.Warning,
-                $"Multiple [{name}] methods found in {Type.Name}. "
-                + "Running only the first one.\n"
-            ));
-        }
-
         if (_props.IsVerbose)
         {
-            testLogs.Add(new(ELogType.Info,
-                $"[{name}] {Type.Name}"
+            testLogs.Add(new(ELogType.Info, $"[{methodName}] {Type.Name}"));
+        }
+
+        if (Type.GetMethod(methodName) is not MethodInfo method)
+        {
+            testLogs.Add(new(
+                ELogType.Error,
+                $"- There is no lifecycle method named '{methodName}'.\n"
             ));
+            return 1;
         }
 
         try
         {
-            _ = method.Method.Invoke(null, null);
+            _ = method.Invoke(null, null);
         }
         catch (Exception e)
         {
-            testLogs.Add(new(ELogType.Error,
-                $"- {e.Message}"
+            testLogs.Add(new(
+                ELogType.Error,
+                $"- {e.InnerException?.Message ?? e.Message}\n"
             ));
+            return 1;
         }
 
-        return method.HasMultiple ? (byte)1 : (byte)0;
+        return 0;
     }
 
     private int GetOrphans()

@@ -6,19 +6,19 @@ using Godot;
 
 namespace Confirma.Tests;
 
+[SetUp]
+[TearDown]
 [TestClass]
 [Parallelizable]
 public static class ConfirmSignalTest
 {
     private static Button? _button;
 
-    [SetUp]
     public static void SetUp()
     {
         _button = new();
     }
 
-    [TearDown]
     public static void TearDown()
     {
         _button?.Free();

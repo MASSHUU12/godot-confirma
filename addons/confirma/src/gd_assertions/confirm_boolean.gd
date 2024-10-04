@@ -1,21 +1,18 @@
+@tool
 class_name ConfirmBoolean
+
+static var exts: CSharpScript = load(
+	GdHelper.get_plugin_path() + "wrappers/ConfirmBooleanWrapper.cs"
+).new()
 
 
 static func is_true(actual: bool, message: String = "") -> bool:
-	if (not actual):
-		Confirma.emit_signal(
-			"GdAssertionFailed", 
-			"Expected true but was false." \
-			if message.is_empty() else message
-		)
+	exts.ConfirmTrue(actual, message)
+
 	return actual
 
 
 static func is_false(actual: bool, message: String = "") -> bool:
-	if (actual):
-		Confirma.emit_signal(
-			"GdAssertionFailed",
-			"Expected false but was true." \
-			if message.is_empty() else message
-		)
+	exts.ConfirmFalse(actual, message)
+
 	return actual

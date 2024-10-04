@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
+using Confirma.Enums;
 using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Types;
@@ -52,14 +53,14 @@ public class TestingMethod
                     test.Run();
                     Result.TestsPassed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params);
+                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params, null, ELangType.CSharp);
                     Result.TestLogs.Add(log);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message);
+                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message, ELangType.CSharp);
                     Result.TestLogs.Add(log);
 
                     if (test.Repeat?.FailFast == true)

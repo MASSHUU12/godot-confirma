@@ -19,7 +19,7 @@
 
 ### Features
 
-- Writing and executing tests in C# and GDScript (experimental)
+- Writing and executing tests in C# and GDScript
 - Custom assertion library (over 130 assertions)
 - Extensions for Random class
 - Independent of Godot editor (but can be accessed from Godot)

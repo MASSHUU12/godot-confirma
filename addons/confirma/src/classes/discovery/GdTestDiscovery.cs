@@ -9,16 +9,28 @@ public static class GdTestDiscovery
 {
     private static bool? _testScriptsDirectoryCached = null;
 
-    public static IEnumerable<ScriptInfo> GetTestScripts(string pathToTests)
+    public static IEnumerable<GdScriptInfo> GetTestScripts(
+        string pathToTests,
+        int maxDepth = 16
+    )
     {
-        _testScriptsDirectoryCached ??= Directory.Exists(pathToTests);
+        string globalizedPath = ProjectSettings.GlobalizePath(pathToTests);
+
+        try
+        {
+            _testScriptsDirectoryCached ??= Directory.Exists(globalizedPath);
+        }
+        catch (DirectoryNotFoundException)
+        {
+            yield break;
+        }
 
         if (_testScriptsDirectoryCached == false)
         {
             yield break;
         }
 
-        foreach (string filePath in Directory.EnumerateFiles(pathToTests))
+        foreach (string filePath in Directory.EnumerateFiles(globalizedPath))
         {
             if (!filePath.EndsWith(".gd", StringComparison.Ordinal))
             {
@@ -27,15 +39,21 @@ public static class GdTestDiscovery
 
             GDScript script = GD.Load<GDScript>(filePath);
 
-            // For some reason, when running plugin in the editor,
-            // the scripts are considered impossible to instantiate.
-            if (!script.CanInstantiate() && !Engine.IsEditorHint())
+            if (script.GetBaseScript()?.GetGlobalName().ToString() == "TestClass")
             {
-                script.Dispose();
-                continue;
+                yield return GdScriptInfo.Parse(script);
             }
+        }
 
-            yield return ScriptInfo.Parse(script);
+        if (maxDepth > 1)
+        {
+            foreach (string dirPath in Directory.EnumerateDirectories(globalizedPath))
+            {
+                foreach (GdScriptInfo scriptInfo in GetTestScripts(dirPath, maxDepth - 1))
+                {
+                    yield return scriptInfo;
+                }
+            }
         }
     }
 }

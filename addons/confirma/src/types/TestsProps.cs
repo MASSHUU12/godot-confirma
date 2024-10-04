@@ -1,6 +1,7 @@
 using System;
 using Confirma.Enums;
 using Confirma.Scenes;
+using Godot;
 
 namespace Confirma.Types;
 
@@ -20,7 +21,14 @@ public struct TestsProps
     public bool MonitorOrphans { get; set; }
     public bool DisableGdScript { get; set; }
     public bool DisableParallelization { get; set; }
-    public string GdTestPath { get; set; } = "./gdtests";
+    public string GdTestPath { get; set; } = ProjectSettings
+        .GetSetting(
+            "confirma/config/gdscript_tests_folder",
+            // Note: When changing path here,
+            // remember to change it also in Plugin.cs.
+            "res://gdtests/"
+        )
+        .AsString();
     public string OutputPath { get; set; } = "./test_results.json";
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 

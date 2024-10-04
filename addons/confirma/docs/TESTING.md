@@ -60,14 +60,6 @@ public static void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allo
 }
 ```
 
-#### AfterAll
-
-Runs after all test methods in the class.
-
-#### BeforeAll
-
-Runs before all test methods in the class.
-
 #### Category
 
 Allows to assign a category to a test class.
@@ -83,14 +75,6 @@ or when tests are not run from the specified category.
 The third option can be a bit confusing,
 but allows creating tests that will not be always run,
 but only under certain circumstances.
-
-#### SetUp
-
-Runs before every test method in the class.
-
-#### TearDown
-
-Runs after every test method in the class.
 
 #### TestName
 
@@ -109,6 +93,96 @@ so the order in which the attributes are defined matters.
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
 
-## GDScript (experimental)
+### Lifecycle attributes
 
-The entire GDScript testing system will be revamped.
+All lifecycle attributes are assignable to the test class
+and **not** the method.
+
+They take the name of the method to run, by default the attribute name.
+
+#### AfterAll
+
+Runs after all test methods in the class.
+
+#### BeforeAll
+
+Runs before all test methods in the class.
+
+#### SetUp
+
+Runs before every test method in the class.
+
+#### TearDown
+
+Runs after every test method in the class.
+
+## GDScript
+
+### Writing tests
+
+Testing of GDScript code is possible via exposed wrappers for C# assertions.
+Confirma's current architecture does not allow native assertions
+to be created in GDScript, as the language does not support exceptions.
+
+Confirma searches the selected folder for tests and runs them one by one.
+Each class that contains tests must extends `TestClass` class.
+
+"Chaining" assertions is allowed, so something like this is possible:
+
+```gd
+class_name TestSomething extends TestClass
+
+func something() -> void:
+	ConfirmRange.in_range_int(ConfirmEqual.not_equal(5, 7), 0, 15)
+```
+
+### Overrideable methods
+
+#### after_all
+
+Runs after all test methods in the class.
+
+#### before_all
+
+Runs before all test methods in the class.
+
+#### set_up
+
+Runs before every test method in the class.
+
+#### tear_down
+
+Runs after every test method in the class.
+
+#### category
+
+Allows to assign a category to a test class.
+The category can be used to run only tests from the category.
+
+#### ignore
+
+Ignore class during testing.
+
+Can ignore always, only when run from the editor
+or when tests are not run from the specified category.
+The third option can be a bit confusing,
+but allows creating tests that will not be always run,
+but only under certain circumstances.
+
+To ignore a class, it is required to override the `ignore` method
+and return an `Ignore` object.
+This object accepts `mode`, `reason`, `hide_from_results` and `category`.
+
+The following example shows a method that tells Confirma
+that a class is to be run only when category "SomeCategory" is tested:
+
+```gd
+func ignore() -> Ignore:
+	return Ignore.new(
+		# Or use numeric value, 2 in this case.
+		Ignore.IgnoreMode.WHEN_NOT_RUNNING_CATEGORY,
+		"Interesting reason",
+		false,
+		"SomeCategory"
+	)
+```

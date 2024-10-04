@@ -22,14 +22,18 @@ public static class Log
         }
     }
 
-    public static void Print<T>(T message) where T : IConvertible
+    public static void Print<T>(params T[] messages) where T : IConvertible
     {
-        Print(message, Console.Out);
+        foreach (T message in messages)
+        {
+            Print(message, Console.Out);
+        }
     }
 
-    public static void PrintLine<T>(T message) where T : IConvertible
+    public static void PrintLine<T>(params T[] messages) where T : IConvertible
     {
-        Print($"{message}\n");
+        Print(messages);
+        PrintLine();
     }
 
     public static void PrintLine()

@@ -12,10 +12,6 @@ All notable changes to this project will be documented in this file.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
 - IFormatter interface.
-- classes:
-  - AssertionMessageGenerator
-  - CollectionHelper
-  - Formatter
 - Formatters:
   - AutomaticFormatter
   - DefaultFormatter
@@ -24,17 +20,71 @@ All notable changes to this project will be documented in this file.
   - CollectionFormatter
 - Constructor to ConfirmAssertException which automatically generates a message.
 - Documentation for custom assertions.
+- WrapperBase class.
+- Wrappers for C# assertions for GDScript:
+  - ConfirmEqual
+  - ConfirmArrayWrapper
+  - ConfirmRangeWrapper
+  - ConfirmSignalWrapper
+  - ConfirmStringWrapper
+  - ConfirmVectorWrapper
+  - ConfirmBooleanWrapper
+  - ConfirmNumericWrapper
+  - ConfirmDictionaryWrapper
+- Docs about testing GDScript code.
+- Classes:
+  - TestClass.gd
+  - GdScriptInfo.cs
+  - Ignore.gd
+  - RunTarget.gd
+  - Settings.cs
+  - ConfirmaBotomPanelOptions.cs
+  - AssertionMessageGenerator
+  - CollectionHelper
+  - Formatter
+- ELifecycleMethodName enum.
+- Support for lifecycle methods in GDScript:
+  - after_all
+  - before_all
+  - set_up
+  - tear_down
+  - category
+  - ignore
+- "GDScript Tests Folder" project setting.
+- Documentation for settings.
+- A clear distinction between C# and GDScript tests when displaying results.
+- New settings window.
+- [#178] Allow changing category via editor.
+- Allow disabling parallelization via editor.
+- Base class for lifecycle attributes (LifecycleAttribute).
 
 ### Changed
 
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
 - Adjusted most of the assertion messages.
+- Adjusted GDScript assertions to use C# wrappers.
+- [#170] Confirma recursively checks every folder for GDScript tests
+(max depth is 16).
+- All GDScript test classes need to extend TestClass.
+- GdTestDiscovery & GdTestExecutor now use GdScriptInfo instead of ScriptInfo.
+- GDScript tests folder can be passed as global or localized path.
+- `Print` and `PrintLine` methods from Log class support list of arguments.
+- Move verbose switch to new settings window
+- From now on, lifecycle attributes are assigned to a class,
+not to a specific method, and take the name of the method to run.
+One attribute of a given type is allowed.
+
+### Removed
+
+- GdAssertionFailed signal.
+- LifecycleMethodData record.
 
 ### Fixed
 
 - Empty argument '--confirma-method' was allowed
 when argument '--confirma-run' was also empty.
+- Not every GDScript test is shown in results.
 
 ## [0.8.1-beta 2024-08-20]
 
