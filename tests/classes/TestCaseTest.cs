@@ -34,7 +34,7 @@ public static class TestCaseTest
 
         _ = testCase.Method.ConfirmEqual(method);
         _ = testCase.Parameters!.ConfirmEqual(parameters);
-        _ = testCase.Params.ConfirmEqual("1, test");
+        _ = testCase.Params.ConfirmEqual("1, \"test\"");
         _ = testCase.Repeat.ConfirmEqual(repeat);
     }
 

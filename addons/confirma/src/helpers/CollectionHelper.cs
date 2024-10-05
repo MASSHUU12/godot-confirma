@@ -9,7 +9,9 @@ public static class CollectionHelper
     public static string ToString<T>(
         IEnumerable<T> collection,
         uint depth = 0,
-        uint maxDepth = 1
+        uint maxDepth = 1,
+        bool addBrackets = true
+
     )
     {
         if (depth > maxDepth || !collection.Any())
@@ -42,7 +44,8 @@ public static class CollectionHelper
 
             list.Add(new AutomaticFormatter().Format(item));
         }
+        string text = string.Join(", ", list);
 
-        return $"[{string.Join(", ", list)}]";
+        return addBrackets ? $"[{text}]" : text;
     }
 }

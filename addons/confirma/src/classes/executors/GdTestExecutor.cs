@@ -215,7 +215,8 @@ public class GdTestExecutor : ITestExecutor
             _currentMethod!.Name,
             state,
             CollectionHelper.ToString(
-                _currentMethod.Args.Select(static a => a.Name).ToArray()
+                _currentMethod.Args.Select(static a => a.Name).ToArray(),
+                addBrackets: false
             ),
             message,
             ELangType.GDScript

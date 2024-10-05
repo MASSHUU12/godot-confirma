@@ -22,7 +22,7 @@ public class TestCase
         Method = method;
         Parameters = parameters;
         Params = parameters != null ?
-        CollectionHelper.ToString(parameters)
+        CollectionHelper.ToString(parameters,addBrackets: false)
         : string.Empty;
 
         Repeat = repeat;
