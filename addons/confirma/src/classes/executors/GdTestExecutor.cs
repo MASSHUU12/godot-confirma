@@ -214,7 +214,7 @@ public class GdTestExecutor : ITestExecutor
             ELogType.Method,
             _currentMethod!.Name,
             state,
-            ArrayHelper.ToString(
+            CollectionHelper.ToString(
                 _currentMethod.Args.Select(static a => a.Name).ToArray()
             ),
             message,
