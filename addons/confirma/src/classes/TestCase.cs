@@ -21,7 +21,10 @@ public class TestCase
     {
         Method = method;
         Parameters = parameters;
-        Params = ArrayHelper.ToString(parameters);
+        Params = parameters != null ?
+        CollectionHelper.ToString(parameters)
+        : string.Empty;
+
         Repeat = repeat;
     }
 
