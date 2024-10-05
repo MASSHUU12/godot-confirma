@@ -11,6 +11,15 @@ All notable changes to this project will be documented in this file.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
+- IFormatter interface.
+- Formatters:
+  - AutomaticFormatter
+  - DefaultFormatter
+  - NumericFormatter
+  - StringFormatter
+  - CollectionFormatter
+- Constructor to ConfirmAssertException which automatically generates a message.
+- Documentation for custom assertions.
 - WrapperBase class.
 - Wrappers for C# assertions for GDScript:
   - ConfirmEqual
@@ -30,6 +39,9 @@ All notable changes to this project will be documented in this file.
   - RunTarget.gd
   - Settings.cs
   - ConfirmaBotomPanelOptions.cs
+  - AssertionMessageGenerator
+  - CollectionHelper
+  - Formatter
 - ELifecycleMethodName enum.
 - Support for lifecycle methods in GDScript:
   - after_all
@@ -41,15 +53,16 @@ All notable changes to this project will be documented in this file.
 - "GDScript Tests Folder" project setting.
 - Documentation for settings.
 - A clear distinction between C# and GDScript tests when displaying results.
-- New settings window
-- [#178] Allow changing category via editor
-- Allow disabling parallelization via editor
+- New settings window.
+- [#178] Allow changing category via editor.
+- Allow disabling parallelization via editor.
 - Base class for lifecycle attributes (LifecycleAttribute).
 
 ### Changed
 
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
+- Adjusted most of the assertion messages.
 - Adjusted GDScript assertions to use C# wrappers.
 - [#170] Confirma recursively checks every folder for GDScript tests
 (max depth is 16).

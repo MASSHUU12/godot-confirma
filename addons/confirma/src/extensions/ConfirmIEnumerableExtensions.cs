@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -18,8 +19,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected empty enumerable, but found {1} elements.",
+            nameof(ConfirmEmpty),
+            new NumericFormatter(),
+            actual.Count(),
+            null,
             message
-            ?? $"Expected empty enumerable, but it contained {actual.Count()} elements."
         );
     }
 
@@ -34,8 +39,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected non-empty enumerable.",
+            nameof(ConfirmNotEmpty),
+            null,
+            null,
+            null,
             message
-            ?? "Expected non-empty enumerable, but it was empty."
         );
     }
 
@@ -51,8 +60,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable with {1} elements, but found {2}.",
+            nameof(ConfirmCount),
+            new NumericFormatter(),
+            expected,
+            actual.Count(),
             message
-            ?? $"Expected {expected} elements, but found {actual.Count()}."
         );
     }
 
@@ -68,8 +81,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable with more than {1} elements, but found {2}.",
+            nameof(ConfirmCountGreaterThan),
+            new NumericFormatter(),
+            expected,
+            actual.Count(),
             message
-            ?? $"Expected more than {expected} elements, but found {actual.Count()}."
         );
     }
 
@@ -85,8 +102,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable with fewer than {1} elements, but found {2}.",
+            nameof(ConfirmCountLessThan),
+            new NumericFormatter(),
+            expected,
+            actual.Count(),
             message
-            ?? $"Expected fewer than {expected} elements, but found {actual.Count()}."
         );
     }
 
@@ -102,8 +123,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable with at least {1} elements, but found {2}.",
+            nameof(ConfirmCountGreaterThanOrEqual),
+            new NumericFormatter(),
+            expected,
+            actual.Count(),
             message
-            ?? $"Expected at least {expected} elements, but found {actual.Count()}."
         );
     }
 
@@ -119,8 +144,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable with at most {1} elements, but found {2}.",
+            nameof(ConfirmCountLessThanOrEqual),
+            new NumericFormatter(),
+            expected,
+            actual.Count(),
             message
-            ?? $"Expected at most {expected} elements, but found {actual.Count()}."
         );
     }
 
@@ -136,8 +165,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable to contain {1}.",
+            nameof(ConfirmContains),
+            new AutomaticFormatter(),
+            expected,
+            null,
             message
-            ?? $"Expected '{expected}' to be in the enumerable, but it was not."
         );
     }
 
@@ -153,8 +186,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected enumerable to not contain {1}.",
+            nameof(ConfirmNotContains),
+            new AutomaticFormatter(),
+            expected,
+            null,
             message
-            ?? $"Expected '{expected}' not to be in the enumerable, but it was."
         );
     }
 
@@ -170,8 +207,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to match the predicate.",
+            nameof(ConfirmAllMatch),
+            null,
+            null,
+            null,
             message
-            ?? "Expected all elements to match the predicate, but some did not."
         );
     }
 
@@ -187,8 +228,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected at least one element to match the predicate.",
+            nameof(ConfirmAnyMatch),
+            null,
+            null,
+            null,
             message
-            ?? "Expected at least one element to match the predicate, but none did."
         );
     }
 
@@ -204,8 +249,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected no elements to match the predicate.",
+            nameof(ConfirmNoneMatch),
+            null,
+            null,
+            null,
             message
-            ?? "Expected no elements to match the predicate, but some did."
         );
     }
 
@@ -220,8 +269,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to be unique.",
+            nameof(ConfirmElementsAreUnique),
+            null,
+            null,
+            null,
             message
-            ?? "Expected all elements to be unique, but duplicates were found."
         );
     }
 
@@ -237,8 +290,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to be distinct from the expected set.",
+            nameof(ConfirmElementsAreDistinct),
+            null,
+            null,
+            null,
             message
-            ?? "Expected elements to be distinct from the expected set, but some were not."
         );
     }
 
@@ -253,8 +310,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to be in order.",
+            nameof(ConfirmElementsAreOrdered),
+            null,
+            null,
+            null,
             message
-            ?? "Expected elements to be in order, but they were not."
         );
     }
 
@@ -272,8 +333,12 @@ public static class ConfirmIEnumerableExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to be within the range [{1}, {2}].",
+            nameof(ConfirmElementsAreInRange),
+            new NumericFormatter(),
+            from,
+            to,
             message
-            ?? $"Expected all elements to be within the range [{from}, {to}], but some were not."
         );
     }
 
@@ -283,14 +348,21 @@ public static class ConfirmIEnumerableExtensions
         string? message = null
     )
     {
-        if (actual.OrderBy(static x => x).SequenceEqual(expected.OrderBy(static x => x)))
+        if (actual
+            .OrderBy(static x => x)
+            .SequenceEqual(expected.OrderBy(static x => x))
+        )
         {
             return actual;
         }
 
         throw new ConfirmAssertException(
+            "Expected elements to be equivalent to the expected set.",
+            nameof(ConfirmElementsAreEquivalent),
+            null,
+            null,
+            null,
             message
-            ?? "Expected elements to be equivalent to the expected set, but they were not."
         );
     }
 }

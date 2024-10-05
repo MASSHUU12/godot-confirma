@@ -18,8 +18,12 @@ public static class ConfirmAttributeExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"{actual.Name} is not decorated with {expected.Name}."
+            "Expected {1} to be decorated with {2}.",
+            nameof(ConfirmIsDecoratedWith),
+            null,
+            expected.Name,
+            actual.Name,
+            message
         );
     }
 
@@ -46,8 +50,12 @@ public static class ConfirmAttributeExtensions
         }
 
         throw new ConfirmAssertException(
-            message ??
-            $"{actual.Name} is decorated with {expected.Name}."
+            "Expected {1} not to be decorated with {2}.",
+            nameof(ConfirmIsNotDecoratedWith),
+            null,
+            actual.Name,
+            expected.Name,
+            message
         );
     }
 

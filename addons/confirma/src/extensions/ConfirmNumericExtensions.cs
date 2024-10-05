@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 using static System.Globalization.CultureInfo;
 
 namespace Confirma.Extensions;
@@ -8,7 +9,6 @@ namespace Confirma.Extensions;
 public static class ConfirmNumericExtensions
 {
     #region ConfirmIsPositive
-
     /// <remarks>
     /// Zero is not considered positive.
     /// </remarks>
@@ -21,8 +21,12 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be positive.",
+            nameof(ConfirmIsPositive),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to be positive."
         );
     }
 
@@ -35,15 +39,17 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be not positive.",
+            nameof(ConfirmIsNotPositive),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to not be positive."
         );
     }
-
     #endregion ConfirmIsPositive
 
     #region ConfirmIsNegative
-
     /// <remarks>
     /// Zero is not considered negative.
     /// </remarks>
@@ -56,8 +62,12 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be negative.",
+            nameof(ConfirmIsNegative),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to be negative."
         );
     }
 
@@ -70,15 +80,17 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be not negative.",
+            nameof(ConfirmIsNotNegative),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to not be negative."
         );
     }
-
     #endregion ConfirmIsNegative
 
     #region ConfirmSign
-
     /// <remarks>
     /// Zero is not considered signed or unsigned.
     /// </remarks>
@@ -92,16 +104,19 @@ public static class ConfirmNumericExtensions
             true when actual.CompareTo(zero) < 0 => actual,
             false when actual.CompareTo(zero) > 0 => actual,
             _ => throw new ConfirmAssertException(
+                "Expected {1} to have a "
+                + $"{(sign ? "negative" : "positive")} sign.",
+                nameof(ConfirmSign),
+                new NumericFormatter(),
+                actual,
+                null,
                 message
-                ?? $"Expected {actual} to have a {(sign ? "negative" : "positive")} sign."
             )
         };
     }
-
     #endregion ConfirmSign
 
     #region ConfirmIsZero
-
     public static T ConfirmIsZero<T>(this T actual, string? message = null)
         where T : INumber<T>
     {
@@ -111,8 +126,12 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be zero.",
+            nameof(ConfirmIsZero),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to be zero."
         );
     }
 
@@ -125,11 +144,14 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be not zero.",
+            nameof(ConfirmIsNotZero),
+            new NumericFormatter(),
+            actual,
+            null,
             message
-            ?? $"Expected {actual} to not be zero."
         );
     }
-
     #endregion ConfirmIsZero
 
     public static T ConfirmIsOdd<T>(this T actual, string? message = null)
@@ -140,7 +162,14 @@ public static class ConfirmNumericExtensions
             return actual;
         }
 
-        throw new ConfirmAssertException(message ?? $"Expected {actual} to be odd.");
+        throw new ConfirmAssertException(
+            "Expected {1} to be odd.",
+            nameof(ConfirmIsOdd),
+            new NumericFormatter(),
+            actual,
+            null,
+            message
+        );
     }
 
     public static T ConfirmIsEven<T>(this T actual, string? message = null)
@@ -151,7 +180,14 @@ public static class ConfirmNumericExtensions
             return actual;
         }
 
-        throw new ConfirmAssertException(message ?? $"Expected {actual} to be even.");
+        throw new ConfirmAssertException(
+            "Expected {1} to be even.",
+            nameof(ConfirmIsEven),
+            new NumericFormatter(),
+            actual,
+            null,
+            message
+        );
     }
 
     public static T ConfirmCloseTo<T>(
@@ -171,8 +207,12 @@ public static class ConfirmNumericExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} to be close to {2}.",
+            nameof(ConfirmCloseTo),
+            new NumericFormatter(),
+            actual,
+            expected,
             message
-            ?? $"{actual} is not close to {expected} within tolerance {tolerance}."
         );
     }
 }

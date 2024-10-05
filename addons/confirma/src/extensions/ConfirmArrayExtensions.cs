@@ -1,5 +1,6 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -17,8 +18,12 @@ public static class ConfirmArrayExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected array of size {1}, but {2} provided.",
+            nameof(ConfirmSize),
+            new NumericFormatter(),
+            expectedSize,
+            array.Length,
             message
-            ?? $"Array size is {array.Length}, but expected {expectedSize}."
         );
     }
 
@@ -26,14 +31,28 @@ public static class ConfirmArrayExtensions
     {
         return array.Length == 0
             ? array
-            : throw new ConfirmAssertException(message ?? "Array is not empty.");
+            : throw new ConfirmAssertException(
+                "Expected empty array, {2} elements provided.",
+                nameof(ConfirmEmpty),
+                new NumericFormatter(),
+                null,
+                array.Length,
+                message
+            );
     }
 
     public static T[] ConfirmNotEmpty<T>(this T[] array, string? message = null)
     {
         return array.Length > 0
             ? array
-            : throw new ConfirmAssertException(message ?? "Array is empty.");
+            : throw new ConfirmAssertException(
+                "Expected non-empty array.",
+                nameof(ConfirmNotEmpty),
+                null,
+                null,
+                null,
+                message
+            );
     }
 
     public static T[] ConfirmContains<T>(
@@ -48,8 +67,12 @@ public static class ConfirmArrayExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected array to contain: {1}.",
+            nameof(ConfirmContains),
+            new AutomaticFormatter(),
+            expected,
+            null,
             message
-            ?? $"Array does not contain '{expected}'."
         );
     }
 
@@ -64,6 +87,13 @@ public static class ConfirmArrayExtensions
             return array;
         }
 
-        throw new ConfirmAssertException(message ?? $"Array contains '{expected}'.");
+        throw new ConfirmAssertException(
+            "Expected array to not contain: {1}.",
+            nameof(ConfirmNotContains),
+            new AutomaticFormatter(),
+            expected,
+            null,
+            message
+        );
     }
 }

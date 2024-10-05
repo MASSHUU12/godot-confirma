@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -14,8 +15,12 @@ public static class ConfirmActionExtensions
     {
         return !Task.Run(action).Wait(timeSpan)
             ? throw new ConfirmAssertException(
+                "Expected action to complete within {1} ms, but it timed out.",
+                nameof(ConfirmCompletesWithin),
+                new NumericFormatter(2),
+                timeSpan.TotalMilliseconds,
+                null,
                 message
-                ?? $"Expected action to complete within {timeSpan.TotalMilliseconds} ms, but it timed out."
             )
             : action;
     }
@@ -36,8 +41,12 @@ public static class ConfirmActionExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected action to not complete within {1} ms, but it did.",
+            nameof(ConfirmDoesNotCompleteWithin),
+            new NumericFormatter(2),
+            timeSpan.TotalMilliseconds,
+            null,
             message
-            ?? $"Action should not have completed within {timeSpan.TotalMilliseconds} ms, but it did."
         );
     }
 }

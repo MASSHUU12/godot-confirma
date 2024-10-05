@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Exceptions;
 using Confirma.Extensions;
+using Confirma.Formatters;
 
 namespace Confirma.Tests;
 
@@ -22,7 +25,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new int[] { 1, 2, 3 })]
     public static void ConfirmEmpty_WhenNotEmpty(IEnumerable<int> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmEmpty());
+        Action action = () => actual.ConfirmEmpty();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEmpty failed: "
+            + $"Expected empty enumerable, but found {actual.Count()} elements."
+        );
     }
     #endregion ConfirmEmpty
 
@@ -38,7 +46,11 @@ public static class ConfirmIEnumerableTest
     [TestCase(new int[] { })]
     public static void ConfirmNotEmpty_WhenEmpty(IEnumerable<int> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNotEmpty());
+        Action action = () => actual.ConfirmNotEmpty();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEmpty failed: Expected non-empty enumerable."
+        );
     }
     #endregion ConfirmNotEmpty
 
@@ -47,7 +59,10 @@ public static class ConfirmIEnumerableTest
     [TestCase(new float[] { 1.0f }, 1)]
     [TestCase(new float[] { 1.0f, 2.0f }, 2)]
     [TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 3)]
-    public static void ConfirmCount_WhenEqual(IEnumerable<float> actual, int expected)
+    public static void ConfirmCount_WhenEqual(
+        IEnumerable<float> actual,
+        int expected
+    )
     {
         _ = actual.ConfirmCount(expected);
     }
@@ -56,9 +71,18 @@ public static class ConfirmIEnumerableTest
     [TestCase(new float[] { 1.0f }, 0)]
     [TestCase(new float[] { 1.0f, 2.0f }, 1)]
     [TestCase(new float[] { 1.0f, 2.0f, 3.0f }, 2)]
-    public static void ConfirmCount_WhenNotEqual(IEnumerable<float> actual, int expected)
+    public static void ConfirmCount_WhenNotEqual(
+        IEnumerable<float> actual,
+        int expected
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmCount(expected));
+        Action action = () => actual.ConfirmCount(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCount failed: "
+            + $"Expected enumerable with {expected} elements, "
+            + $"but found {actual.Count()}."
+        );
     }
     #endregion ConfirmCount
 
@@ -83,8 +107,12 @@ public static class ConfirmIEnumerableTest
         int expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmCountGreaterThan(expected)
+        Action action = () => actual.ConfirmCountGreaterThan(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCountGreaterThan failed: "
+            + $"Expected enumerable with more than {expected} elements, "
+            + $"but found {actual.Count()}."
         );
     }
     #endregion ConfirmCountGreaterThan
@@ -110,8 +138,12 @@ public static class ConfirmIEnumerableTest
         int expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmCountLessThan(expected)
+        Action action = () => actual.ConfirmCountLessThan(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCountLessThan failed: "
+            + $"Expected enumerable with fewer than {expected} elements, "
+            + $"but found {actual.Count()}."
         );
     }
     #endregion ConfirmCountLessThan
@@ -138,8 +170,12 @@ public static class ConfirmIEnumerableTest
         int expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmCountGreaterThanOrEqual(expected)
+        Action action = () => actual.ConfirmCountGreaterThanOrEqual(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCountGreaterThanOrEqual failed: "
+            + $"Expected enumerable with at least {expected} elements, "
+            + $"but found {actual.Count()}."
         );
     }
     #endregion ConfirmCountGreaterThanOrEqual
@@ -166,8 +202,12 @@ public static class ConfirmIEnumerableTest
         int expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmCountLessThanOrEqual(expected)
+        Action action = () => actual.ConfirmCountLessThanOrEqual(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCountLessThanOrEqual failed: "
+            + $"Expected enumerable with at most {expected} elements, "
+            + $"but found {actual.Count()}."
         );
     }
     #endregion ConfirmCountLessThanOrEqual
@@ -192,8 +232,12 @@ public static class ConfirmIEnumerableTest
         string expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmContains(expected)
+        Action action = () => actual.ConfirmContains(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmContains failed: "
+            + "Expected enumerable to contain "
+            + $"{new StringFormatter().Format(expected)}."
         );
     }
     #endregion ConfirmContains
@@ -218,8 +262,12 @@ public static class ConfirmIEnumerableTest
         string expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmNotContains(expected)
+        Action action = () => actual.ConfirmNotContains(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotContains failed: "
+            + "Expected enumerable to not contain "
+            + $"{new StringFormatter().Format(expected)}."
         );
     }
     #endregion ConfirmNotContains
@@ -238,7 +286,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new int[] { 1, 2, 3, 4, 5 })]
     public static void ConfirmAllMatch_WhenNotAllMatch(IEnumerable<int> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmAllMatch(x => x < 0));
+        Action action = () => actual.ConfirmAllMatch(x => x < 0);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmAllMatch failed: "
+            + "Expected elements to match the predicate."
+        );
     }
     #endregion ConfirmAllMatch
 
@@ -256,7 +309,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new int[] { 1, 2, 3, 4, 5 })]
     public static void ConfirmAnyMatch_WhenNotAnyMatch(IEnumerable<int> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmAnyMatch(x => x == 0));
+        Action action = () => actual.ConfirmAnyMatch(x => x < 0);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmAnyMatch failed: "
+            + "Expected at least one element to match the predicate."
+        );
     }
     #endregion ConfirmAnyMatch
 
@@ -274,7 +332,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new float[] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f })]
     public static void ConfirmNoneMatch_WhenNotNoneMatch(IEnumerable<float> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmNoneMatch(x => x > 0));
+        Action action = () => actual.ConfirmNoneMatch(x => x > 0);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNoneMatch failed: "
+            + "Expected no elements to match the predicate."
+        );
     }
     #endregion ConfirmNoneMatch
 
@@ -292,7 +355,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new char[] { 'a', 'b', 'c', 'c', 'e' })]
     public static void ConfirmElementsAreUnique_WhenNotUnique(IEnumerable<char> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmElementsAreUnique());
+        Action action = () => actual.ConfirmElementsAreUnique();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreUnique failed: "
+            + "Expected elements to be unique."
+        );
     }
     #endregion ConfirmElementsAreUnique
 
@@ -316,8 +384,11 @@ public static class ConfirmIEnumerableTest
         IEnumerable<string> expected
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmElementsAreDistinct(expected)
+        Action action = () => actual.ConfirmElementsAreDistinct(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreDistinct failed: "
+            + "Expected elements to be distinct from the expected set."
         );
     }
     #endregion ConfirmElementsAreDistinct
@@ -336,7 +407,12 @@ public static class ConfirmIEnumerableTest
     [TestCase(new int[] { 5, 4, 3, 2, 1 })]
     public static void ConfirmElementsAreOrdered_WhenNotOrdered(IEnumerable<int> actual)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => actual.ConfirmElementsAreOrdered());
+        Action action = () => actual.ConfirmElementsAreOrdered();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreOrdered failed: "
+            + "Expected elements to be in order."
+        );
     }
     #endregion ConfirmElementsAreOrdered
 
@@ -362,8 +438,11 @@ public static class ConfirmIEnumerableTest
         int max
     )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmElementsAreInRange(min, max)
+        Action action = () => actual.ConfirmElementsAreInRange(min, max);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreInRange failed: "
+            + $"Expected elements to be within the range [{min}, {max}]."
         );
     }
     #endregion ConfirmElementsAreInRange
@@ -390,6 +469,13 @@ public static class ConfirmIEnumerableTest
     {
         _ = Confirm.Throws<ConfirmAssertException>(
             () => actual.ConfirmElementsAreEquivalent(expected)
+        );
+
+        Action action = () => actual.ConfirmElementsAreEquivalent(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreEquivalent failed: "
+            + "Expected elements to be equivalent to the expected set."
         );
     }
     #endregion ConfirmElementsAreEquivalent

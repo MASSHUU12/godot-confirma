@@ -1,4 +1,5 @@
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
@@ -16,8 +17,12 @@ public static class ConfirmReferenceExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} and {2} to be of the same reference.",
+            nameof(ConfirmSameReference),
+            new AutomaticFormatter(),
+            obj1,
+            obj2,
             message
-            ?? $"Expected {obj1} and {obj2} to have the same reference."
         );
     }
 
@@ -33,9 +38,12 @@ public static class ConfirmReferenceExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected {1} and {2} to be of different references.",
+            nameof(ConfirmDifferentReference),
+            new AutomaticFormatter(),
+            obj1,
+            obj2,
             message
-            ?? $"Expected {obj1} and {obj2} to have different references."
         );
     }
-
 }

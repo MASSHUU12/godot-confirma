@@ -48,4 +48,22 @@ public static class ArrayHelperTest
 
         _ = result.ConfirmEqual(expected);
     }
+
+    [TestCase]
+    public static void ToString_JaggedArray_FormatsCorrectly()
+    {
+        int[][] expected = { new int[] { 1, 2 }, new int[] { 3, 4 } };
+
+        string result = ArrayHelper.ToString(expected);
+        _ = result.ConfirmEqual("[1, 2], [3, 4]");
+    }
+
+    // [TestCase]
+    // public static void ToString_MultiDimensionalArray_FormatsCorrectly()
+    // {
+    //     int[,] expected = { { 1, 2 }, { 3, 4 } };
+
+    //     string result = ArrayHelper.ToString(expected);
+    //     _ = result.ConfirmEqual("[1, 2], [3, 4]");
+    // }
 }

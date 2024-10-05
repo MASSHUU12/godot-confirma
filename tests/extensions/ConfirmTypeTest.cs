@@ -24,15 +24,22 @@ public static class ConfirmTypeTest
     [TestCase(3.14, typeof(bool))]
     public static void ConfirmType_WhenNotOfType(object? actual, Type expected)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmType(expected)
+        Action action = () => actual.ConfirmType(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmType failed: "
+            + $"Expected object of type {expected.Name}, "
+            + $"but got {actual?.GetType().Name}."
         );
     }
 
     [TestCase("Lorem ipsum", typeof(int))]
     [TestCase(42, typeof(double))]
     [TestCase(3.14, typeof(bool))]
-    public static void ConfirmNotType_WhenNotOfType(object? actual, Type expected)
+    public static void ConfirmNotType_WhenNotOfType(
+        object? actual,
+        Type expected
+    )
     {
         _ = actual.ConfirmNotType(expected);
     }
@@ -43,8 +50,11 @@ public static class ConfirmTypeTest
     [TestCase(true, typeof(bool))]
     public static void ConfirmNotType_WhenOfType(object? actual, Type expected)
     {
-        _ = Confirm.Throws<ConfirmAssertException>(
-            () => actual.ConfirmNotType(expected)
+        Action action = () => actual.ConfirmNotType(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotType failed: "
+            + $"Expected object not to be of type {expected.Name}."
         );
     }
 }

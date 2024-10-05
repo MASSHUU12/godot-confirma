@@ -29,7 +29,10 @@ public static class ConfirmActionTest
             _ = a.ConfirmCompletesWithin(TimeSpan.FromMilliseconds(5));
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmCompletesWithin failed: "
+            + "Expected action to complete within 5.00 ms, but it timed out."
+        );
     }
 
     [TestCase]
@@ -50,6 +53,9 @@ public static class ConfirmActionTest
             _ = a.ConfirmDoesNotCompleteWithin(TimeSpan.FromMilliseconds(50));
         };
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmDoesNotCompleteWithin failed: "
+            + "Expected action to not complete within 50.00 ms, but it did."
+        );
     }
 }

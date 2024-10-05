@@ -16,8 +16,12 @@ public static class ConfirmUuidExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected a valid UUID, but got {2}.",
+            nameof(ConfirmValidUuid4),
+            null,
+            null,
+            actual,
             message
-            ?? $"Expected a valid UUID, but '{actual}' is not in the correct format."
         );
     }
 
@@ -32,8 +36,12 @@ public static class ConfirmUuidExtensions
         }
 
         throw new ConfirmAssertException(
+            "Expected invalid UUID, but got {2}.",
+            nameof(ConfirmInvalidUuid4),
+            null,
+            null,
+            actual,
             message
-            ?? $"Expected '{actual}' to not be a valid UUID."
         );
     }
 }

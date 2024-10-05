@@ -12,11 +12,10 @@ public static class ConfirmUuidExtensionsTest
     private static readonly Random rg = new();
 
     #region ConfirmValidUuid4
+    [Repeat(3)]
     [TestCase]
     public static void ConfirmValidUuid4_WhenValid()
     {
-        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
-        _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
         _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
     }
 
@@ -27,7 +26,10 @@ public static class ConfirmUuidExtensionsTest
     {
         Action action = () => actual.ConfirmValidUuid4();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmValidUuid4 failed: "
+            + $"Expected a valid UUID, but got {actual}."
+        );
     }
     #endregion ConfirmValidUuid4
 
@@ -40,14 +42,17 @@ public static class ConfirmUuidExtensionsTest
         _ = actual.ConfirmInvalidUuid4();
     }
 
+    [Repeat(3)]
     [TestCase]
     public static void ConfirmInvalidUuid4_WhenValid()
     {
-        Action action = () => rg.NextUuid4().ToString().ConfirmInvalidUuid4();
+        string actual = rg.NextUuid4().ToString();
+        Action action = () => actual.ConfirmInvalidUuid4();
 
-        _ = action.ConfirmThrows<ConfirmAssertException>();
-        _ = action.ConfirmThrows<ConfirmAssertException>();
-        _ = action.ConfirmThrows<ConfirmAssertException>();
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmInvalidUuid4 failed: "
+            + $"Expected invalid UUID, but got {actual}."
+        );
     }
     #endregion ConfirmInvalidUuid4
 }

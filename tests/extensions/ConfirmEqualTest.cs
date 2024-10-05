@@ -21,19 +21,37 @@ public static class ConfirmEqualTest
         _ = o1.ConfirmEqual(o2);
     }
 
-    [TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hello,", "world!" })]
+    [TestCase(
+        new string[] { "Hello,", "world!" },
+        new string[] { "Hello,", "world!" })
+    ]
     public static void ConfirmEqual_WhenArrEqual(object[] o1, object[] o2)
     {
         _ = o1.ConfirmEqual(o2);
     }
 
-    [TestCase(1, 2)]
-    [TestCase("Lorem ipsum", "Dolor sit amet")]
-    [TestCase(2d, 3d)]
-    [TestCase(2f, 2)]
-    public static void ConfirmEqual_WhenNotEqual(object o1, object o2)
+    [TestCase(1, "1", 2, "2")]
+    [TestCase(
+        "Lorem ipsum",
+        "\"Lorem ipsum\"",
+        "Dolor sit amet",
+        "\"Dolor sit amet\""
+    )]
+    [TestCase(2d, "2.00000", 3d, "3.00000")]
+    [TestCase(2f, "2.00000", 2, "2")]
+    public static void ConfirmEqual_WhenNotEqual(
+        object o1,
+        string fo1,
+        object o2,
+        string fo2
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
+        Action action = () => o1.ConfirmEqual(o2);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqual failed: "
+            + $"Expected {fo2}, but got {fo1}."
+        );
     }
 
     [TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hi,", "world!" })]
@@ -54,7 +72,8 @@ public static class ConfirmEqualTest
         };
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Expected '1, 2, 3' but got '0, 1, 2'."
+            "Assertion ConfirmEqual failed: "
+            + "Expected [1, 2, 3], but got [0, 1, 2]."
         );
     }
     #endregion ConfirmEqual
@@ -70,25 +89,52 @@ public static class ConfirmEqualTest
         _ = o1.ConfirmNotEqual(o2);
     }
 
-    [TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hi,", "world!" })]
+    [TestCase(
+        new string[] { "Hello,", "world!" },
+        new string[] { "Hi,", "world!" }
+    )]
     public static void ConfirmNotEqual_WhenArrNotEqual(object[] o1, object[] o2)
     {
         _ = o1.ConfirmNotEqual(o2);
     }
 
-    [TestCase(1, 1)]
-    [TestCase("Lorem ipsum", "Lorem ipsum")]
-    [TestCase(2d, 2d)]
-    [TestCase(2f, 2f)]
-    public static void ConfirmNotEqual_WhenEqual(object o1, object o2)
+    [TestCase(1, 1, "1")]
+    [TestCase(
+        "Lorem ipsum",
+        "Lorem ipsum",
+        "\"Lorem ipsum\""
+    )]
+    [TestCase(3d, 3d, "3.00000")]
+    [TestCase(2f, 2f, "2.00000")]
+    public static void ConfirmNotEqual_WhenEqual(
+        object o1,
+        object o2,
+        string formatted
+    )
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
+        Action action = () => o1.ConfirmNotEqual(o2);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEqual failed: "
+            + $"Expected not {formatted}."
+        );
     }
 
-    [TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hello,", "world!" })]
-    public static void ConfirmNotEqual_WhenArrEqual(object[] o1, object[] o2)
+    [TestCase]
+    public static void ConfirmNotEqual_WhenArrEqual()
     {
-        _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmNotEqual(o2));
+        Action action = static () =>
+        {
+            object arr1 = new string[] { "Hello,", "world!" };
+            object arr2 = new string[] { "Hello,", "world!" };
+
+            _ = arr1.ConfirmNotEqual(arr2);
+        };
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotEqual failed: "
+            + "Expected not [\"Hello,\", \"world!\"]."
+        );
     }
 
     [TestCase]
@@ -103,7 +149,7 @@ public static class ConfirmEqualTest
         };
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Expected not '0, 1, 2' but got '0, 1, 2'."
+            "Assertion ConfirmNotEqual failed: Expected not [0, 1, 2]."
         );
     }
     #endregion ConfirmNotEqual
