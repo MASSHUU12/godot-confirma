@@ -57,6 +57,7 @@ All notable changes to this project will be documented in this file.
 - [#178] Allow changing category via editor.
 - Allow disabling parallelization via editor.
 - Base class for lifecycle attributes (LifecycleAttribute).
+- Allow to disable exterior brackets ('CollectionHelper.ToString')
 
 ### Changed
 
@@ -74,11 +75,14 @@ All notable changes to this project will be documented in this file.
 - From now on, lifecycle attributes are assigned to a class,
 not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
+- replaced 'ArrayHelper.ToString' with 'CollectionHelper.ToString'
 
 ### Removed
 
 - GdAssertionFailed signal.
 - LifecycleMethodData record.
+- ArrayHelper class
+- ArrayHelperTest Test
 
 ### Fixed
 
