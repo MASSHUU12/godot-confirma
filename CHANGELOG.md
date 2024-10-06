@@ -59,7 +59,9 @@ All notable changes to this project will be documented in this file.
 - [#178] Allow changing category via editor.
 - Allow disabling parallelization via editor.
 - Base class for lifecycle attributes (`LifecycleAttribute`).
-- Allow to disable exterior brackets (`CollectionHelper.ToString`)
+- Allow to disable exterior brackets (`CollectionHelper.ToString`).
+- `LifecycleMethodException` exception.
+- Overload of `TestResult`'s `+` attribute for `TestMethodResult`.
 
 ### Changed
 
@@ -78,6 +80,7 @@ All notable changes to this project will be documented in this file.
 and not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
 - Replaced `ArrayHelper.ToString` with `CollectionHelper.ToString`.
+- [#188] Failed invocation of lifecycle method results in test failure.
 
 ### Removed
 
