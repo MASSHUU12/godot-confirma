@@ -8,21 +8,14 @@ All notable changes to this project will be documented in this file.
 
 - Arguments:
   - '--confirma-category'
-- Warning when trying to run tests without '--confirma-run' argument.
-- `WhenNotRunningCategory` value to `EIgnoreMode` enum.
-- `HideFromResults` field to `Ignore` attribute.
-- IFormatter interface.
 - Formatters:
   - AutomaticFormatter
   - DefaultFormatter
   - NumericFormatter
   - StringFormatter
   - CollectionFormatter
-- Constructor to ConfirmAssertException which automatically generates a message.
-- Documentation for custom assertions.
-- WrapperBase class.
 - Wrappers for C# assertions for GDScript:
-  - ConfirmEqual
+  - ConfirmEqualWrapper
   - ConfirmArrayWrapper
   - ConfirmRangeWrapper
   - ConfirmSignalWrapper
@@ -31,18 +24,18 @@ All notable changes to this project will be documented in this file.
   - ConfirmBooleanWrapper
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
-- Docs about testing GDScript code.
-- Classes:
-  - TestClass.gd
-  - GdScriptInfo.cs
-  - Ignore.gd
-  - RunTarget.gd
-  - Settings.cs
-  - ConfirmaBotomPanelOptions.cs
+- C# classes:
+  - WrapperBase
+  - GdScriptInfo
+  - Settings
+  - ConfirmaBotomPanelOptions
   - AssertionMessageGenerator
   - CollectionHelper
   - Formatter
-- ELifecycleMethodName enum.
+- GDScript classes:
+  - TestClass
+  - Ignore
+  - RunTarget
 - Support for lifecycle methods in GDScript:
   - after_all
   - before_all
@@ -50,14 +43,23 @@ All notable changes to this project will be documented in this file.
   - tear_down
   - category
   - ignore
+- Documentation for:
+  - settings
+  - testing GDScript code
+  - custom assertions
+- Warning when trying to run tests without '--confirma-run' argument.
+- `WhenNotRunningCategory` value to `EIgnoreMode` enum.
+- `HideFromResults` field to `Ignore` attribute.
+- `IFormatter` interface.
+- Constructor to `ConfirmAssertException` which automatically generates a message.
+- `ELifecycleMethodName` enum.
 - "GDScript Tests Folder" project setting.
-- Documentation for settings.
 - A clear distinction between C# and GDScript tests when displaying results.
 - New settings window.
 - [#178] Allow changing category via editor.
 - Allow disabling parallelization via editor.
-- Base class for lifecycle attributes (LifecycleAttribute).
-- Allow to disable exterior brackets ('CollectionHelper.ToString')
+- Base class for lifecycle attributes (`LifecycleAttribute`).
+- Allow to disable exterior brackets (`CollectionHelper.ToString`)
 
 ### Changed
 
@@ -67,22 +69,22 @@ All notable changes to this project will be documented in this file.
 - Adjusted GDScript assertions to use C# wrappers.
 - [#170] Confirma recursively checks every folder for GDScript tests
 (max depth is 16).
-- All GDScript test classes need to extend TestClass.
-- GdTestDiscovery & GdTestExecutor now use GdScriptInfo instead of ScriptInfo.
+- All GDScript test classes need to extend `TestClass`.
+- `GdTestDiscovery` & `GdTestExecutor` now use `GdScriptInfo` instead of `ScriptInfo`.
 - GDScript tests folder can be passed as global or localized path.
-- `Print` and `PrintLine` methods from Log class support list of arguments.
-- Move verbose switch to new settings window
+- `Print` and `PrintLine` methods from `Log` class support list of arguments.
+- Moved verbose switch to new settings window.
 - From now on, lifecycle attributes are assigned to a class,
-not to a specific method, and take the name of the method to run.
+and not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
-- replaced 'ArrayHelper.ToString' with 'CollectionHelper.ToString'
+- Replaced `ArrayHelper.ToString` with `CollectionHelper.ToString`.
 
 ### Removed
 
-- GdAssertionFailed signal.
-- LifecycleMethodData record.
-- ArrayHelper class
-- ArrayHelperTest Test
+- `GdAssertionFailed` signal.
+- `LifecycleMethodData` record.
+- `ArrayHelper` class.
+- `ArrayHelperTest` Test.
 
 ### Fixed
 
