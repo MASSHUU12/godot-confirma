@@ -47,4 +47,14 @@ public static class CollectionHelperTest
 
         _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\", \"World\"]");
     }
+
+    [TestCase]
+    public static void ToString_NoBrackets_ReturnsArrayString()
+    {
+        IEnumerable<string> value = new[] { "Hello" };
+
+        _ = CollectionHelper
+            .ToString(value, addBrackets: false)
+            .ConfirmEqual("\"Hello\"");
+    }
 }
