@@ -21,9 +21,9 @@ public class TestCase
     {
         Method = method;
         Parameters = parameters;
-        Params = parameters != null ?
-        CollectionHelper.ToString(parameters,addBrackets: false)
-        : string.Empty;
+        Params = parameters is not null && parameters.Length != 0
+            ? CollectionHelper.ToString(parameters, addBrackets: false)
+            : string.Empty;
 
         Repeat = repeat;
     }
