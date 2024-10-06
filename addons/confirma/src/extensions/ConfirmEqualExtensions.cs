@@ -28,7 +28,8 @@ public static class ConfirmEqualExtensions
             new AutomaticFormatter(),
             expected,
             actual,
-            message
+            message,
+            formatNulls: 3
         );
     }
 
@@ -49,7 +50,8 @@ public static class ConfirmEqualExtensions
             new AutomaticFormatter(),
             expected,
             actual,
-            message
+            message,
+            formatNulls: 3
         );
     }
 
@@ -75,7 +77,8 @@ public static class ConfirmEqualExtensions
             new AutomaticFormatter(),
             expected,
             null,
-            message
+            message,
+            formatNulls: 1
         );
     }
 
@@ -96,7 +99,8 @@ public static class ConfirmEqualExtensions
             new AutomaticFormatter(),
             expected,
             null,
-            message
+            message,
+            formatNulls: 1
         );
     }
 }

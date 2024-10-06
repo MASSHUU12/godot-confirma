@@ -33,7 +33,8 @@ public class ConfirmAssertException : Exception
         Formatter? formatter,
         object? expected,
         object? actual,
-        string? customMessage
+        string? customMessage,
+        byte formatNulls = 0
     )
     : base(
         customMessage
@@ -42,7 +43,8 @@ public class ConfirmAssertException : Exception
             assertion,
             formatter ?? new DefaultFormatter(),
             expected,
-            actual
+            actual,
+            formatNulls
         ).GenerateMessage()
     )
     { }
