@@ -76,6 +76,16 @@ public static class ConfirmEqualTest
             + "Expected [1, 2, 3], but got [0, 1, 2]."
         );
     }
+
+    [TestCase]
+    public static void ConfirmEqual_Null_ThrowsExceptionWMessage()
+    {
+        Action action = static () => "".ConfirmEqual(null);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqual failed: Expected null, but got \"\"."
+        );
+    }
     #endregion ConfirmEqual
 
     #region ConfirmNotEqual
