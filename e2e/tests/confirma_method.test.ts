@@ -44,7 +44,7 @@ test("Invalid method name, returns with error", async () => {
 
   expect(exitCode).toBe(0); // TODO: Return 1.
   expect(stderr.toString()).toContain(
-    "No test methods found with the name 'ExtraSuperTest'.",
+    "No test methods found with the name ExtraSuperTest.",
   );
 });
 
