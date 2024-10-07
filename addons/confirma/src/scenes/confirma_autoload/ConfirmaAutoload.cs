@@ -57,6 +57,12 @@ public partial class ConfirmaAutoload : Node
                 _usedConfirmaApi = true;
             }
 
+            if (arg.StartsWith(prefix + "help", InvariantCulture))
+            {
+                Help.ShowHelpPage("default");
+                return false;
+            }
+
             if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
             {
                 string name = ParseArgumentContent(arg);
