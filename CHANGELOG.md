@@ -62,6 +62,7 @@ All notable changes to this project will be documented in this file.
 - Allow to disable exterior brackets (`CollectionHelper.ToString`).
 - `LifecycleMethodException` exception.
 - Overload of `TestResult`'s `+` attribute for `TestMethodResult`.
+- Support for non-static test classes.
 
 ### Changed
 
