@@ -12,6 +12,8 @@ Each test method must be tagged with the `TestCase` attribute.
 
 Chaining assertions is allowed, so something like this is possible:
 
+> Confirma supports static and non-static test classes.
+
 ```cs
 using Confirma.Attributes;
 using Confirma.Extensions;
