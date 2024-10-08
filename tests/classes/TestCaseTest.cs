@@ -45,7 +45,7 @@ public static class TestCaseTest
         object[] parameters = new object[] { 1, "test" };
         TestCase testCase = new(method!, parameters, null);
 
-        _ = Confirm.NotThrows<ConfirmAssertException>(testCase.Run);
+        _ = Confirm.NotThrows<ConfirmAssertException>(() => testCase.Run());
     }
 
     [TestCase]
