@@ -26,7 +26,7 @@ public class TestingMethod
         Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
     }
 
-    public TestMethodResult Run(TestsProps props)
+    public TestMethodResult Run(TestsProps props, object? instance)
     {
         foreach (TestCase test in TestCases)
         {
@@ -43,24 +43,44 @@ public class TestingMethod
 
                     Result.TestsIgnored++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Ignored, test.Params, attr.Reason);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Ignored,
+                        test.Params,
+                        attr.Reason
+                    );
                     Result.TestLogs.Add(log);
                     continue;
                 }
 
                 try
                 {
-                    test.Run();
+                    test.Run(instance);
                     Result.TestsPassed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params, null, ELangType.CSharp);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Passed,
+                        test.Params,
+                        null,
+                        ELangType.CSharp
+                    );
                     Result.TestLogs.Add(log);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message, ELangType.CSharp);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Failed,
+                        test.Params,
+                        e.Message,
+                        ELangType.CSharp
+                    );
                     Result.TestLogs.Add(log);
 
                     if (test.Repeat?.FailFast == true)

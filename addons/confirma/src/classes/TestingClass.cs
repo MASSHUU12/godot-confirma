@@ -6,6 +6,7 @@ using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
 using Confirma.Exceptions;
+using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
 
@@ -23,6 +24,7 @@ public class TestingClass
     private readonly string? _beforeAllName;
 
     private TestsProps _props;
+    private object? _instance;
 
     public TestingClass(Type type)
     {
@@ -44,6 +46,11 @@ public class TestingClass
         bool runAfterAll = true;
 
         _props = props;
+
+        if (!Type.IsStatic())
+        {
+            _instance = Activator.CreateInstance(Type);
+        }
 
         try
         {
@@ -91,7 +98,7 @@ public class TestingClass
 
             int currentOrphans = GetOrphans();
 
-            TestMethodResult methodResult = method.Run(props);
+            TestMethodResult methodResult = method.Run(props, _instance);
             testLogs.AddRange(methodResult.TestLogs);
 
             try
@@ -173,7 +180,7 @@ public class TestingClass
 
         try
         {
-            _ = method.Invoke(null, null);
+            _ = method.Invoke(_instance, null);
         }
         catch (Exception e)
         {

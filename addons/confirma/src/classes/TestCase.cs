@@ -28,11 +28,11 @@ public class TestCase
         Repeat = repeat;
     }
 
-    public void Run()
+    public void Run(object? instance = null)
     {
         try
         {
-            _ = Method.Invoke(null, Parameters);
+            _ = Method.Invoke(instance, Parameters);
         }
         catch (TargetInvocationException tie)
         {
