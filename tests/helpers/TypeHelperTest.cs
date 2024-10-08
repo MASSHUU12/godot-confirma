@@ -102,4 +102,18 @@ public static class TypeHelperTest
         _ = typeof(int).IsCollection().ConfirmFalse();
     }
     #endregion IsCollection
+
+    #region IsStatic
+    [TestCase]
+    public static void IsStatic_ReturnsTrue_ForStaticClass()
+    {
+        _ = typeof(TypeHelperTest).IsStatic().ConfirmTrue();
+    }
+
+    [TestCase]
+    public static void IsStatic_ReturnsFalse_ForRegularClass()
+    {
+        _ = typeof(ImplementingClass).IsStatic().ConfirmFalse();
+    }
+    #endregion IsStatic
 }
