@@ -36,6 +36,7 @@ public static class TestManager
     {
         bool isCs = false;
         int totalClasses = 0;
+        int startOrphansCount = GetOrphans();
         DateTime startTimeStamp = DateTime.Now;
 
         _props.ResetStats();
@@ -77,8 +78,14 @@ public static class TestManager
 
         if (_props.MonitorOrphans)
         {
-            _props.Result.TotalOrphans += (uint)Godot.Performance.GetMonitor(
-                Godot.Performance.Monitor.ObjectOrphanNodeCount
+            // TODO: Handle this better.
+            // There is a chance that the number of orphans
+            // at the end of testing will be lower than before testing began.
+            // This must be handled accordingly,
+            // as the number of orphans cannot be negative.
+            _props.Result.TotalOrphans += (uint)Math.Max(
+                GetOrphans() - startOrphansCount,
+                0
             );
         }
 
@@ -92,6 +99,13 @@ public static class TestManager
         {
             DumpJson();
         }
+    }
+
+    private static int GetOrphans()
+    {
+        return (int)Godot.Performance.GetMonitor(
+            Godot.Performance.Monitor.ObjectOrphanNodeCount
+        );
     }
 
     private static void PrintTestLogs()
