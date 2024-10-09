@@ -18,7 +18,7 @@ public struct TestsProps
     public bool IsHeadless { get; set; }
     public bool ExitOnFail { get; set; }
     public bool DisableCsharp { get; set; }
-    public bool MonitorOrphans { get; set; }
+    public bool MonitorOrphans { get; set; } = true;
     public bool DisableGdScript { get; set; }
     public bool DisableParallelization { get; set; }
     public string GdTestPath { get; set; } = ProjectSettings
