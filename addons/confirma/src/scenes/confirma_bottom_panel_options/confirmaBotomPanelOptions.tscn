@@ -212,3 +212,8 @@ text = "Verbose"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Disable parallelization"
+
+[node name="DisableOrphansMonitor" type="CheckBox" parent="PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disable orphans monitor"
