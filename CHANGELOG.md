@@ -64,6 +64,7 @@ All notable changes to this project will be documented in this file.
 - `LifecycleMethodException` exception.
 - Overload of `TestResult`'s `+` attribute for `TestMethodResult`.
 - Support for non-static test classes.
+- Switch to disable orphans monitor in the editor.
 
 ### Changed
 
