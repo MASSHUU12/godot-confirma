@@ -7,17 +7,17 @@ namespace Confirma.Tests;
 [SetUp]
 [TestClass]
 [Parallelizable]
-public static class StringFormatterTest
+public class StringFormatterTest
 {
     private static StringFormatter? _formatter;
 
-    public static void SetUp()
+    public void SetUp()
     {
         _formatter = new();
     }
 
     [TestCase]
-    public static void Format_NullValue_ReturnsNullString()
+    public void Format_NullValue_ReturnsNullString()
     {
         object value = new Person { Name = null };
         string result = _formatter!.Format(value);
@@ -26,7 +26,7 @@ public static class StringFormatterTest
     }
 
     [TestCase]
-    public static void Format_Object_ReturnsNullString()
+    public void Format_Object_ReturnsNullString()
     {
         object value = new();
         string result = _formatter!.Format(value);
@@ -35,13 +35,13 @@ public static class StringFormatterTest
     }
 
     [TestCase]
-    public static void Format_Char_ReturnsValidString()
+    public void Format_Char_ReturnsValidString()
     {
         _ = new StringFormatter('\'')!.Format('c').ConfirmEqual("'c'");
     }
 
     [TestCase]
-    public static void Format_ValueToString_ReturnsExpectedString()
+    public void Format_ValueToString_ReturnsExpectedString()
     {
         object value = "Hello, World!";
         string result = _formatter!.Format(value);
@@ -50,7 +50,7 @@ public static class StringFormatterTest
     }
 
     [TestCase]
-    public static void Format_ValueToStringWithToStringOverride_ReturnsExpectedString()
+    public void Format_ValueToStringWithToStringOverride_ReturnsExpectedString()
     {
         object value = new Person { Name = "John Doe" };
         string result = _formatter!.Format(value);

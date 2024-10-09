@@ -6,11 +6,11 @@ namespace Confirma.Tests;
 [TestClass]
 [Parallelizable]
 [AfterAll(nameof(AfterAll))]
-public static class AfterAllAttributeTest
+public class AfterAllAttributeTest
 {
-    private static bool _ranAfterAll = false;
+    private bool _ranAfterAll = false;
 
-    public static void AfterAll()
+    public void AfterAll()
     {
         _ranAfterAll = true;
         _ = _ranAfterAll.ConfirmTrue();

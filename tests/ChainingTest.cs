@@ -8,19 +8,19 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ChainingTest
+public class ChainingTest
 {
     [Parallelizable]
-    private static class TestClass { }
+    private class TestClass { }
 
     [TestCase]
-    public static void ChainingOnArray()
+    public void ChainingOnArray()
     {
         _ = new int[] { 0, 1, 2, 3, 4 }.ConfirmNotEmpty().ConfirmContains(2);
     }
 
     [TestCase]
-    public static void ChainingOnAttribute()
+    public void ChainingOnAttribute()
     {
         _ = typeof(TestClass)
             .ConfirmIsDecoratedWith<ParallelizableAttribute>()
@@ -28,13 +28,13 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnBoolean()
+    public void ChainingOnBoolean()
     {
         _ = true.ConfirmTrue().ConfirmTrue();
     }
 
     [TestCase]
-    public static void ChainingOnDictionary()
+    public void ChainingOnDictionary()
     {
         _ = new Dictionary<string, int>()
         {
@@ -48,13 +48,13 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnEqual()
+    public void ChainingOnEqual()
     {
         _ = 5.ConfirmEqual(5).ConfirmNotEqual(6);
     }
 
     [TestCase]
-    public static void ChainingOnException()
+    public void ChainingOnException()
     {
         Action action = static () => throw new IndexOutOfRangeException();
 
@@ -64,7 +64,7 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnFile()
+    public void ChainingOnFile()
     {
         new StringName("./LICENSE")
             .ConfirmIsFile()
@@ -73,7 +73,7 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnIEnumerable()
+    public void ChainingOnIEnumerable()
     {
         _ = new int[] { 0, 1, 2, 3, 4 }
             .ConfirmNotEmpty()
@@ -82,25 +82,25 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnConfirmNull()
+    public void ChainingOnConfirmNull()
     {
         _ = 5.ConfirmNotNull().ConfirmNotNull();
     }
 
     [TestCase]
-    public static void ChainingOnNumeric()
+    public void ChainingOnNumeric()
     {
         _ = 5.ConfirmIsNotZero().ConfirmIsPositive();
     }
 
     [TestCase]
-    public static void ChainingOnRange()
+    public void ChainingOnRange()
     {
         _ = 5.ConfirmGreaterThan(3).ConfirmInRange(0, 10);
     }
 
     [TestCase]
-    public static void ChainingOnSignal()
+    public void ChainingOnSignal()
     {
         new Button()
             .ConfirmSignalExists("pressed")
@@ -109,7 +109,7 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnString()
+    public void ChainingOnString()
     {
         _ = "Lorem ipsum dolor sit amet"
             .ConfirmStartsWith("Lorem")
@@ -117,7 +117,7 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnType()
+    public void ChainingOnType()
     {
         _ = "Lorem ipsum dolor sit amet"
             .ConfirmType<string>()
@@ -125,13 +125,13 @@ public static class ChainingTest
     }
 
     [TestCase]
-    public static void ChainingOnUuid()
+    public void ChainingOnUuid()
     {
         _ = Guid.NewGuid().ToString().ConfirmValidUuid4().ConfirmValidUuid4();
     }
 
     [TestCase]
-    public static void ChainingOnVector()
+    public void ChainingOnVector()
     {
         _ = Vector2.Up.ConfirmEqual(Vector2.Up).ConfirmNotEqual(Vector2.Down);
     }

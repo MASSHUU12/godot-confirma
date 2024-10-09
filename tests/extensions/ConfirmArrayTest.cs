@@ -8,12 +8,12 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmArrayTest
+public class ConfirmArrayTest
 {
     [TestCase(new int[] { }, 0)]
     [TestCase(new int[] { 1 }, 1)]
     [TestCase(new int[] { 1, 2 }, 2)]
-    public static void ConfirmSize_WhenIsOfSize(int[] array, int expectedSize)
+    public void ConfirmSize_WhenIsOfSize(int[] array, int expectedSize)
     {
         _ = array.ConfirmSize(expectedSize);
     }
@@ -21,7 +21,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1 }, 0)]
     [TestCase(new int[] { 1, 2 }, 1)]
     [TestCase(new int[] { 1, 2, 3 }, 2)]
-    public static void ConfirmSize_WhenIsNotOfSize(int[] array, int expectedSize)
+    public void ConfirmSize_WhenIsNotOfSize(int[] array, int expectedSize)
     {
         Action action = () => array.ConfirmSize(expectedSize);
 
@@ -32,7 +32,7 @@ public static class ConfirmArrayTest
     }
 
     [TestCase]
-    public static void ConfirmEmpty_WhenIsEmpty()
+    public void ConfirmEmpty_WhenIsEmpty()
     {
         _ = Array.Empty<int>().ConfirmEmpty();
     }
@@ -40,7 +40,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1 })]
     [TestCase(new int[] { 1, 2 })]
     [TestCase(new int[] { 1, 2, 3 })]
-    public static void ConfirmEmpty_WhenIsNotEmpty(int[] array)
+    public void ConfirmEmpty_WhenIsNotEmpty(int[] array)
     {
         Action action = () => array.ConfirmEmpty();
 
@@ -51,13 +51,13 @@ public static class ConfirmArrayTest
     }
 
     [TestCase]
-    public static void ConfirmNotEmpty_WhenNotEmpty()
+    public void ConfirmNotEmpty_WhenNotEmpty()
     {
         _ = new int[] { 1 }.ConfirmNotEmpty();
     }
 
     [TestCase]
-    public static void ConfirmNotEmpty_WhenEmpty()
+    public void ConfirmNotEmpty_WhenEmpty()
     {
         Action action = static () => Array.Empty<int>().ConfirmNotEmpty();
 
@@ -69,7 +69,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1 }, 1)]
     [TestCase(new int[] { 1, 2 }, 2)]
     [TestCase(new int[] { 1, 2, 3 }, 2)]
-    public static void ConfirmContains_WhenContains(int[] array, int expected)
+    public void ConfirmContains_WhenContains(int[] array, int expected)
     {
         _ = array.ConfirmContains(expected);
     }
@@ -77,7 +77,7 @@ public static class ConfirmArrayTest
     [TestCase(new int[] { 1 }, 2)]
     [TestCase(new int[] { 1, 2 }, 3)]
     [TestCase(new int[] { 1, 2, 3 }, 4)]
-    public static void ConfirmContains_WhenNotContains(int[] array, int expected)
+    public void ConfirmContains_WhenNotContains(int[] array, int expected)
     {
         Action action = () => array.ConfirmContains(expected);
 
@@ -88,13 +88,13 @@ public static class ConfirmArrayTest
     }
 
     [TestCase]
-    public static void ConfirmNotContains_WhenNotContains()
+    public void ConfirmNotContains_WhenNotContains()
     {
         _ = new int[] { 1 }.ConfirmNotContains(2);
     }
 
     [TestCase]
-    public static void ConfirmNotContains_WhenContains()
+    public void ConfirmNotContains_WhenContains()
     {
         Action action = static () => new int[] { 1 }.ConfirmNotContains(1);
 

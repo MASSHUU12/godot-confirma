@@ -10,14 +10,14 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomNetworkTest
+public class RandomNetworkTest
 {
     private static readonly Random _rg = new();
 
     #region NextIPAddress
     [Repeat(5)]
     [TestCase]
-    public static void NextIPAddress_GeneratesValidIPv4Address()
+    public void NextIPAddress_GeneratesValidIPv4Address()
     {
         IPAddress ipAddress = _rg.NextIPAddress();
 
@@ -27,7 +27,7 @@ public static class RandomNetworkTest
 
     [Repeat(5)]
     [TestCase]
-    public static void NextIPAddress_FirstOctetIsAlwaysOdd()
+    public void NextIPAddress_FirstOctetIsAlwaysOdd()
     {
         IPAddress ipAddress = _rg.NextIPAddress();
 
@@ -38,7 +38,7 @@ public static class RandomNetworkTest
     #region NextIP6Address
     [Repeat(5)]
     [TestCase]
-    public static void NextIP6Address_GeneratesValidIPv6Address()
+    public void NextIP6Address_GeneratesValidIPv6Address()
     {
         IPAddress ipAddress = _rg.NextIP6Address();
 
@@ -48,7 +48,7 @@ public static class RandomNetworkTest
 
     [Repeat(5)]
     [TestCase]
-    public static void NextIP6Address_FirstHextetIsAlwaysOdd()
+    public void NextIP6Address_FirstHextetIsAlwaysOdd()
     {
         IPAddress ipAddress = _rg.NextIP6Address();
 
@@ -58,7 +58,7 @@ public static class RandomNetworkTest
 
     #region NextEmail
     [TestCase]
-    public static void NextEmail_InvalidLengthParameters()
+    public void NextEmail_InvalidLengthParameters()
     {
         _ = Confirm.Throws<ArgumentException>(static () => _rg.NextEmail(-1, 12));
         _ = Confirm.Throws<ArgumentException>(static () => _rg.NextEmail(12, 8));
@@ -66,7 +66,7 @@ public static class RandomNetworkTest
 
     [Repeat(5)]
     [TestCase]
-    public static void NextEmail_ReturnsValidEmail()
+    public void NextEmail_ReturnsValidEmail()
     {
         int minLength = _rg.Next(1, 64);
         int maxLength = _rg.Next(minLength, minLength + 64);
@@ -81,7 +81,7 @@ public static class RandomNetworkTest
 
     [Repeat(5)]
     [TestCase]
-    public static void NextEmail_LocalPartContainsValidCharacters()
+    public void NextEmail_LocalPartContainsValidCharacters()
     {
         string email = _rg.NextEmail();
 

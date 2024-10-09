@@ -8,7 +8,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmEqualTest
+public class ConfirmEqualTest
 {
     #region ConfirmEqual
     [TestCase(1, 1)]
@@ -16,7 +16,7 @@ public static class ConfirmEqualTest
     [TestCase(null, null)]
     [TestCase(2d, 2d)]
     [TestCase(2f, 2f)]
-    public static void ConfirmEqual_WhenEqual(object o1, object o2)
+    public void ConfirmEqual_WhenEqual(object o1, object o2)
     {
         _ = o1.ConfirmEqual(o2);
     }
@@ -25,7 +25,7 @@ public static class ConfirmEqualTest
         new string[] { "Hello,", "world!" },
         new string[] { "Hello,", "world!" })
     ]
-    public static void ConfirmEqual_WhenArrEqual(object[] o1, object[] o2)
+    public void ConfirmEqual_WhenArrEqual(object[] o1, object[] o2)
     {
         _ = o1.ConfirmEqual(o2);
     }
@@ -39,7 +39,7 @@ public static class ConfirmEqualTest
     )]
     [TestCase(2d, "2.00000", 3d, "3.00000")]
     [TestCase(2f, "2.00000", 2, "2")]
-    public static void ConfirmEqual_WhenNotEqual(
+    public void ConfirmEqual_WhenNotEqual(
         object o1,
         string fo1,
         object o2,
@@ -55,13 +55,13 @@ public static class ConfirmEqualTest
     }
 
     [TestCase(new string[] { "Hello,", "world!" }, new string[] { "Hi,", "world!" })]
-    public static void ConfirmEqual_WhenArrNotEqual(object[] o1, object[] o2)
+    public void ConfirmEqual_WhenArrNotEqual(object[] o1, object[] o2)
     {
         _ = Confirm.Throws<ConfirmAssertException>(() => o1.ConfirmEqual(o2));
     }
 
     [TestCase]
-    public static void ConfirmEqual_ArrayAsObject_NotEqual_ThrowsExceptionWMessage()
+    public void ConfirmEqual_ArrayAsObject_NotEqual_ThrowsExceptionWMessage()
     {
         Action action = static () =>
         {
@@ -78,7 +78,7 @@ public static class ConfirmEqualTest
     }
 
     [TestCase]
-    public static void ConfirmEqual_Null_ThrowsExceptionWMessage()
+    public void ConfirmEqual_Null_ThrowsExceptionWMessage()
     {
         Action action = static () => "".ConfirmEqual(null);
 
@@ -94,7 +94,7 @@ public static class ConfirmEqualTest
     [TestCase(null, 1)]
     [TestCase(2d, 3d)]
     [TestCase(2f, 2)]
-    public static void ConfirmNotEqual_WhenNotEqual(object o1, object o2)
+    public void ConfirmNotEqual_WhenNotEqual(object o1, object o2)
     {
         _ = o1.ConfirmNotEqual(o2);
     }
@@ -103,7 +103,7 @@ public static class ConfirmEqualTest
         new string[] { "Hello,", "world!" },
         new string[] { "Hi,", "world!" }
     )]
-    public static void ConfirmNotEqual_WhenArrNotEqual(object[] o1, object[] o2)
+    public void ConfirmNotEqual_WhenArrNotEqual(object[] o1, object[] o2)
     {
         _ = o1.ConfirmNotEqual(o2);
     }
@@ -116,7 +116,7 @@ public static class ConfirmEqualTest
     )]
     [TestCase(3d, 3d, "3.00000")]
     [TestCase(2f, 2f, "2.00000")]
-    public static void ConfirmNotEqual_WhenEqual(
+    public void ConfirmNotEqual_WhenEqual(
         object o1,
         object o2,
         string formatted
@@ -131,7 +131,7 @@ public static class ConfirmEqualTest
     }
 
     [TestCase]
-    public static void ConfirmNotEqual_WhenArrEqual()
+    public void ConfirmNotEqual_WhenArrEqual()
     {
         Action action = static () =>
         {
@@ -148,7 +148,7 @@ public static class ConfirmEqualTest
     }
 
     [TestCase]
-    public static void ConfirmNotEqual_ArrayAsObject_Equal_ThrowsExceptionWMessage()
+    public void ConfirmNotEqual_ArrayAsObject_Equal_ThrowsExceptionWMessage()
     {
         Action action = static () =>
         {

@@ -6,7 +6,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class AutomaticFormatterTest
+public class AutomaticFormatterTest
 {
     private static readonly AutomaticFormatter _formatter = new();
 
@@ -17,7 +17,7 @@ public static class AutomaticFormatterTest
     [TestCase((byte)123, "123")]
     [TestCase(123.456f, "123.45600")]
     [TestCase(new int[] { 1, 2, 3 }, "[1, 2, 3]")]
-    public static void Format_CorrectlyFormatsSupportedTypes(
+    public void Format_CorrectlyFormatsSupportedTypes(
         object actual,
         string expected
     )

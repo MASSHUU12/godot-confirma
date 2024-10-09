@@ -8,10 +8,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ColorsTest
+public class ColorsTest
 {
     [TestCase]
-    public static void ColorText_WithHexColorCode_ReturnsColoredText()
+    public void ColorText_WithHexColorCode_ReturnsColoredText()
     {
         string result = Colors.ColorText("Hello, World!", "#FF0000");
 
@@ -23,7 +23,7 @@ public static class ColorsTest
     }
 
     [TestCase]
-    public static void ColorText_WithColorObject_ReturnsColoredText()
+    public void ColorText_WithColorObject_ReturnsColoredText()
     {
         string result = Colors.ColorText("Hello, World!", new Godot.Color(1, 0, 0));
 
@@ -36,7 +36,7 @@ public static class ColorsTest
 
     [TestCase("#Invalid")]
     [TestCase("#1234567")]
-    public static void ColorText_WithInvalidColorCode_ThrowsException(
+    public void ColorText_WithInvalidColorCode_ThrowsException(
         string invalidColor
     )
     {
@@ -48,7 +48,7 @@ public static class ColorsTest
     }
 
     [TestCase]
-    public static void ToTerminal_WithColor_ReturnsColoredText()
+    public void ToTerminal_WithColor_ReturnsColoredText()
     {
         string result = Colors.ToTerminal("Hello, World!", new Godot.Color(1, 0, 0));
 
@@ -56,7 +56,7 @@ public static class ColorsTest
     }
 
     [TestCase]
-    public static void ToGodot_WithColor_ReturnsColoredText()
+    public void ToGodot_WithColor_ReturnsColoredText()
     {
         string result = Colors.ToGodot("Hello, World!", new Godot.Color(1, 0, 0));
 

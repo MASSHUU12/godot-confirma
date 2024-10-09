@@ -10,9 +10,9 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class GdTestDiscoveryTest
+public class GdTestDiscoveryTest
 {
-    private static string CreateTempDirectory()
+    private string CreateTempDirectory()
     {
         string pathToTests = Path.GetTempPath();
         string tempDir = Path.Combine(pathToTests, Guid.NewGuid().ToString());
@@ -24,7 +24,7 @@ public static class GdTestDiscoveryTest
     #region GetTestScripts
     [TestCase]
     [Ignore(Reason = "Execution breaks Confirma.")]
-    public static void GetTestScripts_DirectoryDoesNotExist_ReturnsEmpty()
+    public void GetTestScripts_DirectoryDoesNotExist_ReturnsEmpty()
     {
         IEnumerable<GdScriptInfo> testScripts = GdTestDiscovery
             .GetTestScripts("non-existent-path");
@@ -33,7 +33,7 @@ public static class GdTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestScripts_DirectoryIsEmpty_ReturnsEmpty()
+    public void GetTestScripts_DirectoryIsEmpty_ReturnsEmpty()
     {
         string tempDir = CreateTempDirectory();
 
@@ -47,7 +47,7 @@ public static class GdTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestScripts_DirectoryContainsNonGdFiles_ReturnsEmpty()
+    public void GetTestScripts_DirectoryContainsNonGdFiles_ReturnsEmpty()
     {
         string tempDir = CreateTempDirectory();
         File.Create(Path.Combine(tempDir, "non-gd-file.txt")).Dispose();
@@ -62,7 +62,7 @@ public static class GdTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestScripts_DirectoryContainsGdFileButNotTestClass_ReturnsEmpty()
+    public void GetTestScripts_DirectoryContainsGdFileButNotTestClass_ReturnsEmpty()
     {
         string tempDir = CreateTempDirectory();
         File.Create(Path.Combine(tempDir, "gd-file.gd")).Dispose();
@@ -77,7 +77,7 @@ public static class GdTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestScripts_DirectoryContainsTestClass_ReturnsTestClass()
+    public void GetTestScripts_DirectoryContainsTestClass_ReturnsTestClass()
     {
         string tempDir = CreateTempDirectory();
         File.WriteAllText(
@@ -95,7 +95,7 @@ public static class GdTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestScripts_DirectoryContainsTestClassInSubdirectory_ReturnsTestClass()
+    public void GetTestScripts_DirectoryContainsTestClassInSubdirectory_ReturnsTestClass()
     {
         string tempDir = CreateTempDirectory();
         string subDir = Path.Combine(tempDir, Guid.NewGuid().ToString());

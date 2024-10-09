@@ -7,14 +7,14 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmUuidExtensionsTest
+public class ConfirmUuidExtensionsTest
 {
     private static readonly Random rg = new();
 
     #region ConfirmValidUuid4
     [Repeat(3)]
     [TestCase]
-    public static void ConfirmValidUuid4_WhenValid()
+    public void ConfirmValidUuid4_WhenValid()
     {
         _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
     }
@@ -22,7 +22,7 @@ public static class ConfirmUuidExtensionsTest
     [TestCase("aaa")]
     [TestCase("aaa-aaa-aaa-aaa")]
     [TestCase("Lorem ipsum dolor sit amet")]
-    public static void ConfirmValidUuid4_WhenInvalid(string actual)
+    public void ConfirmValidUuid4_WhenInvalid(string actual)
     {
         Action action = () => actual.ConfirmValidUuid4();
 
@@ -37,14 +37,14 @@ public static class ConfirmUuidExtensionsTest
     [TestCase("aaa")]
     [TestCase("aaa-aaa-aaa-aaa")]
     [TestCase("Lorem ipsum dolor sit amet")]
-    public static void ConfirmInvalidUuid4_WhenInvalid(string actual)
+    public void ConfirmInvalidUuid4_WhenInvalid(string actual)
     {
         _ = actual.ConfirmInvalidUuid4();
     }
 
     [Repeat(3)]
     [TestCase]
-    public static void ConfirmInvalidUuid4_WhenValid()
+    public void ConfirmInvalidUuid4_WhenValid()
     {
         string actual = rg.NextUuid4().ToString();
         Action action = () => actual.ConfirmInvalidUuid4();

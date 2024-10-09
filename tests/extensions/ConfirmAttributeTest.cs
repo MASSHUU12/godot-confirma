@@ -7,11 +7,11 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmAttributeTest
+public class ConfirmAttributeTest
 {
     [TestCase(typeof(ConfirmAttributeTest), typeof(TestClassAttribute))]
     [TestCase(typeof(ConfirmAttributeTest), typeof(ParallelizableAttribute))]
-    public static void ConfirmIsDecoratedWith_WhenIsDecoratedWith(
+    public void ConfirmIsDecoratedWith_WhenIsDecoratedWith(
         Type actual,
         Type expected
     )
@@ -21,7 +21,7 @@ public static class ConfirmAttributeTest
 
     [TestCase(typeof(ParallelizableAttribute), typeof(ConfirmAttributeTest))]
     [TestCase(typeof(TestClassAttribute), typeof(ConfirmAttributeTest))]
-    public static void ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(
+    public void ConfirmIsDecoratedWith_WhenIsNotDecoratedWith(
         Type actual,
         Type expected
     )
@@ -35,14 +35,14 @@ public static class ConfirmAttributeTest
     }
 
     [TestCase]
-    public static void ConfirmIsNotDecoratedWith_WhenIsNotDecoratedWith()
+    public void ConfirmIsNotDecoratedWith_WhenIsNotDecoratedWith()
     {
         _ = typeof(ConfirmAttributeTest)
             .ConfirmIsNotDecoratedWith<AfterAllAttribute>();
     }
 
     [TestCase]
-    public static void ConfirmIsNotDecoratedWith_WhenIsDecoratedWith()
+    public void ConfirmIsNotDecoratedWith_WhenIsDecoratedWith()
     {
         Action action = static () => typeof(ConfirmAttributeTest)
             .ConfirmIsNotDecoratedWith<TestClassAttribute>();

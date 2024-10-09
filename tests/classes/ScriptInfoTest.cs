@@ -12,24 +12,24 @@ namespace Confirma.Tests;
 [BeforeAll]
 [TestClass]
 [Parallelizable]
-public static class ScriptInfoTest
+public class ScriptInfoTest
 {
-    private static CSharpScript? _script;
+    private CSharpScript? _script;
 
-    public static void BeforeAll()
+    public void BeforeAll()
     {
         _script = GD.Load<CSharpScript>(
             "res://tests/ClassToRunTestsOn.cs"
         ).New().As<CSharpScript>();
     }
 
-    public static void AfterAll()
+    public void AfterAll()
     {
         _script!.Dispose();
     }
 
     [TestCase]
-    public static void Constructor_SetsPropertiesCorrectly()
+    public void Constructor_SetsPropertiesCorrectly()
     {
         LinkedList<ScriptMethodInfo> methods = new();
         ScriptInfo scriptInfo = new(_script!, methods);
@@ -39,7 +39,7 @@ public static class ScriptInfoTest
     }
 
     [TestCase]
-    public static void Parse_MethodsAreParsedCorrectly()
+    public void Parse_MethodsAreParsedCorrectly()
     {
         Array<Dictionary> methodList = _script!.GetScriptMethodList();
 

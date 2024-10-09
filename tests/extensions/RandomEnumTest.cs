@@ -7,7 +7,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomEnumTest
+public class RandomEnumTest
 {
     private static readonly Random rg = new();
 
@@ -15,7 +15,7 @@ public static class RandomEnumTest
 
     [Repeat(6)]
     [TestCase]
-    public static void NextEnumValue()
+    public void NextEnumValue()
     {
         int value = rg.NextEnumValue<TestEnum>();
 
@@ -24,7 +24,7 @@ public static class RandomEnumTest
 
     [Repeat(6)]
     [TestCase]
-    public static void NextEnumName()
+    public void NextEnumName()
     {
         string name = rg.NextEnumName<TestEnum>();
 

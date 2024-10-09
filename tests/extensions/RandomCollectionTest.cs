@@ -8,7 +8,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomCollectionTest
+public class RandomCollectionTest
 {
     private static readonly Random _rg = new();
 
@@ -16,7 +16,7 @@ public static class RandomCollectionTest
     [TestCase(new int[] { 0 })]
     [Repeat(3)]
     [TestCase(new int[] { 0, 1, 2, 3 })]
-    public static void NextElement_ValidIntArray(int[] elements)
+    public void NextElement_ValidIntArray(int[] elements)
     {
         _ = elements.ConfirmContains(_rg.NextElement(elements));
     }
@@ -24,7 +24,7 @@ public static class RandomCollectionTest
     [TestCase(new float[] { 0f })]
     [Repeat(3)]
     [TestCase(new float[] { 0f, 1.1f, 2.2f, 3.3f })]
-    public static void NextElement_ValidStringEnumerable(float[] elements)
+    public void NextElement_ValidStringEnumerable(float[] elements)
     {
         IEnumerable<string> e = elements.Select(static (f) => f.ToString());
 
@@ -32,7 +32,7 @@ public static class RandomCollectionTest
     }
 
     [TestCase]
-    public static void NextElement_InvalidArray()
+    public void NextElement_InvalidArray()
     {
         Action action = static () => _rg.NextElement(Array.Empty<string>());
 
@@ -44,7 +44,7 @@ public static class RandomCollectionTest
     [TestCase(new int[] { 0 })]
     [Repeat(3)]
     [TestCase(new int[] { 0, 1, 2, 3 })]
-    public static void NextElements_ValidIntArray(int[] elements)
+    public void NextElements_ValidIntArray(int[] elements)
     {
         int expectedSize = _rg.Next(1, elements.Length + 1);
 
@@ -52,7 +52,7 @@ public static class RandomCollectionTest
     }
 
     [TestCase]
-    public static void NextElements_TakeZeroElements()
+    public void NextElements_TakeZeroElements()
     {
         Action action = static () => _rg.NextElements(0, new int[] { 0, 1, 2 });
 
@@ -61,7 +61,7 @@ public static class RandomCollectionTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextElements_InvalidArray()
+    public void NextElements_InvalidArray()
     {
         Action action = static () => _rg.NextElements(_rg.Next(), Array.Empty<string>());
 
@@ -72,7 +72,7 @@ public static class RandomCollectionTest
     #region NextShuffle
     [Repeat(3)]
     [TestCase]
-    public static void NextShuffle_ChangesOrderOfElements()
+    public void NextShuffle_ChangesOrderOfElements()
     {
         List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
         IEnumerable<int> shuffledCollection = _rg.NextShuffle(originalCollection);
@@ -82,7 +82,7 @@ public static class RandomCollectionTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextShuffle_ContainsSameElements()
+    public void NextShuffle_ContainsSameElements()
     {
         List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
         IEnumerable<int> shuffledCollection = _rg.NextShuffle(originalCollection);
@@ -92,7 +92,7 @@ public static class RandomCollectionTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextShuffle_IsRandom()
+    public void NextShuffle_IsRandom()
     {
         List<int> originalCollection = new() { 1, 2, 3, 4, 5 };
         IEnumerable<int> shuffledCollection1 = _rg.NextShuffle(originalCollection);
@@ -102,7 +102,7 @@ public static class RandomCollectionTest
     }
 
     [TestCase]
-    public static void NextShuffle_ThrowsOnEmpty()
+    public void NextShuffle_ThrowsOnEmpty()
     {
         Action action = static () => _rg.NextShuffle(Array.Empty<int>());
 

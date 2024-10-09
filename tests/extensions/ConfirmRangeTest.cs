@@ -8,19 +8,19 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmRangeTest
+public class ConfirmRangeTest
 {
     [TestCase(1, 0, 2)]
     [TestCase(0, 0, 2)]
     [TestCase(2, 0, 2)]
-    public static void ConfirmInRange_WhenInRange(int actual, int min, int max)
+    public void ConfirmInRange_WhenInRange(int actual, int min, int max)
     {
         _ = actual.ConfirmInRange(min, max);
     }
 
     [TestCase(0, 1, 2)]
     [TestCase(3, 1, 2)]
-    public static void ConfirmInRange_WhenNotInRange(
+    public void ConfirmInRange_WhenNotInRange(
         int actual,
         int min,
         int max
@@ -36,7 +36,7 @@ public static class ConfirmRangeTest
 
     [TestCase(0, 1, 2)]
     [TestCase(3, 1, 2)]
-    public static void ConfirmNotInRange_WhenNotInRange(
+    public void ConfirmNotInRange_WhenNotInRange(
         int actual,
         int min,
         int max
@@ -48,7 +48,7 @@ public static class ConfirmRangeTest
     [TestCase(1, 0, 2)]
     [TestCase(0, 0, 2)]
     [TestCase(2, 0, 2)]
-    public static void ConfirmNotInRange_WhenInRange(
+    public void ConfirmNotInRange_WhenInRange(
         int actual,
         int min,
         int max
@@ -64,14 +64,14 @@ public static class ConfirmRangeTest
 
     [TestCase(1, 0)]
     [TestCase(0, -1)]
-    public static void ConfirmGreaterThan_WhenGreaterThan(int actual, int value)
+    public void ConfirmGreaterThan_WhenGreaterThan(int actual, int value)
     {
         _ = actual.ConfirmGreaterThan(value);
     }
 
     [TestCase(0, 1)]
     [TestCase(-1, 0)]
-    public static void ConfirmGreaterThan_WhenNotGreaterThan(
+    public void ConfirmGreaterThan_WhenNotGreaterThan(
         int actual,
         int value
     )
@@ -86,7 +86,7 @@ public static class ConfirmRangeTest
 
     [TestCase(2, 1)]
     [TestCase(-1, -1)]
-    public static void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(
+    public void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(
         int actual,
         int value
     )
@@ -96,7 +96,7 @@ public static class ConfirmRangeTest
 
     [TestCase(0, 1)]
     [TestCase(-1, 0)]
-    public static void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(
+    public void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(
         int actual,
         int value
     )
@@ -111,14 +111,14 @@ public static class ConfirmRangeTest
 
     [TestCase(0, 1)]
     [TestCase(-1, 0)]
-    public static void ConfirmLessThan_WhenLessThan(int actual, int value)
+    public void ConfirmLessThan_WhenLessThan(int actual, int value)
     {
         _ = actual.ConfirmLessThan(value);
     }
 
     [TestCase(1, 0)]
     [TestCase(0, -1)]
-    public static void ConfirmLessThan_WhenNotLessThan(int actual, int value)
+    public void ConfirmLessThan_WhenNotLessThan(int actual, int value)
     {
         Action action = () => actual.ConfirmLessThan(value);
 
@@ -130,7 +130,7 @@ public static class ConfirmRangeTest
 
     [TestCase(1, 2)]
     [TestCase(0, 0)]
-    public static void ConfirmLessThanOrEqual_WhenLessThanOrEqual(
+    public void ConfirmLessThanOrEqual_WhenLessThanOrEqual(
         int actual,
         int value
     )
@@ -140,7 +140,7 @@ public static class ConfirmRangeTest
 
     [TestCase(1, 0)]
     [TestCase(0, -1)]
-    public static void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(
+    public void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(
         int actual,
         int value
     )

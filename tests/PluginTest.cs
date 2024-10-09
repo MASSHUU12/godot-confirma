@@ -5,10 +5,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class PluginTest
+public class PluginTest
 {
     [TestCase]
-    public static void GetPluginLocation_ReturnsCorrectLocation()
+    public void GetPluginLocation_ReturnsCorrectLocation()
     {
         _ = Plugin.GetPluginLocation().ConfirmEqual("res://addons/confirma/");
     }

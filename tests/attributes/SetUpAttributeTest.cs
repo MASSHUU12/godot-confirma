@@ -8,24 +8,24 @@ namespace Confirma.Tests;
 [TestClass]
 [Parallelizable]
 [SetUp(nameof(SetUp))]
-public static class SetUpAttributeTest
+public class SetUpAttributeTest
 {
-    private static bool _ranSetUp = false;
+    private bool _ranSetUp = false;
 
-    public static void BeforeAll()
+    public void BeforeAll()
     {
         _ranSetUp = false;
     }
 
     [TestCase]
-    public static void TestCase() { }
+    public void TestCase() { }
 
-    public static void SetUp()
+    public void SetUp()
     {
         _ranSetUp = true;
     }
 
-    public static void AfterAll()
+    public void AfterAll()
     {
         _ = _ranSetUp.ConfirmTrue();
         _ranSetUp = false;

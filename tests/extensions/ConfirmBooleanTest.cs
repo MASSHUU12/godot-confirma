@@ -8,16 +8,16 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmBooleanTest
+public class ConfirmBooleanTest
 {
     [TestCase]
-    public static void ConfirmTrue_WhenTrue()
+    public void ConfirmTrue_WhenTrue()
     {
         _ = true.ConfirmTrue();
     }
 
     [TestCase]
-    public static void ConfirmTrue_WhenFalse()
+    public void ConfirmTrue_WhenFalse()
     {
         Action action = static () => false.ConfirmTrue();
 
@@ -27,13 +27,13 @@ public static class ConfirmBooleanTest
     }
 
     [TestCase]
-    public static void ConfirmFalse_WhenFalse()
+    public void ConfirmFalse_WhenFalse()
     {
         _ = false.ConfirmFalse();
     }
 
     [TestCase]
-    public static void ConfirmFalse_WhenTrue()
+    public void ConfirmFalse_WhenTrue()
     {
         Action action = static () => true.ConfirmFalse();
 

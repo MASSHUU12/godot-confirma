@@ -7,10 +7,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class VectorFormatterTest
+public class VectorFormatterTest
 {
     [TestCase]
-    public static void Format_Vector2_ReturnsCorrectString()
+    public void Format_Vector2_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector2(4.2f, 5.8f))
@@ -18,7 +18,7 @@ public static class VectorFormatterTest
     }
 
     [TestCase]
-    public static void Format_Vector2I_ReturnsCorrectString()
+    public void Format_Vector2I_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector2I(4, 5))
@@ -26,7 +26,7 @@ public static class VectorFormatterTest
     }
 
     [TestCase]
-    public static void Format_Vector3_ReturnsCorrectString()
+    public void Format_Vector3_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector3(4.2f, 5.8f, 6.9f))
@@ -34,7 +34,7 @@ public static class VectorFormatterTest
     }
 
     [TestCase]
-    public static void Format_Vector3I_ReturnsCorrectString()
+    public void Format_Vector3I_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector3I(4, 5, 6))
@@ -42,7 +42,7 @@ public static class VectorFormatterTest
     }
 
     [TestCase]
-    public static void Format_Vector4_ReturnsCorrectString()
+    public void Format_Vector4_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector4(4.2f, 5.8f, 6.9f, 2.1f))
@@ -50,7 +50,7 @@ public static class VectorFormatterTest
     }
 
     [TestCase]
-    public static void Format_Vector4I_ReturnsCorrectString()
+    public void Format_Vector4I_ReturnsCorrectString()
     {
         _ = new VectorFormatter()
             .Format(new Vector4I(4, 5, 6, 2))

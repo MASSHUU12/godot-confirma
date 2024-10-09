@@ -7,17 +7,17 @@ namespace Confirma.Tests;
 [SetUp]
 [TestClass]
 [Parallelizable]
-public static class DefaultFormatterTest
+public class DefaultFormatterTest
 {
     private static DefaultFormatter? _formatter;
 
-    public static void SetUp()
+    public void SetUp()
     {
         _formatter = new DefaultFormatter();
     }
 
     [TestCase]
-    public static void Format_NullValue_ReturnsNullString()
+    public void Format_NullValue_ReturnsNullString()
     {
         object? value = null;
         string result = _formatter!.Format(value);
@@ -26,7 +26,7 @@ public static class DefaultFormatterTest
     }
 
     [TestCase]
-    public static void Format_NonNullValue_ReturnsToStringResult()
+    public void Format_NonNullValue_ReturnsToStringResult()
     {
         object value = "Hello, World!";
         string result = _formatter!.Format(value);
@@ -35,7 +35,7 @@ public static class DefaultFormatterTest
     }
 
     [TestCase]
-    public static void Format_ValueWithToStringOverride_ReturnsToStringResult()
+    public void Format_ValueWithToStringOverride_ReturnsToStringResult()
     {
         object value = new TestObject { Name = "John" };
         string result = _formatter!.Format(value);
@@ -44,7 +44,7 @@ public static class DefaultFormatterTest
     }
 
     [TestCase]
-    public static void Format_ValueWithoutToStringOverride_ReturnsTypeAndHashcode()
+    public void Format_ValueWithoutToStringOverride_ReturnsTypeAndHashcode()
     {
         object value = new();
         string result = _formatter!.Format(value);
