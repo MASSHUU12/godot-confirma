@@ -25,6 +25,7 @@ test("Verbose mode returns detailed information", async () => {
     "\n\u001B[38;2;142;239;151m2 passed" +
       "\u001B[0m, \u001B[38;2;255;120;107m0 failed\u001B[0m, " +
       "\u001B[38;2;255;221;101m0 ignored\u001B[0m, " +
-      "\u001B[38;2;255;221;101m0 warnings\u001B[0m.\n",
+      "\u001B[38;2;255;221;101m0 orphans, " +
+      "\u001B[0m\u001B[38;2;255;221;101m0 warnings\u001B[0m.\n",
   );
 });
