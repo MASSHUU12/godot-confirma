@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Arguments:
   - '--confirma-category'
+  - '--confirma-disable-orphans-monitor'
 - Formatters:
   - AutomaticFormatter
   - DefaultFormatter
@@ -82,6 +83,7 @@ and not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
 - Replaced `ArrayHelper.ToString` with `CollectionHelper.ToString`.
 - [#188] Failed invocation of lifecycle method results in test failure.
+- Orphans monitor is no longer considered experimental and is enabled by default.
 
 ### Removed
 
@@ -89,6 +91,7 @@ One attribute of a given type is allowed.
 - `LifecycleMethodData` record.
 - `ArrayHelper` class.
 - `ArrayHelperTest` Test.
+- '--experimental-monitor-orphans' argument.
 
 ### Fixed
 
