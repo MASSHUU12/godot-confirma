@@ -96,8 +96,6 @@ public class TestingClass
                 continue;
             }
 
-            int currentOrphans = GetOrphans();
-
             TestMethodResult methodResult = method.Run(props, _instance);
             testLogs.AddRange(methodResult.TestLogs);
 
@@ -111,18 +109,6 @@ public class TestingClass
                 methodResult.TestsPassed--;
                 method.Result.TestsFailed++;
                 AddError(e.Message, ref testLogs);
-            }
-
-            int orphans = GetOrphans() - currentOrphans;
-            if (orphans > 0)
-            {
-
-                results.Warnings++;
-                testLogs.Add(new(
-                    ELogType.Warning,
-                    ELangType.CSharp,
-                    $"Calling {method.Name} created {orphans} new orphan/s.\n"
-                ));
             }
 
             results += methodResult;
