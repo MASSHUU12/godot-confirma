@@ -75,6 +75,13 @@ public static class TestManager
         _props.Result.TotalTime = (DateTime.Now - startTimeStamp).TotalSeconds;
         _props.Result.TotalClasses = (uint)totalClasses;
 
+        if (_props.MonitorOrphans)
+        {
+            _props.Result.TotalOrphans += (uint)Godot.Performance.GetMonitor(
+                Godot.Performance.Monitor.ObjectOrphanNodeCount
+            );
+        }
+
         if ((_props.OutputType & ELogOutputType.Log) == ELogOutputType.Log)
         {
             PrintTestLogs();
