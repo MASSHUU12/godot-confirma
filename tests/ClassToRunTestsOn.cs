@@ -11,7 +11,7 @@ public partial class ClassToRunTestsOn : CSharpScript
         Something += string.Empty;
     }
 
-    public static int Add(int a, int b)
+    public int Add(int a, int b)
     {
         return a + b;
     }

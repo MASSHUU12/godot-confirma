@@ -8,16 +8,16 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class CollectionHelperTest
+public class CollectionHelperTest
 {
-    public static void ToString_EmptyEnumerable_ReturnsEmptyArrayString()
+    public void ToString_EmptyEnumerable_ReturnsEmptyArrayString()
     {
         IEnumerable<object> value = Enumerable.Empty<object>();
         _ = CollectionHelper.ToString(value).ConfirmEqual("[]");
     }
 
     [TestCase]
-    public static void ToString_SingleElementEnumerable_ReturnsSingleElementArrayString()
+    public void ToString_SingleElementEnumerable_ReturnsSingleElementArrayString()
     {
         IEnumerable<string> value = new[] { "Hello" };
 
@@ -25,7 +25,7 @@ public static class CollectionHelperTest
     }
 
     [TestCase]
-    public static void ToString_MultipleElementList_ReturnsMultipleElementArrayString()
+    public void ToString_MultipleElementList_ReturnsMultipleElementArrayString()
     {
         List<float> value = new() { 20f, 25f };
 
@@ -33,7 +33,7 @@ public static class CollectionHelperTest
     }
 
     [TestCase]
-    public static void ToString_SingleElementArray_ReturnsSingleElementArrayString()
+    public void ToString_SingleElementArray_ReturnsSingleElementArrayString()
     {
         object[] value = new[] { "Hello" };
 
@@ -41,7 +41,7 @@ public static class CollectionHelperTest
     }
 
     [TestCase]
-    public static void ToString_MultipleElementArray_ReturnsMultipleElementArrayString()
+    public void ToString_MultipleElementArray_ReturnsMultipleElementArrayString()
     {
         object[] value = new[] { "Hello", "World" };
 
@@ -49,7 +49,7 @@ public static class CollectionHelperTest
     }
 
     [TestCase]
-    public static void ToString_NoBrackets_ReturnsArrayString()
+    public void ToString_NoBrackets_ReturnsArrayString()
     {
         IEnumerable<string> value = new[] { "Hello" };
 

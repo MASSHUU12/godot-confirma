@@ -7,7 +7,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class EnumHelperTest
+public class EnumHelperTest
 {
     [Flags]
     private enum EEnumHelperTest : ushort
@@ -20,7 +20,7 @@ public static class EnumHelperTest
     }
 
     [TestCase]
-    public static void TryParseFlagsEnum_ValidInput_ReturnsTrueAndParsedValue()
+    public void TryParseFlagsEnum_ValidInput_ReturnsTrueAndParsedValue()
     {
         const string input = "Value1,Value2";
 
@@ -31,7 +31,7 @@ public static class EnumHelperTest
     }
 
     [TestCase]
-    public static void TryParseFlagsEnum_InvalidInput_ReturnsFalseAndDefault()
+    public void TryParseFlagsEnum_InvalidInput_ReturnsFalseAndDefault()
     {
         const string input = "InvalidValue";
 
@@ -42,7 +42,7 @@ public static class EnumHelperTest
     }
 
     [TestCase]
-    public static void TryParseFlagsEnum_MultipleInvalidInputs_ReturnsFalseAndDefault()
+    public void TryParseFlagsEnum_MultipleInvalidInputs_ReturnsFalseAndDefault()
     {
         const string input = "InvalidValue1,InvalidValue2";
 
@@ -53,7 +53,7 @@ public static class EnumHelperTest
     }
 
     [TestCase]
-    public static void TryParseFlagsEnum_EmptyInput_ReturnsFalseAndDefault()
+    public void TryParseFlagsEnum_EmptyInput_ReturnsFalseAndDefault()
     {
         string input = string.Empty;
 
@@ -64,7 +64,7 @@ public static class EnumHelperTest
     }
 
     [TestCase]
-    public static void TryParseFlagsEnum_SingleValidInput_ReturnsTrueAndParsedValue()
+    public void TryParseFlagsEnum_SingleValidInput_ReturnsTrueAndParsedValue()
     {
         const string input = "Value1";
 

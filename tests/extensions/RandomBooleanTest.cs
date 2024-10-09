@@ -6,13 +6,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomBooleanTest
+public class RandomBooleanTest
 {
     private static readonly Random rg = new();
 
     [Repeat(5)]
     [TestCase]
-    public static void NextBool()
+    public void NextBool()
     {
         const uint ITERATIONS = 100000;
         uint trueCount = 0;
@@ -31,7 +31,7 @@ public static class RandomBooleanTest
 
     [Repeat(5)]
     [TestCase]
-    public static void NextNullableBool()
+    public void NextNullableBool()
     {
         const uint ITERATIONS = 100000;
 

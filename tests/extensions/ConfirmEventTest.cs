@@ -7,13 +7,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmEventTest
+public class ConfirmEventTest
 {
     private static event EventHandler<TestEventArgs>? TestEvent;
     private static event EventHandler<TestEventArgs>? NullEvent = null;
-    private static event EventHandler<TestEventArgs>? FieldInfoEvent = (e,o) => {}; //second "unknown"
+    private static event EventHandler<TestEventArgs>? FieldInfoEvent = (e, o) => { }; //second "unknown"
 
-    private static void OnEvent(TestEventArgs e,EventHandler<TestEventArgs>? handler)
+    private static void OnEvent(TestEventArgs e, EventHandler<TestEventArgs>? handler)
     {
         handler?.Invoke(null, e);
     }
@@ -21,15 +21,15 @@ public static class ConfirmEventTest
     private class TestEventArgs : EventArgs { }
 
     [TestCase]
-    public static void ConfirmRaisesEvent_WhenTestRaises()
+    public void ConfirmRaisesEvent_WhenTestRaises()
     {
-        Action action = static () => OnEvent(new(),TestEvent);
+        Action action = static () => OnEvent(new(), TestEvent);
 
         _ = action.ConfirmRaisesEvent(ref TestEvent);
     }
 
     [TestCase]
-    public static void ConfirmRaisesEvent_WhenTestDoesNotRaise()
+    public void ConfirmRaisesEvent_WhenTestDoesNotRaise()
     {
         Action action = static () =>
         {
@@ -41,7 +41,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmRaisesEvent_WhenEventHandlerIsNull()
+    public void ConfirmRaisesEvent_WhenEventHandlerIsNull()
     {
         Action action = static () =>
         {
@@ -56,7 +56,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmRaisesEvent_WhenEventHandlerIsUnknown()
+    public void ConfirmRaisesEvent_WhenEventHandlerIsUnknown()
     {
         Action action = static () =>
         {
@@ -71,7 +71,7 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotRaiseEvent_WhenTestDoesNotRaise()
+    public void ConfirmDoesNotRaiseEvent_WhenTestDoesNotRaise()
     {
         Action action = static () => { /* No event raise here */ };
 
@@ -79,11 +79,11 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotRaiseEvent_WhenTestRaises()
+    public void ConfirmDoesNotRaiseEvent_WhenTestRaises()
     {
         Action action = static () =>
         {
-            Action a = static () => OnEvent(new(),TestEvent);
+            Action a = static () => OnEvent(new(), TestEvent);
             _ = a.ConfirmDoesNotRaiseEvent(ref TestEvent);
         };
 
@@ -91,11 +91,11 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotRaiseEvent_WhenEventHandlerIsNull()
+    public void ConfirmDoesNotRaiseEvent_WhenEventHandlerIsNull()
     {
         Action action = static () =>
         {
-            Action a = static () => OnEvent(new(),NullEvent);
+            Action a = static () => OnEvent(new(), NullEvent);
 
             _ = a.ConfirmDoesNotRaiseEvent(ref NullEvent);
         };
@@ -107,11 +107,11 @@ public static class ConfirmEventTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotRaisesEvent_WhenEventHandlerIsUnknown()
+    public void ConfirmDoesNotRaisesEvent_WhenEventHandlerIsUnknown()
     {
         Action action = static () =>
         {
-            Action a = static () => OnEvent(new(),FieldInfoEvent);
+            Action a = static () => OnEvent(new(), FieldInfoEvent);
 
             _ = a.ConfirmDoesNotRaiseEvent(ref FieldInfoEvent);
         };

@@ -8,11 +8,11 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmStringTest
+public class ConfirmStringTest
 {
     #region ConfirmEmpty
     [TestCase]
-    public static void ConfirmEmpty_WhenEmpty()
+    public void ConfirmEmpty_WhenEmpty()
     {
         const string? empty = null;
 
@@ -21,7 +21,7 @@ public static class ConfirmStringTest
     }
 
     [TestCase]
-    public static void ConfirmEmpty_WhenNotEmpty()
+    public void ConfirmEmpty_WhenNotEmpty()
     {
         Action action = static () => "not empty".ConfirmEmpty();
 
@@ -34,13 +34,13 @@ public static class ConfirmStringTest
 
     #region ConfirmNotEmpty
     [TestCase]
-    public static void ConfirmNotEmpty_WhenNotEmpty()
+    public void ConfirmNotEmpty_WhenNotEmpty()
     {
         _ = "not empty".ConfirmNotEmpty();
     }
 
     [TestCase]
-    public static void ConfirmNotEmpty_WhenEmpty()
+    public void ConfirmNotEmpty_WhenEmpty()
     {
         Action action = static () => "".ConfirmNotEmpty();
 
@@ -52,13 +52,13 @@ public static class ConfirmStringTest
 
     #region ConfirmContains
     [TestCase]
-    public static void ConfirmContains_WhenContains()
+    public void ConfirmContains_WhenContains()
     {
         _ = "contains".ConfirmContains("tai");
     }
 
     [TestCase]
-    public static void ConfirmContains_WhenNotContains()
+    public void ConfirmContains_WhenNotContains()
     {
         Action action = static () => "not contains".ConfirmContains("xxx");
 
@@ -71,13 +71,13 @@ public static class ConfirmStringTest
 
     #region ConfirmNotContains
     [TestCase]
-    public static void ConfirmNotContains_WhenNotContains()
+    public void ConfirmNotContains_WhenNotContains()
     {
         _ = "not contains".ConfirmNotContains("xxx");
     }
 
     [TestCase]
-    public static void ConfirmNotContains_WhenContains()
+    public void ConfirmNotContains_WhenContains()
     {
         Action action = static () => "contains".ConfirmNotContains("tai");
 
@@ -90,13 +90,13 @@ public static class ConfirmStringTest
 
     #region ConfirmStartsWith
     [TestCase]
-    public static void ConfirmStartsWith_WhenStartsWith()
+    public void ConfirmStartsWith_WhenStartsWith()
     {
         _ = "starts with".ConfirmStartsWith("sta");
     }
 
     [TestCase]
-    public static void ConfirmStartsWith_WhenNotStartsWith()
+    public void ConfirmStartsWith_WhenNotStartsWith()
     {
         Action action = static () => "not starts with".ConfirmStartsWith("xxx");
 
@@ -109,13 +109,13 @@ public static class ConfirmStringTest
 
     #region ConfirmNotStartsWith
     [TestCase]
-    public static void ConfirmNotStartsWith_WhenNotStartsWith()
+    public void ConfirmNotStartsWith_WhenNotStartsWith()
     {
         _ = "not starts with".ConfirmNotStartsWith("xxx");
     }
 
     [TestCase]
-    public static void ConfirmNotStartsWith_WhenStartsWith()
+    public void ConfirmNotStartsWith_WhenStartsWith()
     {
         Action action = static () => "starts with".ConfirmNotStartsWith("sta");
 
@@ -128,13 +128,13 @@ public static class ConfirmStringTest
 
     #region ConfirmEndsWith
     [TestCase]
-    public static void ConfirmEndsWith_WhenEndsWith()
+    public void ConfirmEndsWith_WhenEndsWith()
     {
         _ = "ends with".ConfirmEndsWith("ith");
     }
 
     [TestCase]
-    public static void ConfirmEndsWith_WhenNotEndsWith()
+    public void ConfirmEndsWith_WhenNotEndsWith()
     {
         Action action = static () => "not ends with".ConfirmEndsWith("xxx");
 
@@ -147,13 +147,13 @@ public static class ConfirmStringTest
 
     #region ConfirmNotEndsWith
     [TestCase]
-    public static void ConfirmNotEndsWith_WhenNotEndsWith()
+    public void ConfirmNotEndsWith_WhenNotEndsWith()
     {
         _ = "not ends with".ConfirmNotEndsWith("xxx");
     }
 
     [TestCase]
-    public static void ConfirmNotEndsWith_WhenEndsWith()
+    public void ConfirmNotEndsWith_WhenEndsWith()
     {
         Action action = static () => "ends with".ConfirmNotEndsWith("ith");
 
@@ -167,14 +167,14 @@ public static class ConfirmStringTest
     #region ConfirmHasLength
     [TestCase("Lorem ipsum", 11)]
     [TestCase("Lorem ipsum\n", 12)]
-    public static void ConfirmHasLength_WhenHasLength(string value, int length)
+    public void ConfirmHasLength_WhenHasLength(string value, int length)
     {
         _ = value.ConfirmHasLength(length);
     }
 
     [TestCase("Lorem ipsum", 12)]
     [TestCase("Lorem ipsum\n", 11)]
-    public static void ConfirmHasLength_WhenNotHasLength(string value, int length)
+    public void ConfirmHasLength_WhenNotHasLength(string value, int length)
     {
         Action action = () => value.ConfirmHasLength(length);
 
@@ -188,14 +188,14 @@ public static class ConfirmStringTest
     #region ConfirmNotHasLength
     [TestCase("Lorem ipsum", 12)]
     [TestCase("Lorem ipsum\n", 11)]
-    public static void ConfirmNotHasLength_WhenNotHasLength(string value, int length)
+    public void ConfirmNotHasLength_WhenNotHasLength(string value, int length)
     {
         _ = value.ConfirmNotHasLength(length);
     }
 
     [TestCase("Lorem ipsum", 11)]
     [TestCase("Lorem ipsum\n", 12)]
-    public static void ConfirmNotHasLength_WhenHasLength(string value, int length)
+    public void ConfirmNotHasLength_WhenHasLength(string value, int length)
     {
         Action action = () => value.ConfirmNotHasLength(length);
 
@@ -210,7 +210,7 @@ public static class ConfirmStringTest
     [TestCase("Lorem ipsum", "lorem ipsum")]
     [TestCase("Lorem ipsum", "LOREM IPSUM")]
     [TestCase("Lorem ipsum", "lOrEm IpSuM")]
-    public static void ConfirmEqualsCaseInsensitive_WhenEquals(
+    public void ConfirmEqualsCaseInsensitive_WhenEquals(
         string value,
         string expected
     )
@@ -221,7 +221,7 @@ public static class ConfirmStringTest
     [TestCase("Lorem ipsum", "lorem")]
     [TestCase("Lorem ipsum", "ipsum")]
     [TestCase("Lorem ipsum", "lorem ipsum ")]
-    public static void ConfirmEqualsCaseInsensitive_WhenNotEquals(
+    public void ConfirmEqualsCaseInsensitive_WhenNotEquals(
         string value,
         string expected
     )
@@ -239,7 +239,7 @@ public static class ConfirmStringTest
     [TestCase("Lorem ipsum", "lorem")]
     [TestCase("Lorem ipsum", "ipsum")]
     [TestCase("Lorem ipsum", "lorem ipsum ")]
-    public static void ConfirmNotEqualsCaseInsensitive_WhenNotEquals(
+    public void ConfirmNotEqualsCaseInsensitive_WhenNotEquals(
         string value,
         string expected
     )
@@ -250,7 +250,7 @@ public static class ConfirmStringTest
     [TestCase("Lorem ipsum", "lorem ipsum")]
     [TestCase("Lorem ipsum", "LOREM IPSUM")]
     [TestCase("Lorem ipsum", "lOrEm IpSuM")]
-    public static void ConfirmNotEqualsCaseInsensitive_WhenEquals(
+    public void ConfirmNotEqualsCaseInsensitive_WhenEquals(
         string value,
         string expected
     )
@@ -267,7 +267,7 @@ public static class ConfirmStringTest
     #region ConfirmMatchesPattern
     [TestCase("Lorem ipsum", @"\bL\w*\b")]
     [TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})")]
-    public static void ConfirmMatchesPattern_WhenPatternMatches(
+    public void ConfirmMatchesPattern_WhenPatternMatches(
         string value,
         string pattern
     )
@@ -277,7 +277,7 @@ public static class ConfirmStringTest
 
     [TestCase("Dorem ipsum", @"\bL\w*\b")]
     [TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})")]
-    public static void ConfirmMatchesPattern_WhenPatternNotMatches(
+    public void ConfirmMatchesPattern_WhenPatternNotMatches(
         string value,
         string pattern
     )
@@ -294,7 +294,7 @@ public static class ConfirmStringTest
     #region ConfirmDoesNotMatchPattern
     [TestCase("Dorem ipsum", @"\bL\w*\b")]
     [TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})")]
-    public static void ConfirmDoesNotMatchPattern_WhenPatternNotMatches(
+    public void ConfirmDoesNotMatchPattern_WhenPatternNotMatches(
         string value,
         string pattern
     )
@@ -304,7 +304,7 @@ public static class ConfirmStringTest
 
     [TestCase("Lorem ipsum", @"\bL\w*\b")]
     [TestCase("123-456-789", @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})")]
-    public static void ConfirmDoesNotMatchPattern_WhenPatternMatches(
+    public void ConfirmDoesNotMatchPattern_WhenPatternMatches(
         string value,
         string pattern
     )
@@ -320,7 +320,7 @@ public static class ConfirmStringTest
 
     #region ConfirmLowercase
     [TestCase]
-    public static void ConfirmLowercase_ReturnsTrue_WhenStringIsLowercase()
+    public void ConfirmLowercase_ReturnsTrue_WhenStringIsLowercase()
     {
         _ = "hello".ConfirmLowercase().ConfirmTrue();
     }
@@ -329,7 +329,7 @@ public static class ConfirmStringTest
     [TestCase("heLlo")]
     [TestCase("hellO")]
     [TestCase("HELLO")]
-    public static void ConfirmLowercase_WhenStringIsNotLowercase(string str)
+    public void ConfirmLowercase_WhenStringIsNotLowercase(string str)
     {
         Action action = () => str.ConfirmLowercase();
 
@@ -342,7 +342,7 @@ public static class ConfirmStringTest
 
     #region ConfirmUppercase
     [TestCase]
-    public static void ConfirmUppercase_ReturnsTrue_WhenStringIsUppercase()
+    public void ConfirmUppercase_ReturnsTrue_WhenStringIsUppercase()
     {
         _ = "HELLO".ConfirmUppercase().ConfirmTrue();
     }
@@ -351,7 +351,7 @@ public static class ConfirmStringTest
     [TestCase("Hello")]
     [TestCase("heLlo")]
     [TestCase("hellO")]
-    public static void ConfirmUppercase_WhenStringIsNotUppercase(string str)
+    public void ConfirmUppercase_WhenStringIsNotUppercase(string str)
     {
         Action action = () => str.ConfirmUppercase();
 

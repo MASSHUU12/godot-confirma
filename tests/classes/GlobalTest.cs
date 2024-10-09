@@ -8,22 +8,22 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Ignore(InEditor)]
-public static class GlobalTest
+public class GlobalTest
 {
     [TestCase]
-    public static void RootIsNotNull()
+    public void RootIsNotNull()
     {
         _ = Global.Root.ConfirmNotNull();
     }
 
     [TestCase]
-    public static void RootIsWindow()
+    public void RootIsWindow()
     {
         _ = Global.Root.ConfirmType<Window>();
     }
 
     [TestCase]
-    public static void RootHasChildren()
+    public void RootHasChildren()
     {
         _ = Global.Root.GetChildren().Count.ConfirmIsPositive();
     }

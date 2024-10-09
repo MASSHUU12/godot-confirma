@@ -7,11 +7,11 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmExceptionTest
+public class ConfirmExceptionTest
 {
     #region ConfirmThrows
     [TestCase]
-    public static void ConfirmThrows_WhenThrows()
+    public void ConfirmThrows_WhenThrows()
     {
         Action action = static () => throw new NotImplementedException();
 
@@ -19,7 +19,7 @@ public static class ConfirmExceptionTest
     }
 
     [TestCase]
-    public static void ConfirmThrows_WhenNotThrows()
+    public void ConfirmThrows_WhenNotThrows()
     {
         Action action = static () =>
         {
@@ -38,7 +38,7 @@ public static class ConfirmExceptionTest
 
     #region ConfirmThrows
     [TestCase]
-    public static void ConfirmNotThrows_WhenNotThrows()
+    public void ConfirmNotThrows_WhenNotThrows()
     {
         Action action = static () => {/* Not throws */};
 
@@ -46,7 +46,7 @@ public static class ConfirmExceptionTest
     }
 
     [TestCase]
-    public static void ConfirmNotThrows_WhenThrows()
+    public void ConfirmNotThrows_WhenThrows()
     {
         Action action = static () =>
         {
@@ -65,7 +65,7 @@ public static class ConfirmExceptionTest
     #region ConfirmThrowsWMessage
     [TestCase("")]
     [TestCase("Lorem ipsum")]
-    public static void ConfirmThrowsWMessage_WhenThrows(string actual)
+    public void ConfirmThrowsWMessage_WhenThrows(string actual)
     {
         Action action = () => throw new NotImplementedException(actual);
 
@@ -74,7 +74,7 @@ public static class ConfirmExceptionTest
 
     [TestCase("")]
     [TestCase("Lorem ipsum")]
-    public static void ConfirmThrowsWMessage_WhenNotThrows(string actual)
+    public void ConfirmThrowsWMessage_WhenNotThrows(string actual)
     {
         Action action = () =>
         {
@@ -93,7 +93,7 @@ public static class ConfirmExceptionTest
     [TestCase("", "Expected")]
     [TestCase("Actual", "")]
     [TestCase("Lorem ipsum", "dolor sit amet")]
-    public static void ConfirmThrowsWMessage_WhenThrowsWWrongMessage(
+    public void ConfirmThrowsWMessage_WhenThrowsWWrongMessage(
         string actual,
         string expected
     )
@@ -116,7 +116,7 @@ public static class ConfirmExceptionTest
     #region ConfirmNotThrowsWMessage
     [TestCase("")]
     [TestCase("Lorem ipsum")]
-    public static void ConfirmNotThrowsWMessage_WhenNotThrows(string actual)
+    public void ConfirmNotThrowsWMessage_WhenNotThrows(string actual)
     {
         Action action = static () => {/* Not throws */};
 
@@ -125,7 +125,7 @@ public static class ConfirmExceptionTest
 
     [TestCase("")]
     [TestCase("Lorem ipsum")]
-    public static void ConfirmNotThrowsWMessage_WhenThrows(string actual)
+    public void ConfirmNotThrowsWMessage_WhenThrows(string actual)
     {
         Action action = () =>
         {
@@ -144,7 +144,7 @@ public static class ConfirmExceptionTest
     [TestCase("", "Expected")]
     [TestCase("Actual", "")]
     [TestCase("Lorem ipsum", "dolor sit amet")]
-    public static void ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(
+    public void ConfirmNotThrowsWMessage_WhenThrowsWWrongMessage(
         string actual,
         string expected
     )

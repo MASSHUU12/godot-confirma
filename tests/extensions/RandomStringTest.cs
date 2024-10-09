@@ -9,13 +9,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomStringTest
+public class RandomStringTest
 {
     private static readonly Random _rg = new();
 
     [Repeat(3)]
     [TestCase]
-    public static void NextChar_Mixed_ReturnsUpperOrLowerChar()
+    public void NextChar_Mixed_ReturnsUpperOrLowerChar()
     {
         char result = _rg.NextChar(StringType.MixedLetter);
 
@@ -28,14 +28,14 @@ public static class RandomStringTest
     [TestCase("abc")]
     [TestCase("123")]
     [TestCase("A$B2c_")]
-    public static void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allowedChars)
+    public void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allowedChars)
     {
         _ = allowedChars.ConfirmContains(_rg.NextChar(allowedChars));
     }
 
     [Repeat(3)]
     [TestCase]
-    public static void NextLowerChar_GeneratesLowercaseLetter()
+    public void NextLowerChar_GeneratesLowercaseLetter()
     {
         char result = _rg.NextLowerChar();
 
@@ -45,7 +45,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextUpperChar_GeneratesUppercaseLetter()
+    public void NextUpperChar_GeneratesUppercaseLetter()
     {
         char result = _rg.NextUpperChar();
 
@@ -55,7 +55,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextDigitChar_GeneratesDigitLetter()
+    public void NextDigitChar_GeneratesDigitLetter()
     {
         _ = Confirm.IsTrue(char.IsDigit(_rg.NextDigitChar()));
     }
@@ -63,7 +63,7 @@ public static class RandomStringTest
     #region NextString
     [Repeat(3)]
     [TestCase]
-    public static void NextString_DefaultLength_ReturnsStringWithDefaultLength()
+    public void NextString_DefaultLength_ReturnsStringWithDefaultLength()
     {
         string result = _rg.NextString();
 
@@ -73,7 +73,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextString_CustomLength_ReturnsStringWithCustomLength()
+    public void NextString_CustomLength_ReturnsStringWithCustomLength()
     {
         const int minLength = 5;
         const int maxLength = 10;
@@ -85,7 +85,7 @@ public static class RandomStringTest
     }
 
     [TestCase]
-    public static void NextString_InvalidLength()
+    public void NextString_InvalidLength()
     {
         Action action = static () => _rg.NextString(15, 5);
 
@@ -94,7 +94,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextString_UpperType_ReturnsStringWithCustomType()
+    public void NextString_UpperType_ReturnsStringWithCustomType()
     {
         string result = _rg.NextString(type: StringType.Upper);
 
@@ -103,7 +103,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextString_LowerType_ReturnsStringWithCustomType()
+    public void NextString_LowerType_ReturnsStringWithCustomType()
     {
         string result = _rg.NextString(type: StringType.Lower);
 
@@ -112,7 +112,7 @@ public static class RandomStringTest
 
     [Repeat(3)]
     [TestCase]
-    public static void NextString_DigitType_ReturnsStringWithCustomType()
+    public void NextString_DigitType_ReturnsStringWithCustomType()
     {
         string result = _rg.NextString(type: StringType.Digit);
 

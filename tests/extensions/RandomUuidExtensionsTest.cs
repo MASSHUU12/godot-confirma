@@ -6,13 +6,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class RandomUuidExtensionsTest
+public class RandomUuidExtensionsTest
 {
     private static readonly Random rg = new();
 
     [Repeat(3)]
     [TestCase]
-    public static void NextUuid4()
+    public void NextUuid4()
     {
         _ = rg.NextUuid4().ToString().ConfirmValidUuid4();
     }

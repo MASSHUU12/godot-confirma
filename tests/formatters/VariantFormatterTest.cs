@@ -7,12 +7,12 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class VariantFormatterTest
+public class VariantFormatterTest
 {
     private static readonly VariantFormatter _formatter = new();
 
     [TestCase]
-    public static void Format_String_CorrectlyFormats()
+    public void Format_String_CorrectlyFormats()
     {
         _ = _formatter
             .Format(Variant.From("Hello, World!"))
@@ -26,7 +26,7 @@ public static class VariantFormatterTest
         HideFromResults = true
     )]
     [TestCase]
-    public static void Format_Char_CorrectlyFormats()
+    public void Format_Char_CorrectlyFormats()
     {
         _ = _formatter
             .Format(Variant.From('c')) // 99 (decimal) in ASCII
@@ -34,7 +34,7 @@ public static class VariantFormatterTest
     }
 
     [TestCase]
-    public static void Format_Number_CorrectlyFormats()
+    public void Format_Number_CorrectlyFormats()
     {
         _ = _formatter
             .Format(Variant.From(12345))
@@ -42,7 +42,7 @@ public static class VariantFormatterTest
     }
 
     [TestCase]
-    public static void Format_Array_CorrectlyFormats()
+    public void Format_Array_CorrectlyFormats()
     {
         _ = _formatter
             .Format(new int[] { 1, 2, 3 })

@@ -11,7 +11,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmDictionaryTest
+public class ConfirmDictionaryTest
 {
     private static readonly Dictionary<object, object> _dictionary = new()
     {
@@ -36,7 +36,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f)]
     [TestCase(4d)]
     [TestCase('5')]
-    public static void ConfirmContainsKey_WhenKeyExists(object key)
+    public void ConfirmContainsKey_WhenKeyExists(object key)
     {
         _ = _dictionary.ConfirmContainsKey(key);
     }
@@ -46,7 +46,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f)]
     [TestCase(4d)]
     [TestCase('5')]
-    public static void ConfirmContainsKey_WhenKeyExists_Variant(object key)
+    public void ConfirmContainsKey_WhenKeyExists_Variant(object key)
     {
         _ = _godotDictionary.ConfirmContainsKey(key.ToVariant());
     }
@@ -56,7 +56,7 @@ public static class ConfirmDictionaryTest
     [TestCase(4f)]
     [TestCase(5d)]
     [TestCase('6')]
-    public static void ConfirmContainsKey_WhenKeyDoesNotExist(object key)
+    public void ConfirmContainsKey_WhenKeyDoesNotExist(object key)
     {
         Action action = () => _dictionary.ConfirmContainsKey(key);
 
@@ -72,7 +72,7 @@ public static class ConfirmDictionaryTest
     [TestCase(4)]
     [TestCase(5d)]
     // [TestCase('6')]
-    public static void ConfirmContainsKey_WhenKeyDoesNotExist_Variant(object key)
+    public void ConfirmContainsKey_WhenKeyDoesNotExist_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmContainsKey(key.ToVariant());
 
@@ -90,7 +90,7 @@ public static class ConfirmDictionaryTest
     [TestCase(4f)]
     [TestCase(5d)]
     [TestCase('6')]
-    public static void ConfirmNotContainsKey_WhenKeyDoesNotExist(object key)
+    public void ConfirmNotContainsKey_WhenKeyDoesNotExist(object key)
     {
         _ = _dictionary.ConfirmNotContainsKey(key);
     }
@@ -100,7 +100,7 @@ public static class ConfirmDictionaryTest
     [TestCase(4)]
     [TestCase(5d)]
     [TestCase('6')]
-    public static void ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(object key)
+    public void ConfirmNotContainsKey_WhenKeyDoesNotExist_Variant(object key)
     {
         _ = _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
     }
@@ -110,7 +110,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f)]
     [TestCase(4d)]
     [TestCase('5')]
-    public static void ConfirmNotContainsKey_WhenKeyExists(object key)
+    public void ConfirmNotContainsKey_WhenKeyExists(object key)
     {
         Action action = () => _dictionary.ConfirmNotContainsKey(key);
 
@@ -126,7 +126,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f)]
     [TestCase(4d)]
     // [TestCase('5')]
-    public static void ConfirmNotContainsKey_WhenKeyExists_Variant(object key)
+    public void ConfirmNotContainsKey_WhenKeyExists_Variant(object key)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsKey(key.ToVariant());
 
@@ -144,7 +144,7 @@ public static class ConfirmDictionaryTest
     [TestCase(333f)]
     [TestCase(444d)]
     [TestCase('5')]
-    public static void ConfirmContainsValue_WhenValueExists(object value)
+    public void ConfirmContainsValue_WhenValueExists(object value)
     {
         _ = _dictionary.ConfirmContainsValue(value);
     }
@@ -154,7 +154,7 @@ public static class ConfirmDictionaryTest
     [TestCase(333f)]
     [TestCase(444d)]
     [TestCase('5')]
-    public static void ConfirmContainsValue_WhenValueExists_Variant(object value)
+    public void ConfirmContainsValue_WhenValueExists_Variant(object value)
     {
         _ = _godotDictionary.ConfirmContainsValue(value.ToVariant());
     }
@@ -164,7 +164,7 @@ public static class ConfirmDictionaryTest
     [TestCase(2137f)]
     [TestCase(420d)]
     [TestCase('0')]
-    public static void ConfirmContainsValue_WhenValueDoesNotExist(object value)
+    public void ConfirmContainsValue_WhenValueDoesNotExist(object value)
     {
         Action action = () => _dictionary.ConfirmContainsValue(value);
 
@@ -180,7 +180,7 @@ public static class ConfirmDictionaryTest
     [TestCase(2137f)]
     [TestCase(420d)]
     // [TestCase('0')]
-    public static void ConfirmContainsValue_WhenValueDoesNotExist_Variant(object value)
+    public void ConfirmContainsValue_WhenValueDoesNotExist_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmContainsValue(value.ToVariant());
 
@@ -198,7 +198,7 @@ public static class ConfirmDictionaryTest
     [TestCase(2137f)]
     [TestCase(420d)]
     [TestCase('0')]
-    public static void ConfirmNotContainsValue_WhenValueDoesNotExist(object value)
+    public void ConfirmNotContainsValue_WhenValueDoesNotExist(object value)
     {
         _ = _dictionary.ConfirmNotContainsValue(value);
     }
@@ -208,7 +208,7 @@ public static class ConfirmDictionaryTest
     [TestCase(2137f)]
     [TestCase(420d)]
     [TestCase('0')]
-    public static void ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(object value)
+    public void ConfirmNotContainsValue_WhenValueDoesNotExist_Variant(object value)
     {
         _ = _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
     }
@@ -218,7 +218,7 @@ public static class ConfirmDictionaryTest
     [TestCase(333f)]
     [TestCase(444d)]
     [TestCase('5')]
-    public static void ConfirmNotContainsValue_WhenValueExists(object value)
+    public void ConfirmNotContainsValue_WhenValueExists(object value)
     {
         Action action = () => _dictionary.ConfirmNotContainsValue(value);
 
@@ -234,7 +234,7 @@ public static class ConfirmDictionaryTest
     [TestCase(333f)]
     [TestCase(444d)]
     // [TestCase('5')]
-    public static void ConfirmNotContainsValue_WhenValueExists_Variant(object value)
+    public void ConfirmNotContainsValue_WhenValueExists_Variant(object value)
     {
         Action action = () => _godotDictionary.ConfirmNotContainsValue(value.ToVariant());
 
@@ -252,7 +252,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairExists(
+    public void ConfirmContainsKeyValuePair_WhenKeyValuePairExists(
         object key,
         object value
     )
@@ -265,7 +265,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(
+    public void ConfirmContainsKeyValuePair_WhenKeyValuePairExists_Variant(
         object key,
         object value
     )
@@ -281,7 +281,7 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
+    public void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
         object key,
         object value
     )
@@ -300,7 +300,7 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     // [TestCase('5', '-')]
-    public static void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
+    public void ConfirmContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
         object key,
         object value
     )
@@ -324,7 +324,7 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
+    public void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist(
         object key,
         object value
     )
@@ -337,7 +337,7 @@ public static class ConfirmDictionaryTest
     [TestCase("3f", 333f)]
     [TestCase(5d, 444d)]
     [TestCase('5', '-')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
+    public void ConfirmNotContainsKeyValuePair_WhenKeyValuePairDoesNotExist_Variant(
         object key,
         object value
     )
@@ -353,7 +353,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     [TestCase('5', '5')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(
+    public void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists(
         object key,
         object value
     )
@@ -372,7 +372,7 @@ public static class ConfirmDictionaryTest
     [TestCase(3f, 333f)]
     [TestCase(4d, 444d)]
     // [TestCase('5', '5')]
-    public static void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(
+    public void ConfirmNotContainsKeyValuePair_WhenKeyValuePairExists_Variant(
         object key,
         object value
     )

@@ -6,16 +6,16 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class StringExtensionsTest
+public class StringExtensionsTest
 {
     [TestCase]
-    public static void EscapeInvisibleCharacters_EmptyString_ReturnsEmptyString()
+    public void EscapeInvisibleCharacters_EmptyString_ReturnsEmptyString()
     {
         _ = string.Empty.EscapeInvisibleCharacters().ConfirmEqual(string.Empty);
     }
 
     [TestCase]
-    public static void EscapeInvisibleCharacters_NoInvisibleCharacters_ReturnsOriginalString()
+    public void EscapeInvisibleCharacters_NoInvisibleCharacters_ReturnsOriginalString()
     {
         _ = "Hello World".EscapeInvisibleCharacters().ConfirmEqual("Hello World");
     }
@@ -28,7 +28,7 @@ public static class StringExtensionsTest
     [TestCase("\r", "\\r")] // Carriage return
     [TestCase("\t", "\\t")] // Horizontal tab
     [TestCase("\v", "\\v")] // Vertical tab
-    public static void EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(
+    public void EscapeInvisibleCharacters_SpecialCharacter_ReturnsEscapedCharacter(
         string character,
         string expected
     )
@@ -37,7 +37,7 @@ public static class StringExtensionsTest
     }
 
     [TestCase]
-    public static void EscapeInvisibleCharacters_MultipleInvisibleCharacters_ReturnsEscapedInvisibleCharacters()
+    public void EscapeInvisibleCharacters_MultipleInvisibleCharacters_ReturnsEscapedInvisibleCharacters()
     {
         _ = "\0\a\b\f\n\r\t\v"
             .EscapeInvisibleCharacters()

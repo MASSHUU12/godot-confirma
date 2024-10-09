@@ -6,11 +6,11 @@ namespace Confirma.Tests;
 [TestClass]
 [Parallelizable]
 [BeforeAll(nameof(BeforeAll))]
-public static class BeforeAllAttributeTest
+public class BeforeAllAttributeTest
 {
-    private static bool _ranBeforeAll = false;
+    private bool _ranBeforeAll = false;
 
-    public static void BeforeAll()
+    public void BeforeAll()
     {
         _ranBeforeAll = true;
         _ = _ranBeforeAll.ConfirmTrue();

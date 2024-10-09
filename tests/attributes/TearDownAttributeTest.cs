@@ -7,22 +7,22 @@ namespace Confirma.Tests;
 [TestClass]
 [Parallelizable]
 [TearDown(nameof(TearDown))]
-public static class TearDownAttributeTest
+public class TearDownAttributeTest
 {
-    private static bool _ranTearDown = false;
+    private bool _ranTearDown = false;
 
     [TestCase]
-    public static void TestCase()
+    public void TestCase()
     {
         _ranTearDown = false;
     }
 
-    public static void TearDown()
+    public void TearDown()
     {
         _ranTearDown = true;
     }
 
-    public static void AfterAll()
+    public void AfterAll()
     {
         _ = _ranTearDown.ConfirmTrue();
         _ranTearDown = false;

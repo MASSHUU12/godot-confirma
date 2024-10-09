@@ -8,13 +8,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmReferenceTest
+public class ConfirmReferenceTest
 {
     #region ConfirmSameReference
     [TestCase(5)]
     [TestCase(new byte[] { 1, 2, 3 })]
     [TestCase("Lorem ipsum dolor sit amet")]
-    public static void ConfirmSameReference_WhenSameReference(object obj)
+    public void ConfirmSameReference_WhenSameReference(object obj)
     {
         _ = obj.ConfirmSameReference(obj);
     }
@@ -32,7 +32,7 @@ public static class ConfirmReferenceTest
         "Lorem ipsum",
         "\"Lorem ipsum\""
     )]
-    public static void ConfirmSameReference_WhenDifferentReferences(
+    public void ConfirmSameReference_WhenDifferentReferences(
         object obj,
         string fobj1,
         object obj2,
@@ -52,7 +52,7 @@ public static class ConfirmReferenceTest
     [TestCase(5, 15)]
     [TestCase(new byte[] { 1, 2, 3 }, new byte[] { 1, 2, 3 })]
     [TestCase("Lorem ipsum", "Lorem ipsum")]
-    public static void ConfirmDifferentReference_WhenDifferentReferences(
+    public void ConfirmDifferentReference_WhenDifferentReferences(
         object obj,
         object obj2
     )
@@ -66,7 +66,7 @@ public static class ConfirmReferenceTest
         "Lorem ipsum dolor sit amet",
         "\"Lorem ipsum dolor sit amet\""
     )]
-    public static void ConfirmDifferentReference_WhenSameReference(
+    public void ConfirmDifferentReference_WhenSameReference(
         object obj,
         string fobj
     )

@@ -8,10 +8,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class TestMethodResultTest
+public class TestMethodResultTest
 {
     [TestCase]
-    public static void Constructor_WithParameters_SetsPropertiesCorrectly()
+    public void Constructor_WithParameters_SetsPropertiesCorrectly()
     {
         const uint passed = 1;
         const uint failed = 2;
@@ -29,7 +29,7 @@ public static class TestMethodResultTest
     }
 
     [TestCase]
-    public static void Constructor_WithoutParameters_SetsPropertiesToDefaultValues()
+    public void Constructor_WithoutParameters_SetsPropertiesToDefaultValues()
     {
         TestMethodResult result = new();
 
@@ -41,7 +41,7 @@ public static class TestMethodResultTest
     }
 
     [TestCase]
-    public static void Reset_ResetsPropertiesToDefaultValues()
+    public void Reset_ResetsPropertiesToDefaultValues()
     {
         TestMethodResult result = new()
         {

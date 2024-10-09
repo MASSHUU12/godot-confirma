@@ -7,13 +7,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmDateTimeTest
+public class ConfirmDateTimeTest
 {
     #region ConfirmIsBefore
     [TestCase(5, 15)]
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsBefore_WhenIsBefore(
+    public void ConfirmIsBefore_WhenIsBefore(
         long actualTicks,
         long dateTicks
     )
@@ -24,7 +24,7 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 15)]
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsBefore_WhenIsNotBefore(
+    public void ConfirmIsBefore_WhenIsNotBefore(
         long actualTicks,
         long dateTicks
     )
@@ -47,7 +47,7 @@ public static class ConfirmDateTimeTest
     [TestCase(5, 15)]
     [TestCase(2137, 2137)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsOnOrBefore_WhenIsOnOrBefore(
+    public void ConfirmIsOnOrBefore_WhenIsOnOrBefore(
         long actualTicks,
         long dateTicks
     )
@@ -57,7 +57,7 @@ public static class ConfirmDateTimeTest
 
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(
+    public void ConfirmIsOnOrBefore_WhenIsNotOnOrBefore(
         long actualTicks,
         long dateTicks
     )
@@ -79,7 +79,7 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 5)]
     [TestCase(15, 0)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsAfter_WhenIsAfter(
+    public void ConfirmIsAfter_WhenIsAfter(
         long actualTicks,
         long dateTicks
     )
@@ -90,7 +90,7 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 15)]
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsAfter_WhenIsNotAfter(
+    public void ConfirmIsAfter_WhenIsNotAfter(
         long actualTicks,
         long dateTicks
     )
@@ -113,7 +113,7 @@ public static class ConfirmDateTimeTest
     [TestCase(15, 5)]
     [TestCase(2137, 2137)]
     [TestCase(6969, 2137)]
-    public static void ConfirmIsOnOrAfter_WhenIsOnOrAfter(
+    public void ConfirmIsOnOrAfter_WhenIsOnOrAfter(
         long actualTicks,
         long dateTicks
     )
@@ -123,7 +123,7 @@ public static class ConfirmDateTimeTest
 
     [TestCase(0, 15)]
     [TestCase(2137, 6969)]
-    public static void ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(
+    public void ConfirmIsOnOrAfter_WhenIsNotOnOrAfter(
         long actualTicks,
         long dateTicks
     )

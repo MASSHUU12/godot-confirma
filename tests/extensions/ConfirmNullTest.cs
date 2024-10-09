@@ -8,17 +8,17 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmNullTest
+public class ConfirmNullTest
 {
     [TestCase(new object?[] { null })]
-    public static void ConfirmNull_WhenNull(object? actual)
+    public void ConfirmNull_WhenNull(object? actual)
     {
         _ = actual.ConfirmNull();
     }
 
     [TestCase("Lorem ipsum", "\"Lorem ipsum\"")]
     [TestCase(2, "2")]
-    public static void ConfirmNull_WhenNotNull(
+    public void ConfirmNull_WhenNotNull(
         object? actual,
         string formatted
     )
@@ -32,13 +32,13 @@ public static class ConfirmNullTest
 
     [TestCase("Lorem ipsum")]
     [TestCase(2)]
-    public static void ConfirmNotNull_WhenNotNull(object? actual)
+    public void ConfirmNotNull_WhenNotNull(object? actual)
     {
         _ = actual.ConfirmNotNull();
     }
 
     [TestCase(new object?[] { null })]
-    public static void ConfirmNotNull_WhenNull(object? actual)
+    public void ConfirmNotNull_WhenNull(object? actual)
     {
         Action action = () => actual.ConfirmNotNull();
 
