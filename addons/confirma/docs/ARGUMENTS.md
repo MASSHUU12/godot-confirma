@@ -37,9 +37,9 @@ Disables parallelization.
 
 Terminates after the first error occurs.
 
-## [Experimental] --experimental-monitor-orphans
+## --confirma-disable-orphans-monitor
 
-Allows monitoring the number of orphans, and when they arise.
+Disables monitoring the number of orphans.
 
 ## --confirma-disable-cs
 
