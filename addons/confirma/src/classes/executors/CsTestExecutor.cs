@@ -92,10 +92,6 @@ public class CsTestExecutor : ITestExecutor
             }
         }
 
-        _props.Result.TotalOrphans += (uint)Godot.Performance.GetMonitor(
-            Godot.Performance.Monitor.ObjectOrphanNodeCount
-        );
-
         result = _props.Result;
         return testClasses.Count();
     }
