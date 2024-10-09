@@ -11,9 +11,6 @@
         <WarningLevel>4</WarningLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisLevel>latest</AnalysisLevel>
-        <Optimize Condition="'$(Configuration)' == 'ExportRelease'">
-            true
-        </Optimize>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)' != 'ExportRelease'">
         <DebugType>portable</DebugType>
