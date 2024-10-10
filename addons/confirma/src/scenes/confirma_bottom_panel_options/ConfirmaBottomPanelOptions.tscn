@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dfsrvti4y1gl5"]
 
-[ext_resource type="Script" path="res://addons/confirma/src/scenes/confirma_bottom_panel_options/ConfirmaBotomPanelOptions.cs" id="1_rln6n"]
+[ext_resource type="Script" path="res://addons/confirma/src/scenes/confirma_bottom_panel_options/ConfirmaBottomPanelOptions.cs" id="1_rln6n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfib7"]
 content_margin_left = 12.0
@@ -160,7 +160,7 @@ VBoxContainer/constants/separation = 8
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bktxl"]
 bg_color = Color(0.211765, 0.239216, 0.290196, 1)
 
-[node name="ConfirmaBotomPanelOptions" type="Window"]
+[node name="ConfirmaBottomPanelOptions" type="Window"]
 transparent_bg = true
 title = "Settings"
 initial_position = 4
