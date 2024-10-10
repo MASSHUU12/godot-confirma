@@ -5,7 +5,7 @@ using Confirma.Scenes;
 using Godot;
 
 [Tool]
-public partial class ConfirmaBotomPanelOptions : Window
+public partial class ConfirmaBottomPanelOptions : Window
 {
 #nullable disable
     private CheckBox _verbose, _parallelize, _disableOrphansMonitor;
