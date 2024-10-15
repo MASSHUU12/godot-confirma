@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
   - AssertionMessageGenerator
   - CollectionHelper
   - Formatter
+  - TreeContent
 - GDScript classes:
   - TestClass
   - Ignore
@@ -85,6 +86,7 @@ One attribute of a given type is allowed.
 - Replaced `ArrayHelper.ToString` with `CollectionHelper.ToString`.
 - [#188] Failed invocation of lifecycle method results in test failure.
 - Orphans monitor is no longer considered experimental and is enabled by default.
+- `ConfirmaBottomPanelOptions` uses `TreeContent` for generating window content.
 
 ### Removed
 
