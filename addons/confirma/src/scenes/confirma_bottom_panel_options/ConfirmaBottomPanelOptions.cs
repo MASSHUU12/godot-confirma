@@ -1,15 +1,15 @@
 #if TOOLS
 
-using Confirma.Enums;
-using Confirma.Scenes;
 using Godot;
+
+namespace Confirma.Scenes;
 
 [Tool]
 public partial class ConfirmaBottomPanelOptions : Window
 {
 #nullable disable
-    private CheckBox _verbose, _parallelize, _disableOrphansMonitor;
-    private TextEdit _category;
+    private TreeContent _tree;
+    private TreeItem _verbose, _parallelize, _disableOrphansMonitor, _category;
     private ConfirmaAutoload _autoload;
 #nullable restore
 
@@ -17,10 +17,14 @@ public partial class ConfirmaBottomPanelOptions : Window
     {
         CloseRequested += CloseRequest;
 
-        _verbose = GetNode<CheckBox>("%Verbose");
-        _category = GetNode<TextEdit>("%Category");
-        _parallelize = GetNode<CheckBox>("%Parallelize");
-        _disableOrphansMonitor = GetNode<CheckBox>("%DisableOrphansMonitor");
+        _tree = GetNode<TreeContent>("%TreeContent");
+        _tree.AddRoot();
+        _tree.ItemEdited += UpdateSettings;
+
+        //_tree.AddCheckBox("Category"); // TODO: Make text input
+        _verbose = _tree.AddCheckBox("Verbose");
+        _parallelize = _tree.AddCheckBox("Disable parallelization");
+        _disableOrphansMonitor = _tree.AddCheckBox("Disable orphans monitor");
 
         _ = CallDeferred("LateInit");
     }
@@ -29,26 +33,23 @@ public partial class ConfirmaBottomPanelOptions : Window
     {
         _autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
-        _verbose.Toggled += (bool on) => _autoload.Props.IsVerbose = on;
+        UpdateSettings();
 
-        _parallelize.Toggled += (bool on) =>
-        {
-            _autoload.Props.DisableParallelization = on;
-        };
+        // _category.TextChanged += () =>
+        // {
+        //     _autoload.Props.Target = _autoload.Props.Target with
+        //     {
+        //         Target = ERunTargetType.Category,
+        //         Name = _category.Text
+        //     };
+        // };
+    }
 
-        _disableOrphansMonitor.Toggled += (bool on) =>
-        {
-            _autoload.Props.MonitorOrphans = !on;
-        };
-
-        _category.TextChanged += () =>
-        {
-            _autoload.Props.Target = _autoload.Props.Target with
-            {
-                Target = ERunTargetType.Category,
-                Name = _category.Text
-            };
-        };
+    private void UpdateSettings()
+    {
+        _autoload.Props.IsVerbose = _verbose.IsChecked(1);
+        _autoload.Props.DisableParallelization = _parallelize.IsChecked(1);
+        _autoload.Props.MonitorOrphans = !_disableOrphansMonitor.IsChecked(1);
     }
 
     void CloseRequest()
