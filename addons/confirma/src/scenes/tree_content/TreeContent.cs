@@ -1,8 +1,10 @@
+#if TOOLS
 using Godot;
 using static Godot.TreeItem;
 
 namespace Confirma.Scenes;
 
+[Tool]
 public partial class TreeContent : Tree
 {
     public TreeItem AddRoot()
@@ -34,3 +36,4 @@ public partial class TreeContent : Tree
         return child;
     }
 }
+#endif
