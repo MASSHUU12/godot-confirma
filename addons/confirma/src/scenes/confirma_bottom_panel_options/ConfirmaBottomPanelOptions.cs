@@ -1,5 +1,6 @@
 #if TOOLS
 
+using Confirma.Enums;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -21,7 +22,7 @@ public partial class ConfirmaBottomPanelOptions : Window
         _tree.AddRoot();
         _tree.ItemEdited += UpdateSettings;
 
-        //_tree.AddCheckBox("Category"); // TODO: Make text input
+        _category = _tree.AddTextInput("Category");
         _verbose = _tree.AddCheckBox("Verbose");
         _parallelize = _tree.AddCheckBox("Disable parallelization");
         _disableOrphansMonitor = _tree.AddCheckBox("Disable orphans monitor");
@@ -34,15 +35,6 @@ public partial class ConfirmaBottomPanelOptions : Window
         _autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
         UpdateSettings();
-
-        // _category.TextChanged += () =>
-        // {
-        //     _autoload.Props.Target = _autoload.Props.Target with
-        //     {
-        //         Target = ERunTargetType.Category,
-        //         Name = _category.Text
-        //     };
-        // };
     }
 
     private void UpdateSettings()
@@ -50,6 +42,15 @@ public partial class ConfirmaBottomPanelOptions : Window
         _autoload.Props.IsVerbose = _verbose.IsChecked(1);
         _autoload.Props.DisableParallelization = _parallelize.IsChecked(1);
         _autoload.Props.MonitorOrphans = !_disableOrphansMonitor.IsChecked(1);
+
+        string categoryName = _category.GetText(1);
+        _autoload.Props.Target = _autoload.Props.Target with
+        {
+            Target = string.IsNullOrEmpty(categoryName)
+                ? ERunTargetType.All
+                : ERunTargetType.Category,
+            Name = categoryName
+        };
     }
 
     void CloseRequest()
