@@ -34,7 +34,15 @@ public partial class ConfirmaBottomPanelOptions : Window
     {
         _autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
 
-        UpdateSettings();
+        InitializePanelOptions();
+    }
+
+    private void InitializePanelOptions()
+    {
+        _verbose.SetChecked(1, _autoload.Props.IsVerbose);
+        _parallelize.SetChecked(1, _autoload.Props.DisableParallelization);
+        _disableOrphansMonitor.SetChecked(1, !_autoload.Props.MonitorOrphans);
+        _category.SetText(1, _autoload.Props.Target.Name);
     }
 
     private void UpdateSettings()
