@@ -45,6 +45,7 @@ public partial class TreeContent : Tree
         child.SetEditMultiline(1, true);
         child.SetSelectable(0, false);
         child.SetSelectable(1, true);
+        child.SetCustomBgColor(1, new("#1c2128"));
 
         return child;
     }

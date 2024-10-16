@@ -101,6 +101,7 @@ public class TreeContentTest
         _ = textInput.IsSelectable(1).ConfirmTrue();
         _ = textInput.IsEditable(1).ConfirmTrue();
         _ = textInput.IsEditMultiline(1).ConfirmTrue();
+        _ = textInput.GetCustomBgColor(1).ConfirmEqual(new("#1c2128"));
     }
 
     [TestCase]
