@@ -19,7 +19,7 @@ public partial class ConfirmaBottomPanelOptions : Window
         CloseRequested += CloseRequest;
 
         _tree = GetNode<TreeContent>("%TreeContent");
-        _tree.AddRoot();
+        _ = _tree.AddRoot();
         _tree.ItemEdited += UpdateSettings;
 
         _category = _tree.AddTextInput("Category");
@@ -61,7 +61,7 @@ public partial class ConfirmaBottomPanelOptions : Window
         };
     }
 
-    void CloseRequest()
+    private void CloseRequest()
     {
         Hide();
     }
