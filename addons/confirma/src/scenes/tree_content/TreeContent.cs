@@ -30,9 +30,6 @@ public partial class TreeContent : Tree
         child.SetCellMode(1, TreeCellMode.Check);
         child.SetSelectable(0, false);
         child.SetSelectable(1, false);
-        // TODO: Expand label
-        // child.SetExpandRight(0, true);
-        // child.SetExpandRight(1, false);
 
         return child;
     }
