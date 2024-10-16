@@ -57,15 +57,18 @@ All notable changes to this project will be documented in this file.
 - `ELifecycleMethodName` enum.
 - "GDScript Tests Folder" project setting.
 - A clear distinction between C# and GDScript tests when displaying results.
-- New settings window.
-- [#178] Allow changing category via editor.
-- Allow disabling parallelization via editor.
+- New bottom panel settings window.
+- Bottom panel settings:
+  - [#178] Allow changing category.
+  - Allow disabling parallelization.
+  - Allow disabling orphans monitor.
+  - Allow disabling parallelization.
+  - Allow changing output type & path.
 - Base class for lifecycle attributes (`LifecycleAttribute`).
 - Allow to disable exterior brackets (`CollectionHelper.ToString`).
 - `LifecycleMethodException` exception.
 - Overload of `TestResult`'s `+` attribute for `TestMethodResult`.
 - Support for non-static test classes.
-- Switch to disable orphans monitor in the editor.
 
 ### Changed
 
@@ -73,8 +76,7 @@ All notable changes to this project will be documented in this file.
 - Documentation has been refreshed (more information, better described).
 - Adjusted most of the assertion messages.
 - Adjusted GDScript assertions to use C# wrappers.
-- [#170] Confirma recursively checks every folder for GDScript tests
-(max depth is 16).
+- [#170] Recursively check every folder for GDScript tests (max depth is 16).
 - All GDScript test classes need to extend `TestClass`.
 - `GdTestDiscovery` & `GdTestExecutor` now use `GdScriptInfo` instead of `ScriptInfo`.
 - GDScript tests folder can be passed as global or localized path.
