@@ -1,7 +1,8 @@
 #if TOOLS
 
-using Confirma.Enums;
+using Confirma.Types;
 using Godot;
+using static Confirma.Enums.ERunTargetType;
 
 namespace Confirma.Scenes;
 
@@ -10,7 +11,14 @@ public partial class ConfirmaBottomPanelOptions : Window
 {
 #nullable disable
     private TreeContent _tree;
-    private TreeItem _verbose, _parallelize, _disableOrphansMonitor, _category;
+    private TreeItem
+        _verbose,
+        _parallelize,
+        _disableOrphansMonitor,
+        _category,
+        _outputLog,
+        _outputJson,
+        _outputPath;
     private ConfirmaAutoload _autoload;
 #nullable restore
 
@@ -27,6 +35,15 @@ public partial class ConfirmaBottomPanelOptions : Window
         _parallelize = _tree.AddCheckBox("Disable parallelization");
         _disableOrphansMonitor = _tree.AddCheckBox("Disable orphans monitor");
 
+        TreeItem output = _tree.AddLabel("Output");
+        output.Collapsed = true;
+        _outputPath = _tree.AddTextInput("Output path", output);
+
+        TreeItem outputType = _tree.AddLabel("Output type", output);
+        outputType.Collapsed = true;
+        _outputLog = _tree.AddCheckBox("Log", outputType);
+        _outputJson = _tree.AddCheckBox("JSON", outputType);
+
         _ = CallDeferred("LateInit");
     }
 
@@ -42,9 +59,15 @@ public partial class ConfirmaBottomPanelOptions : Window
         _verbose.SetChecked(1, _autoload.Props.IsVerbose);
         _parallelize.SetChecked(1, _autoload.Props.DisableParallelization);
         _disableOrphansMonitor.SetChecked(1, !_autoload.Props.MonitorOrphans);
-        _category.SetText(1, _autoload.Props.Target.Name);
+
+        RunTarget target = _autoload.Props.Target;
+        _category.SetText(1,
+            target.Target == Category ? target.Name : string.Empty
+        );
     }
 
+    // TODO: Find a way to detect only items that have changed
+    // without having to refresh all of them.
     private void UpdateSettings()
     {
         _autoload.Props.IsVerbose = _verbose.IsChecked(1);
@@ -54,9 +77,7 @@ public partial class ConfirmaBottomPanelOptions : Window
         string categoryName = _category.GetText(1);
         _autoload.Props.Target = _autoload.Props.Target with
         {
-            Target = string.IsNullOrEmpty(categoryName)
-                ? ERunTargetType.All
-                : ERunTargetType.Category,
+            Target = string.IsNullOrEmpty(categoryName) ? All : Category,
             Name = categoryName
         };
     }
