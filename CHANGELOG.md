@@ -49,21 +49,23 @@ All notable changes to this project will be documented in this file.
   - settings
   - testing GDScript code
   - custom assertions
+- Project settings:
+  - GDScript Tests Folder
+  - Output Path
+- Bottom panel settings:
+    - [#178] Allow changing category.
+    - Allow disabling parallelization.
+    - Allow disabling orphans monitor.
+    - Allow disabling parallelization.
+    - Allow changing output type.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
 - `IFormatter` interface.
 - Constructor to `ConfirmAssertException` which automatically generates a message.
 - `ELifecycleMethodName` enum.
-- "GDScript Tests Folder" project setting.
 - A clear distinction between C# and GDScript tests when displaying results.
 - New bottom panel settings window.
-- Bottom panel settings:
-  - [#178] Allow changing category.
-  - Allow disabling parallelization.
-  - Allow disabling orphans monitor.
-  - Allow disabling parallelization.
-  - Allow changing output type.
 - Base class for lifecycle attributes (`LifecycleAttribute`).
 - Allow to disable exterior brackets (`CollectionHelper.ToString`).
 - `LifecycleMethodException` exception.
