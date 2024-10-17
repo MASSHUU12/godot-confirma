@@ -57,7 +57,7 @@ All notable changes to this project will be documented in this file.
     - Allow disabling parallelization.
     - Allow disabling orphans monitor.
     - Allow disabling parallelization.
-    - Allow changing output type.
+    - Allow changing output type & path.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
