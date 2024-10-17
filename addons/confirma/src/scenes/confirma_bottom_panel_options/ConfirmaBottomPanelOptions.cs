@@ -57,10 +57,7 @@ public partial class ConfirmaBottomPanelOptions : Window
 
         TreeItem output = _tree.AddLabel("Output");
         output.Collapsed = true;
-
-        // TODO: Add output path to the project settings
-        // & allow overriding it here.
-        //_outputPath = _tree.AddTextInput("Output path", output);
+        _outputPath = _tree.AddTextInput("Output path", output);
 
         TreeItem outputType = _tree.AddLabel("Output type", output);
         outputType.Collapsed = true;
@@ -79,6 +76,7 @@ public partial class ConfirmaBottomPanelOptions : Window
             target.Target == Category ? target.Name : string.Empty
         );
 
+        _outputPath.SetText(1, _autoload.Props.OutputPath);
         _outputLog.SetChecked(1, (_autoload.Props.OutputType & Log) == Log);
         _outputJson.SetChecked(1,
             (_autoload.Props.OutputType & ELogOutputType.Json)
@@ -103,6 +101,13 @@ public partial class ConfirmaBottomPanelOptions : Window
             Target = string.IsNullOrEmpty(categoryName) ? All : Category,
             Name = categoryName
         };
+
+        string path = _outputPath.GetText(1);
+        props.OutputPath = string.IsNullOrEmpty(path)
+            ? ProjectSettings
+                .GetSetting("confirma/config/output_path")
+                .AsString()
+            : path;
 
         props.OutputType = _outputLog.IsChecked(1)
             ? props.OutputType | Log
