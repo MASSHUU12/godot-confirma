@@ -56,12 +56,21 @@ public partial class Plugin : EditorPlugin
 
     public static void SetUpSettings()
     {
-        // Note: When changing path here,
-        // remember to change it also in TestsProps.cs.
+        // Note: When changing values here,
+        // remember to change it also in TestsProps.cs if needed.
+
         _ = Settings.CreateSetting(
             "confirma/config/gdscript_tests_folder",
             "res://gdtests/",
             "res://gdtests/",
+            true,
+            true
+        );
+
+        _ = Settings.CreateSetting(
+            "confirma/config/output_path",
+            "./test_results.json",
+            "./test_results.json",
             true,
             true
         );
