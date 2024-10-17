@@ -29,7 +29,14 @@ public struct TestsProps
             "res://gdtests/"
         )
         .AsString();
-    public string OutputPath { get; set; } = "./test_results.json";
+    public string OutputPath { get; set; } = ProjectSettings
+        .GetSetting(
+            "confirma/config/output_path",
+            // Note: When changing path here,
+            // remember to change it also in Plugin.cs.
+            "./test_results.json"
+        )
+        .AsString();
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 
     public TestsProps() { }
