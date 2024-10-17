@@ -57,7 +57,10 @@ public partial class ConfirmaBottomPanelOptions : Window
 
         TreeItem output = _tree.AddLabel("Output");
         output.Collapsed = true;
-        _outputPath = _tree.AddTextInput("Output path", output);
+
+        // TODO: Add output path to the project settings
+        // & allow overriding it here.
+        //_outputPath = _tree.AddTextInput("Output path", output);
 
         TreeItem outputType = _tree.AddLabel("Output type", output);
         outputType.Collapsed = true;

@@ -63,7 +63,7 @@ All notable changes to this project will be documented in this file.
   - Allow disabling parallelization.
   - Allow disabling orphans monitor.
   - Allow disabling parallelization.
-  - Allow changing output type & path.
+  - Allow changing output type.
 - Base class for lifecycle attributes (`LifecycleAttribute`).
 - Allow to disable exterior brackets (`CollectionHelper.ToString`).
 - `LifecycleMethodException` exception.
