@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- Script templates:
+  - Test.cs
+  - test.gd
+  - TestFull.cs
+  - test_full.gd
+
+### Changed
+
+- Updated documentation:
+  - Added note in TESTING.md about script templates.
+
 ## [0.9.0-beta 2024.10.21]
 
 ### Added
