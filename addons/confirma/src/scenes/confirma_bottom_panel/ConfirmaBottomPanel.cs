@@ -86,6 +86,7 @@ public partial class ConfirmaBottomPanel : Control
     private void OnSettingsPressed()
     {
         _settingsWindow.Show();
+        _settingsWindow.GrabFocus();
     }
 
     private void OnTestsExecutionStarted()
