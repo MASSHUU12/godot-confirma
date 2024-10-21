@@ -1,5 +1,8 @@
 # Testing
 
+> Confirma provides built-in script templates that can be used
+to quickly create tests.
+
 ## C#
 
 ### Writing tests
