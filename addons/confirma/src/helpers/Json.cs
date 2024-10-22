@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Godot;
 
 namespace Confirma.Helpers;
 
@@ -43,5 +44,25 @@ public static class Json
         }
 
         return true;
+    }
+
+    public static async Task<T?> LoadFromFile <T>(string fileName)
+    {
+        fileName = ProjectSettings.GlobalizePath(fileName);
+        try
+        {
+            await using FileStream stream = new FileStream(fileName,FileMode.Open);
+            return await JsonSerializer.DeserializeAsync<T>(stream);
+        }
+        catch(Exception e) when (
+            e is FileNotFoundException or
+            DirectoryNotFoundException or
+            UnauthorizedAccessException or
+            IOException or
+            JsonException
+        )
+        {
+            return default;
+        }
     }
 }
