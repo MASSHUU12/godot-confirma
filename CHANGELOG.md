@@ -17,6 +17,10 @@ All notable changes to this project will be documented in this file.
 - Updated documentation:
   - Added note in TESTING.md about script templates.
 
+### Fixed
+
+- [#213][GDScript] Method names in verbose mode display "([])" when there are no arguments
+
 ### Removed
 
 - '>' character from test output.
