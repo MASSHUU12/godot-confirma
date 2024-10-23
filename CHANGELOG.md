@@ -11,19 +11,22 @@ All notable changes to this project will be documented in this file.
   - test.gd
   - TestFull.cs
   - test_full.gd
+- Script test.sh.
 
 ### Changed
 
 - Updated documentation:
   - Added note in TESTING.md about script templates.
 
-### Fixed
-
-- [#213][GDScript] Method names in verbose mode display "([])" when there are no arguments
-
 ### Removed
 
 - '>' character from test output.
+- Script run_tests.sh.
+
+### Fixed
+
+- [#213][GDScript] Method names in verbose mode display "([])"
+when there are no arguments
 
 ## [0.9.0-beta 2024.10.21]
 
