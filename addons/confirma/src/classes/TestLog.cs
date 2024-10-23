@@ -23,7 +23,7 @@ public class TestLog
         Message = message;
     }
 
-    public TestLog(ELogType type, ELangType testLang ,string message)
+    public TestLog(ELogType type, ELangType testLang, string message)
     {
         Type = type;
         Message = message;
@@ -73,7 +73,7 @@ public class TestLog
             case ELogType.Method:
                 switch (verbose)
                 {
-                    case false when State == ETestCaseState.Passed:
+                    case false when State is ETestCaseState.Passed:
                         return;
                     case true:
                         PrintMethodVerbose();
@@ -87,21 +87,16 @@ public class TestLog
                 Log.Print($"> {GetLangHeader()} {Colors.ColorText(Message!, Colors.Class)}...");
                 break;
             case ELogType.Info:
-                if (Message != null)
+            case ELogType.Warning:
+                if (Message is not null)
                 {
                     Log.PrintLine(Message);
                 }
                 break;
             case ELogType.Error:
-                if (Message != null)
+                if (Message is not null)
                 {
                     Log.PrintError(Message);
-                }
-                break;
-            case ELogType.Warning:
-                if (Message != null)
-                {
-                    Log.PrintLine(Message);
                 }
                 break;
             case ELogType.Newline:
@@ -114,11 +109,11 @@ public class TestLog
     {
         string color = GetTestCaseStateColor(State);
         string sState = GetTestCaseStateString(State);
-        string langColor = getLangColor();
+        string pipe = Colors.ColorText("|", GetLangColor());
 
-        Log.PrintLine($"{Colors.ColorText("|",langColor)} {Name}... ");
+        Log.PrintLine($"{pipe} {Name}... ");
 
-        if (State != ETestCaseState.Passed)
+        if (State is not ETestCaseState.Passed)
         {
             Log.Print($"\\_ {Name}... ");
             Log.PrintLine($"{Colors.ColorText(sState, color)}.");
@@ -126,7 +121,7 @@ public class TestLog
 
         if (Message is not null)
         {
-            Log.PrintLine($"{Colors.ColorText("|",langColor)}- {Colors.ColorText(Message, color)}");
+            Log.PrintLine($"{pipe}- {Colors.ColorText(Message, color)}");
         }
     }
 
@@ -134,20 +129,19 @@ public class TestLog
     {
         string color = GetTestCaseStateColor(State);
         string sState = GetTestCaseStateString(State);
-        string langColor = getLangColor();
+        string pipe = Colors.ColorText("|", GetLangColor());
 
-        Log.PrintLine($" {Colors.ColorText("|",langColor)} {Name}... {Colors.ColorText(sState, color)}.");
+        Log.PrintLine($" {pipe} {Name}... {Colors.ColorText(sState, color)}.");
 
         if (Message is not null)
         {
-            Log.PrintLine($"{Colors.ColorText("|",langColor)}- {Colors.ColorText(Message, color)}");
+            Log.PrintLine($"{pipe}- {Colors.ColorText(Message, color)}");
         }
     }
 
-    private string GetLangHeader ()
+    private string GetLangHeader()
     {
         string langText = "N/A";
-        string color = getLangColor();
 
         switch (Lang)
         {
@@ -157,12 +151,14 @@ public class TestLog
             case ELangType.GDScript:
                 langText = "GDScript";
                 break;
+            case ELangType.None:
+                break;
         }
 
-        return Colors.ColorText($"[{langText}]",color);
+        return Colors.ColorText($"[{langText}]", GetLangColor());
     }
 
-    private string getLangColor ()
+    private string GetLangColor()
     {
         switch (Lang)
         {
@@ -170,6 +166,8 @@ public class TestLog
                 return Colors.CSharp;
             case ELangType.GDScript:
                 return Colors.Gdscript;
+            case ELangType.None:
+                break;
         }
         return Colors.Error;
     }
