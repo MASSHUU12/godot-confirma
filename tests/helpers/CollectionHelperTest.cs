@@ -10,10 +10,20 @@ namespace Confirma.Tests;
 [Parallelizable]
 public class CollectionHelperTest
 {
+    [TestCase]
     public void ToString_EmptyEnumerable_ReturnsEmptyArrayString()
     {
         IEnumerable<object> value = Enumerable.Empty<object>();
         _ = CollectionHelper.ToString(value).ConfirmEqual("[]");
+    }
+
+    [TestCase]
+    public void ToString_NoBrackets_EmptyEnumerable_ReturnsEmptyArrayString()
+    {
+        IEnumerable<object> value = Enumerable.Empty<object>();
+        _ = CollectionHelper
+            .ToString(value, addBrackets: false)
+            .ConfirmEqual(string.Empty);
     }
 
     [TestCase]

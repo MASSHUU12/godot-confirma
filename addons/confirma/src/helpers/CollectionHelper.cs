@@ -29,7 +29,7 @@ public static class CollectionHelper
                 continue;
             }
 
-            if (item is IEnumerable<object> e && !(item is string))
+            if (item is IEnumerable<object> e && item is not string)
             {
                 if (depth + 1 > maxDepth)
                 {
