@@ -84,7 +84,7 @@ public class TestLog
                 }
                 break;
             case ELogType.Class:
-                Log.Print($"> {GetLangHeader()} {Colors.ColorText(Message!, Colors.Class)}...");
+                Log.Print($"{GetLangHeader()} {Colors.ColorText(Message!, Colors.Class)}...");
                 break;
             case ELogType.Info:
             case ELogType.Warning:
