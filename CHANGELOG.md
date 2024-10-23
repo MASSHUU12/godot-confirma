@@ -17,6 +17,10 @@ All notable changes to this project will be documented in this file.
 - Updated documentation:
   - Added note in TESTING.md about script templates.
 
+### Removed
+
+- '>' character from test output.
+
 ## [0.9.0-beta 2024.10.21]
 
 ### Added
