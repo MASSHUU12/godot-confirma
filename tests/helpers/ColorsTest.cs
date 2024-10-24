@@ -50,7 +50,7 @@ public static class ColorsTest
     [TestCase]
     public static void ToTerminal_WithColor_ReturnsColoredText()
     {
-        string result = Colors.ToTerminal("Hello, World!", new Godot.Color(1, 0, 0));
+        string result = Colors.TextToTerminal("Hello, World!", new Godot.Color(1, 0, 0));
 
         _ = result.ConfirmEqual("\x1b[38;2;255;0;0mHello, World!\x1b[0m");
     }
@@ -58,7 +58,7 @@ public static class ColorsTest
     [TestCase]
     public static void ToGodot_WithColor_ReturnsColoredText()
     {
-        string result = Colors.ToGodot("Hello, World!", new Godot.Color(1, 0, 0));
+        string result = Colors.TextToGodot("Hello, World!", new Godot.Color(1, 0, 0));
 
         _ = result.ConfirmEqual("[color=#ff0000ff]Hello, World![/color]");
     }
