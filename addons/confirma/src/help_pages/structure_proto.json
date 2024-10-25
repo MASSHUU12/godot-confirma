@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "data":{
+        "0":{
+            "header": {
+                "text": "",
+                "color":"#ffffff",
+                "bg_color":"#ffffff",
+                "level": 0
+            }
+        },
+        "1":{
+            "text": {
+                "text":"",
+                "color":"#ffffff",
+                "bg_color":"#ffffff",
+                "format": [
+                    "bold",
+                    "underline",
+                    "italic",
+                    "strikethrough"
+                ]
+            }
+        },
+        "2": {
+            "code": {
+                "text":"",
+                "color":"#ffffff",
+                "bg_color":"#ffffff"
+            }
+        }
+    }
+}
+
