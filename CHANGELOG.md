@@ -25,8 +25,10 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- [#213][GDScript] Method names in verbose mode display "([])"
+- [#213] [GDScript] Method names in verbose mode display "([])"
 when there are no arguments
+- [#216] [GDScript] `System.IO.DirectoryNotFoundException`
+thrown when passing invalid path to '--confirma-gd-path'.
 
 ## [0.9.0-beta 2024.10.21]
 
@@ -79,11 +81,11 @@ when there are no arguments
   - GDScript Tests Folder
   - Output Path
 - Bottom panel settings:
-    - [#178] Allow changing category.
-    - Allow disabling parallelization.
-    - Allow disabling orphans monitor.
-    - Allow disabling parallelization.
-    - Allow changing output type & path.
+  - [#178] Allow changing category.
+  - Allow disabling parallelization.
+  - Allow disabling orphans monitor.
+  - Allow disabling parallelization.
+  - Allow changing output type & path.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
@@ -212,7 +214,7 @@ when argument '--confirma-run' was also empty.
 - `ConfirmEqual`/`ConfirmNotEqual` for arrays passed as object
 in case of an exception returns only the type instead of the actual values.
 - `Log.Print` throws exception when used too early.
--  Argument '--confirma-run' with invalid class name
+- Argument '--confirma-run' with invalid class name
   throws a NullReferenceException.
 
 ## [0.7.1-beta 2024-07-24]
