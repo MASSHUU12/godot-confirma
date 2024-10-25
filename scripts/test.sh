@@ -58,4 +58,4 @@ done
 shift $((OPTIND-1))
 args+=("$@")
 
-$GODOT ./ --headless -- $run_target "${args[@]}"
+$GODOT ./ --headless -- "$run_target" "${args[@]}"
