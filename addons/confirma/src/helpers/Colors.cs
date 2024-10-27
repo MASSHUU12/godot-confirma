@@ -15,8 +15,8 @@ public static class Colors
 
     public static string Color<T> (
         T text,
-        string? TextColor,
-        string? BgColor
+        string? TextColor = null,
+        string? BgColor = null
     )
     where T : IConvertible
     {
