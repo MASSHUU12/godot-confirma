@@ -17,6 +17,27 @@ public static class TextFormatHelper
 
     }
 
+    public static string FormatText<T> (
+        T text,
+        string type
+    )
+    where T : IConvertible
+    {
+        return type.ToLower() switch
+        {
+            "bold" => FormatText(text, EFormatType.bold),
+            "italic" => FormatText(text, EFormatType.italic),
+            "strikethrough" => FormatText(text, EFormatType.strikethrough),
+            "underline" => FormatText(text, EFormatType.underline),
+            "b" => FormatText(text, EFormatType.bold),
+            "i" => FormatText(text, EFormatType.italic),
+            "s" => FormatText(text, EFormatType.strikethrough),
+            "u" => FormatText(text, EFormatType.underline),
+            _ => $"{text}"
+        };
+    }
+
+
     public static string ToGodot<T> (
         T text,
         EFormatType type
