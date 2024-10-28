@@ -5,9 +5,9 @@ using System.Reflection.Emit;
 
 namespace Confirma.Classes;
 
-public class Mock<T>
+public class Mock<T> where T : class
 {
-    public T Instance { get; private set; }
+    public T Instance { get; }
     public Type ProxyType { get; }
 
     public Mock()
@@ -46,13 +46,6 @@ public class Mock<T>
             new[] { interfaceType }
         );
 
-        proxyType = moduleBuilder.DefineType(
-            proxyTypeName,
-            TypeAttributes.Public,
-            typeof(object),
-            new[] { interfaceType }
-        );
-
         foreach (MethodInfo method in interfaceType.GetMethods())
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(
@@ -65,33 +58,45 @@ public class Mock<T>
             ILGenerator il = methodBuilder.GetILGenerator();
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldarg_1);
-            MethodInfo? invokeMethod = typeof(MockGenerator).GetMethod(
-                nameof(InvokeMethod),
-                BindingFlags.Static | BindingFlags.NonPublic
-            );
-            if (invokeMethod is not null)
+
+            MethodInfo? invokeMethod = (invokeMethod = typeof(Mock<T>)
+                .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+                .FirstOrDefault(
+                    m => m.Name == nameof(InvokeMethod)
+                    && m.GetParameters().Length == 2
+                    && m.GetParameters()[0].ParameterType == typeof(object)
+                    && m.GetParameters()[1].ParameterType == typeof(object[])
+                )) ?? throw new MissingMethodException(
+                    $"Method {nameof(InvokeMethod)} not found."
+                );
+
+            if (method.ReturnType == typeof(void))
+            {
+                il.Emit(OpCodes.Call, invokeMethod);
+            }
+            else
             {
                 il.Emit(
                     OpCodes.Call,
                     invokeMethod.MakeGenericMethod(method.ReturnType)
                 );
             }
-            else
-            {
-                throw new MissingMethodException(
-                    $"Method {nameof(InvokeMethod)} not found."
-                );
-            }
+
             il.Emit(OpCodes.Ret);
         }
 
         return typeBuilder.CreateType();
     }
 
-    private TResult? InvokeMethod<TResult>(object proxy, object[] args)
+    private static TResult? InvokeMethod<TResult>(object proxy, object[] args)
     {
         // Implement method invocation logic here
         // You can store the method call information and configure the return value
         return default;
+    }
+
+    private static void InvokeMethod(object proxy, object[] args)
+    {
+        // Implement method invocation logic for void return type here
     }
 }
