@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -9,6 +11,12 @@ public class Mock<T> where T : class
 {
     public T Instance { get; }
     public Type ProxyType { get; }
+    private readonly List<CallRecord> _callRecords = new();
+
+    public IReadOnlyList<CallRecord> GetCallRecords()
+    {
+        return _callRecords.AsReadOnly();
+    }
 
     public Mock()
     {
@@ -90,13 +98,21 @@ public class Mock<T> where T : class
 
     private static TResult? InvokeMethod<TResult>(object proxy, object[] args)
     {
-        // Implement method invocation logic here
-        // You can store the method call information and configure the return value
+        Mock<T> mock = (Mock<T>)proxy;
+        string methodName = new StackFrame(1).GetMethod()?.Name ?? "empty";
+
+        CallRecord callRecord = new(methodName, args);
+        mock._callRecords.Add(callRecord);
+
         return default;
     }
 
     private static void InvokeMethod(object proxy, object[] args)
     {
-        // Implement method invocation logic for void return type here
+        Mock<T> mock = (Mock<T>)proxy;
+        string methodName = new StackFrame(1).GetMethod()?.Name ?? "empty";
+
+        CallRecord callRecord = new(methodName, args);
+        mock._callRecords.Add(callRecord);
     }
 }
