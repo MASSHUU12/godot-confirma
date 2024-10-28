@@ -94,10 +94,10 @@ public class Mock<T> where T : class
             }
             else
             {
-                il.Emit(
-                    OpCodes.Call,
-                    invokeMethod.MakeGenericMethod(method.ReturnType)
-                );
+                Type[] genericArguments = method.GetGenericArguments();
+                MethodInfo methodInfo = invokeMethod
+                    .MakeGenericMethod(genericArguments);
+                il.Emit(OpCodes.Call, methodInfo);
             }
 
             il.Emit(OpCodes.Ret);
