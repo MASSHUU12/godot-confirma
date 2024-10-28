@@ -11,7 +11,11 @@ All notable changes to this project will be documented in this file.
   - test.gd
   - TestFull.cs
   - test_full.gd
+- Classes:
+  - Mock.cs
+  - CallRecord.cs
 - Script test.sh.
+- Library allowing to mock interfaces and classes.
 
 ### Changed
 

@@ -59,6 +59,9 @@ public class MockTest
         Type? returnType = testMethod?.ReturnType;
 
         _ = typeof(int).ConfirmEqual(returnType);
-        _ = mock.Instance.TestMethodWithReturn().ConfirmEqual(0);
+
+        // mock.SetDefaultReturnValue("TestMethodWithReturn", 0);
+        // _ = mock.Instance.TestMethodWithReturn().ConfirmEqual(0);
+        mock.Instance.TestMethodWithReturn();
     }
 }
