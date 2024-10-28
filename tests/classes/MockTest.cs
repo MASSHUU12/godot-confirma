@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes;
+using Confirma.Classes.Mock;
 using Confirma.Extensions;
 
 namespace Confirma.Tests;

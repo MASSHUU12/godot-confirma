@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.Mock;
 
 public class Mock<T> where T : class
 {

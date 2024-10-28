@@ -1,4 +1,4 @@
-namespace Confirma.Classes;
+namespace Confirma.Classes.Mock;
 
 public class CallRecord
 {
