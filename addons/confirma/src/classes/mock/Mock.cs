@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -24,7 +23,7 @@ public class Mock<T> where T : class
     {
         ProxyType = CreateProxyType(typeof(T));
 
-        Instance = (T?)Activator.CreateInstance(ProxyType)
+        Instance = (T?)Activator.CreateInstance(ProxyType, this)
             ?? throw new InvalidOperationException(
                 $"Failed to create an instance of the proxy type '{ProxyType.FullName}'."
             );
@@ -43,18 +42,13 @@ public class Mock<T> where T : class
 
     private Type CreateProxyType(Type interfaceType)
     {
-        Debug.Assert(
-            IntPtr.Size == 8,
-            "Expected 64-bit process. Running in 32-bit mode."
-        );
-
         ValidateInterfaceMethods(interfaceType);
 
         string proxyTypeName = $"Proxy_{interfaceType.Name}";
         AssemblyName assemblyName = new(Guid.NewGuid().ToString());
         AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
             assemblyName,
-            AssemblyBuilderAccess.Run // TODO: Check RunAndCollect
+            AssemblyBuilderAccess.RunAndCollect
         );
         ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(
             "MainModule"
@@ -65,6 +59,28 @@ public class Mock<T> where T : class
             typeof(object),
             new[] { interfaceType }
         );
+
+        // Define a private field to hold the reference to the Mock instance
+        FieldBuilder mockField = typeBuilder.DefineField(
+            "_mock",
+            typeof(Mock<T>),
+            FieldAttributes.Private
+        );
+
+        // Define a constructor that takes a Mock<T> instance
+        ConstructorBuilder constructor = typeBuilder.DefineConstructor(
+            MethodAttributes.Public,
+            CallingConventions.Standard,
+            new[] { typeof(Mock<T>) }
+        );
+
+        ILGenerator ctorIL = constructor.GetILGenerator();
+        ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
+        ctorIL.Emit(OpCodes.Call, typeof(object).GetConstructor(Type.EmptyTypes)!); // Call base constructor
+        ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
+        ctorIL.Emit(OpCodes.Ldarg_1); // Load the Mock<T> instance passed in
+        ctorIL.Emit(OpCodes.Stfld, mockField); // Store it in _mock
+        ctorIL.Emit(OpCodes.Ret);
 
         foreach (MethodInfo method in interfaceType.GetMethods())
         {
@@ -78,20 +94,61 @@ public class Mock<T> where T : class
 
             ILGenerator il = methodBuilder.GetILGenerator();
 
-            if (method.ReturnType != typeof(void))
+            // Load 'this' (the proxy instance)
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Ldfld, mockField); // Load the _mock field
+
+            // Push the method name onto the stack
+            il.Emit(OpCodes.Ldstr, method.Name);
+
+            // Prepare parameters array
+            LocalBuilder argsArray = il.DeclareLocal(typeof(object[]));
+            il.Emit(OpCodes.Ldc_I4, method.GetParameters().Length);
+            il.Emit(OpCodes.Newarr, typeof(object));
+            il.Emit(OpCodes.Stloc, argsArray);
+
+            for (int i = 0; i < method.GetParameters().Length; i++)
             {
+                il.Emit(OpCodes.Ldloc, argsArray);
+                il.Emit(OpCodes.Ldc_I4, i);
+                il.Emit(OpCodes.Ldarg, i + 1);
+
+                if (method.GetParameters()[i].ParameterType.IsValueType)
+                {
+                    il.Emit(OpCodes.Box, method.GetParameters()[i].ParameterType);
+                }
+
+                il.Emit(OpCodes.Stelem_Ref);
+            }
+
+            il.Emit(OpCodes.Ldloc, argsArray);
+
+            if (method.ReturnType == typeof(void))
+            {
+                MethodInfo invokeVoidMethod = typeof(Mock<T>).GetMethod(
+                    nameof(InvokeMethodVoid),
+                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
+                ) ?? throw new MissingMethodException("InvokeMethodVoid not found.");
+
+                il.Emit(OpCodes.Call, invokeVoidMethod);
+            }
+            else
+            {
+                MethodInfo invokeGenericMethod = typeof(Mock<T>).GetMethod(
+                    nameof(InvokeMethod),
+                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
+                )?.MakeGenericMethod(method.ReturnType)
+                ?? throw new MissingMethodException("InvokeMethod<TResult> not found.");
+
+                il.Emit(OpCodes.Call, invokeGenericMethod);
+
                 if (method.ReturnType.IsValueType)
                 {
-                    // Push a default value for value types (e.g., 0 for int)
-                    LocalBuilder local = il.DeclareLocal(method.ReturnType);
-                    il.Emit(OpCodes.Ldloca_S, local);
-                    il.Emit(OpCodes.Initobj, method.ReturnType);
-                    il.Emit(OpCodes.Ldloc, local);
+                    il.Emit(OpCodes.Unbox_Any, method.ReturnType);
                 }
                 else
                 {
-                    // Push a null for reference types
-                    il.Emit(OpCodes.Ldnull);
+                    il.Emit(OpCodes.Castclass, method.ReturnType);
                 }
             }
 
@@ -127,11 +184,12 @@ public class Mock<T> where T : class
         }
     }
 
-    private static TResult? InvokeMethod<TResult>(object proxy, object[] args)
+    public static TResult? InvokeMethod<TResult>(
+        Mock<T> mock,
+        string methodName,
+        object[] args
+    )
     {
-        Mock<T> mock = (Mock<T>)proxy;
-        string methodName = new StackFrame(1).GetMethod()?.Name ?? "empty";
-
         CallRecord callRecord = new(methodName, args);
         mock._callRecords.Add(callRecord);
 
@@ -143,11 +201,12 @@ public class Mock<T> where T : class
         return default;
     }
 
-    private static void InvokeMethod(object proxy, object[] args)
+    public static void InvokeMethodVoid(
+        Mock<T> mock,
+        string methodName,
+        object[] args
+    )
     {
-        Mock<T> mock = (Mock<T>)proxy;
-        string methodName = new StackFrame(1).GetMethod()?.Name ?? "empty";
-
         CallRecord callRecord = new(methodName, args);
         mock._callRecords.Add(callRecord);
     }
