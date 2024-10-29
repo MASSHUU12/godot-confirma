@@ -23,6 +23,7 @@ public class Mock<T> where T : class
     public Mock()
     {
         ProxyType = CreateProxyType(typeof(T));
+
         Instance = (T?)Activator.CreateInstance(ProxyType)
             ?? throw new InvalidOperationException(
                 $"Failed to create an instance of the proxy type '{ProxyType.FullName}'."
@@ -42,18 +43,25 @@ public class Mock<T> where T : class
 
     private Type CreateProxyType(Type interfaceType)
     {
+        Debug.Assert(
+            IntPtr.Size == 8,
+            "Expected 64-bit process. Running in 32-bit mode."
+        );
+
+        ValidateInterfaceMethods(interfaceType);
+
         string proxyTypeName = $"Proxy_{interfaceType.Name}";
         AssemblyName assemblyName = new(Guid.NewGuid().ToString());
         AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
             assemblyName,
-            AssemblyBuilderAccess.RunAndCollect
+            AssemblyBuilderAccess.Run // TODO: Check RunAndCollect
         );
         ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(
             "MainModule"
         );
         TypeBuilder typeBuilder = moduleBuilder.DefineType(
             proxyTypeName,
-            TypeAttributes.Public,
+            TypeAttributes.Public | TypeAttributes.Class,
             typeof(object),
             new[] { interfaceType }
         );
@@ -70,40 +78,53 @@ public class Mock<T> where T : class
 
             ILGenerator il = methodBuilder.GetILGenerator();
 
-            // Load the arguments onto the stack (0 is 'this')
-            for (int i = 0; i < method.GetParameters().Length; i++)
+            if (method.ReturnType != typeof(void))
             {
-                il.Emit(OpCodes.Ldarg, i + 1);
-            }
-
-            MethodInfo? invokeMethod = typeof(Mock<T>)
-                .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
-                .FirstOrDefault(
-                    static m => m.Name == nameof(InvokeMethod)
-                    && m.GetParameters().Length == 2
-                ) ?? throw new MissingMethodException(
-                    $"Method {nameof(InvokeMethod)} not found."
-                );
-
-            if (
-                method.ReturnType == typeof(void)
-                || !method.IsGenericMethodDefinition
-            )
-            {
-                il.Emit(OpCodes.Call, invokeMethod);
-            }
-            else
-            {
-                Type[] genericArguments = method.GetGenericArguments();
-                MethodInfo methodInfo = invokeMethod
-                    .MakeGenericMethod(genericArguments);
-                il.Emit(OpCodes.Call, methodInfo);
+                if (method.ReturnType.IsValueType)
+                {
+                    // Push a default value for value types (e.g., 0 for int)
+                    LocalBuilder local = il.DeclareLocal(method.ReturnType);
+                    il.Emit(OpCodes.Ldloca_S, local);
+                    il.Emit(OpCodes.Initobj, method.ReturnType);
+                    il.Emit(OpCodes.Ldloc, local);
+                }
+                else
+                {
+                    // Push a null for reference types
+                    il.Emit(OpCodes.Ldnull);
+                }
             }
 
             il.Emit(OpCodes.Ret);
+            typeBuilder.DefineMethodOverride(methodBuilder, method);
         }
 
         return typeBuilder.CreateType();
+    }
+
+    private static void ValidateInterfaceMethods(Type interfaceType)
+    {
+        foreach (MethodInfo method in interfaceType.GetMethods())
+        {
+            if (method.ReturnType is null)
+            {
+                throw new InvalidOperationException(
+                    $"Method '{method.Name}' has an invalid return type."
+                );
+            }
+
+            if (
+                method.IsGenericMethodDefinition
+                && method.GetGenericArguments().Any(
+                    static arg => arg.IsGenericParameter
+                )
+            )
+            {
+                throw new InvalidOperationException(
+                    $"Method '{method.Name}' has invalid generic parameters."
+                );
+            }
+        }
     }
 
     private static TResult? InvokeMethod<TResult>(object proxy, object[] args)
