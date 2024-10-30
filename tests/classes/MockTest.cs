@@ -54,7 +54,7 @@ public class MockTest
 
         _ = callRecords.ConfirmCount(1);
         _ = callRecords[0].MethodName.ConfirmEqual("DoSomething");
-        _ = callRecords[0].Arguments.ConfirmEmpty();
+        _ = callRecords[0].Arguments!.ConfirmEmpty();
     }
 
     [TestCase]
@@ -66,8 +66,8 @@ public class MockTest
 
         _ = callRecords.ConfirmCount(1);
         _ = callRecords[0].MethodName.ConfirmEqual("StringMethod");
-        _ = callRecords[0].Arguments.ConfirmCount(1);
-        _ = callRecords[0].Arguments[0].ConfirmEqual("test");
+        _ = callRecords[0].Arguments!.ConfirmCount(1);
+        _ = callRecords[0].Arguments![0].ConfirmEqual("test");
     }
 
     [TestCase]
@@ -106,20 +106,16 @@ public class MockTest
     [TestCase]
     public void ProxyType_ShouldBeCreatedSuccessfully()
     {
-        Mock<ITestInterface> mock = new();
-        Type proxyType = mock.ProxyType;
-
-        _ = proxyType.ConfirmNotNull();
-        _ = typeof(ITestInterface).IsAssignableFrom(proxyType).ConfirmTrue();
+        _ = typeof(ITestInterface)
+            .IsAssignableFrom(_mock.Instance.GetType())
+            .ConfirmTrue();
     }
 
     [TestCase]
     public void ProxyType_ShouldImplementAllInterfaceMethods()
     {
-        Type proxyType = _mock.ProxyType;
-
         MethodInfo[] interfaceMethods = typeof(ITestInterface).GetMethods();
-        MethodInfo[] proxyMethods = proxyType.GetMethods();
+        MethodInfo[] proxyMethods = _mock.Instance.GetType().GetMethods();
 
         foreach (MethodInfo iMethod in interfaceMethods)
         {
@@ -137,9 +133,7 @@ public class MockTest
     [TestCase]
     public void ProxyType_ShouldHaveCorrectMethodReturnTypes()
     {
-        Type proxyType = _mock.ProxyType;
-
-        MethodInfo? testMethod = proxyType.GetMethod("GetInt");
+        MethodInfo? testMethod = _mock.Instance.GetType().GetMethod("GetInt");
         Type? returnType = testMethod?.ReturnType;
 
         _ = typeof(int).ConfirmEqual(returnType);
