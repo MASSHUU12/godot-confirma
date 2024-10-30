@@ -23,7 +23,7 @@ public class Mock<T> where T : class
     {
         ProxyType = CreateProxyType(typeof(T));
 
-        Instance = (T?)Activator.CreateInstance(ProxyType, this)
+        Instance = (T?)Activator.CreateInstance(ProxyType, new object[] { this })
             ?? throw new InvalidOperationException(
                 $"Failed to create an instance of the proxy type '{ProxyType.FullName}'."
             );
@@ -76,7 +76,10 @@ public class Mock<T> where T : class
 
         ILGenerator ctorIL = constructor.GetILGenerator();
         ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
-        ctorIL.Emit(OpCodes.Call, typeof(object).GetConstructor(Type.EmptyTypes)!); // Call base constructor
+        ctorIL.Emit(
+            OpCodes.Call,
+            typeof(object).GetConstructor(Type.EmptyTypes)!
+        ); // Call base constructor
         ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
         ctorIL.Emit(OpCodes.Ldarg_1); // Load the Mock<T> instance passed in
         ctorIL.Emit(OpCodes.Stfld, mockField); // Store it in _mock
@@ -94,14 +97,14 @@ public class Mock<T> where T : class
 
             ILGenerator il = methodBuilder.GetILGenerator();
 
-            // Load 'this' (the proxy instance)
+            // Load '_mock' field (Mock<T> instance)
             il.Emit(OpCodes.Ldarg_0);
-            il.Emit(OpCodes.Ldfld, mockField); // Load the _mock field
+            il.Emit(OpCodes.Ldfld, mockField);
 
-            // Push the method name onto the stack
+            // Load 'methodName' string
             il.Emit(OpCodes.Ldstr, method.Name);
 
-            // Prepare parameters array
+            // Prepare and load 'args' array
             LocalBuilder argsArray = il.DeclareLocal(typeof(object[]));
             il.Emit(OpCodes.Ldc_I4, method.GetParameters().Length);
             il.Emit(OpCodes.Newarr, typeof(object));
@@ -121,6 +124,7 @@ public class Mock<T> where T : class
                 il.Emit(OpCodes.Stelem_Ref);
             }
 
+            // Load 'args' array
             il.Emit(OpCodes.Ldloc, argsArray);
 
             if (method.ReturnType == typeof(void))
@@ -144,10 +148,21 @@ public class Mock<T> where T : class
 
                 if (method.ReturnType.IsValueType)
                 {
-                    il.Emit(OpCodes.Unbox_Any, method.ReturnType);
+                    // For value types, no null check or unboxing is necessary
+                    // The returned value is already of the correct type
+                    // on the stack
                 }
                 else
                 {
+                    // Add a null-check and cast class for reference types
+                    Label endLabel = il.DefineLabel();
+                    il.Emit(OpCodes.Dup);
+                    il.Emit(OpCodes.Brtrue_S, endLabel);
+
+                    il.Emit(OpCodes.Pop);
+                    il.Emit(OpCodes.Ldnull);
+
+                    il.MarkLabel(endLabel);
                     il.Emit(OpCodes.Castclass, method.ReturnType);
                 }
             }
@@ -195,7 +210,7 @@ public class Mock<T> where T : class
 
         if (mock._defaultReturnValues.TryGetValue(methodName, out object? rv))
         {
-            return (TResult?)rv;
+            return rv is TResult result ? result : default;
         }
 
         return default;
