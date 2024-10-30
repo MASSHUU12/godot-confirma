@@ -20,7 +20,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated documentation:
-  - Added note in TESTING.md about script templates.
+  - Added note in TESTING.md about script templates & mocking library.
+  - Added info about mocking libary in README.md.
 
 ### Removed
 
