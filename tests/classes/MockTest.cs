@@ -13,8 +13,11 @@ public class MockTest
 {
     public interface ITestInterface
     {
-        void TestMethod();
-        int TestMethodWithReturn();
+        int GetInt();
+        int? GetNullableInt();
+        string? GetString();
+        object? GetObject();
+        void DoSomething();
     }
 
     [TestCase]
@@ -55,13 +58,33 @@ public class MockTest
         Mock<ITestInterface> mock = new();
         Type proxyType = mock.ProxyType;
 
-        MethodInfo? testMethod = proxyType.GetMethod("TestMethodWithReturn");
+        MethodInfo? testMethod = proxyType.GetMethod("GetInt");
         Type? returnType = testMethod?.ReturnType;
 
         _ = typeof(int).ConfirmEqual(returnType);
+    }
 
-        mock.SetDefaultReturnValue("TestMethodWithReturn", 5);
-        _ = mock.Instance.TestMethodWithReturn().ConfirmEqual(5);
-        _ = mock.Instance.TestMethodWithReturn();
+    [TestCase]
+    public void ProxyType_ShouldCorrectlyRunMethods()
+    {
+        Mock<ITestInterface> mock = new();
+
+        mock.SetDefaultReturnValue("GetInt", 42);
+        mock.SetDefaultReturnValue("GetNullableInt", (int?)null);
+        mock.SetDefaultReturnValue("GetString", (string?)null);
+        mock.SetDefaultReturnValue("GetObject", (object?)null);
+
+        _ = mock.Instance.GetInt().ConfirmEqual(42);
+        _ = mock.Instance.GetNullableInt().ConfirmNull();
+        _ = mock.Instance.GetString().ConfirmNull();
+        _ = mock.Instance.GetObject().ConfirmNull();
+
+        mock.SetDefaultReturnValue("GetNullableInt", 69);
+        mock.SetDefaultReturnValue("GetString", "Hello, World!");
+        mock.SetDefaultReturnValue("GetObject", new object());
+
+        _ = mock.Instance.GetNullableInt().ConfirmEqual(69);
+        _ = mock.Instance.GetString().ConfirmEqual("Hello, World!");
+        _ = mock.Instance.GetObject().ConfirmType(typeof(object));
     }
 }
