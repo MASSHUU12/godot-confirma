@@ -8,7 +8,7 @@ to quickly create tests.
 ### Writing tests
 
 Confirma will detect all tests,
-regardless of where in the project they're placed them.
+regardless of where in the project they're placed.
 
 Each class that contains tests must be labelled with the `TestClass` attribute.
 Each test method must be tagged with the `TestCase` attribute.
@@ -33,6 +33,11 @@ public static class TestSomething
     }
 }
 ```
+
+### Mocking
+
+Confirma includes a simple library for mocking,
+which is located in the `Confirma.Classes.Mock` namespace.
 
 ### Accessing scene tree
 
