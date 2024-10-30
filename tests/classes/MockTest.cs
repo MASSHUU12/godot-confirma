@@ -17,37 +17,37 @@ public class MockTest
         int TestMethodWithReturn();
     }
 
-    // [TestCase]
-    // public void ProxyType_ShouldBeCreatedSuccessfully()
-    // {
-    //     Mock<ITestInterface> mock = new();
-    //     Type proxyType = mock.ProxyType;
+    [TestCase]
+    public void ProxyType_ShouldBeCreatedSuccessfully()
+    {
+        Mock<ITestInterface> mock = new();
+        Type proxyType = mock.ProxyType;
 
-    //     _ = proxyType.ConfirmNotNull();
-    //     _ = typeof(ITestInterface).IsAssignableFrom(proxyType).ConfirmTrue();
-    // }
+        _ = proxyType.ConfirmNotNull();
+        _ = typeof(ITestInterface).IsAssignableFrom(proxyType).ConfirmTrue();
+    }
 
-    // [TestCase]
-    // public void ProxyType_ShouldImplementAllInterfaceMethods()
-    // {
-    //     Mock<ITestInterface> mock = new();
-    //     Type proxyType = mock.ProxyType;
+    [TestCase]
+    public void ProxyType_ShouldImplementAllInterfaceMethods()
+    {
+        Mock<ITestInterface> mock = new();
+        Type proxyType = mock.ProxyType;
 
-    //     MethodInfo[] interfaceMethods = typeof(ITestInterface).GetMethods();
-    //     MethodInfo[] proxyMethods = proxyType.GetMethods();
+        MethodInfo[] interfaceMethods = typeof(ITestInterface).GetMethods();
+        MethodInfo[] proxyMethods = proxyType.GetMethods();
 
-    //     foreach (MethodInfo iMethod in interfaceMethods)
-    //     {
-    //         _ = Confirm.IsTrue(
-    //             proxyMethods.Any(
-    //                 m => m.Name == iMethod.Name
-    //                 && m.ReturnType == iMethod.ReturnType
-    //                 && m.GetParameters().Length == iMethod.GetParameters().Length
-    //             ),
-    //             $"Method {iMethod.Name} is not implemented in proxy type."
-    //         );
-    //     }
-    // }
+        foreach (MethodInfo iMethod in interfaceMethods)
+        {
+            _ = Confirm.IsTrue(
+                proxyMethods.Any(
+                    m => m.Name == iMethod.Name
+                    && m.ReturnType == iMethod.ReturnType
+                    && m.GetParameters().Length == iMethod.GetParameters().Length
+                ),
+                $"Method {iMethod.Name} is not implemented in proxy type."
+            );
+        }
+    }
 
     [TestCase]
     public void ProxyType_ShouldHaveCorrectMethodReturnTypes()
@@ -62,6 +62,6 @@ public class MockTest
 
         mock.SetDefaultReturnValue("TestMethodWithReturn", 5);
         _ = mock.Instance.TestMethodWithReturn().ConfirmEqual(5);
-        // _ = mock.Instance.TestMethodWithReturn();
+        _ = mock.Instance.TestMethodWithReturn();
     }
 }
