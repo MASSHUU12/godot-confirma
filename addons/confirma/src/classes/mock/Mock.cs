@@ -29,7 +29,7 @@ public class Mock<T> where T : class
             );
     }
 
-    public void SetDefaultReturnValue<TResult>(string methodName, TResult value)
+    public void SetDefaultReturnValue<TResult>(string methodName, TResult? value)
     {
         if (!typeof(T).GetMethods().Any(m => m.Name == methodName))
         {
@@ -146,24 +146,16 @@ public class Mock<T> where T : class
 
                 il.Emit(OpCodes.Call, invokeGenericMethod);
 
-                if (method.ReturnType.IsValueType)
+                Type returnType = method.ReturnType;
+
+                if (returnType.IsValueType)
                 {
-                    // For value types, no null check or unboxing is necessary
                     // The returned value is already of the correct type
                     // on the stack
                 }
                 else
                 {
-                    // Add a null-check and cast class for reference types
-                    Label endLabel = il.DefineLabel();
-                    il.Emit(OpCodes.Dup);
-                    il.Emit(OpCodes.Brtrue_S, endLabel);
-
-                    il.Emit(OpCodes.Pop);
-                    il.Emit(OpCodes.Ldnull);
-
-                    il.MarkLabel(endLabel);
-                    il.Emit(OpCodes.Castclass, method.ReturnType);
+                    HandleReferenceType(il, returnType);
                 }
             }
 
@@ -172,6 +164,20 @@ public class Mock<T> where T : class
         }
 
         return typeBuilder.CreateType();
+    }
+
+    private static void HandleReferenceType(ILGenerator il, Type returnType)
+    {
+        // Reference types can be null
+        Label endLabel = il.DefineLabel();
+        il.Emit(OpCodes.Dup);
+        il.Emit(OpCodes.Brtrue_S, endLabel);
+
+        il.Emit(OpCodes.Pop);
+        il.Emit(OpCodes.Ldnull);
+
+        il.MarkLabel(endLabel);
+        il.Emit(OpCodes.Castclass, returnType);
     }
 
     private static void ValidateInterfaceMethods(Type interfaceType)
@@ -210,7 +216,7 @@ public class Mock<T> where T : class
 
         if (mock._defaultReturnValues.TryGetValue(methodName, out object? rv))
         {
-            return rv is TResult result ? result : default;
+            return (TResult?)rv;
         }
 
         return default;
