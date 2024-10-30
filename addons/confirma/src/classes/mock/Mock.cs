@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,10 +8,10 @@ namespace Confirma.Classes.Mock;
 
 public class Mock<T> where T : class
 {
-    private readonly List<CallRecord> _callRecords = new();
-    private readonly Dictionary<string, object?> _defaultReturnValues = new();
+    private readonly ConcurrentBag<CallRecord> _callRecords = new();
+    private readonly ConcurrentDictionary<string, object?> _defaultReturnValues = new();
 
-    private static readonly Dictionary<string, MethodInfo?> _methodInfoCache = new();
+    private static readonly ConcurrentDictionary<string, MethodInfo?> _methodInfoCache = new();
 
     public T Instance { get; }
 
@@ -20,9 +21,9 @@ public class Mock<T> where T : class
         ((MockProxy)(object)Instance).SetMock(this);
     }
 
-    public IReadOnlyList<CallRecord> GetCallRecords()
+    public IReadOnlyCollection<CallRecord> GetCallRecords()
     {
-        return _callRecords.AsReadOnly();
+        return _callRecords;
     }
 
     public void ClearCallRecords()
@@ -62,12 +63,10 @@ public class Mock<T> where T : class
 
     private static MethodInfo? GetMethod(string methodName)
     {
-        if (!_methodInfoCache.TryGetValue(methodName, out MethodInfo? method))
-        {
-            method = typeof(T).GetMethod(methodName);
-            _methodInfoCache[methodName] = method;
-        }
-        return method;
+        return _methodInfoCache.GetOrAdd(
+            methodName,
+            static nm => typeof(T).GetMethod(nm)
+        );
     }
 
     private class MockProxy : DispatchProxy

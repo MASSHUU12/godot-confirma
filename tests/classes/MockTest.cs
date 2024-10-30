@@ -50,11 +50,13 @@ public class MockTest
     {
         _mock.Instance.DoSomething();
 
-        IReadOnlyList<CallRecord> callRecords = _mock.GetCallRecords();
+        IReadOnlyCollection<CallRecord> callRecords = _mock.GetCallRecords();
 
         _ = callRecords.ConfirmCount(1);
-        _ = callRecords[0].MethodName.ConfirmEqual("DoSomething");
-        _ = callRecords[0].Arguments!.ConfirmEmpty();
+
+        CallRecord record = callRecords.ElementAt(0);
+        _ = record.MethodName.ConfirmEqual("DoSomething");
+        _ = record.Arguments!.ConfirmEmpty();
     }
 
     [TestCase]
@@ -62,12 +64,14 @@ public class MockTest
     {
         _ = _mock.Instance.StringMethod("test");
 
-        IReadOnlyList<CallRecord> callRecords = _mock.GetCallRecords();
+        IReadOnlyCollection<CallRecord> callRecords = _mock.GetCallRecords();
 
         _ = callRecords.ConfirmCount(1);
-        _ = callRecords[0].MethodName.ConfirmEqual("StringMethod");
-        _ = callRecords[0].Arguments!.ConfirmCount(1);
-        _ = callRecords[0].Arguments![0].ConfirmEqual("test");
+
+        CallRecord record = callRecords.ElementAt(0);
+        _ = record.MethodName.ConfirmEqual("StringMethod");
+        _ = record.Arguments!.ConfirmCount(1);
+        _ = record.Arguments![0].ConfirmEqual("test");
     }
 
     [TestCase]
@@ -90,10 +94,10 @@ public class MockTest
     {
         _mock.Instance.DoSomething();
 
-        IReadOnlyList<CallRecord> callRecords = _mock.GetCallRecords();
+        IReadOnlyCollection<CallRecord> callRecords = _mock.GetCallRecords();
 
         _ = callRecords.ConfirmCount(1);
-        _ = callRecords[0].MethodName.ConfirmEqual("DoSomething");
+        _ = callRecords.ElementAt(0).MethodName.ConfirmEqual("DoSomething");
     }
 
     [TestCase]
