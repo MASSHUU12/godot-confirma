@@ -8,6 +8,9 @@ public class Mock<T> where T : class
 {
     private readonly List<CallRecord> _callRecords = new();
     private readonly Dictionary<string, object?> _defaultReturnValues = new();
+
+    private static readonly Dictionary<string, MethodInfo?> _methodInfoCache = new();
+
     public T Instance { get; }
 
     public Mock()
@@ -28,16 +31,25 @@ public class Mock<T> where T : class
 
     public void SetDefaultReturnValue<TResult>(string methodName, TResult? value)
     {
-        if (
-            typeof(T).GetMethod(methodName)
-                ?.ReturnType.IsAssignableFrom(typeof(TResult)) != true
-        )
+        MethodInfo? method = Mock<T>.GetMethod(methodName);
+
+        if (method?.ReturnType.IsAssignableFrom(typeof(TResult)) != true)
         {
             throw new ArgumentException(
                 $"Method '{methodName}' does not exist or return type mismatch on '{typeof(T).Name}'."
             );
         }
         _defaultReturnValues[methodName] = value;
+    }
+
+    private static MethodInfo? GetMethod(string methodName)
+    {
+        if (!_methodInfoCache.TryGetValue(methodName, out MethodInfo? method))
+        {
+            method = typeof(T).GetMethod(methodName);
+            _methodInfoCache[methodName] = method;
+        }
+        return method;
     }
 
     private class MockProxy : DispatchProxy
@@ -59,9 +71,9 @@ public class Mock<T> where T : class
             string methodName = targetMethod.Name;
             _mock._callRecords.Add(new CallRecord(methodName, args));
 
-            if (
-                _mock._defaultReturnValues
-                    .TryGetValue(methodName, out object? returnValue)
+            if (_mock._defaultReturnValues.TryGetValue(
+                    methodName, out object? returnValue
+                )
             )
             {
                 return returnValue;
