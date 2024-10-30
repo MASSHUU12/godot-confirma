@@ -173,4 +173,33 @@ public class MockTest
         _mock.ClearCallRecords();
         _ = _mock.GetCallRecords().ConfirmEmpty();
     }
+
+    [TestCase]
+    public void VerifyCalled_ReturnsCorrectValue()
+    {
+        _ = _mock.VerifyCalled("DoSomething", 0).ConfirmTrue();
+        _mock.Instance.DoSomething();
+        _ = _mock.VerifyCalled("DoSomething", 1).ConfirmTrue();
+        _mock.Instance.DoSomething();
+        _ = _mock.VerifyCalled("DoSomething", 2).ConfirmTrue();
+    }
+
+    [TestCase]
+    public void VerifyCalledWith_ReturnsCorrectValue()
+    {
+        _ = _mock
+            .VerifyCalledWith("StringMethod", "Hello, World!")
+            .ConfirmFalse();
+        _ = _mock.Instance.StringMethod("Hi");
+        _ = _mock
+            .VerifyCalledWith("StringMethod", "Hello, World!")
+            .ConfirmFalse();
+        _ = _mock.Instance.StringMethod("Hello, World!");
+        _ = _mock
+            .VerifyCalledWith("StringMethod", "Hello, World!")
+            .ConfirmTrue();
+        _ = _mock
+            .VerifyCalledWith("StringMethod", "Hi")
+            .ConfirmTrue();
+    }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Confirma.Classes.Mock;
@@ -40,6 +41,23 @@ public class Mock<T> where T : class
             );
         }
         _defaultReturnValues[methodName] = value;
+    }
+
+    public bool VerifyCalled(string methodName, int expectedCallCount)
+    {
+        int actualCallCount = _callRecords.Count(
+            cr => cr.MethodName == methodName
+        );
+
+        return actualCallCount == expectedCallCount;
+    }
+
+    public bool VerifyCalledWith(string methodName, params object?[] expectedArgs)
+    {
+        return _callRecords.Any(cr =>
+            cr.MethodName == methodName &&
+            cr.Arguments?.SequenceEqual(expectedArgs) == true
+        );
     }
 
     private static MethodInfo? GetMethod(string methodName)
