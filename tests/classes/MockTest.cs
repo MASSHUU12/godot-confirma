@@ -116,8 +116,7 @@ public class MockTest
     [TestCase]
     public void ProxyType_ShouldImplementAllInterfaceMethods()
     {
-        Mock<ITestInterface> mock = new();
-        Type proxyType = mock.ProxyType;
+        Type proxyType = _mock.ProxyType;
 
         MethodInfo[] interfaceMethods = typeof(ITestInterface).GetMethods();
         MethodInfo[] proxyMethods = proxyType.GetMethods();
@@ -138,8 +137,7 @@ public class MockTest
     [TestCase]
     public void ProxyType_ShouldHaveCorrectMethodReturnTypes()
     {
-        Mock<ITestInterface> mock = new();
-        Type proxyType = mock.ProxyType;
+        Type proxyType = _mock.ProxyType;
 
         MethodInfo? testMethod = proxyType.GetMethod("GetInt");
         Type? returnType = testMethod?.ReturnType;
@@ -150,24 +148,35 @@ public class MockTest
     [TestCase]
     public void ProxyType_ShouldCorrectlyRunMethods()
     {
-        Mock<ITestInterface> mock = new();
+        _mock.SetDefaultReturnValue("GetInt", 42);
+        _mock.SetDefaultReturnValue("GetNullableInt", (int?)null);
+        _mock.SetDefaultReturnValue("GetString", (string?)null);
+        _mock.SetDefaultReturnValue("GetObject", (object?)null);
 
-        mock.SetDefaultReturnValue("GetInt", 42);
-        mock.SetDefaultReturnValue("GetNullableInt", (int?)null);
-        mock.SetDefaultReturnValue("GetString", (string?)null);
-        mock.SetDefaultReturnValue("GetObject", (object?)null);
+        _ = _mock.Instance.GetInt().ConfirmEqual(42);
+        _ = _mock.Instance.GetNullableInt().ConfirmNull();
+        _ = _mock.Instance.GetString().ConfirmNull();
+        _ = _mock.Instance.GetObject().ConfirmNull();
 
-        _ = mock.Instance.GetInt().ConfirmEqual(42);
-        _ = mock.Instance.GetNullableInt().ConfirmNull();
-        _ = mock.Instance.GetString().ConfirmNull();
-        _ = mock.Instance.GetObject().ConfirmNull();
+        _mock.SetDefaultReturnValue("GetNullableInt", 69);
+        _mock.SetDefaultReturnValue("GetString", "Hello, World!");
+        _mock.SetDefaultReturnValue("GetObject", new object());
 
-        mock.SetDefaultReturnValue("GetNullableInt", 69);
-        mock.SetDefaultReturnValue("GetString", "Hello, World!");
-        mock.SetDefaultReturnValue("GetObject", new object());
+        _ = _mock.Instance.GetNullableInt().ConfirmEqual(69);
+        _ = _mock.Instance.GetString().ConfirmEqual("Hello, World!");
+        _ = _mock.Instance.GetObject().ConfirmType(typeof(object));
+    }
 
-        _ = mock.Instance.GetNullableInt().ConfirmEqual(69);
-        _ = mock.Instance.GetString().ConfirmEqual("Hello, World!");
-        _ = mock.Instance.GetObject().ConfirmType(typeof(object));
+    [TestCase]
+    public void ClearCallRecords_ShouldClearCallRecords()
+    {
+        _ = _mock.Instance.GetInt();
+        _ = _mock.Instance.GetNullableInt();
+        _ = _mock.Instance.GetString();
+        _ = _mock.Instance.GetObject();
+
+        _ = _mock.GetCallRecords().ConfirmCount(4);
+        _mock.ClearCallRecords();
+        _ = _mock.GetCallRecords().ConfirmEmpty();
     }
 }

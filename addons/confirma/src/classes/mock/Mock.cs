@@ -19,6 +19,11 @@ public class Mock<T> where T : class
         return _callRecords.AsReadOnly();
     }
 
+    public void ClearCallRecords()
+    {
+        _callRecords.Clear();
+    }
+
     public Mock()
     {
         ProxyType = CreateProxyType(typeof(T));
