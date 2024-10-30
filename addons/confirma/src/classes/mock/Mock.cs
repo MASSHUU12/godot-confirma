@@ -8,6 +8,24 @@ namespace Confirma.Classes.Mock;
 
 public class Mock<T> where T : class
 {
+    private static readonly MethodInfo _invokeVoidMethod = typeof(Mock<T>)
+        .GetMethod(
+            nameof(InvokeMethodVoid),
+            BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
+        ) ?? throw new MissingMethodException("InvokeMethodVoid not found.");
+
+    private static readonly MethodInfo _invokeGenericMethod = typeof(Mock<T>)
+        .GetMethod(
+            nameof(InvokeMethod),
+            BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
+        ) ?? throw new MissingMethodException("InvokeMethod<TResult> not found.");
+
+    private static readonly ConstructorInfo _objectCtor = typeof(object)
+        .GetConstructor(Type.EmptyTypes)
+        ?? throw new MissingMethodException("Object constructor not found.");
+
+    private static readonly Dictionary<Type, Type> _proxyTypeCache = new();
+
     public T Instance { get; }
     public Type ProxyType { get; }
 
@@ -47,6 +65,11 @@ public class Mock<T> where T : class
 
     private Type CreateProxyType(Type interfaceType)
     {
+        if (_proxyTypeCache.TryGetValue(interfaceType, out Type? cachedType))
+        {
+            return cachedType;
+        }
+
         ValidateInterfaceMethods(interfaceType);
 
         string proxyTypeName = $"Proxy_{interfaceType.Name}";
@@ -81,10 +104,7 @@ public class Mock<T> where T : class
 
         ILGenerator ctorIL = constructor.GetILGenerator();
         ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
-        ctorIL.Emit(
-            OpCodes.Call,
-            typeof(object).GetConstructor(Type.EmptyTypes)!
-        ); // Call base constructor
+        ctorIL.Emit(OpCodes.Call, _objectCtor); // Call base constructor
         ctorIL.Emit(OpCodes.Ldarg_0); // Load 'this'
         ctorIL.Emit(OpCodes.Ldarg_1); // Load the Mock<T> instance passed in
         ctorIL.Emit(OpCodes.Stfld, mockField); // Store it in _mock
@@ -134,22 +154,17 @@ public class Mock<T> where T : class
 
             if (method.ReturnType == typeof(void))
             {
-                MethodInfo invokeVoidMethod = typeof(Mock<T>).GetMethod(
-                    nameof(InvokeMethodVoid),
-                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
-                ) ?? throw new MissingMethodException("InvokeMethodVoid not found.");
-
-                il.Emit(OpCodes.Call, invokeVoidMethod);
+                il.Emit(OpCodes.Call, _invokeVoidMethod);
             }
             else
             {
-                MethodInfo invokeGenericMethod = typeof(Mock<T>).GetMethod(
-                    nameof(InvokeMethod),
-                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public
-                )?.MakeGenericMethod(method.ReturnType)
-                ?? throw new MissingMethodException("InvokeMethod<TResult> not found.");
-
-                il.Emit(OpCodes.Call, invokeGenericMethod);
+                il.Emit(
+                    OpCodes.Call,
+                    _invokeGenericMethod?.MakeGenericMethod(method.ReturnType)
+                    ?? throw new MissingMethodException(
+                        "InvokeMethod<TResult> not found."
+                    )
+                );
 
                 Type returnType = method.ReturnType;
 
@@ -168,7 +183,9 @@ public class Mock<T> where T : class
             typeBuilder.DefineMethodOverride(methodBuilder, method);
         }
 
-        return typeBuilder.CreateType();
+        Type generatedType = typeBuilder.CreateType();
+        _proxyTypeCache[interfaceType] = generatedType;
+        return generatedType;
     }
 
     private static void HandleReferenceType(ILGenerator il, Type returnType)
