@@ -1,10 +1,12 @@
 using System;
 using Confirma.Exceptions;
+using Confirma.Formatters;
 
 namespace Confirma.Extensions;
 
 public static class ConfirmTypeExtensions
 {
+    #region ConfirmType
     public static object? ConfirmType(
         this object? actual,
         Type expected,
@@ -31,7 +33,9 @@ public static class ConfirmTypeExtensions
         _ = actual.ConfirmType(typeof(T), message);
         return (T)actual!;
     }
+    #endregion ConfirmType
 
+    #region ConfirmNotType
     public static object? ConfirmNotType(
         this object? actual,
         Type expected,
@@ -60,4 +64,60 @@ public static class ConfirmTypeExtensions
     {
         return actual.ConfirmNotType(typeof(T), message);
     }
+    #endregion ConfirmNotType
+
+    #region ConfirmInstanceOf
+    // TODO: Create bindings for GDScript
+    public static object? ConfirmInstanceOf<TExpected>(
+        this object? actual,
+        string? message = null
+    )
+    {
+        return actual.ConfirmInstanceOf(typeof(TExpected), message);
+    }
+
+    public static object? ConfirmInstanceOf(
+        this object? actual,
+        Type expected,
+        string? message = null
+    )
+    {
+        return expected.IsAssignableFrom(actual?.GetType()) == true
+            ? actual
+            : throw new ConfirmAssertException(
+            "Expected {1} to be an instance of {2}.",
+            nameof(ConfirmInstanceOf),
+            null,
+            new AutomaticFormatter().Format(actual),
+            expected.Name,
+            message
+        );
+    }
+
+    public static object? ConfirmNotInstanceOf<TExpected>(
+        this object? actual,
+        string? message = null
+    )
+    {
+        return actual.ConfirmNotInstanceOf(typeof(TExpected), message);
+    }
+
+    public static object? ConfirmNotInstanceOf(
+        this object? actual,
+        Type expected,
+        string? message = null
+    )
+    {
+        return !expected.IsAssignableFrom(actual?.GetType())
+            ? actual
+            : throw new ConfirmAssertException(
+            "Expected {1} not to be an instance of {2}.",
+            nameof(ConfirmNotInstanceOf),
+            null,
+            new AutomaticFormatter().Format(actual),
+            expected.Name,
+            message
+        );
+    }
+    #endregion ConfirmInstanceOf
 }
