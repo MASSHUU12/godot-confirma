@@ -14,6 +14,9 @@ All notable changes to this project will be documented in this file.
 - Classes:
   - Mock.cs
   - CallRecord.cs
+- Assertions:
+  - ConfirmInstanceOf
+  - ConfirmNotInstanceOf
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
 

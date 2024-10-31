@@ -67,7 +67,6 @@ public static class ConfirmTypeExtensions
     #endregion ConfirmNotType
 
     #region ConfirmInstanceOf
-    // TODO: Create bindings for GDScript
     public static object? ConfirmInstanceOf<TExpected>(
         this object? actual,
         string? message = null
