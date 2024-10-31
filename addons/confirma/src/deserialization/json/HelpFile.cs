@@ -9,6 +9,5 @@ public class HelpFile
     [JsonPropertyName("version")]
     public int Version { get; set; }
     [JsonPropertyName("data")]
-    public Dictionary<int, TextElement> Data { get; set; } = new Dictionary<int, TextElement>();
-
+    public List<FileElement> Data { get; set; } = new ();
 }
