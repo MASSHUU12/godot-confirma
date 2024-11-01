@@ -76,7 +76,7 @@ public static class Colors
     public static string ColorBackground<T>(T text, Color color)
     where T : IConvertible
     {
-        return Log.IsHeadless ? TextToTerminal(text, color) : TextToGodot(text, color);
+        return Log.IsHeadless ? BackgroundToTerminal(text, color) : BackgroundToGodot(text, color);
     }
 
     public static string BackgroundToTerminal<T>(T text, Color color)
