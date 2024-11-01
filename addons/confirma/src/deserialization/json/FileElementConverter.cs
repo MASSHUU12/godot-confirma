@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Confirma.Classes;
@@ -41,6 +42,9 @@ public class FileElementConverter : JsonConverter<FileElement>
                 return ConvertText(ref reader);
             case "header":
                 return ConvertHeader(ref reader);
+            case "code":
+                return ConvertCode(ref reader, options);
+
 
             default:
                 throw new NotSupportedException($"Unsupported type, \"{reader.GetString()}\"");
@@ -120,6 +124,28 @@ public class FileElementConverter : JsonConverter<FileElement>
                         element.Level = reader.GetInt32();
                         break;
                 }
+            }
+        }
+        return element;
+    }
+
+    public FileElement ConvertCode (ref Utf8JsonReader reader, JsonSerializerOptions options)
+    {
+        CodeElement element = new();
+
+        while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
+        {
+            if (
+                reader.TokenType == JsonTokenType.PropertyName
+                && reader.GetString() == "lines"
+            )
+            {
+                reader.Read();
+                element = new CodeElement()
+                {
+                    Lines = JsonSerializer.Deserialize<List<string>>(ref reader, options)
+                    ?? throw new JsonException()
+                };
             }
         }
         return element;
