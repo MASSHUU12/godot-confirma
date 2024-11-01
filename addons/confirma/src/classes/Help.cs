@@ -1,22 +1,32 @@
+using Confirma.Deserialization.Json;
 using Confirma.Helpers;
-using Godot;
 
 namespace Confirma.Classes;
 
 public static class Help
 {
-    public static void ShowHelpPage(string pageName)
+    public static async void ShowHelpPage(string pageName)
     {
-        FileAccess page = FileAccess.Open($"{Plugin.GetPluginLocation()}/src/help_pages/{pageName}.txt", FileAccess.ModeFlags.Read);
+        var file = await Json.LoadFromFile<HelpFile>($"{Plugin.GetPluginLocation()}src/help_pages/{pageName}.json");
 
-        if (page is not null)
+        if (file is not null)
         {
-            Log.Print(page.GetAsText());
+            foreach(FileElement element in file.Data)
+            {
+                switch(element)
+                {
+                    case TextElement ele:
+
+                        Log.Print(ele.GetText());
+                        break;
+                    case HeaderElement ele:
+                        Log.Print(ele.GetText());
+                        break;
+                }
+            }
             return;
         }
 
-        //fixme debug, remove this before merging to master
-        Log.PrintError($"File: `{pageName}.txt`, not found\n");
-        Log.PrintLine($"{Plugin.GetPluginLocation()}/src/help_pages/{pageName}.txt");
+        Log.PrintError($"File: `{pageName}.json`, not found\n");
     }
 }

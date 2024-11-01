@@ -38,8 +38,9 @@ public class FileElementConverter : JsonConverter<FileElement>
         switch(reader.GetString())
         {
             case "text":
-
                 return ConvertText(ref reader);
+            case "header":
+                return ConvertHeader(ref reader);
 
             default:
                 throw new NotSupportedException($"Unsupported type, \"{reader.GetString()}\"");
@@ -86,6 +87,37 @@ public class FileElementConverter : JsonConverter<FileElement>
                             var test = reader.GetString();
                             element.FormatOverride.Add(test ?? throw new JsonException());
                         }
+                        break;
+                }
+            }
+        }
+        return element;
+    }
+
+    public FileElement ConvertHeader (ref Utf8JsonReader reader)
+    {
+        HeaderElement element = new ();
+
+        while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
+        {
+            if (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                string? property = reader.GetString();
+                reader.Read();
+
+                switch (property)
+                {
+                    case "text":
+                        element.Text = reader.GetString() ?? throw new JsonException();
+                        break;
+                    case "color":
+                        element.Color = reader.GetString() ?? throw new JsonException();
+                        break;
+                    case "bg_color":
+                        element.BgColor = reader.GetString() ?? throw new JsonException();
+                        break;
+                    case "level":
+                        element.Level = reader.GetInt32();
                         break;
                 }
             }
