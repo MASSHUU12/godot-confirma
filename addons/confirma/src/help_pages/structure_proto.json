@@ -1,34 +1,30 @@
 {
     "version": 1,
-    "data":{
-        "0":{
-            "header": {
-                "text": "",
-                "color":"#ffffff",
-                "bg_color":"#ffffff",
-                "level": 0
-            }
+    "data":[
+        {
+            "type":"header",
+            "text": "",
+            "level": 0
         },
-        "1":{
-            "text": {
-                "text":"",
-                "color":"#ffffff",
-                "bg_color":"#ffffff",
-                "format": [
-                    "bold",
-                    "underline",
-                    "italic",
-                    "strikethrough"
-                ]
-            }
+        {
+            "type": "text",
+            "text":"",
+            "color":"#ffffff",
+            "bg_color":"#ffffff",
+            "format": [
+                "bold",
+                "underline",
+                "italic",
+                "strikethrough"
+            ]
         },
-        "2": {
-            "code": {
-                "text":"",
-                "color":"#ffffff",
-                "bg_color":"#ffffff"
-            }
+        {
+            "type":"code",
+            "lines":[
+                "line 1",
+                "line 2"
+            ]
         }
-    }
+    ]
 }
 
