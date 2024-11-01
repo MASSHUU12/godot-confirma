@@ -30,7 +30,7 @@ public class GdTestExecutor : ITestExecutor
     {
         result = null;
 
-        if (!Directory.Exists(_props.GdTestPath))
+        if (!Directory.Exists(ProjectSettings.GlobalizePath(_props.GdTestPath)))
         {
             Log.PrintError("Path to GDScript tests is invalid.\n");
             return -1;
