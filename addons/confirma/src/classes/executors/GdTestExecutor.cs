@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
@@ -7,9 +8,8 @@ using Confirma.Interfaces;
 using Confirma.Types;
 using Confirma.Wrappers;
 using Godot;
-
-using static Confirma.Enums.ETestCaseState;
 using static Confirma.Enums.ELifecycleMethodName;
+using static Confirma.Enums.ETestCaseState;
 
 namespace Confirma.Classes.Executors;
 
@@ -30,9 +30,15 @@ public class GdTestExecutor : ITestExecutor
     {
         result = null;
 
+        if (!Directory.Exists(_props.GdTestPath))
+        {
+            Log.PrintError("Path to GDScript tests is invalid.\n");
+            return -1;
+        }
+
         IEnumerable<GdScriptInfo> testClasses = GetTestClasses(_props.GdTestPath);
 
-        if (!testClasses.Any())
+        if (!testClasses.Any() && !string.IsNullOrEmpty(_props.Target.Name))
         {
             LogErrorIfNoTestClassesFound();
             return -1;
