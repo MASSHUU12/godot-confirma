@@ -16,11 +16,14 @@ public static class Help
                 switch(element)
                 {
                     case TextElement ele:
-
                         Log.Print(ele.GetText());
                         break;
                     case HeaderElement ele:
-                        Log.Print(ele.GetText());
+                        Log.PrintLine(ele.GetText());
+                        break;
+                    case CodeElement ele:
+                        string dev = ele.GetText();
+                        Log.Print(dev);
                         break;
                 }
             }

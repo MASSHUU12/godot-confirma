@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using Confirma.Deserialization.Json;
+using Confirma.Enums;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
@@ -23,20 +25,27 @@ public abstract class FileElement
 
         foreach(string? a in FormatOverride)
         {
-            if (a is null)
+            if ( a is null || a == "fill" || a == "f" )
             {
                 continue;
             }
 
             text = TextFormatHelper.FormatText(text, a);
         }
-
         return text;
     }
 
     public virtual string GetText()
     {
         string? color, bgColor = null;
+        string text = Text;
+
+        if (FormatOverride.Any((string a) =>
+            a == "fill" || a == "f"
+        ))
+        {
+            text = TextFormatHelper.FormatText(text, EFormatType.fill);
+        }
 
         if (Color?.Length == 0) { color = null; }
         else { color = Color; }
@@ -44,7 +53,7 @@ public abstract class FileElement
         if (BgColor?.Length == 0) { bgColor = null; }
         else { bgColor=BgColor; }
 
-        string text = Colors.Color(Text, color, bgColor);
+        text = Colors.Color(text, color, bgColor);
 
         return Format(text);
     }
