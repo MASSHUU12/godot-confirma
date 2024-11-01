@@ -11,15 +11,13 @@ afterEach(async () => {
     deleteFile(JSON_FILE_PATH);
 });
 
-test("No C# tests ran, no GDScript tests", async () => {
-    const gdVoid = getE2eTestsPath() + "/void/";
-
+test("No GDScript tests ran, no C# tests", async () => {
     const { exitCode, stderr } = await runGodot(
         "--confirma-run",
         "--confirma-disable-cs",
+        "--confirma-disable-gd",
         "--confirma-output=json",
         `--confirma-output-path=${JSON_FILE_PATH}`,
-        `--confirma-gd-path=${gdVoid}`,
     );
 
     expect(exitCode).toBe(0);
@@ -33,12 +31,12 @@ test("No C# tests ran, no GDScript tests", async () => {
     expect(json.TotalTests).toBe(0);
 });
 
-test("No C# tests ran, GDScript tests present", async () => {
+test("No GDScript tests ran, C# tests present", async () => {
     const e2eGdPath = getE2eTestsPath() + "/dummy_tests/";
 
     const { exitCode, stderr } = await runGodot(
         "--confirma-run",
-        "--confirma-disable-cs",
+        "--confirma-disable-gd",
         "--confirma-output=json",
         `--confirma-output-path=${JSON_FILE_PATH}`,
         `--confirma-gd-path=${e2eGdPath}`,
@@ -55,6 +53,6 @@ test("No C# tests ran, GDScript tests present", async () => {
     expect(json.TestsPassed).toBeGreaterThan(0);
 
     for (let log of json.TestLogs) {
-        expect(log.Lang).not.toBe(0);
+        expect(log.Lang).not.toBe(1);
     }
 });
