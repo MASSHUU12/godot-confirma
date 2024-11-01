@@ -9,8 +9,8 @@ namespace Confirma.Classes;
 public abstract class FileElement
 {
     public string Text { get; set; } = string.Empty;
-    public string? Color { get; set; } = string.Empty;
-    public string? BgColor { get; set; } = string.Empty;
+    public string Color { get; set; } = string.Empty;
+    public string BgColor { get; set; } = string.Empty;
     public List<string> FormatOverride { get; set; } = new();
 
     //I didn't had any idea how to name this method not to be misleading
@@ -36,7 +36,15 @@ public abstract class FileElement
 
     public virtual string GetText()
     {
-        string text = Colors.Color(Text, Color, BgColor);
+        string? color, bgColor = null;
+
+        if (Color?.Length == 0) { color = null; }
+        else { color = Color; }
+
+        if (BgColor?.Length == 0) { bgColor = null; }
+        else { bgColor=BgColor; }
+
+        string text = Colors.Color(Text, color, bgColor);
 
         return Format(text);
     }
