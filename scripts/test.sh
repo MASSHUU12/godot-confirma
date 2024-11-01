@@ -15,47 +15,34 @@ fi
 run_target="--confirma-run"
 args=()
 
-# Transform long options to short ones
-for arg in "$@"; do
-  shift
-  case "$arg" in
-    '--run')             set -- "$@" '-r'   ;;
-    '--method')          set -- "$@" '-m'   ;;
-    '--category')        set -- "$@" '-c'   ;;
-    '--verbose')         set -- "$@" '-v'   ;;
-    '--sequential')      set -- "$@" '-s'   ;;
-    '--exit')            set -- "$@" '-e'   ;;
-    '--disable-orphans') set -- "$@" '-d'   ;;
-    '--disable-cs')      set -- "$@" '-h'   ;;
-    '--disable-gd')      set -- "$@" '-j'   ;;
-    '--gd-path')         set -- "$@" '-g'   ;;
-    '--output')          set -- "$@" '-o'   ;;
-    '--output-path')     set -- "$@" '-p'   ;;
-    *)                   set -- "$@" "$arg" ;;
-  esac
-done
+# Parse options
+opts=$(getopt -o r:m:c:vsedhjg:o:p: --long run:,method:,category:,verbose,sequential,exit,disable-orphans,disable-cs,disable-gd,gd-path:,output:,output-path: -- "$@")
 
-while getopts ":r:m:c:vsedhjg:o:p:" opt; do
-  case "$opt" in
-    r) run_target="--confirma-run=$OPTARG";;
-    m) args+=("--confirma-method=$OPTARG");;
-    c) args+=("--confirma-category=$OPTARG");;
-    v) args+=("--confirma-verbose");;
-    s) args+=("--confirma-sequential");;
-    e) args+=("--confirma-exit-on-failure");;
-    d) args+=("--confirma-disable-orphans-monitor");;
-    h) args+=("--confirma-disable-cs");;
-    j) args+=("--confirma-disable-gd");;
-    g) args+=("--confirma-gd-path=$OPTARG");;
-    o) args+=("--confirma-output=$OPTARG");;
-    p) args+=("--confirma-output-path=$OPTARG");;
-    \?) echo "Error: Unknown option: -$OPTARG" >&2; exit 1;;
-    :) echo "Error: Option -$OPTARG requires a value" >&2; exit 1;;
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+eval set -- "$opts"
+
+while true; do
+  case "$1" in
+    -r|--run)             run_target="--confirma-run=$2"; shift 2;;
+    -m|--method)          args+=("--confirma-method=$2"); shift 2;;
+    -c|--category)        args+=("--confirma-category=$2"); shift 2;;
+    -v|--verbose)         args+=("--confirma-verbose"); shift;;
+    -s|--sequential)      args+=("--confirma-sequential"); shift;;
+    -e|--exit)            args+=("--confirma-exit-on-failure"); shift;;
+    -d|--disable-orphans) args+=("--confirma-disable-orphans-monitor"); shift;;
+    -h|--disable-cs)      args+=("--confirma-disable-cs"); shift;;
+    -j|--disable-gd)      args+=("--confirma-disable-gd"); shift;;
+    -g|--gd-path)         args+=("--confirma-gd-path=$2"); shift 2;;
+    -o|--output)          args+=("--confirma-output=$2"); shift 2;;
+    -p|--output-path)     args+=("--confirma-output-path=$2"); shift 2;;
+    --)                   shift; break;;
   esac
 done
 
 # Add remaining arguments
-shift $((OPTIND-1))
 args+=("$@")
 
 $GODOT ./ --headless -- "$run_target" "${args[@]}"
