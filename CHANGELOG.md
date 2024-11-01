@@ -37,6 +37,9 @@ All notable changes to this project will be documented in this file.
 when there are no arguments
 - [#216] [GDScript] `System.IO.DirectoryNotFoundException`
 thrown when passing invalid path to '--confirma-gd-path'.
+- [#221] [GDScript] An error is thrown when path to GDScript tests is empty.
+- [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
+invalid.
 
 ## [0.9.0-beta 2024.10.21]
 
