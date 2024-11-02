@@ -111,6 +111,11 @@ public static class RandomNumberExtensions
 
     public static int NextPoissonInt(this Random rg, double lambda)
     {
+        if (lambda == 0.0)
+        {
+            return 0;
+        }
+
         double l = Math.Exp(-lambda);
         int k = 0;
         double p = 1.0;
