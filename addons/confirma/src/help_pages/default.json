@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "data": [
+        {
+            "type":"header",
+            "text":"Arguments",
+            "level":1
+        },
+        {
+            "type":"text",
+            "text":"List of available arguments",
+            "format":["i"]
+        },
+        {
+            "type":"header",
+            "text":"Legend:",
+            "level":3
+        },
+        {
+            "type":"code",
+            "lines":
+            [
+                "[] - optional argument",
+                "<> - required argument"
+            ]
+        },
+        {
+            "type":"header",
+            "text":"--confirma-run",
+            "level":2
+        }
+    ]
+}
