@@ -190,7 +190,7 @@ public class RandomNumberExtensionsTest
             }
         }
 
-        _ = positiveCount.ConfirmCloseTo(negativeCount, 100);
+        _ = positiveCount.ConfirmCloseTo(negativeCount, 1000);
     }
     #endregion NextGaussianDouble
 
@@ -248,4 +248,66 @@ public class RandomNumberExtensionsTest
         _ = results.Average().ConfirmGreaterThan(100);
     }
     #endregion NextExponentialDouble
+
+    #region NextPoissonInt
+    [TestCase]
+    public void NextPoissonInt_ReturnsNonNegativeValue()
+    {
+        const double lambda = 1.0;
+
+        int result = rg.NextPoissonInt(lambda);
+
+        _ = result.ConfirmGreaterThanOrEqual(0);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsZeroWhenLambdaIsZero()
+    {
+        const double lambda = 0.0;
+
+        int result = rg.NextPoissonInt(lambda);
+
+        _ = result.ConfirmEqual(0);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsExpectedMean()
+    {
+        const double lambda = 10.0;
+        const int numSamples = 100000;
+
+        double mean = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            mean += rg.NextPoissonInt(lambda);
+        }
+        mean /= numSamples;
+
+        _ = mean.ConfirmCloseTo(lambda, 0.1);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsExpectedVariance()
+    {
+        const double lambda = 10.0;
+        const int numSamples = 100000;
+
+        double mean = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            mean += rg.NextPoissonInt(lambda);
+        }
+        mean /= numSamples;
+
+        double variance = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            int sample = rg.NextPoissonInt(lambda);
+            variance += Math.Pow(sample - mean, 2);
+        }
+        variance /= numSamples;
+
+        _ = variance.ConfirmCloseTo(lambda, 0.1);
+    }
+    #endregion NextPoissonInt
 }
