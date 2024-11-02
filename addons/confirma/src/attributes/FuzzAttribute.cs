@@ -1,15 +1,22 @@
 using System;
-using Confirma.Classes;
+using Confirma.Enums;
+using Confirma.Types;
 
 namespace Confirma.Attributes;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class FuzzAttribute : Attribute
 {
-    public FuzzParameter[] Parameters { get; init; }
+    public FuzzParameter Parameters { get; init; }
 
-    public FuzzAttribute(params FuzzParameter[] parameters)
+    public FuzzAttribute(
+        Type dataType,
+        string? name = null,
+        int minValue = 0,
+        int maxValue = 100,
+        EDistributionType distribution = EDistributionType.Uniform
+    )
     {
-        Parameters = parameters;
+        Parameters = new(dataType, name, minValue, maxValue, distribution);
     }
 }
