@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Confirma.Attributes;
 using Confirma.Extensions;
 
@@ -192,4 +193,59 @@ public class RandomNumberExtensionsTest
         _ = positiveCount.ConfirmCloseTo(negativeCount, 100);
     }
     #endregion NextGaussianDouble
+
+    #region NextExponentialDouble
+    [TestCase]
+    public void NextExponentialDouble_Always_ReturnsNonNegativeValue()
+    {
+        const double lambda = 1.0;
+
+        _ = rg.NextExponentialDouble(lambda).ConfirmGreaterThanOrEqual(0);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_Always_ReturnsDifferentValues()
+    {
+        const double lambda = 1.0;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Distinct().Count().ConfirmEqual(numSamples);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_LargeLambda_ReturnsSmallValues()
+    {
+        const double lambda = 1000.0;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Average().ConfirmLessThan(0.01);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_SmallLambda_ReturnsLargeValues()
+    {
+        const double lambda = 0.001;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Average().ConfirmGreaterThan(100);
+    }
+    #endregion NextExponentialDouble
 }
