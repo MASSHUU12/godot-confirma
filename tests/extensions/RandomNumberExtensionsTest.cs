@@ -131,4 +131,65 @@ public class RandomNumberExtensionsTest
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
+
+    #region NextGaussianDouble
+    [TestCase]
+    public void NextGaussianDouble_MeanIsCorrect()
+    {
+        const double mean = 10.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        double sum = 0.0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            sum += rg.NextGaussianDouble(mean, standardDeviation);
+        }
+
+        _ = (sum / numSamples).ConfirmCloseTo(mean, 0.1);
+    }
+
+    [TestCase]
+    public void NextGaussianDouble_StandardDeviationIsCorrect()
+    {
+        const double mean = 0.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        double sumOfSquares = 0.0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            double sample = rg.NextGaussianDouble(mean, standardDeviation);
+            sumOfSquares += Math.Pow(sample, 2);
+        }
+
+        double variance = sumOfSquares / numSamples;
+        _ = variance.ConfirmCloseTo(Math.Pow(standardDeviation, 2), 0.1);
+    }
+
+    [TestCase]
+    public void NextGaussianDouble_DistributionIsSymmetric()
+    {
+        const double mean = 0.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        int positiveCount = 0;
+        int negativeCount = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            double sample = rg.NextGaussianDouble(mean, standardDeviation);
+            if (sample > 0)
+            {
+                positiveCount++;
+            }
+            else if (sample < 0)
+            {
+                negativeCount++;
+            }
+        }
+
+        _ = positiveCount.ConfirmCloseTo(negativeCount, 100);
+    }
+    #endregion NextGaussianDouble
 }
