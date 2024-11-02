@@ -91,4 +91,36 @@ public static class RandomNumberExtensions
             ? throw new InvalidOperationException()
             : (rg.NextDouble() * (maxValue - minValue)) + minValue;
     }
+
+    public static double NextGaussianDouble(
+        this Random rg,
+        double mean,
+        double standardDeviation
+    )
+    {
+        double u1 = rg.NextDouble();
+        double u2 = rg.NextDouble();
+        double standardNormal = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+        return mean + (standardDeviation * standardNormal);
+    }
+
+    public static double NextExponentialDouble(this Random rg, double lambda)
+    {
+        return -Math.Log(rg.NextDouble()) / lambda;
+    }
+
+    public static int NextPoissonInt(this Random rg, double lambda)
+    {
+        double l = Math.Exp(-lambda);
+        int k = 0;
+        double p = 1.0;
+
+        while (p > l)
+        {
+            p *= rg.NextDouble();
+            k++;
+        }
+
+        return k - 1;
+    }
 }
