@@ -60,7 +60,8 @@ public partial class ConfirmaAutoload : Node
             if (arg.StartsWith(prefix + "help", InvariantCulture))
             {
                 Help.ShowHelpPage("default");
-                return false;
+                _usedConfirmaApi = false; //fixme temporal
+                return true;
             }
 
             if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
