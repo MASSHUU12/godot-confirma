@@ -10,8 +10,8 @@ public class FuzzAttribute : Attribute
     public FuzzAttribute(
         Type dataType,
         string? name = null,
-        int minValue = 0,
-        int maxValue = 100,
+        float minValue = 0,
+        float maxValue = 100,
         EDistributionType distribution = EDistributionType.Uniform,
         int? seed = null
     )
