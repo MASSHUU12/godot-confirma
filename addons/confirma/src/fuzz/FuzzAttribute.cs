@@ -12,9 +12,10 @@ public class FuzzAttribute : Attribute
         string? name = null,
         int minValue = 0,
         int maxValue = 100,
-        EDistributionType distribution = EDistributionType.Uniform
+        EDistributionType distribution = EDistributionType.Uniform,
+        int? seed = null
     )
     {
-        Parameters = new(dataType, name, minValue, maxValue, distribution);
+        Parameters = new(dataType, name, minValue, maxValue, distribution, seed);
     }
 }
