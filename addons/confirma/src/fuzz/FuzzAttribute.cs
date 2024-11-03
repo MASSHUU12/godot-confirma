@@ -1,13 +1,11 @@
 using System;
-using Confirma.Enums;
-using Confirma.Types;
 
 namespace Confirma.Fuzz;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class FuzzAttribute : Attribute
 {
-    public FuzzParameter Parameters { get; init; }
+    public FuzzValue Parameters { get; init; }
 
     public FuzzAttribute(
         Type dataType,
