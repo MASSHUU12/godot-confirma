@@ -1,6 +1,6 @@
-namespace Confirma.Enums;
+namespace Confirma.Fuzz;
 
-public enum EDistributionType : ushort
+public enum EDistributionType : sbyte
 {
     Uniform = 0,
     Gaussian = 1,
