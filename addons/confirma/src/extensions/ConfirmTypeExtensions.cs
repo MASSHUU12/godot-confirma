@@ -67,12 +67,12 @@ public static class ConfirmTypeExtensions
     #endregion ConfirmNotType
 
     #region ConfirmInstanceOf
-    public static object? ConfirmInstanceOf<TExpected>(
+    public static TExpected? ConfirmInstanceOf<TExpected>(
         this object? actual,
         string? message = null
     )
     {
-        return actual.ConfirmInstanceOf(typeof(TExpected), message);
+        return (TExpected?)actual.ConfirmInstanceOf(typeof(TExpected), message);
     }
 
     public static object? ConfirmInstanceOf(
