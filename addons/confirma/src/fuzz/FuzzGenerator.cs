@@ -3,7 +3,7 @@ using Confirma.Extensions;
 
 namespace Confirma.Fuzz;
 
-public class FuzzValue
+public class FuzzGenerator
 {
     public Type DataType { get; init; }
     public string? Name { get; init; }
@@ -14,7 +14,7 @@ public class FuzzValue
 
     private readonly Random _rg;
 
-    public FuzzValue(
+    public FuzzGenerator(
         Type dataType,
         string? name,
         float min,
