@@ -54,7 +54,7 @@ public static class TextFormatHelper
             EFormatType.italic => $"[i]{text}[/i]",
             EFormatType.underline => $"[u]{text}[/u]",
             EFormatType.strikethrough => $"[s]{text}[/s]",
-            EFormatType.fill => $"\n{text}",
+            EFormatType.fill => Fill(text),
             _ => $"{text}"
         };
     }
@@ -72,8 +72,30 @@ public static class TextFormatHelper
             EFormatType.italic => $"\x1b[3m{text}\x1b[0m",
             EFormatType.underline => $"\x1b[4m{text}\x1b[0m",
             EFormatType.strikethrough => $"\x1b[9m{text}\x1b[0m",
-            EFormatType.fill => $"\n{text}",
+            EFormatType.fill => Fill(text),
             _ => $"{text}"
         };
+    }
+
+    public static string Fill<T>
+    ( //todo margin is not implemented yet
+        T text,
+        int margin = 0,
+        int width = 0
+    )
+    where T : IConvertible
+    {
+        int windowWidth = Console.WindowWidth is not 0
+        ? Console.WindowWidth
+        : width is not 0
+            ? width
+            : 80;
+
+        string strText= text.ToString() ?? string.Empty;
+        windowWidth -= strText.Length;
+
+        if (windowWidth <= 0) { return strText; }
+
+        return strText + new string (' ',windowWidth);
     }
 }
