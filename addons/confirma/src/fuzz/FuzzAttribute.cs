@@ -5,7 +5,7 @@ namespace Confirma.Fuzz;
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class FuzzAttribute : Attribute
 {
-    public FuzzValue Parameters { get; init; }
+    public FuzzGenerator Parameters { get; init; }
 
     public FuzzAttribute(
         Type dataType,

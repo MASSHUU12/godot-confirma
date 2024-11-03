@@ -9,13 +9,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public class FuzzValueTest
+public class FuzzGeneratorTest
 {
     #region NextValue
     [TestCase]
     public void NextValue_Int_ReturnsIntValue()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(int),
             name: null,
             1,
@@ -30,7 +30,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_Double_ReturnsDoubleValue()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(double),
             name: null,
             1,
@@ -45,7 +45,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_Float_ReturnsFloatValue()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(float),
             name: null,
             1,
@@ -60,7 +60,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_String_ReturnsStringValue()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(string),
             name: null,
             1,
@@ -75,7 +75,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_Bool_ReturnsBoolValue()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(bool),
             name: null,
             1,
@@ -90,7 +90,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_UnsupportedDataType_ThrowsArgumentException()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(List<int>),
             name: null,
             1,
@@ -105,7 +105,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_Seed_ReturnsSameValue()
     {
-        FuzzValue fuzzValue1 = new(
+        FuzzGenerator fuzzValue1 = new(
             typeof(int),
             name: null,
             1,
@@ -113,7 +113,7 @@ public class FuzzValueTest
             EDistributionType.Uniform,
             123
         );
-        FuzzValue fuzzValue2 = new(
+        FuzzGenerator fuzzValue2 = new(
             typeof(int),
             name: null,
             1,
@@ -128,7 +128,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextValue_outSeed_ReturnsDifferentValue()
     {
-        FuzzValue fuzzValue1 = new(
+        FuzzGenerator fuzzValue1 = new(
             typeof(int),
             name: null,
             1,
@@ -136,7 +136,7 @@ public class FuzzValueTest
             EDistributionType.Uniform,
             seed: null
         );
-        FuzzValue fuzzValue2 = new(
+        FuzzGenerator fuzzValue2 = new(
             typeof(int),
             name: null,
             1,
@@ -153,7 +153,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextInt_Uniform_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(int),
             name: null,
             1,
@@ -168,7 +168,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextInt_Gaussian_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(int),
             name: null,
             1,
@@ -183,7 +183,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextInt_Exponential_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(int),
             name: null,
             0.001f,
@@ -198,7 +198,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextInt_Poisson_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(int),
             name: null,
             5,
@@ -215,7 +215,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextDouble_Uniform_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(double),
             name: null,
             1,
@@ -230,7 +230,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextDouble_Gaussian_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(double),
             name: null,
             1,
@@ -245,7 +245,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextDouble_Exponential_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(double),
             name: null,
             0.001f,
@@ -260,7 +260,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextDouble_Poisson_ReturnsValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(double),
             name: null,
             5,
@@ -277,7 +277,7 @@ public class FuzzValueTest
     [TestCase]
     public void NextString_Uniform_ReturnsStringValueWithinRange()
     {
-        FuzzValue fuzzValue = new(
+        FuzzGenerator fuzzValue = new(
             typeof(string),
             name: null,
             1,
