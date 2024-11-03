@@ -7,8 +7,8 @@ public class FuzzValue
 {
     public Type DataType { get; init; }
     public string? Name { get; init; }
-    public int Min { get; init; }
-    public int Max { get; init; }
+    public float Min { get; init; }
+    public float Max { get; init; }
     public EDistributionType Distribution { get; init; }
     public int? Seed { get; init; }
 
@@ -17,8 +17,8 @@ public class FuzzValue
     public FuzzValue(
         Type dataType,
         string? name,
-        int min,
-        int max,
+        float min,
+        float max,
         EDistributionType distribution,
         int? seed
     )
@@ -59,7 +59,7 @@ public class FuzzValue
             EDistributionType.Gaussian => (int)_rg.NextGaussianDouble(Min, Max),
             EDistributionType.Exponential => (int)_rg.NextExponentialDouble(Min),
             EDistributionType.Poisson => _rg.NextPoissonInt(Min),
-            _ => (int)_rg.NextInt64(Min, Max)
+            _ => (int)_rg.NextInt64((int)Min, (int)Max)
         };
     }
 
@@ -76,6 +76,6 @@ public class FuzzValue
 
     private string NextString()
     {
-        return _rg.NextString(Min, Max);
+        return _rg.NextString((int)Min, (int)Max);
     }
 }
