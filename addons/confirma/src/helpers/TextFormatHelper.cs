@@ -5,7 +5,7 @@ namespace Confirma.Helpers;
 
 public static class TextFormatHelper
 {
-    /// <remarks><c>EFormatType.fill</c> must be called before anything else (color or format) to work properly</remarks>
+     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string FormatText<T> (
         T text,
         EFormatType type
@@ -18,7 +18,7 @@ public static class TextFormatHelper
 
     }
 
-    /// <remarks><c>EFormatType.fill</c> must be called before anything else (color or format) to work properly</remarks>
+     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string FormatText<T> (
         T text,
         string type
@@ -32,16 +32,18 @@ public static class TextFormatHelper
             "strikethrough" => FormatText(text, EFormatType.strikethrough),
             "underline" => FormatText(text, EFormatType.underline),
             "fill" => FormatText(text, EFormatType.fill),
+            "center" => FormatText(text,EFormatType.center),
             "b" => FormatText(text, EFormatType.bold),
             "i" => FormatText(text, EFormatType.italic),
             "s" => FormatText(text, EFormatType.strikethrough),
             "u" => FormatText(text, EFormatType.underline),
             "f" => FormatText(text, EFormatType.fill),
+            "c" => FormatText(text,EFormatType.center),
             _ => $"{text}"
         };
     }
 
-    /// <remarks><c>EFormatType.fill</c> must be called before anything else (color or format) to work properly</remarks>
+    /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string ToGodot<T> (
         T text,
         EFormatType type
@@ -55,11 +57,12 @@ public static class TextFormatHelper
             EFormatType.underline => $"[u]{text}[/u]",
             EFormatType.strikethrough => $"[s]{text}[/s]",
             EFormatType.fill => Fill(text),
+            EFormatType.center => $"[center]{text}[/center]",
             _ => $"{text}"
         };
     }
 
-    /// <remarks><c>EFormatType.fill</c> must be called before anything else (color or format) to work properly</remarks>
+    /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string ToTerminal<T> (
         T text,
         EFormatType type
@@ -73,14 +76,14 @@ public static class TextFormatHelper
             EFormatType.underline => $"\x1b[4m{text}\x1b[0m",
             EFormatType.strikethrough => $"\x1b[9m{text}\x1b[0m",
             EFormatType.fill => Fill(text),
+            EFormatType.center => Center(text),
             _ => $"{text}"
         };
     }
 
     public static string Fill<T>
-    ( //todo margin is not implemented yet
+    (
         T text,
-        int margin = 0,
         int width = 0
     )
     where T : IConvertible
@@ -97,5 +100,24 @@ public static class TextFormatHelper
         if (windowWidth <= 0) { return strText; }
 
         return strText + new string (' ',windowWidth);
+    }
+
+    public static string Center<T>
+    (
+        T text
+    )
+    where T : IConvertible
+    {
+        int windowWidth = Console.WindowWidth is not 0
+        ? Console.WindowWidth
+        : 80;
+
+        windowWidth /= 2;
+        string strText= text.ToString() ?? string.Empty;
+        windowWidth -= strText.Length/2;
+
+        if (windowWidth <= 0) { return strText; }
+
+        return  Fill(new string (' ',windowWidth) + strText);
     }
 }

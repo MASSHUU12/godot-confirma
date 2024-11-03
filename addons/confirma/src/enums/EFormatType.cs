@@ -6,5 +6,6 @@ public enum EFormatType
     underline = 1,
     italic = 2,
     strikethrough = 3,
-    fill = 4
+    fill = 4,
+    center = 5
 }
