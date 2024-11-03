@@ -1,7 +1,6 @@
 using System;
-using Confirma.Enums;
 
-namespace Confirma.Types;
+namespace Confirma.Fuzz;
 
 public readonly record struct FuzzParameter(
     Type DataType,

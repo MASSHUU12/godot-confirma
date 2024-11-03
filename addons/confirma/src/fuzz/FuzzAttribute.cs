@@ -2,7 +2,7 @@ using System;
 using Confirma.Enums;
 using Confirma.Types;
 
-namespace Confirma.Attributes;
+namespace Confirma.Fuzz;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class FuzzAttribute : Attribute
