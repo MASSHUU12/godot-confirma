@@ -25,7 +25,10 @@ public abstract class FileElement
 
         foreach(string? a in FormatOverride)
         {
-            if ( a is null || a == "fill" || a == "f" )
+            if (
+                a is null || a == "fill" || a == "f"
+                || a == "center" || a == "c"
+            )
             {
                 continue;
             }
@@ -39,6 +42,13 @@ public abstract class FileElement
     {
         string? color, bgColor = null;
         string text = Text;
+
+        if (FormatOverride.Any((string a) =>
+            a == "center" || a == "c"
+        ))
+        {
+            text = TextFormatHelper.FormatText(text, EFormatType.center);
+        }
 
         if (FormatOverride.Any((string a) =>
             a == "fill" || a == "f"
