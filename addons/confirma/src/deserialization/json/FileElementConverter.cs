@@ -44,8 +44,8 @@ public class FileElementConverter : JsonConverter<FileElement>
                 return ConvertHeader(ref reader);
             case "code":
                 return ConvertCode(ref reader, options);
-
-
+            case "link":
+                return ConvertLink(ref reader);
             default:
                 throw new NotSupportedException($"Unsupported type, \"{reader.GetString()}\"");
         }
@@ -146,6 +146,31 @@ public class FileElementConverter : JsonConverter<FileElement>
                     Lines = JsonSerializer.Deserialize<List<string>>(ref reader, options)
                     ?? throw new JsonException()
                 };
+            }
+        }
+        return element;
+    }
+
+    public FileElement ConvertLink (ref Utf8JsonReader reader)
+    {
+        LinkElement element = new();
+
+        while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
+        {
+            if (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                string? property = reader.GetString();
+                reader.Read();
+
+                switch (property)
+                {
+                    case "text":
+                        element.Text = reader.GetString() ?? throw new JsonException();
+                        break;
+                    case "url":
+                        element.Url = reader.GetString() ?? throw new JsonException();
+                        break;
+                }
             }
         }
         return element;

@@ -22,8 +22,10 @@ public static class Help
                         Log.PrintLine(ele.GetText());
                         break;
                     case CodeElement ele:
-                        string dev = ele.GetText();
-                        Log.Print(dev);
+                        Log.PrintLine(ele.GetText());
+                        break;
+                    case LinkElement ele:
+                        Log.Print(ele.GetText());
                         break;
                 }
             }

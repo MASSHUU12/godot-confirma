@@ -28,6 +28,11 @@
             "type":"header",
             "text":"--confirma-run",
             "level":2
+        },
+        {
+            "type":"link",
+            "text":"test test link",
+            "url":"https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         }
     ]
 }
