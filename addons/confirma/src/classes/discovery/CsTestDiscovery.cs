@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
+using Confirma.Fuzz;
 using Confirma.Helpers;
 
 namespace Confirma.Classes.Discovery;
@@ -34,7 +35,9 @@ public static class CsTestDiscovery
     {
         return type.GetMethods().Where(
             static method => method.CustomAttributes.Any(
-                static attribute => attribute.AttributeType == typeof(TestCaseAttribute)
+                static attr =>
+                    attr.AttributeType == typeof(TestCaseAttribute)
+                    || attr.AttributeType == typeof(FuzzAttribute)
             )
         );
     }
@@ -49,6 +52,13 @@ public static class CsTestDiscovery
     {
         return method.GetCustomAttributes().Where(
             static attribute => attribute is TestCaseAttribute or RepeatAttribute
+        );
+    }
+
+    public static IEnumerable<Attribute> GetFuzzersFromMethod(MethodInfo method)
+    {
+        return method.GetCustomAttributes().Where(
+            static attribute => attribute is FuzzAttribute or RepeatAttribute
         );
     }
 
