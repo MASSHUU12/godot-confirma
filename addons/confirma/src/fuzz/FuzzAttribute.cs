@@ -2,10 +2,10 @@ using System;
 
 namespace Confirma.Fuzz;
 
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
 public class FuzzAttribute : Attribute
 {
-    public FuzzGenerator Parameters { get; init; }
+    public FuzzGenerator Generator { get; init; }
 
     public FuzzAttribute(
         Type dataType,
@@ -13,9 +13,16 @@ public class FuzzAttribute : Attribute
         float minValue = 0,
         float maxValue = 100,
         EDistributionType distribution = EDistributionType.Uniform,
-        int? seed = null
+        int seed = 0 // TODO: Find a better way to recognise lack of value
     )
     {
-        Parameters = new(dataType, name, minValue, maxValue, distribution, seed);
+        Generator = new(
+            dataType,
+            name,
+            minValue,
+            maxValue,
+            distribution,
+            seed == 0 ? null : seed
+        );
     }
 }
