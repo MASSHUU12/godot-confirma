@@ -120,4 +120,38 @@ public static class TextFormatHelper
 
         return  Fill(new string (' ',windowWidth) + strText);
     }
+
+    #region link
+    public static string Link<T>
+    (
+        T text,
+        string url
+    )
+    where T : IConvertible
+    {
+        return Log.IsHeadless
+        ? LinkToTerminal(text, url)
+        : LinkToGodot (text, url);
+    }
+
+    public static string LinkToGodot<T>
+    (
+        T text,
+        string url
+    )
+    where T : IConvertible
+    {
+        return $"[link={url}]{text}[link]";
+    }
+
+    public static string LinkToTerminal<T>
+    (
+        T text,
+        string url
+    )
+    where T : IConvertible
+    {
+        return $"\x1b]8;;{url}\x1b\\{text}\x1b]8;;\x1b\\";
+    }
+    #endregion
 }
