@@ -103,13 +103,9 @@ public class TestingMethod
 
     private List<TestCase> DiscoverTestCases()
     {
-        List<System.Attribute> testCases = CsTestDiscovery
-            .GetTestCasesFromMethod(Method)
-            .ToList();
-
-        testCases.AddRange(CsTestDiscovery.GetFuzzersFromMethod(Method));
-
-        using IEnumerator<System.Attribute> discovered = testCases.GetEnumerator();
+        using IEnumerator<System.Attribute> discovered = CsTestDiscovery
+            .GetAttributesForTestCaseGeneration(Method)
+            .GetEnumerator();
 
         List<TestCase> cases = new();
         List<FuzzGenerator> generators = new();
@@ -130,7 +126,7 @@ public class TestingMethod
                 // from the Repeat attributes.
                 case RepeatAttribute when !discovered.MoveNext():
                     Log.PrintWarning(
-                        $"The Repeat attribute for the \"{Method.Name}\" method "
+                        $"The Repeat attribute for the {Method.Name} method "
                         + "will be ignored because it does not have the "
                         + "TestCase/Fuzz attribute after it.\n"
                     );
@@ -138,7 +134,7 @@ public class TestingMethod
                     continue;
                 case RepeatAttribute when discovered.Current is RepeatAttribute:
                     Log.PrintWarning(
-                        $"The Repeat attributes for the \"{Method.Name}\" "
+                        $"The Repeat attributes for the {Method.Name} "
                         + "cannot occur in succession.\n"
                     );
                     Result.Warnings++;
