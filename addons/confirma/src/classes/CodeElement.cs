@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Confirma.Helpers;
 
 namespace Confirma.Classes;
 
@@ -13,7 +14,7 @@ public class CodeElement : FileElement
 
         foreach (string line in Lines)
         {
-            Text += $"{line}\n";
+            Text += $"{TextFormatHelper.Fill(line)}\n";
         }
         Text = Text.TrimEnd('\n');
 
@@ -22,7 +23,7 @@ public class CodeElement : FileElement
 
     public void SetFormat()
     {
-        FormatOverride = new List<string>() { "i","f" };
+        FormatOverride = new List<string>() { "i" };
         BgColor = "#0d1117";
         Color = "#c9d1d9";
     }

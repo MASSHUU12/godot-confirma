@@ -19,10 +19,10 @@ public static class Help
                         Log.Print(ele.GetText());
                         break;
                     case HeaderElement ele:
-                        Log.PrintLine(ele.GetText());
+                        Log.PrintLine($"\n{ele.GetText()}");
                         break;
                     case CodeElement ele:
-                        Log.PrintLine(ele.GetText());
+                        Log.Print(ele.GetText());
                         break;
                     case LinkElement ele:
                         Log.Print(ele.GetText());

@@ -31,11 +31,11 @@ public class HeaderElement : FileElement
                 BgColor = "#a8a8a3" ;
                 break;
             case 3:
-                FormatOverride = new List<string> {"b","u","f"};
+                FormatOverride = new List<string> {"b","u"};
                 Color = "#fff";
                 break;
             case 4:
-                FormatOverride = new List<string> {"i","f"};
+                FormatOverride = new List<string> {"i"};
                 Color = "#fff";
                 break;
         }
