@@ -59,7 +59,7 @@ public static class RandomNumberExtensions
         decimal maxValue
     )
     {
-        return minValue >= maxValue
+        return minValue > maxValue
             ? throw new InvalidOperationException()
             : rg.NextDecimal(maxValue - minValue) + minValue;
     }
@@ -80,14 +80,14 @@ public static class RandomNumberExtensions
 
     public static long NextLong(this Random rg, long minValue, long maxValue)
     {
-        return minValue >= maxValue
+        return minValue > maxValue
             ? throw new InvalidOperationException()
             : rg.NextLong(maxValue - minValue) + minValue;
     }
 
     public static double NextDouble(this Random rg, double minValue, double maxValue)
     {
-        return minValue >= maxValue
+        return minValue > maxValue
             ? throw new InvalidOperationException()
             : (rg.NextDouble() * (maxValue - minValue)) + minValue;
     }
