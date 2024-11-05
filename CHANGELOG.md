@@ -12,11 +12,20 @@ All notable changes to this project will be documented in this file.
   - TestFull.cs
   - test_full.gd
 - Classes:
-  - Mock.cs
-  - CallRecord.cs
+  - Mock
+  - CallRecord
+  - FuzzGenerator
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
+- Enums:
+  - EDistributionType
+- Attributes:
+  - FuzzAttribute
+- Random extensions:
+  - NextGaussianDouble
+  - NextExponentialDouble
+  - NextPoissonInt
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
 
@@ -25,11 +34,15 @@ All notable changes to this project will be documented in this file.
 - Updated documentation:
   - Added note in TESTING.md about script templates & mocking library.
   - Added info about mocking libary in README.md.
+- Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
+`NextDouble` extensions of `Random` class.
+- Adjusted warnings for `Repeat` attribute.
 
 ### Removed
 
 - '>' character from test output.
 - Script run_tests.sh.
+- `GetTestCasesFromMethod` from CsTestDiscovery.cs.
 
 ### Fixed
 
