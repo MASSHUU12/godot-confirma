@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
 using Confirma.Exceptions;
+using Confirma.Fuzz;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -101,15 +103,25 @@ public class TestingMethod
 
     private List<TestCase> DiscoverTestCases()
     {
-        List<TestCase> cases = new();
-        using IEnumerator<System.Attribute> discovered = CsTestDiscovery
+        List<System.Attribute> testCases = CsTestDiscovery
             .GetTestCasesFromMethod(Method)
-            .GetEnumerator();
+            .ToList();
+
+        testCases.AddRange(CsTestDiscovery.GetFuzzersFromMethod(Method));
+
+        using IEnumerator<System.Attribute> discovered = testCases.GetEnumerator();
+
+        List<TestCase> cases = new();
+        List<FuzzGenerator> generators = new();
+        RepeatAttribute? fuzzRepeat = null;
 
         while (discovered.MoveNext())
         {
             switch (discovered.Current)
             {
+                case FuzzAttribute fuzz:
+                    generators.Add(fuzz.Generator);
+                    continue;
                 case TestCaseAttribute testCase:
                     cases.Add(new(Method, testCase.Parameters, null));
                     continue;
@@ -118,28 +130,46 @@ public class TestingMethod
                 // from the Repeat attributes.
                 case RepeatAttribute when !discovered.MoveNext():
                     Log.PrintWarning(
-                        $"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
-                        "because it does not have the TestCase attribute after it.\n"
+                        $"The Repeat attribute for the \"{Method.Name}\" method "
+                        + "will be ignored because it does not have the "
+                        + "TestCase/Fuzz attribute after it.\n"
                     );
                     Result.Warnings++;
                     continue;
                 case RepeatAttribute when discovered.Current is RepeatAttribute:
                     Log.PrintWarning(
-                        $"The Repeat attributes for the \"{Method.Name}\" cannot occur in succession.\n"
+                        $"The Repeat attributes for the \"{Method.Name}\" "
+                        + "cannot occur in succession.\n"
                     );
                     Result.Warnings++;
                     continue;
                 case RepeatAttribute repeat:
                     {
-                        if (discovered.Current is not TestCaseAttribute tc)
+                        if (discovered.Current is TestCaseAttribute tc)
                         {
+                            cases.Add(new(Method, tc.Parameters, repeat));
                             continue;
                         }
 
-                        cases.Add(new(Method, tc.Parameters, repeat));
+                        if (discovered.Current is FuzzAttribute)
+                        {
+                            fuzzRepeat = repeat;
+                        }
+
                         break;
                     }
             }
+        }
+
+        if (generators.Count != 0)
+        {
+            cases.Add(
+                new(
+                    Method,
+                    generators.Select(static gen => gen.NextValue()).ToArray(),
+                    fuzzRepeat
+                )
+            );
         }
 
         return cases;
