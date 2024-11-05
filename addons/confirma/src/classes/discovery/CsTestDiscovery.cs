@@ -48,17 +48,14 @@ public static class CsTestDiscovery
             .Select(static testClass => new TestingClass(testClass));
     }
 
-    public static IEnumerable<Attribute> GetTestCasesFromMethod(MethodInfo method)
+    public static IEnumerable<Attribute> GetAttributesForTestCaseGeneration(
+        MethodInfo method
+    )
     {
         return method.GetCustomAttributes().Where(
-            static attribute => attribute is TestCaseAttribute or RepeatAttribute
-        );
-    }
-
-    public static IEnumerable<Attribute> GetFuzzersFromMethod(MethodInfo method)
-    {
-        return method.GetCustomAttributes().Where(
-            static attribute => attribute is FuzzAttribute or RepeatAttribute
+            static attribute => attribute is TestCaseAttribute
+                or FuzzAttribute
+                or RepeatAttribute
         );
     }
 
