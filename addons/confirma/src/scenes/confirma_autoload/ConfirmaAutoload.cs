@@ -59,6 +59,8 @@ public partial class ConfirmaAutoload : Node
 
             if (arg.StartsWith(prefix + "help", InvariantCulture))
             {
+                _ = GetTree().CallDeferred("change_scene_to_file", "uid://tx5xyqboqit7");
+
                 Help.ShowHelpPage("default");
                 _usedConfirmaApi = false; //fixme temporal
                 return true;
