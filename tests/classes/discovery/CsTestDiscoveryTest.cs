@@ -112,14 +112,15 @@ public class CsTestDiscoveryTest
         _ = testClasses.ConfirmNotEmpty();
     }
 
+    // TODO: Add more assertions
     [TestCase]
-    public void GetTestCasesFromMethod_ReturnsTestCases()
+    public void GetAttributesForTestCaseGeneration_ReturnsTestCases()
     {
         MethodInfo method = typeof(CsTestDiscoveryTest)
-            .GetMethod("GetTestCasesFromMethod_ReturnsTestCases")!;
+            .GetMethod("GetAttributesForTestCaseGeneration_ReturnsTestCases")!;
 
         IEnumerable<Attribute> testCases = CsTestDiscovery
-            .GetTestCasesFromMethod(method);
+            .GetAttributesForTestCaseGeneration(method);
 
         _ = testCases.ConfirmCount(1);
     }
