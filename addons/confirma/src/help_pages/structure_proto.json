@@ -24,6 +24,11 @@
                 "line 1",
                 "line 2"
             ]
+        },
+        {
+            "type":"link",
+            "text":"",
+            "url": ""
         }
     ]
 }
