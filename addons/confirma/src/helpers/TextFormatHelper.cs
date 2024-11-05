@@ -141,7 +141,7 @@ public static class TextFormatHelper
     )
     where T : IConvertible
     {
-        return $"[link={url}]{text}[link]";
+        return $"[url={url}]{text}[/url]";
     }
 
     public static string LinkToTerminal<T>

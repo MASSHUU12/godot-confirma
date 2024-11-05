@@ -88,7 +88,7 @@ public static class Colors
     public static string BackgroundToGodot<T>(T text, Color color)
     where T : IConvertible
     {
-        return $"[bgcolor=#{color.ToHtml()}]{text}[/color]";
+        return $"[bgcolor=#{color.ToHtml()}]{text}[/bgcolor]";
     }
 #endregion
 }
