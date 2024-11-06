@@ -143,7 +143,7 @@ public class TestingMethod
                         fuzzRepeat = pendingRepeat;
                         pendingRepeat = null;
                     }
-                    else
+                    else if (pendingRepeat is not null)
                     {
                         Log.PrintWarning(
                             "Multiple Repeat attributes were detected associated"
@@ -173,9 +173,23 @@ public class TestingMethod
 
         if (generators.Count != 0)
         {
+            int methodParams = Method.GetParameters().Length;
+
+            if (generators.Count > methodParams)
+            {
+                Log.PrintWarning(
+                    $"Detected {generators.Count} Fuzz attributes but "
+                    + $"{Method.Name} contains only {methodParams} parameters."
+                    + " Excessive Fuzz attributes are ignored.\n"
+                );
+                Result.Warnings++;
+            }
+
             cases.Add(new(
                 Method,
-                generators.Select(static gen => gen.NextValue()).ToArray(),
+                generators
+                    .Take(methodParams) // Ignore excessive attributes
+                    .Select(static gen => gen.NextValue()).ToArray(),
                 fuzzRepeat
             ));
         }
