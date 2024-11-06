@@ -109,63 +109,75 @@ public class TestingMethod
 
         List<TestCase> cases = new();
         List<FuzzGenerator> generators = new();
+        RepeatAttribute? pendingRepeat = null;
         RepeatAttribute? fuzzRepeat = null;
 
         while (discovered.MoveNext())
         {
             switch (discovered.Current)
             {
-                case FuzzAttribute fuzz:
-                    generators.Add(fuzz.Generator);
-                    continue;
-                case TestCaseAttribute testCase:
-                    cases.Add(new(Method, testCase.Parameters, null));
-                    continue;
-                // I rely on the order in which the attributes are defined
-                // to determine which TestCase attributes should be assigned values
-                // from the Repeat attributes.
-                case RepeatAttribute when !discovered.MoveNext():
-                    Log.PrintWarning(
-                        $"The Repeat attribute for the {Method.Name} method "
-                        + "will be ignored because it does not have the "
-                        + "TestCase/Fuzz attribute after it.\n"
-                    );
-                    Result.Warnings++;
-                    continue;
-                case RepeatAttribute when discovered.Current is RepeatAttribute:
-                    Log.PrintWarning(
-                        $"The Repeat attributes for the {Method.Name} "
-                        + "cannot occur in succession.\n"
-                    );
-                    Result.Warnings++;
-                    continue;
                 case RepeatAttribute repeat:
+                    if (pendingRepeat is not null)
                     {
-                        if (discovered.Current is TestCaseAttribute tc)
-                        {
-                            cases.Add(new(Method, tc.Parameters, repeat));
-                            continue;
-                        }
-
-                        if (discovered.Current is FuzzAttribute)
-                        {
-                            fuzzRepeat = repeat;
-                        }
-
+                        Log.PrintWarning(
+                            $"The Repeat attributes for the {Method.Name} "
+                            + "cannot occur in succession.\n"
+                        );
+                        Result.Warnings++;
                         break;
                     }
+
+                    pendingRepeat = repeat;
+                    continue;
+
+                case TestCaseAttribute testCase:
+                    cases.Add(new(Method, testCase.Parameters, pendingRepeat));
+                    pendingRepeat = null;
+                    continue;
+
+                case FuzzAttribute fuzz:
+                    generators.Add(fuzz.Generator);
+
+                    if (fuzzRepeat is null)
+                    {
+                        fuzzRepeat = pendingRepeat;
+                        pendingRepeat = null;
+                    }
+                    else
+                    {
+                        Log.PrintWarning(
+                            "Multiple Repeat attributes were detected associated"
+                            + " with the Fuzz attributes for method "
+                            + $"{Method.Name}. Only the first one will be used.\n"
+                        );
+                        pendingRepeat = null;
+                        Result.Warnings++;
+                    }
+                    continue;
+
+                default:
+                    // Unexpected attributes
+                    continue;
             }
+        }
+
+        if (pendingRepeat is not null)
+        {
+            Log.PrintWarning(
+                $"The Repeat attribute for the {Method.Name} method "
+                + "will be ignored because it does not have the "
+                + "TestCase/Fuzz attribute associated with it.\n"
+            );
+            Result.Warnings++;
         }
 
         if (generators.Count != 0)
         {
-            cases.Add(
-                new(
-                    Method,
-                    generators.Select(static gen => gen.NextValue()).ToArray(),
-                    fuzzRepeat
-                )
-            );
+            cases.Add(new(
+                Method,
+                generators.Select(static gen => gen.NextValue()).ToArray(),
+                fuzzRepeat
+            ));
         }
 
         return cases;
