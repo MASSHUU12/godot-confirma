@@ -7,8 +7,11 @@ public class FuzzGenerator
 {
     public Type DataType { get; init; }
     public string? Name { get; init; }
-    public float Min { get; init; }
-    public float Max { get; init; }
+    public double Min { get; init; }
+    public double Max { get; init; }
+    public double Mean { get; init; }
+    public double StandardDeviation { get; init; }
+    public double Lambda { get; init; }
     public EDistributionType Distribution { get; init; }
     public int? Seed { get; init; }
 
@@ -17,8 +20,11 @@ public class FuzzGenerator
     public FuzzGenerator(
         Type dataType,
         string? name,
-        float min,
-        float max,
+        double min,
+        double max,
+        double mean,
+        double standardDeviation,
+        double lambda,
         EDistributionType distribution,
         int? seed
     )
@@ -27,6 +33,9 @@ public class FuzzGenerator
         Name = name;
         Min = min;
         Max = max;
+        Mean = mean;
+        StandardDeviation = standardDeviation;
+        Lambda = lambda;
         Distribution = distribution;
         Seed = seed;
 
@@ -56,9 +65,14 @@ public class FuzzGenerator
     {
         return Distribution switch
         {
-            EDistributionType.Gaussian => (int)_rg.NextGaussianDouble(Min, Max),
-            EDistributionType.Exponential => (int)_rg.NextExponentialDouble(Min),
-            EDistributionType.Poisson => _rg.NextPoissonInt(Min),
+            EDistributionType.Gaussian => (int)_rg.NextGaussianDouble(
+                Mean,
+                StandardDeviation
+            ),
+            EDistributionType.Exponential => (int)_rg.NextExponentialDouble(
+                Lambda
+            ),
+            EDistributionType.Poisson => _rg.NextPoissonInt(Lambda),
             _ => (int)_rg.NextInt64((int)Min, (int)Max)
         };
     }
@@ -67,9 +81,12 @@ public class FuzzGenerator
     {
         return Distribution switch
         {
-            EDistributionType.Gaussian => _rg.NextGaussianDouble(Min, Max),
-            EDistributionType.Exponential => _rg.NextExponentialDouble(Min),
-            EDistributionType.Poisson => _rg.NextPoissonInt(Min),
+            EDistributionType.Gaussian => _rg.NextGaussianDouble(
+                Mean,
+                StandardDeviation
+            ),
+            EDistributionType.Exponential => _rg.NextExponentialDouble(Lambda),
+            EDistributionType.Poisson => _rg.NextPoissonInt(Lambda),
             _ => _rg.NextDouble(Min, Max)
         };
     }

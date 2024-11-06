@@ -11,116 +11,104 @@ namespace Confirma.Tests;
 [Parallelizable]
 public class FuzzGeneratorTest
 {
+    private static FuzzGenerator FuzzIntUniform => GetGenerator<int>();
+    private static FuzzGenerator FuzzIntGaussian => GetGenerator<int>(
+        EDistributionType.Gaussian
+    );
+    private static FuzzGenerator FuzzIntPoisson => GetGenerator<int>(
+        EDistributionType.Poisson
+    );
+    private static FuzzGenerator FuzzIntExponential => GetGenerator<int>(
+        EDistributionType.Exponential
+    );
+
+    private static FuzzGenerator FuzzFloatUniform => GetGenerator<float>();
+    private static FuzzGenerator FuzzFloatGaussian => GetGenerator<float>(
+        EDistributionType.Gaussian
+    );
+    private static FuzzGenerator FuzzFloatPoisson => GetGenerator<float>(
+        EDistributionType.Poisson
+    );
+    private static FuzzGenerator FuzzFloatExponential => GetGenerator<float>(
+        EDistributionType.Exponential
+    );
+
+    private static FuzzGenerator FuzzDoubleUniform => GetGenerator<double>();
+    private static FuzzGenerator FuzzDoubleGaussian => GetGenerator<double>(
+        EDistributionType.Gaussian
+    );
+    private static FuzzGenerator FuzzDoublePoisson => GetGenerator<double>(
+        EDistributionType.Poisson
+    );
+    private static FuzzGenerator FuzzDoubleExponential => GetGenerator<double>(
+        EDistributionType.Exponential
+    );
+
+    private static FuzzGenerator FuzzBool => GetGenerator<bool>();
+    private static FuzzGenerator FuzzString => GetGenerator<string>();
+
+    private static FuzzGenerator GetGenerator<T>(
+        EDistributionType dist = EDistributionType.Uniform,
+        int? seed = null
+    )
+    {
+        return new(
+            dataType: typeof(T),
+            name: null,
+            min: 1,
+            max: 10,
+            mean: 1,
+            standardDeviation: 1,
+            lambda: 10d,
+            distribution: dist,
+            seed: seed
+        );
+    }
+
     #region NextValue
     [TestCase]
     public void NextValue_Int_ReturnsIntValue()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = fuzzValue.NextValue().ConfirmInstanceOf<int>();
+        _ = FuzzIntUniform.NextValue().ConfirmInstanceOf<int>();
     }
 
     [TestCase]
     public void NextValue_Double_ReturnsDoubleValue()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(double),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = fuzzValue.NextValue().ConfirmInstanceOf<double>();
+        _ = FuzzDoubleUniform.NextValue().ConfirmInstanceOf<double>();
     }
 
     [TestCase]
     public void NextValue_Float_ReturnsFloatValue()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(float),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = fuzzValue.NextValue().ConfirmInstanceOf<float>();
+        _ = FuzzFloatUniform.NextValue().ConfirmInstanceOf<float>();
     }
 
     [TestCase]
     public void NextValue_String_ReturnsStringValue()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(string),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = fuzzValue.NextValue().ConfirmInstanceOf<string>();
+        _ = FuzzString.NextValue().ConfirmInstanceOf<string>();
     }
 
     [TestCase]
     public void NextValue_Bool_ReturnsBoolValue()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(bool),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = fuzzValue.NextValue().ConfirmInstanceOf<bool>();
+        _ = FuzzBool.NextValue().ConfirmInstanceOf<bool>();
     }
 
     [TestCase]
     public void NextValue_UnsupportedDataType_ThrowsArgumentException()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(List<int>),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
+        _ = Confirm.Throws<ArgumentException>(
+            static () => GetGenerator<List<int>>().NextValue()
         );
-
-        _ = Confirm.Throws<ArgumentException>(() => fuzzValue.NextValue());
     }
 
     [TestCase]
     public void NextValue_Seed_ReturnsSameValue()
     {
-        FuzzGenerator fuzzValue1 = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            123
-        );
-        FuzzGenerator fuzzValue2 = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            123
-        );
+        FuzzGenerator fuzzValue1 = GetGenerator<int>(seed: 123);
+        FuzzGenerator fuzzValue2 = GetGenerator<int>(seed: 123);
 
         _ = fuzzValue1.NextValue().ConfirmEqual(fuzzValue2.NextValue());
     }
@@ -128,22 +116,8 @@ public class FuzzGeneratorTest
     [TestCase]
     public void NextValue_outSeed_ReturnsDifferentValue()
     {
-        FuzzGenerator fuzzValue1 = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-        FuzzGenerator fuzzValue2 = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
+        FuzzGenerator fuzzValue1 = GetGenerator<int>();
+        FuzzGenerator fuzzValue2 = GetGenerator<int>();
 
         _ = fuzzValue1.NextValue().ConfirmNotEqual(fuzzValue2.NextValue());
     }
@@ -153,61 +127,25 @@ public class FuzzGeneratorTest
     [TestCase]
     public void NextInt_Uniform_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = ((int)fuzzValue.NextValue()).ConfirmInRange(1, 10);
+        _ = ((int)FuzzIntUniform.NextValue()).ConfirmInRange(1, 10);
     }
 
     [TestCase]
     public void NextInt_Gaussian_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(int),
-            name: null,
-            1,
-            10,
-            EDistributionType.Gaussian,
-            seed: null
-        );
-
-        _ = ((int)fuzzValue.NextValue()).ConfirmInRange(-20, 20);
+        _ = ((int)FuzzIntGaussian.NextValue()).ConfirmInRange(-20, 20);
     }
 
     [TestCase]
     public void NextInt_Exponential_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(int),
-            name: null,
-            0.001f,
-            10,
-            EDistributionType.Exponential,
-            seed: null
-        );
-
-        _ = ((int)fuzzValue.NextValue()).ConfirmGreaterThan(0);
+        _ = ((int)FuzzIntExponential.NextValue()).ConfirmGreaterThanOrEqual(0);
     }
 
     [TestCase]
     public void NextInt_Poisson_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(int),
-            name: null,
-            5,
-            10,
-            EDistributionType.Poisson,
-            seed: null
-        );
-
-        _ = ((int)fuzzValue.NextValue()).ConfirmInRange(1, 10);
+        _ = ((int)FuzzIntPoisson.NextValue()).ConfirmInRange(1, 15);
     }
     #endregion NextInt
 
@@ -215,78 +153,61 @@ public class FuzzGeneratorTest
     [TestCase]
     public void NextDouble_Uniform_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(double),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = ((double)fuzzValue.NextValue()).ConfirmInRange(1, 10);
+        _ = ((double)FuzzDoubleUniform.NextValue()).ConfirmInRange(1, 10);
     }
 
     [TestCase]
     public void NextDouble_Gaussian_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(double),
-            name: null,
-            1,
-            10,
-            EDistributionType.Gaussian,
-            seed: null
-            );
-
-        _ = ((double)fuzzValue.NextValue()).ConfirmInRange(-20, 20);
+        _ = ((double)FuzzDoubleGaussian.NextValue()).ConfirmInRange(-20, 20);
     }
 
     [TestCase]
     public void NextDouble_Exponential_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(double),
-            name: null,
-            0.001f,
-            10,
-            EDistributionType.Exponential,
-            seed: null
-        );
-
-        _ = ((double)fuzzValue.NextValue()).ConfirmGreaterThan(0);
+        _ = ((double)FuzzDoubleExponential.NextValue())
+            .ConfirmGreaterThanOrEqual(0);
     }
 
     [TestCase]
     public void NextDouble_Poisson_ReturnsValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(double),
-            name: null,
-            5,
-            10,
-            EDistributionType.Poisson,
-            seed: null
-        );
-
-        _ = ((double)fuzzValue.NextValue()).ConfirmInRange(1, 10);
+        _ = ((double)FuzzDoublePoisson.NextValue()).ConfirmInRange(1, 15);
     }
     #endregion NextDouble
 
+    #region NextFloat
+    [TestCase]
+    public void NextFloat_Uniform_ReturnsValueWithinRange()
+    {
+        _ = ((float)FuzzFloatUniform.NextValue()).ConfirmInRange(1, 10);
+    }
+
+    [TestCase]
+    public void NextFloat_Gaussian_ReturnsValueWithinRange()
+    {
+        _ = ((float)FuzzFloatGaussian.NextValue()).ConfirmInRange(-20, 20);
+    }
+
+    [TestCase]
+    public void NextFloat_Exponential_ReturnsValueWithinRange()
+    {
+        _ = ((float)FuzzFloatExponential.NextValue())
+            .ConfirmGreaterThanOrEqual(0);
+    }
+
+    [TestCase]
+    public void NextFloat_Poisson_ReturnsValueWithinRange()
+    {
+        _ = ((float)FuzzFloatPoisson.NextValue()).ConfirmInRange(1, 15);
+    }
+    #endregion NextFloat
+
     #region NextString
     [TestCase]
-    public void NextString_Uniform_ReturnsStringValueWithinRange()
+    public void NextString_ReturnsStringValueWithinRange()
     {
-        FuzzGenerator fuzzValue = new(
-            typeof(string),
-            name: null,
-            1,
-            10,
-            EDistributionType.Uniform,
-            seed: null
-        );
-
-        _ = ((string)fuzzValue.NextValue()).Length.ConfirmInRange(1, 10);
+        _ = ((string)FuzzString.NextValue()).Length.ConfirmInRange(1, 10);
     }
     #endregion NextString
 }
