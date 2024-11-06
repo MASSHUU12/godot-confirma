@@ -20,7 +20,7 @@ public class RepeatAttributeTest
     }
 
     [Repeat(2)]
-    [Fuzz(typeof(int), minValue: 2, maxValue: 2)]
+    [Fuzz(typeof(int), min: 2, max: 2)]
     public void Test_Fuzz_RunsMultipleTimes(int a)
     {
         _fuzzCount += a;
