@@ -32,7 +32,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated documentation:
-  - Added note in TESTING.md about script templates & mocking library.
+  - Added info in TESTING.md about script templates, mocking library
+& fuzz testing.
   - Added info about mocking libary in README.md.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
 `NextDouble` extensions of `Random` class.

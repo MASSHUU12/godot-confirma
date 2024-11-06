@@ -36,8 +36,26 @@ public static class TestSomething
 
 ### Mocking
 
-Confirma includes a simple library for mocking,
+Confirma includes a simple library for
+[mocking](https://stackoverflow.com/questions/2665812/what-is-mocking#2666006),
 which is located in the `Confirma.Classes.Mock` namespace.
+
+### Fuzz testing
+
+Confirma includes basic support for
+[fuzz testing](https://en.wikipedia.org/wiki/Fuzzing).
+
+This function allows you to pass random values to test method arguments.
+The supported data types are: `int`, `double`, `float`, `string` and `bool`.
+
+Each attribute corresponds to one method parameter.
+Their order is important, they are taken from top to bottom,
+so the first argument corresponds to the first attribute of the method.
+
+The `Repeat` attribute is allowed,
+it must be assigned to only one `Fuzz` argument.
+The `Repeat` argument will have the same effect as when it is assigned to the
+`TestCase` argument.
 
 ### Accessing scene tree
 
