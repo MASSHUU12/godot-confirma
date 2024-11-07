@@ -8,7 +8,17 @@ public class RepeatAttribute : Attribute
     public ushort Repeat { get; init; }
     public bool FailFast { get; init; }
 
-    public RepeatAttribute(ushort repeat, bool failFast = false)
+    public bool IsFlaky { get; init; }
+    public TimeSpan Backoff { get; init; }
+    public ushort MaxRetries { get; init; }
+
+    public RepeatAttribute(
+        ushort repeat,
+        bool failFast = false,
+        bool isFlaky = false,
+        ushort maxRetries = 1,
+        long backoff = 0
+    )
     {
         if (repeat == 0)
         {
@@ -17,5 +27,9 @@ public class RepeatAttribute : Attribute
 
         Repeat = (ushort)(repeat - 1);
         FailFast = failFast;
+
+        IsFlaky = isFlaky;
+        MaxRetries = maxRetries;
+        Backoff = backoff == 0 ? TimeSpan.Zero : new(backoff);
     }
 }
