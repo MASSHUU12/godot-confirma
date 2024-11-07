@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Arguments:
   - '--confirma-category'
+  - '--confirma-help'
 - Formatters:
   - AutomaticFormatter
   - DefaultFormatter
@@ -24,7 +25,20 @@ All notable changes to this project will be documented in this file.
   - ConfirmBooleanWrapper
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
+- Enums:
+  - EFormatType
+- JSON deserialization classes:
+  - HelpFile
+  - FileElementConverter
 - C# classes:
+  - FileElement
+  - CodeElement
+  - HeaderElement
+  - LinkElement
+  - TextElement
+  - Help
+  - HelpPanel
+  - FormatTextHelper
   - WrapperBase
   - GdScriptInfo
   - Settings
@@ -63,6 +77,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- `Colors`:
+  - Added `ColorBackground`
+  - Added `BackgroundToTerminal`
+  - Added `BackgroundToGodot`
+  - Added `Color` which allows to color both background and text at the same time
+  - Renamed `ToTerminal` to `TextToTerminal`
+  - Renamed `ToGodot` to `TextToGodot`
+- Added `LoadFromFile` to `Json` class
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
 - Adjusted most of the assertion messages.
