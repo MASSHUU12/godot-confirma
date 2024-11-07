@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
 using Confirma.Exceptions;
+using Confirma.Fuzz;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -26,7 +28,7 @@ public class TestingMethod
         Name = Method.GetCustomAttribute<TestNameAttribute>()?.Name ?? Method.Name;
     }
 
-    public TestMethodResult Run(TestsProps props)
+    public TestMethodResult Run(TestsProps props, object? instance)
     {
         foreach (TestCase test in TestCases)
         {
@@ -43,24 +45,44 @@ public class TestingMethod
 
                     Result.TestsIgnored++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Ignored, test.Params, attr.Reason);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Ignored,
+                        test.Params,
+                        attr.Reason
+                    );
                     Result.TestLogs.Add(log);
                     continue;
                 }
 
                 try
                 {
-                    test.Run();
+                    test.Run(instance);
                     Result.TestsPassed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Passed, test.Params, null, ELangType.CSharp);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Passed,
+                        test.Params,
+                        null,
+                        ELangType.CSharp
+                    );
                     Result.TestLogs.Add(log);
                 }
                 catch (ConfirmAssertException e)
                 {
                     Result.TestsFailed++;
 
-                    TestLog log = new(Enums.ELogType.Method, Name, Failed, test.Params, e.Message, ELangType.CSharp);
+                    TestLog log = new(
+                        ELogType.Method,
+                        Name,
+                        Failed,
+                        test.Params,
+                        e.Message,
+                        ELangType.CSharp
+                    );
                     Result.TestLogs.Add(log);
 
                     if (test.Repeat?.FailFast == true)
@@ -81,45 +103,95 @@ public class TestingMethod
 
     private List<TestCase> DiscoverTestCases()
     {
-        List<TestCase> cases = new();
         using IEnumerator<System.Attribute> discovered = CsTestDiscovery
-            .GetTestCasesFromMethod(Method)
+            .GetAttributesForTestCaseGeneration(Method)
             .GetEnumerator();
+
+        List<TestCase> cases = new();
+        List<FuzzGenerator> generators = new();
+        RepeatAttribute? pendingRepeat = null;
+        RepeatAttribute? fuzzRepeat = null;
 
         while (discovered.MoveNext())
         {
             switch (discovered.Current)
             {
-                case TestCaseAttribute testCase:
-                    cases.Add(new(Method, testCase.Parameters, null));
-                    continue;
-                // I rely on the order in which the attributes are defined
-                // to determine which TestCase attributes should be assigned values
-                // from the Repeat attributes.
-                case RepeatAttribute when !discovered.MoveNext():
-                    Log.PrintWarning(
-                        $"The Repeat attribute for the \"{Method.Name}\" method will be ignored " +
-                        "because it does not have the TestCase attribute after it.\n"
-                    );
-                    Result.Warnings++;
-                    continue;
-                case RepeatAttribute when discovered.Current is RepeatAttribute:
-                    Log.PrintWarning(
-                        $"The Repeat attributes for the \"{Method.Name}\" cannot occur in succession.\n"
-                    );
-                    Result.Warnings++;
-                    continue;
                 case RepeatAttribute repeat:
+                    if (pendingRepeat is not null)
                     {
-                        if (discovered.Current is not TestCaseAttribute tc)
-                        {
-                            continue;
-                        }
-
-                        cases.Add(new(Method, tc.Parameters, repeat));
+                        Log.PrintWarning(
+                            $"The Repeat attributes for the {Method.Name} "
+                            + "cannot occur in succession.\n"
+                        );
+                        Result.Warnings++;
                         break;
                     }
+
+                    pendingRepeat = repeat;
+                    continue;
+
+                case TestCaseAttribute testCase:
+                    cases.Add(new(Method, testCase.Parameters, pendingRepeat));
+                    pendingRepeat = null;
+                    continue;
+
+                case FuzzAttribute fuzz:
+                    generators.Add(fuzz.Generator);
+
+                    if (fuzzRepeat is null)
+                    {
+                        fuzzRepeat = pendingRepeat;
+                        pendingRepeat = null;
+                    }
+                    else if (pendingRepeat is not null)
+                    {
+                        Log.PrintWarning(
+                            "Multiple Repeat attributes were detected associated"
+                            + " with the Fuzz attributes for method "
+                            + $"{Method.Name}. Only the first one will be used.\n"
+                        );
+                        pendingRepeat = null;
+                        Result.Warnings++;
+                    }
+                    continue;
+
+                default:
+                    // Unexpected attributes
+                    continue;
             }
+        }
+
+        if (pendingRepeat is not null)
+        {
+            Log.PrintWarning(
+                $"The Repeat attribute for the {Method.Name} method "
+                + "will be ignored because it does not have the "
+                + "TestCase/Fuzz attribute associated with it.\n"
+            );
+            Result.Warnings++;
+        }
+
+        if (generators.Count != 0)
+        {
+            int methodParams = Method.GetParameters().Length;
+
+            if (generators.Count > methodParams)
+            {
+                Log.PrintWarning(
+                    $"Detected {generators.Count} Fuzz attributes but "
+                    + $"{Method.Name} contains only {methodParams} parameters."
+                    + " Excessive Fuzz attributes are ignored.\n"
+                );
+                Result.Warnings++;
+            }
+
+            cases.Add(new(
+                Method,
+                generators
+                    .Take(methodParams) // Ignore excessive attributes
+                    .Select(static gen => gen.NextValue()).ToArray(),
+                fuzzRepeat
+            ));
         }
 
         return cases;

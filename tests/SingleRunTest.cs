@@ -6,18 +6,18 @@ namespace Confirma.Tests;
 [AfterAll]
 [TestClass]
 [Parallelizable]
-public static class SingleRunTest
+public class SingleRunTest
 {
-    private static int _runCount;
+    private int _runCount;
 
     [TestCase]
-    public static void ShouldRunOnce()
+    public void ShouldRunOnce()
     {
         _runCount++;
         _ = _runCount.ConfirmEqual(1);
     }
 
-    public static void AfterAll()
+    public void AfterAll()
     {
         _ = _runCount.ConfirmEqual(1);
         _runCount = 0;

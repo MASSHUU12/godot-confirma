@@ -9,10 +9,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class TestResultTest
+public class TestResultTest
 {
     [TestCase]
-    public static void Constructor_SetsDefaultValues()
+    public void Constructor_SetsDefaultValues()
     {
         TestResult testResult = new();
 
@@ -27,7 +27,7 @@ public static class TestResultTest
     }
 
     [TestCase]
-    public static void OperatorPlus_AddsTestClassResult()
+    public void OperatorPlus_AddsTestClassResult()
     {
         TestResult testResult = new();
         TestClassResult testClassResult = new(
@@ -51,7 +51,7 @@ public static class TestResultTest
     }
 
     [TestCase]
-    public static void OperatorPlus_AddsTestResult()
+    public void OperatorPlus_AddsTestResult()
     {
         TestResult testResult1 = new()
         {

@@ -9,19 +9,19 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmFileTest
+public class ConfirmFileTest
 {
     private const string _thisFileLocation = "./tests/extensions/ConfirmFileTest.cs";
 
     #region ConfirmIsFile
     [TestCase(_thisFileLocation)]
-    public static void ConfirmIsFile_WhenFileExists(string path)
+    public void ConfirmIsFile_WhenFileExists(string path)
     {
         _ = ((StringName)path).ConfirmIsFile();
     }
 
     [TestCase(_thisFileLocation + ".d")]
-    public static void ConfirmIsFile_WhenFileDoesNotExist(string path)
+    public void ConfirmIsFile_WhenFileDoesNotExist(string path)
     {
         Action action = () => ((StringName)path).ConfirmIsFile();
 
@@ -34,13 +34,13 @@ public static class ConfirmFileTest
 
     #region ConfirmIsNotFile
     [TestCase(_thisFileLocation + ".d")]
-    public static void ConfirmIsNotFile_WhenFileDoesNotExist(string path)
+    public void ConfirmIsNotFile_WhenFileDoesNotExist(string path)
     {
         _ = ((StringName)path).ConfirmIsNotFile();
     }
 
     [TestCase(_thisFileLocation)]
-    public static void ConfirmIsNotFile_WhenFileExists(string path)
+    public void ConfirmIsNotFile_WhenFileExists(string path)
     {
         Action action = () => ((StringName)path).ConfirmIsNotFile();
 
@@ -53,13 +53,13 @@ public static class ConfirmFileTest
 
     #region ConfirmIsDirectory
     [TestCase("./tests")]
-    public static void ConfirmIsDirectory_WhenDirectoryExists(string path)
+    public void ConfirmIsDirectory_WhenDirectoryExists(string path)
     {
         _ = ((StringName)path).ConfirmIsDirectory();
     }
 
     [TestCase("./test")]
-    public static void ConfirmIsDirectory_WhenDirectoryDoesNotExist(string path)
+    public void ConfirmIsDirectory_WhenDirectoryDoesNotExist(string path)
     {
         Action action = () => ((StringName)path).ConfirmIsDirectory();
 
@@ -72,13 +72,13 @@ public static class ConfirmFileTest
 
     #region ConfirmIsNotDirectory
     [TestCase("./test")]
-    public static void ConfirmIsNotDirectory_WhenDirectoryDoesNotExist(string path)
+    public void ConfirmIsNotDirectory_WhenDirectoryDoesNotExist(string path)
     {
         _ = ((StringName)path).ConfirmIsNotDirectory();
     }
 
     [TestCase("./tests")]
-    public static void ConfirmIsNotDirectory_WhenDirectoryExists(string path)
+    public void ConfirmIsNotDirectory_WhenDirectoryExists(string path)
     {
         Action action = () => ((StringName)path).ConfirmIsNotDirectory();
 
@@ -91,7 +91,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileContains
     [TestCase(_thisFileLocation, "ConfirmFileTest")]
-    public static void ConfirmFileContains_WhenFileContainsContent(
+    public void ConfirmFileContains_WhenFileContainsContent(
         string path,
         string content
     )
@@ -100,7 +100,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase("./LICENSE", "ConfirmFileTest.cs")]
-    public static void ConfirmFileContains_WhenFileDoesNotContainContent(
+    public void ConfirmFileContains_WhenFileDoesNotContainContent(
         string path,
         string content
     )
@@ -116,7 +116,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileDoesNotContain
     [TestCase("./LICENSE", "ConfirmFileTest.cs")]
-    public static void ConfirmFileDoesNotContain_WhenFileDoesNotContainContent(
+    public void ConfirmFileDoesNotContain_WhenFileDoesNotContainContent(
         string path,
         string content
     )
@@ -125,7 +125,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase(_thisFileLocation, "ConfirmFileTest")]
-    public static void ConfirmFileDoesNotContain_WhenFileContainsContent(
+    public void ConfirmFileDoesNotContain_WhenFileContainsContent(
         string path,
         string content
     )
@@ -141,7 +141,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileHasLength
     [TestCase("./LICENSE", 1066)]
-    public static void ConfirmFileHasLength_WhenFileHasLength(
+    public void ConfirmFileHasLength_WhenFileHasLength(
         string path,
         long length
     )
@@ -150,7 +150,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase("./LICENSE", 1)]
-    public static void ConfirmFileHasLength_WhenFileDoesNotHaveLength(
+    public void ConfirmFileHasLength_WhenFileDoesNotHaveLength(
         string path,
         long length
     )
@@ -166,7 +166,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileDoesNotHaveLength
     [TestCase("./LICENSE", 1)]
-    public static void ConfirmFileDoesNotHaveLength_WhenFileDoesNotHaveLength(
+    public void ConfirmFileDoesNotHaveLength_WhenFileDoesNotHaveLength(
         string path,
         long length
     )
@@ -175,7 +175,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase("./LICENSE", 1066)]
-    public static void ConfirmFileDoesNotHaveLength_WhenFileHasLength(
+    public void ConfirmFileDoesNotHaveLength_WhenFileHasLength(
         string path,
         long length
     )
@@ -191,7 +191,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileHasAttributes
     [TestCase("./LICENSE", FileAttributes.Normal)]
-    public static void ConfirmFileHasAttributes_WhenFileHasAttributes(
+    public void ConfirmFileHasAttributes_WhenFileHasAttributes(
         string path,
         FileAttributes attributes
     )
@@ -200,7 +200,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase("./LICENSE", FileAttributes.Hidden)]
-    public static void ConfirmFileHasAttributes_WhenFileDoesNotHaveAttributes(
+    public void ConfirmFileHasAttributes_WhenFileDoesNotHaveAttributes(
         string path,
         FileAttributes attributes
     )
@@ -216,7 +216,7 @@ public static class ConfirmFileTest
 
     #region ConfirmFileDoesNotHaveAttributes
     [TestCase("./LICENSE", FileAttributes.Hidden)]
-    public static void ConfirmFileDoesNotHaveAttributes_WhenFileDoesNotHaveAttributes(
+    public void ConfirmFileDoesNotHaveAttributes_WhenFileDoesNotHaveAttributes(
         string path,
         FileAttributes attributes
     )
@@ -225,7 +225,7 @@ public static class ConfirmFileTest
     }
 
     [TestCase("./LICENSE", FileAttributes.Normal)]
-    public static void ConfirmFileDoesNotHaveAttributes_WhenFileHasAttributes(
+    public void ConfirmFileDoesNotHaveAttributes_WhenFileHasAttributes(
         string path,
         FileAttributes attributes
     )

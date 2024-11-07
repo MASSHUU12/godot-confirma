@@ -8,7 +8,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmTest
+public class ConfirmTest
 {
     private enum TestEnum
     {
@@ -21,14 +21,14 @@ public static class ConfirmTest
     [TestCase(2)]
     [TestCase(3)]
     [TestCase(4)]
-    public static void IsEnumValue_WhenIsEnumValue(int value)
+    public void IsEnumValue_WhenIsEnumValue(int value)
     {
         _ = Confirm.IsEnumValue<TestEnum>(value);
     }
 
     [TestCase(-1)]
     [TestCase(5)]
-    public static void IsEnumValue_WhenISNotEnumValue(int value)
+    public void IsEnumValue_WhenISNotEnumValue(int value)
     {
         Action action = () => Confirm.IsEnumValue<TestEnum>(value);
 
@@ -39,7 +39,7 @@ public static class ConfirmTest
     #region IsNotEnumValue
     [TestCase(-1)]
     [TestCase(5)]
-    public static void IsNotEnumValue_WhenIsNotEnumValue(int value)
+    public void IsNotEnumValue_WhenIsNotEnumValue(int value)
     {
         _ = Confirm.IsNotEnumValue<TestEnum>(value);
     }
@@ -49,7 +49,7 @@ public static class ConfirmTest
     [TestCase(2)]
     [TestCase(3)]
     [TestCase(4)]
-    public static void IsNotEnumValue_WhenIsEnumValue(int value)
+    public void IsNotEnumValue_WhenIsEnumValue(int value)
     {
         Action action = () => Confirm.IsNotEnumValue<TestEnum>(value);
 
@@ -68,7 +68,7 @@ public static class ConfirmTest
     [TestCase("d", true)]
     [TestCase("E", false)]
     [TestCase("e", true)]
-    public static void IsEnumName_WhenIsEnumName(string name, bool ignoreCase)
+    public void IsEnumName_WhenIsEnumName(string name, bool ignoreCase)
     {
         _ = Confirm.IsEnumName<TestEnum>(name, ignoreCase);
     }
@@ -76,7 +76,7 @@ public static class ConfirmTest
     [TestCase("a")]
     [TestCase("b")]
     [TestCase("c")]
-    public static void IsEnumName_WhenIsEnumNameIncorrectCase(string name)
+    public void IsEnumName_WhenIsEnumNameIncorrectCase(string name)
     {
         Action action = () => Confirm.IsEnumName<TestEnum>(name);
 
@@ -87,7 +87,7 @@ public static class ConfirmTest
     [TestCase("F", false)]
     [TestCase("0", true)]
     [TestCase("f", true)]
-    public static void IsEnumName_WhenIsNotEnumName(string name, bool ignoreCase)
+    public void IsEnumName_WhenIsNotEnumName(string name, bool ignoreCase)
     {
         Action action = () => Confirm.IsEnumName<TestEnum>(name, ignoreCase);
 
@@ -97,13 +97,13 @@ public static class ConfirmTest
 
     #region IsTrue
     [TestCase]
-    public static void IsTrue_WhenIsTrue()
+    public void IsTrue_WhenIsTrue()
     {
         _ = Confirm.IsTrue(true);
     }
 
     [TestCase]
-    public static void IsTrue_WhenIsFalse()
+    public void IsTrue_WhenIsFalse()
     {
         Action action = () => Confirm.IsTrue(false);
 
@@ -112,13 +112,13 @@ public static class ConfirmTest
     #endregion IsTrue
 
     #region IsFalse
-    public static void IsFalse_WhenIsFalse()
+    public void IsFalse_WhenIsFalse()
     {
         _ = Confirm.IsFalse(false);
     }
 
     [TestCase]
-    public static void IsFalse_WhenIsTrue()
+    public void IsFalse_WhenIsTrue()
     {
         Action action = () => Confirm.IsFalse(true);
 

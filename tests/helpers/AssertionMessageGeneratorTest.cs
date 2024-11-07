@@ -8,10 +8,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class AssertionMessageGeneratorTest
+public class AssertionMessageGeneratorTest
 {
     [TestCase]
-    public static void GenerateMessage_ReturnsCorrectMessage()
+    public void GenerateMessage_ReturnsCorrectMessage()
     {
         _ = new AssertionMessageGenerator(
             "Expected {1} to be less than {2}.",

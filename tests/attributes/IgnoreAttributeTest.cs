@@ -7,10 +7,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class IgnoreAttributeTest
+public class IgnoreAttributeTest
 {
     [TestCase]
-    public static void Constructor_IgnoreMode_SetsValuesCorrectly()
+    public void Constructor_IgnoreMode_SetsValuesCorrectly()
     {
         IgnoreAttribute attribute = new(EIgnoreMode.Always);
 
@@ -19,7 +19,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void Constructor_All_SetsValuesCorrectly()
+    public void Constructor_All_SetsValuesCorrectly()
     {
         IgnoreAttribute attribute = new(EIgnoreMode.InEditor, "Hello");
 
@@ -28,7 +28,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void Constructor_EmptyReason_SetsReasonToNull()
+    public void Constructor_EmptyReason_SetsReasonToNull()
     {
         IgnoreAttribute attribute = new(EIgnoreMode.Always, string.Empty);
 
@@ -37,7 +37,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void IsIgnored_ModeAlways_ReturnsTrue()
+    public void IsIgnored_ModeAlways_ReturnsTrue()
     {
         IgnoreAttribute attribute = new(EIgnoreMode.Always);
 
@@ -45,7 +45,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void IsIgnored_ModeInEditor_ReturnsTrueWhenInEditor()
+    public void IsIgnored_ModeInEditor_ReturnsTrueWhenInEditor()
     {
         IgnoreAttribute attribute = new(EIgnoreMode.InEditor);
 
@@ -53,7 +53,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void IsIgnored_WhenNotRunningCategory_ReturnsTrueWhenNotRunning()
+    public void IsIgnored_WhenNotRunningCategory_ReturnsTrueWhenNotRunning()
     {
         IgnoreAttribute attribute = new(
             EIgnoreMode.InEditor,
@@ -66,7 +66,7 @@ public static class IgnoreAttributeTest
     }
 
     [TestCase]
-    public static void IsIgnored_WhenNotRunningCategory_ReturnsFalseWhenRunning()
+    public void IsIgnored_WhenNotRunningCategory_ReturnsFalseWhenRunning()
     {
         IgnoreAttribute attribute = new(
             EIgnoreMode.InEditor,

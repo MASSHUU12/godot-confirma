@@ -1,16 +1,21 @@
 # Testing
 
+> Confirma provides built-in script templates that can be used
+to quickly create tests.
+
 ## C#
 
 ### Writing tests
 
 Confirma will detect all tests,
-regardless of where in the project they're placed them.
+regardless of where in the project they're placed.
 
 Each class that contains tests must be labelled with the `TestClass` attribute.
 Each test method must be tagged with the `TestCase` attribute.
 
 Chaining assertions is allowed, so something like this is possible:
+
+> Confirma supports static and non-static test classes.
 
 ```cs
 using Confirma.Attributes;
@@ -28,6 +33,29 @@ public static class TestSomething
     }
 }
 ```
+
+### Mocking
+
+Confirma includes a simple library for
+[mocking](https://stackoverflow.com/questions/2665812/what-is-mocking#2666006),
+which is located in the `Confirma.Classes.Mock` namespace.
+
+### Fuzz testing
+
+Confirma includes basic support for
+[fuzz testing](https://en.wikipedia.org/wiki/Fuzzing).
+
+This function allows you to pass random values to test method arguments.
+The supported data types are: `int`, `double`, `float`, `string` and `bool`.
+
+Each attribute corresponds to one method parameter.
+Their order is important, they are taken from top to bottom,
+so the first argument corresponds to the first attribute of the method.
+
+The `Repeat` attribute is allowed,
+it must be assigned to only one `Fuzz` argument.
+The `Repeat` argument will have the same effect as when it is assigned to the
+`TestCase` argument.
 
 ### Accessing scene tree
 

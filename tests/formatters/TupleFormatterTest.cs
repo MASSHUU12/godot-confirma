@@ -7,10 +7,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class TupleFormatterTest
+public class TupleFormatterTest
 {
     [TestCase]
-    public static void Format_Float_ReturnsCorrectString()
+    public void Format_Float_ReturnsCorrectString()
     {
         _ = new TupleFormatter()
             .Format((4.2f, 5.8f))
@@ -18,13 +18,13 @@ public static class TupleFormatterTest
     }
 
     [TestCase]
-    public static void Format_Int_ReturnsCorrectString()
+    public void Format_Int_ReturnsCorrectString()
     {
         _ = new TupleFormatter().Format((4, 5)).ConfirmEqual("(4, 5)");
     }
 
     [TestCase]
-    public static void Format_String_ReturnsCorrectString()
+    public void Format_String_ReturnsCorrectString()
     {
         _ = new TupleFormatter()
             .Format(("Hello", ", ", "World", "!"))

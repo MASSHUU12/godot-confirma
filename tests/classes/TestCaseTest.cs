@@ -9,7 +9,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class TestCaseTest
+public class TestCaseTest
 {
     #region TestMethods
     public static void TestMethod(int param1, string param2)
@@ -24,7 +24,7 @@ public static class TestCaseTest
     #endregion TestMethods
 
     [TestCase]
-    public static void Constructor_SetsPropertiesCorrectly()
+    public void Constructor_SetsPropertiesCorrectly()
     {
         MethodInfo? method = typeof(TestCaseTest).GetMethod("TestMethod");
         object[] parameters = new object[] { 1, "test" };
@@ -39,17 +39,17 @@ public static class TestCaseTest
     }
 
     [TestCase]
-    public static void Run_MethodInvokesSuccessfully()
+    public void Run_MethodInvokesSuccessfully()
     {
         MethodInfo? method = typeof(TestCaseTest).GetMethod(nameof(TestMethod));
         object[] parameters = new object[] { 1, "test" };
         TestCase testCase = new(method!, parameters, null);
 
-        _ = Confirm.NotThrows<ConfirmAssertException>(testCase.Run);
+        _ = Confirm.NotThrows<ConfirmAssertException>(() => testCase.Run());
     }
 
     [TestCase]
-    public static void Run_ThrowsTargetInvocationException()
+    public void Run_ThrowsTargetInvocationException()
     {
         MethodInfo? method = typeof(TestCaseTest)
             .GetMethod(nameof(TestMethodThatThrows));
@@ -63,7 +63,7 @@ public static class TestCaseTest
     }
 
     [TestCase]
-    public static void Run_ThrowsArgumentException()
+    public void Run_ThrowsArgumentException()
     {
         MethodInfo? method = typeof(TestCaseTest)
             .GetMethod(nameof(TestMethod));
@@ -78,7 +78,7 @@ public static class TestCaseTest
     }
 
     [TestCase]
-    public static void Run_ThrowsOtherException()
+    public void Run_ThrowsOtherException()
     {
         MethodInfo? method = typeof(TestCaseTest)
             .GetMethod(nameof(TestMethod));

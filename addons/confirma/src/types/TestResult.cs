@@ -29,6 +29,16 @@ public record TestResult
         return a;
     }
 
+    public static TestResult operator +(TestResult a, TestMethodResult b)
+    {
+        a.TestsPassed += b.TestsPassed;
+        a.TestsFailed += b.TestsFailed;
+        a.TestsIgnored += b.TestsIgnored;
+        a.Warnings += b.Warnings;
+
+        return a;
+    }
+
     public static TestResult operator +(TestResult a, TestResult b)
     {
         a.TotalTests += b.TestsPassed + b.TestsFailed + b.TestsIgnored;

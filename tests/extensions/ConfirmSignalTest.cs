@@ -10,16 +10,16 @@ namespace Confirma.Tests;
 [TearDown]
 [TestClass]
 [Parallelizable]
-public static class ConfirmSignalTest
+public class ConfirmSignalTest
 {
     private static Button? _button;
 
-    public static void SetUp()
+    public void SetUp()
     {
         _button = new();
     }
 
-    public static void TearDown()
+    public void TearDown()
     {
         _button?.Free();
     }
@@ -28,7 +28,7 @@ public static class ConfirmSignalTest
     [TestCase("pressed")]
     [TestCase("toggled")]
     [TestCase("button_down")]
-    public static void ConfirmSignalExists_WhenSignalExists(string signalName)
+    public void ConfirmSignalExists_WhenSignalExists(string signalName)
     {
         _ = (_button?.ConfirmSignalExists((StringName)signalName));
     }
@@ -36,7 +36,7 @@ public static class ConfirmSignalTest
     [TestCase("signal_that_does_not_exist")]
     [TestCase("signal_that_is_not_here")]
     [TestCase("signal_that_is_nowhere_to_be_found")]
-    public static void ConfirmSignalExists_WhenSignalDoesNotExist(
+    public void ConfirmSignalExists_WhenSignalDoesNotExist(
         string signalName
     )
     {
@@ -53,7 +53,7 @@ public static class ConfirmSignalTest
     [TestCase("signal_that_does_not_exist")]
     [TestCase("signal_that_is_not_here")]
     [TestCase("signal_that_is_nowhere_to_be_found")]
-    public static void ConfirmSignalDoesNotExist_WhenSignalDoesNotExist(
+    public void ConfirmSignalDoesNotExist_WhenSignalDoesNotExist(
         string signalName
     )
     {
@@ -63,7 +63,7 @@ public static class ConfirmSignalTest
     [TestCase("pressed")]
     [TestCase("toggled")]
     [TestCase("button_down")]
-    public static void ConfirmSignalDoesNotExist_WhenSignalExists(
+    public void ConfirmSignalDoesNotExist_WhenSignalExists(
         string signalName
     )
     {

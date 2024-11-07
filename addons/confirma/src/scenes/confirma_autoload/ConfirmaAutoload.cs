@@ -156,9 +156,9 @@ public partial class ConfirmaAutoload : Node
                 continue;
             }
 
-            if (!Props.MonitorOrphans && arg == "--experimental-monitor-orphans")
+            if (Props.MonitorOrphans && arg == prefix + "disable-orphans-monitor")
             {
-                Props.MonitorOrphans = true;
+                Props.MonitorOrphans = false;
                 continue;
             }
 

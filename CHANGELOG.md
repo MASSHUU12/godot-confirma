@@ -5,10 +5,84 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- JSON deserialization classes:
+  - HelpFile
+  - FileElementConverter
+- Arguments:
+  - '--confirma-help'
+- Script templates:
+  - Test.cs
+  - test.gd
+  - TestFull.cs
+  - test_full.gd
+- Classes:
+  - FileElement
+  - CodeElement
+  - HeaderElement
+  - LinkElement
+  - TextElement
+  - Help
+  - HelpPanel
+  - FormatTextHelper
+  - Mock
+  - CallRecord
+  - FuzzGenerator
+- Assertions:
+  - ConfirmInstanceOf
+  - ConfirmNotInstanceOf
+- Enums:
+  - EFormatType
+  - EDistributionType
+- Attributes:
+  - FuzzAttribute
+- Random extensions:
+  - NextGaussianDouble
+  - NextExponentialDouble
+  - NextPoissonInt
+- Script test.sh.
+- Library allowing to mock interfaces and classes.
+
+### Changed
+
+- `Colors`:
+  - Added `ColorBackground`
+  - Added `BackgroundToTerminal`
+  - Added `BackgroundToGodot`
+  - Added `Color` which allows to color both background and text at the same time
+  - Renamed `ToTerminal` to `TextToTerminal`
+  - Renamed `ToGodot` to `TextToGodot`
+- Added `LoadFromFile` to `Json` class
+- Updated documentation:
+  - Added info in TESTING.md about script templates, mocking library
+& fuzz testing.
+  - Added info about mocking libary in README.md.
+- Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
+`NextDouble` extensions of `Random` class.
+- Adjusted warnings for `Repeat` attribute.
+
+### Removed
+
+- '>' character from test output.
+- Script run_tests.sh.
+- `GetTestCasesFromMethod` from CsTestDiscovery.cs.
+
+### Fixed
+
+- [#213] [GDScript] Method names in verbose mode display "([])"
+when there are no arguments
+- [#216] [GDScript] `System.IO.DirectoryNotFoundException`
+thrown when passing invalid path to '--confirma-gd-path'.
+- [#221] [GDScript] An error is thrown when path to GDScript tests is empty.
+- [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
+invalid.
+
+## [0.9.0-beta 2024.10.21]
+
+### Added
 
 - Arguments:
   - '--confirma-category'
-  - '--confirma-help'
+  - '--confirma-disable-orphans-monitor'
 - Formatters:
   - AutomaticFormatter
   - DefaultFormatter
@@ -25,20 +99,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmBooleanWrapper
   - ConfirmNumericWrapper
   - ConfirmDictionaryWrapper
-- Enums:
-  - EFormatType
-- JSON deserialization classes:
-  - HelpFile
-  - FileElementConverter
 - C# classes:
-  - FileElement
-  - CodeElement
-  - HeaderElement
-  - LinkElement
-  - TextElement
-  - Help
-  - HelpPanel
-  - FormatTextHelper
   - WrapperBase
   - GdScriptInfo
   - Settings
@@ -46,6 +107,7 @@ All notable changes to this project will be documented in this file.
   - AssertionMessageGenerator
   - CollectionHelper
   - Formatter
+  - TreeContent
 - GDScript classes:
   - TestClass
   - Ignore
@@ -61,36 +123,36 @@ All notable changes to this project will be documented in this file.
   - settings
   - testing GDScript code
   - custom assertions
+- Project settings:
+  - GDScript Tests Folder
+  - Output Path
+- Bottom panel settings:
+  - [#178] Allow changing category.
+  - Allow disabling parallelization.
+  - Allow disabling orphans monitor.
+  - Allow disabling parallelization.
+  - Allow changing output type & path.
 - Warning when trying to run tests without '--confirma-run' argument.
 - `WhenNotRunningCategory` value to `EIgnoreMode` enum.
 - `HideFromResults` field to `Ignore` attribute.
 - `IFormatter` interface.
 - Constructor to `ConfirmAssertException` which automatically generates a message.
 - `ELifecycleMethodName` enum.
-- "GDScript Tests Folder" project setting.
 - A clear distinction between C# and GDScript tests when displaying results.
-- New settings window.
-- [#178] Allow changing category via editor.
-- Allow disabling parallelization via editor.
+- New bottom panel settings window.
 - Base class for lifecycle attributes (`LifecycleAttribute`).
-- Allow to disable exterior brackets (`CollectionHelper.ToString`)
+- Allow to disable exterior brackets (`CollectionHelper.ToString`).
+- `LifecycleMethodException` exception.
+- Overload of `TestResult`'s `+` attribute for `TestMethodResult`.
+- Support for non-static test classes.
 
 ### Changed
 
-- `Colors`:
-  - Added `ColorBackground`
-  - Added `BackgroundToTerminal`
-  - Added `BackgroundToGodot`
-  - Added `Color` which allows to color both background and text at the same time
-  - Renamed `ToTerminal` to `TextToTerminal`
-  - Renamed `ToGodot` to `TextToGodot`
-- Added `LoadFromFile` to `Json` class
 - Included 'scripts' folder in exported ZIP.
 - Documentation has been refreshed (more information, better described).
 - Adjusted most of the assertion messages.
 - Adjusted GDScript assertions to use C# wrappers.
-- [#170] Confirma recursively checks every folder for GDScript tests
-(max depth is 16).
+- [#170] Recursively check every folder for GDScript tests (max depth is 16).
 - All GDScript test classes need to extend `TestClass`.
 - `GdTestDiscovery` & `GdTestExecutor` now use `GdScriptInfo` instead of `ScriptInfo`.
 - GDScript tests folder can be passed as global or localized path.
@@ -100,6 +162,9 @@ All notable changes to this project will be documented in this file.
 and not to a specific method, and take the name of the method to run.
 One attribute of a given type is allowed.
 - Replaced `ArrayHelper.ToString` with `CollectionHelper.ToString`.
+- [#188] Failed invocation of lifecycle method results in test failure.
+- Orphans monitor is no longer considered experimental and is enabled by default.
+- `ConfirmaBottomPanelOptions` uses `TreeContent` for generating window content.
 
 ### Removed
 
@@ -107,6 +172,7 @@ One attribute of a given type is allowed.
 - `LifecycleMethodData` record.
 - `ArrayHelper` class.
 - `ArrayHelperTest` Test.
+- '--experimental-monitor-orphans' argument.
 
 ### Fixed
 
@@ -194,7 +260,7 @@ when argument '--confirma-run' was also empty.
 - `ConfirmEqual`/`ConfirmNotEqual` for arrays passed as object
 in case of an exception returns only the type instead of the actual values.
 - `Log.Print` throws exception when used too early.
--  Argument '--confirma-run' with invalid class name
+- Argument '--confirma-run' with invalid class name
   throws a NullReferenceException.
 
 ## [0.7.1-beta 2024-07-24]

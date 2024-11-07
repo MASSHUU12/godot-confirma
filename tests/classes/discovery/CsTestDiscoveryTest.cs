@@ -12,26 +12,26 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class CsTestDiscoveryTest
+public class CsTestDiscoveryTest
 {
-    private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
+    private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
 
     [Parallelizable]
     private class ParallelizableTestClass { }
 
-    private static class TestClass
+    private class TestClass
     {
         [TestCase]
-        public static void TestMethod() { }
+        public void TestMethod() { }
 
         [TestCase]
-        public static void TestMethod2() { }
+        public void TestMethod2() { }
 
-        public static void NonTestMethod() { }
+        public void NonTestMethod() { }
     }
 
     [TestCase]
-    public static void GetTestClassesFromAssembly_ReturnsTestClasses()
+    public void GetTestClassesFromAssembly_ReturnsTestClasses()
     {
         IEnumerable<Type> testClasses = CsTestDiscovery
             .GetTestClassesFromAssembly(_assembly);
@@ -40,7 +40,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestClassesFromAssembly_DoesNotReturnNonTestClass()
+    public void GetTestClassesFromAssembly_DoesNotReturnNonTestClass()
     {
         IEnumerable<Type> testClasses = CsTestDiscovery
             .GetTestClassesFromAssembly(_assembly);
@@ -51,7 +51,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetParallelTestClasses_ReturnsParallelizableClasses()
+    public void GetParallelTestClasses_ReturnsParallelizableClasses()
     {
         TestingClass[] classes = new[]
         {
@@ -67,7 +67,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetSequentialTestClasses_ReturnsSequentialClasses()
+    public void GetSequentialTestClasses_ReturnsSequentialClasses()
     {
         TestingClass[] classes = new[]
         {
@@ -83,7 +83,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestMethodsFromType_ReturnsTestMethods()
+    public void GetTestMethodsFromType_ReturnsTestMethods()
     {
         IEnumerable<MethodInfo> testMethods = CsTestDiscovery
             .GetTestMethodsFromType(typeof(TestClass));
@@ -92,7 +92,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void GetTestMethodsFromType_DoesNotReturnNonTestMethod()
+    public void GetTestMethodsFromType_DoesNotReturnNonTestMethod()
     {
         Type type = typeof(TestClass);
         MethodInfo? nonTestMethod = type.GetMethod("NonTestMethod");
@@ -104,7 +104,7 @@ public static class CsTestDiscoveryTest
     }
 
     [TestCase]
-    public static void DiscoverTestClasses_ReturnsTestClasses()
+    public void DiscoverTestClasses_ReturnsTestClasses()
     {
         IEnumerable<TestingClass> testClasses = CsTestDiscovery
             .DiscoverTestClasses(_assembly);
@@ -112,20 +112,21 @@ public static class CsTestDiscoveryTest
         _ = testClasses.ConfirmNotEmpty();
     }
 
+    // TODO: Add more assertions
     [TestCase]
-    public static void GetTestCasesFromMethod_ReturnsTestCases()
+    public void GetAttributesForTestCaseGeneration_ReturnsTestCases()
     {
         MethodInfo method = typeof(CsTestDiscoveryTest)
-            .GetMethod("GetTestCasesFromMethod_ReturnsTestCases")!;
+            .GetMethod("GetAttributesForTestCaseGeneration_ReturnsTestCases")!;
 
         IEnumerable<Attribute> testCases = CsTestDiscovery
-            .GetTestCasesFromMethod(method);
+            .GetAttributesForTestCaseGeneration(method);
 
         _ = testCases.ConfirmCount(1);
     }
 
     [TestCase]
-    public static void DiscoverTestMethods_ReturnsTestMethods()
+    public void DiscoverTestMethods_ReturnsTestMethods()
     {
         IEnumerable<TestingMethod> testMethods = CsTestDiscovery
             .DiscoverTestMethods(typeof(CsTestDiscoveryTest));

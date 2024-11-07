@@ -8,13 +8,13 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmVectorTest
+public class ConfirmVectorTest
 {
     #region ConfirmEqualApprox
     [TestCase(1f, 2f, 1f, 2f, 0.0001f)]
     [TestCase(1f, 2f, 1.00001f, 2.00001f, 0.0001f)]
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.5f)]
-    public static void ConfirmEqualApprox_WhenEqual(
+    public void ConfirmEqualApprox_WhenEqual(
         float a,
         float b,
         float c,
@@ -31,7 +31,7 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1.1f, 2.1f, 0.0001f)]
     [TestCase(1f, 2f, 1.0001f, 2.0001f, 0.00001f)]
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.1f)]
-    public static void ConfirmEqualApprox_WhenNotEqual(
+    public void ConfirmEqualApprox_WhenNotEqual(
         float a,
         float b,
         float c,
@@ -55,7 +55,7 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1.1f, 2.1f, 0.0001f)]
     [TestCase(1f, 2f, 1.0001f, 2.0001f, 0.00001f)]
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.1f)]
-    public static void ConfirmNotEqualApprox_WhenNotEqual(
+    public void ConfirmNotEqualApprox_WhenNotEqual(
         float a,
         float b,
         float c,
@@ -72,7 +72,7 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, 1f, 2f, 0.0001f)]
     [TestCase(1f, 2f, 1.00001f, 2.00001f, 0.0001f)]
     [TestCase(1f, 1f, 1.3f, 1.3f, 0.5f)]
-    public static void ConfirmNotEqualApprox_WhenEqual(
+    public void ConfirmNotEqualApprox_WhenEqual(
         float a,
         float b,
         float c,
@@ -96,7 +96,7 @@ public static class ConfirmVectorTest
     [TestCase(-5f, -5f, 0f, -2f)]
     [TestCase(1f, 2f, 1.1f, 2.1f)]
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
-    public static void ConfirmLessThan_WhenLessThan(
+    public void ConfirmLessThan_WhenLessThan(
         float a,
         float b,
         float c,
@@ -112,7 +112,7 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, -5f, -5f)]
     [TestCase(1f, 2f, 1f, 2f)]
     [TestCase(1.00001f, 2.00001f, 1f, 2f)]
-    public static void ConfirmLessThan_WhenNotLessThan(
+    public void ConfirmLessThan_WhenNotLessThan(
         float a,
         float b,
         float c,
@@ -136,7 +136,7 @@ public static class ConfirmVectorTest
     [TestCase(-5f, -5f, 0f, -2f)]
     [TestCase(1.1f, 2f, 1.1f, 2.1f)]
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
-    public static void ConfirmLessThanOrEqual_WhenLessThanOrEqual(
+    public void ConfirmLessThanOrEqual_WhenLessThanOrEqual(
         float a,
         float b,
         float c,
@@ -152,7 +152,7 @@ public static class ConfirmVectorTest
     [TestCase(1f, 2f, -5f, -5f)]
     [TestCase(1.1f, 2.1f, 1f, 2f)]
     [TestCase(1.00001f, 2.00001f, 1f, 2f)]
-    public static void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(
+    public void ConfirmLessThanOrEqual_WhenNotLessThanOrEqual(
         float a,
         float b,
         float c,
@@ -175,7 +175,7 @@ public static class ConfirmVectorTest
     [TestCase(0f, -2f, -5f, -5f)]
     [TestCase(1.1f, 2.1f, 1f, 2f)]
     [TestCase(1.0001f, 2.0001f, 1f, 2f)]
-    public static void ConfirmGreaterThan_WhenGreaterThan(
+    public void ConfirmGreaterThan_WhenGreaterThan(
         float a,
         float b,
         float c,
@@ -191,7 +191,7 @@ public static class ConfirmVectorTest
     [TestCase(-5f, -5f, 0f, -2f)]
     [TestCase(1f, 2f, 1.1f, 2.1f)]
     [TestCase(1f, 2f, 1.0001f, 2.0001f)]
-    public static void ConfirmGreaterThan_WhenNotGreaterThan(
+    public void ConfirmGreaterThan_WhenNotGreaterThan(
         float a,
         float b,
         float c,
@@ -214,7 +214,7 @@ public static class ConfirmVectorTest
     [TestCase(0f, -2f, -5f, -5f)]
     [TestCase(1f, 2f, 1f, 2f)]
     [TestCase(1f, 2.1f, 1f, 2f)]
-    public static void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(
+    public void ConfirmGreaterThanOrEqual_WhenGreaterThanOrEqual(
         float a,
         float b,
         float c,
@@ -230,7 +230,7 @@ public static class ConfirmVectorTest
     [TestCase(-5f, -5f, 0f, -2f)]
     [TestCase(1.1f, 2.1f, 1.1f, 5f)]
     [TestCase(1.00001f, 0f, 1.0001f, 2f)]
-    public static void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(
+    public void ConfirmGreaterThanOrEqual_WhenNotGreaterThanOrEqual(
         float a,
         float b,
         float c,
@@ -253,7 +253,7 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 1f, 1f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
-    public static void ConfirmBetween_WhenBetween(
+    public void ConfirmBetween_WhenBetween(
         float a,
         float b,
         float c,
@@ -272,7 +272,7 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.4f, 0.4f)]
     [TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
-    public static void ConfirmBetween_WhenNotBetween(
+    public void ConfirmBetween_WhenNotBetween(
         float a,
         float b,
         float c,
@@ -298,7 +298,7 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0f, 0f, 0.4f, 0.4f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.4f, 0.4f)]
     [TestCase(-0.5f, 0.5f, 0.5f, 0.5f, 0.6f, 0.6f)]
-    public static void ConfirmNotBetween_WhenNotBetween(
+    public void ConfirmNotBetween_WhenNotBetween(
         float a,
         float b,
         float c,
@@ -317,7 +317,7 @@ public static class ConfirmVectorTest
     [TestCase(0.5f, 0.5f, 0f, 0f, 1f, 1f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 1f, 1f)]
     [TestCase(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f)]
-    public static void ConfirmNotBetween_WhenBetween(
+    public void ConfirmNotBetween_WhenBetween(
         float a,
         float b,
         float c,

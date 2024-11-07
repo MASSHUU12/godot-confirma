@@ -5,6 +5,8 @@ using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
+using Confirma.Exceptions;
+using Confirma.Helpers;
 using Confirma.Types;
 using Godot;
 
@@ -22,6 +24,7 @@ public class TestingClass
     private readonly string? _beforeAllName;
 
     private TestsProps _props;
+    private object? _instance;
 
     public TestingClass(Type type)
     {
@@ -38,12 +41,27 @@ public class TestingClass
 
     public TestClassResult Run(TestsProps props)
     {
-        uint passed = 0, failed = 0, ignored = 0, warnings = 0;
+        TestResult results = new();
         List<TestLog> testLogs = new();
+        bool runAfterAll = true;
 
         _props = props;
 
-        warnings += RunLifecycleMethod(_beforeAllName, ref testLogs);
+        if (!Type.IsStatic())
+        {
+            _instance = Activator.CreateInstance(Type);
+        }
+
+        try
+        {
+            RunLifecycleMethod(_beforeAllName, ref testLogs);
+        }
+        catch (LifecycleMethodException e)
+        {
+            runAfterAll = false;
+            AddError(e.Message, ref testLogs);
+            return new(0, 1, 0, 0, testLogs);
+        }
 
         if (_props.Target.Target == ERunTargetType.Method
             && !string.IsNullOrEmpty(props.Target.DetailedName)
@@ -57,7 +75,7 @@ public class TestingClass
             {
                 testLogs.Add(new(ELogType.Error,
                     ELangType.CSharp,
-                    $"No test methods found with the name '{props.Target.DetailedName}'."
+                    $"No test methods found with the name {props.Target.DetailedName}."
                 ));
 
                 return new(0, 1, 0, 0, testLogs);
@@ -66,34 +84,56 @@ public class TestingClass
 
         foreach (TestingMethod method in TestMethods)
         {
-            warnings += RunLifecycleMethod(_setUpName, ref testLogs);
-
-            int currentOrphans = GetOrphans();
-
-            TestMethodResult methodResult = method.Run(props);
-            testLogs.AddRange(methodResult.TestLogs);
-
-            warnings += RunLifecycleMethod(_tearDownName, ref testLogs);
-
-            int newOrphans = GetOrphans();
-            if (currentOrphans < newOrphans)
+            try
             {
-                warnings++;
-                testLogs.Add(new(ELogType.Warning,
-                    ELangType.CSharp,
-                    $"Calling {method.Name} created {newOrphans - currentOrphans} new orphan/s.\n"
-                ));
+                RunLifecycleMethod(_setUpName, ref testLogs);
+            }
+            catch (LifecycleMethodException e)
+            {
+                results.TestsFailed++;
+                runAfterAll = false;
+                AddError(e.Message, ref testLogs);
+                continue;
             }
 
-            passed += methodResult.TestsPassed;
-            failed += methodResult.TestsFailed;
-            ignored += methodResult.TestsIgnored;
-            warnings += methodResult.Warnings;
+            TestMethodResult methodResult = method.Run(props, _instance);
+            testLogs.AddRange(methodResult.TestLogs);
+
+            try
+            {
+                RunLifecycleMethod(_tearDownName, ref testLogs);
+            }
+            catch (LifecycleMethodException e)
+            {
+                runAfterAll = false;
+                methodResult.TestsPassed--;
+                method.Result.TestsFailed++;
+                AddError(e.Message, ref testLogs);
+            }
+
+            results += methodResult;
         }
 
-        warnings += RunLifecycleMethod(_afterAllName, ref testLogs);
+        try
+        {
+            if (runAfterAll)
+            {
+                RunLifecycleMethod(_afterAllName, ref testLogs);
+            }
+        }
+        catch (LifecycleMethodException e)
+        {
+            results.TestsFailed++;
+            AddError(e.Message, ref testLogs);
+        }
 
-        return new(passed, failed, ignored, warnings, testLogs);
+        return new(
+            results.TestsPassed,
+            results.TestsFailed,
+            results.TestsIgnored,
+            results.Warnings,
+            testLogs
+        );
     }
 
     private string? FindLifecycleMethodName(Type attributeType)
@@ -105,11 +145,11 @@ public class TestingClass
             : la.MethodName;
     }
 
-    private byte RunLifecycleMethod(string? methodName, ref List<TestLog> testLogs)
+    private void RunLifecycleMethod(string? methodName, ref List<TestLog> testLogs)
     {
         if (methodName is null)
         {
-            return 0;
+            return;
         }
 
         if (_props.IsVerbose)
@@ -119,27 +159,33 @@ public class TestingClass
 
         if (Type.GetMethod(methodName) is not MethodInfo method)
         {
-            testLogs.Add(new(
-                ELogType.Error,
-                $"- There is no lifecycle method named '{methodName}'.\n"
-            ));
-            return 1;
+            throw new LifecycleMethodException(
+                $"Lifecycle method {methodName} not found."
+            );
         }
 
         try
         {
-            _ = method.Invoke(null, null);
+            _ = method.Invoke(_instance, null);
         }
         catch (Exception e)
         {
-            testLogs.Add(new(
-                ELogType.Error,
-                $"- {e.InnerException?.Message ?? e.Message}\n"
-            ));
-            return 1;
-        }
+            string message = e.InnerException?.Message ?? e.Message;
 
-        return 0;
+            if (string.IsNullOrEmpty(message))
+            {
+                message = $"Calling lifecycle method {methodName} failed.";
+            }
+
+            throw new LifecycleMethodException(
+                $"Error in lifecycle method {methodName}: {message}"
+            );
+        }
+    }
+
+    private void AddError(string error, ref List<TestLog> testLogs)
+    {
+        testLogs.Add(new(ELogType.Error, $"- {error}\n"));
     }
 
     private int GetOrphans()

@@ -1,6 +1,5 @@
 #if TOOLS
 
-using Confirma.Enums;
 using Godot;
 
 namespace Confirma.Scenes;
@@ -9,7 +8,12 @@ namespace Confirma.Scenes;
 public partial class ConfirmaBottomPanel : Control
 {
 #nullable disable
-    private Button _runAllTests, _runCSharpTests, _runGdScriptTests, _clearOutput, _settings;
+    private Button
+        _runAllTests,
+        _runCSharpTests,
+        _runGdScriptTests,
+        _clearOutput,
+        _settings;
     private TestRunnerEditor _testRunner;
     private Window _settingsWindow;
     private ConfirmaAutoload _autoload;
@@ -33,15 +37,15 @@ public partial class ConfirmaBottomPanel : Control
         _testRunner.TestsExecutionStarted += OnTestsExecutionStarted;
         _testRunner.TestsExecutionFinished += OnTestsExecutionFinished;
 
-        _settings = GetNode<Button> ("%Settings");
+        _settings = GetNode<Button>("%Settings");
         _settings.Pressed += OnSettingsPressed;
 
-        _settingsWindow = GetNode<Window> ("%SettingsWindow");
+        _settingsWindow = GetNode<Window>("%SettingsWindow");
 
         _ = CallDeferred("LateInit");
     }
 
-        private void LateInit()
+    private void LateInit()
     {
         _autoload = GetNode<ConfirmaAutoload>("/root/Confirma");
     }
@@ -82,6 +86,7 @@ public partial class ConfirmaBottomPanel : Control
     private void OnSettingsPressed()
     {
         _settingsWindow.Show();
+        _settingsWindow.GrabFocus();
     }
 
     private void OnTestsExecutionStarted()

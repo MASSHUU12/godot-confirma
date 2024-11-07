@@ -9,10 +9,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmActionTest
+public class ConfirmActionTest
 {
     [TestCase]
-    public static void ConfirmCompletesWithin_WhenCompletesWithin()
+    public void ConfirmCompletesWithin_WhenCompletesWithin()
     {
         Action action = static () => Thread.Sleep(5);
 
@@ -20,7 +20,7 @@ public static class ConfirmActionTest
     }
 
     [TestCase]
-    public static void ConfirmCompletesWithin_WhenDoesNotCompletesWithin()
+    public void ConfirmCompletesWithin_WhenDoesNotCompletesWithin()
     {
         Action action = static () =>
         {
@@ -36,7 +36,7 @@ public static class ConfirmActionTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotCompleteWithin_WhenDoesNotCompleteWithin()
+    public void ConfirmDoesNotCompleteWithin_WhenDoesNotCompleteWithin()
     {
         Action action = static () => Thread.Sleep(50);
 
@@ -44,7 +44,7 @@ public static class ConfirmActionTest
     }
 
     [TestCase]
-    public static void ConfirmDoesNotCompleteWithin_WhenCompletesWithin()
+    public void ConfirmDoesNotCompleteWithin_WhenCompletesWithin()
     {
         Action action = static () =>
         {

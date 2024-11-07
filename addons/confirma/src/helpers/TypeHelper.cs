@@ -53,4 +53,9 @@ public static class TypeHelper
             typeof(IEnumerable<>)
         );
     }
+
+    public static bool IsStatic(this Type type)
+    {
+        return type.IsAbstract && type.IsSealed;
+    }
 }

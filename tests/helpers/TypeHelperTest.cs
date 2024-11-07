@@ -9,7 +9,7 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class TypeHelperTest
+public class TypeHelperTest
 {
     private interface ITestInterface { }
 
@@ -23,9 +23,11 @@ public static class TypeHelperTest
 
     private class NotImplementingGenericClass<T> { }
 
+    private static class StaticClass { }
+
     #region ImplementsAny
     [TestCase]
-    public static void ImplementsAny_InterfaceImplemented_ReturnsTrue()
+    public void ImplementsAny_InterfaceImplemented_ReturnsTrue()
     {
         _ = typeof(ImplementingClass)
             .ImplementsAny<ITestInterface>()
@@ -37,7 +39,7 @@ public static class TypeHelperTest
     }
 
     [TestCase]
-    public static void ImplementsAny_InterfaceNotImplemented_ReturnsFalse()
+    public void ImplementsAny_InterfaceNotImplemented_ReturnsFalse()
     {
         _ = typeof(NotImplementingClass)
             .ImplementsAny<ITestInterface>()
@@ -49,7 +51,7 @@ public static class TypeHelperTest
     }
 
     [TestCase]
-    public static void ImplementsAny_GenericInterfaceImplemented_ReturnsTrue()
+    public void ImplementsAny_GenericInterfaceImplemented_ReturnsTrue()
     {
         _ = typeof(ImplementingGenericClass<>)
             .ImplementsAny(typeof(ITestGenericInterface<>))
@@ -57,7 +59,7 @@ public static class TypeHelperTest
     }
 
     [TestCase]
-    public static void ImplementsAny_GenericInterfaceNotImplemented_ReturnsFalse()
+    public void ImplementsAny_GenericInterfaceNotImplemented_ReturnsFalse()
     {
         _ = typeof(NotImplementingGenericClass<>)
             .ImplementsAny(typeof(ITestGenericInterface<>))
@@ -65,7 +67,7 @@ public static class TypeHelperTest
     }
 
     [TestCase]
-    public static void ImplementsAny_TypeIsInterface_ReturnsFalse()
+    public void ImplementsAny_TypeIsInterface_ReturnsFalse()
     {
         _ = typeof(IDisposable)
             .ImplementsAny<ITestInterface>()
@@ -79,27 +81,41 @@ public static class TypeHelperTest
 
     #region IsCollection
     [TestCase]
-    public static void IsCollection_ReturnsTrue_ForICollection()
+    public void IsCollection_ReturnsTrue_ForICollection()
     {
         _ = typeof(ICollection<int>).IsCollection().ConfirmTrue();
     }
 
     [TestCase]
-    public static void IsCollection_ReturnsTrue_ForIEnumerable()
+    public void IsCollection_ReturnsTrue_ForIEnumerable()
     {
         _ = typeof(IEnumerable<int>).IsCollection().ConfirmTrue();
     }
 
     [TestCase]
-    public static void IsCollection_ReturnsTrue_ForConcreteCollectionType()
+    public void IsCollection_ReturnsTrue_ForConcreteCollectionType()
     {
         _ = typeof(List<int>).IsCollection().ConfirmTrue();
     }
 
     [TestCase]
-    public static void IsCollection_ReturnsFalse_ForNonCollectionType()
+    public void IsCollection_ReturnsFalse_ForNonCollectionType()
     {
         _ = typeof(int).IsCollection().ConfirmFalse();
     }
     #endregion IsCollection
+
+    #region IsStatic
+    [TestCase]
+    public void IsStatic_ReturnsTrue_ForStaticClass()
+    {
+        _ = typeof(StaticClass).IsStatic().ConfirmTrue();
+    }
+
+    [TestCase]
+    public void IsStatic_ReturnsFalse_ForRegularClass()
+    {
+        _ = typeof(ImplementingClass).IsStatic().ConfirmFalse();
+    }
+    #endregion IsStatic
 }

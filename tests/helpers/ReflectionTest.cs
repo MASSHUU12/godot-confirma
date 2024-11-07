@@ -11,10 +11,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ReflectionTest
+public class ReflectionTest
 {
     [TestCase]
-    public static void GetClassesFromAssembly_ReturnsOnlyConcreteClasses()
+    public void GetClassesFromAssembly_ReturnsOnlyConcreteClasses()
     {
         Assembly assembly = typeof(ReflectionTest).Assembly;
         IEnumerable<Type> classes = Reflection.GetClassesFromAssembly(assembly);
@@ -26,7 +26,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void GetMethodsWithAttribute_ReturnsMethodsMarkedWithAttribute()
+    public void GetMethodsWithAttribute_ReturnsMethodsMarkedWithAttribute()
     {
         IEnumerable<MethodInfo> methods = Reflection
             .GetMethodsWithAttribute<TestCaseAttribute>(typeof(ReflectionTest));
@@ -42,7 +42,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void GetMethodsWithAttribute_ReturnsNoMethodsWhenNoAttribute()
+    public void GetMethodsWithAttribute_ReturnsNoMethodsWhenNoAttribute()
     {
         IEnumerable<MethodInfo> methods = Reflection
             .GetMethodsWithAttribute<IgnoreAttribute>(typeof(ReflectionTest));
@@ -51,7 +51,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void HasAttribute_ReturnsTrueForObjectWithAttribute()
+    public void HasAttribute_ReturnsTrueForObjectWithAttribute()
     {
         bool result = new IgnoreAttribute().HasAttribute<AttributeUsageAttribute>();
 
@@ -59,7 +59,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void HasAttribute_ReturnsFalseForObjectWithoutAttribute()
+    public void HasAttribute_ReturnsFalseForObjectWithoutAttribute()
     {
         bool result = new IgnoreAttribute().HasAttribute<TestCaseAttribute>();
 
@@ -67,7 +67,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void HasAttribute_ReturnsTrueForTypeWithAttribute()
+    public void HasAttribute_ReturnsTrueForTypeWithAttribute()
     {
         bool result = typeof(ReflectionTest).HasAttribute<TestClassAttribute>();
 
@@ -75,7 +75,7 @@ public static class ReflectionTest
     }
 
     [TestCase]
-    public static void HasAttribute_ReturnsFalseForTypeWithoutAttribute()
+    public void HasAttribute_ReturnsFalseForTypeWithoutAttribute()
     {
         bool result = typeof(ReflectionTest).HasAttribute<IgnoreAttribute>();
 

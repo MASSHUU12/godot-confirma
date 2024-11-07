@@ -8,19 +8,19 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConfirmNumericTest
+public class ConfirmNumericTest
 {
     #region ConfirmIsPositive
     [TestCase(1f)]
     [TestCase(0.1f)]
-    public static void ConfirmIsPositive_WhenPositive(float actual)
+    public void ConfirmIsPositive_WhenPositive(float actual)
     {
         _ = actual.ConfirmIsPositive();
     }
 
     [TestCase(0f, "0.00000")]
     [TestCase(-1f, "-1.00000")]
-    public static void ConfirmIsPositive_WhenNotPositive(
+    public void ConfirmIsPositive_WhenNotPositive(
         float actual,
         string formatted
     )
@@ -37,14 +37,14 @@ public static class ConfirmNumericTest
     #region ConfirmIsNotPositive
     [TestCase(0f)]
     [TestCase(-1f)]
-    public static void ConfirmIsNotPositive_WhenNotPositive(float actual)
+    public void ConfirmIsNotPositive_WhenNotPositive(float actual)
     {
         _ = actual.ConfirmIsNotPositive();
     }
 
     [TestCase(1f, "1.00000")]
     [TestCase(0.1f, "0.10000")]
-    public static void ConfirmIsNotPositive_WhenPositive(
+    public void ConfirmIsNotPositive_WhenPositive(
         float actual,
         string formatted
     )
@@ -61,14 +61,14 @@ public static class ConfirmNumericTest
     #region ConfirmIsNegative
     [TestCase(-1f)]
     [TestCase(-0.1f)]
-    public static void ConfirmIsNegative_WhenNegative(float actual)
+    public void ConfirmIsNegative_WhenNegative(float actual)
     {
         _ = actual.ConfirmIsNegative();
     }
 
     [TestCase(0f, "0.00000")]
     [TestCase(1f, "1.00000")]
-    public static void ConfirmIsNegative_WhenNotNegative(
+    public void ConfirmIsNegative_WhenNotNegative(
         float actual,
         string formatted
     )
@@ -85,14 +85,14 @@ public static class ConfirmNumericTest
     #region ConfirmIsNotNegative
     [TestCase(0f)]
     [TestCase(1f)]
-    public static void ConfirmIsNotNegative_WhenNotNegative(float actual)
+    public void ConfirmIsNotNegative_WhenNotNegative(float actual)
     {
         _ = actual.ConfirmIsNotNegative();
     }
 
     [TestCase(-1f, "-1.00000")]
     [TestCase(-0.1f, "-0.10000")]
-    public static void ConfirmIsNotNegative_WhenNegative(
+    public void ConfirmIsNotNegative_WhenNegative(
         float actual,
         string formatted
     )
@@ -109,14 +109,14 @@ public static class ConfirmNumericTest
     #region ConfirmSign
     [TestCase(-5, true)]
     [TestCase(5, false)]
-    public static void ConfirmSign_WhenCorrect(int number, bool expected)
+    public void ConfirmSign_WhenCorrect(int number, bool expected)
     {
         _ = number.ConfirmSign(expected);
     }
 
     [TestCase(-5, false)]
     [TestCase(5, true)]
-    public static void ConfirmSign_WhenIncorrect(int actual, bool expected)
+    public void ConfirmSign_WhenIncorrect(int actual, bool expected)
     {
         Action action = () => actual.ConfirmSign(expected);
 
@@ -130,14 +130,14 @@ public static class ConfirmNumericTest
 
     #region ConfirmIsZero
     [TestCase(0f)]
-    public static void ConfirmIsZero_WhenZero(float actual)
+    public void ConfirmIsZero_WhenZero(float actual)
     {
         _ = actual.ConfirmIsZero();
     }
 
     [TestCase(1f, "1.00000")]
     [TestCase(-1f, "-1.00000")]
-    public static void ConfirmIsZero_WhenNotZero(
+    public void ConfirmIsZero_WhenNotZero(
         float actual,
         string formatted
     )
@@ -154,13 +154,13 @@ public static class ConfirmNumericTest
     #region ConfirmIsNotZero
     [TestCase(1f)]
     [TestCase(-1f)]
-    public static void ConfirmIsNotZero_WhenNotZero(float actual)
+    public void ConfirmIsNotZero_WhenNotZero(float actual)
     {
         _ = actual.ConfirmIsNotZero();
     }
 
     [TestCase(0)]
-    public static void ConfirmIsNotZero_WhenZero(int actual)
+    public void ConfirmIsNotZero_WhenZero(int actual)
     {
         Action action = () => actual.ConfirmIsNotZero();
 
@@ -175,7 +175,7 @@ public static class ConfirmNumericTest
     [TestCase(1)]
     [TestCase(69)]
     [TestCase(421)]
-    public static void ConfirmIsOdd_WhenIsOdd(int actual)
+    public void ConfirmIsOdd_WhenIsOdd(int actual)
     {
         _ = actual.ConfirmIsOdd();
     }
@@ -183,7 +183,7 @@ public static class ConfirmNumericTest
     [TestCase(2)]
     [TestCase(70)]
     [TestCase(420)]
-    public static void ConfirmIsOdd_WhenIsEven(int actual)
+    public void ConfirmIsOdd_WhenIsEven(int actual)
     {
         Action action = () => actual.ConfirmIsOdd();
 
@@ -198,7 +198,7 @@ public static class ConfirmNumericTest
     [TestCase(2)]
     [TestCase(70)]
     [TestCase(420)]
-    public static void ConfirmIsEven_WhenIsEven(int actual)
+    public void ConfirmIsEven_WhenIsEven(int actual)
     {
         _ = actual.ConfirmIsEven();
     }
@@ -206,7 +206,7 @@ public static class ConfirmNumericTest
     [TestCase(1)]
     [TestCase(69)]
     [TestCase(421)]
-    public static void ConfirmIsEven_WhenIsOdd(int actual)
+    public void ConfirmIsEven_WhenIsOdd(int actual)
     {
         Action action = () => actual.ConfirmIsEven();
 
@@ -223,7 +223,7 @@ public static class ConfirmNumericTest
     [TestCase(6f, 5f, 2f)]
     [TestCase(5.1f, 5f, 0.1f)]
     [TestCase(-5f, -4.5f, 0.5f)]
-    public static void ConfirmCloseTo_WhenCloseTo(
+    public void ConfirmCloseTo_WhenCloseTo(
         float actual,
         float expected,
         float tolerance
@@ -235,7 +235,7 @@ public static class ConfirmNumericTest
     [TestCase(5d, "5.00000", 0d, "0.00000", 1d)]
     [TestCase(5d, "5.00000", 15d, "15.00000", 1d)]
     [TestCase(0d, "0.00000", 0.1d, "0.10000", 0.01d)]
-    public static void ConfirmCloseTo_WhenNotCloseTo(
+    public void ConfirmCloseTo_WhenNotCloseTo(
         double actual,
         string aFormatted,
         double expected,

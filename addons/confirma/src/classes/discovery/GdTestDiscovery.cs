@@ -16,16 +16,27 @@ public static class GdTestDiscovery
     {
         string globalizedPath = ProjectSettings.GlobalizePath(pathToTests);
 
-        try
-        {
-            _testScriptsDirectoryCached ??= Directory.Exists(globalizedPath);
-        }
-        catch (DirectoryNotFoundException)
+        _testScriptsDirectoryCached ??= Directory.Exists(globalizedPath);
+
+        if (_testScriptsDirectoryCached == false)
         {
             yield break;
         }
 
-        if (_testScriptsDirectoryCached == false)
+        IEnumerable<string>? files;
+
+        try
+        {
+            files = Directory.EnumerateFiles(globalizedPath);
+        }
+        catch (Exception e) when (
+            e is ArgumentException
+            or DirectoryNotFoundException
+            or IOException
+            or PathTooLongException
+            or System.Security.SecurityException
+            or UnauthorizedAccessException
+        )
         {
             yield break;
         }

@@ -9,10 +9,10 @@ namespace Confirma.Tests;
 
 [TestClass]
 [Parallelizable]
-public static class ConverterTest
+public class ConverterTest
 {
     [TestCase]
-    public static void ToVariant_Null_ReturnsDefaultVariant()
+    public void ToVariant_Null_ReturnsDefaultVariant()
     {
         Variant result = Converter.ToVariant(null);
 
@@ -23,31 +23,31 @@ public static class ConverterTest
     [TestCase(123L)]
     [TestCase(3.14d)]
     [TestCase("Hello")]
-    public static void ToVariant_Value_ReturnsValueVariant(object value)
+    public void ToVariant_Value_ReturnsValueVariant(object value)
     {
         _ = value.ConfirmEqual(value.ToVariant().Obj);
     }
 
     [TestCase]
-    public static void ToVariant_Int32_ReturnsInt32Variant()
+    public void ToVariant_Int32_ReturnsInt32Variant()
     {
         _ = 42.ConfirmEqual(42.ToVariant().AsInt32());
     }
 
     [TestCase]
-    public static void ToVariant_Float_ReturnsFloatVariant()
+    public void ToVariant_Float_ReturnsFloatVariant()
     {
         _ = 6.283f.ConfirmEqual(6.283f.ToVariant().AsSingle());
     }
 
     [TestCase]
-    public static void ToVariant_Char_ReturnsCharVariant()
+    public void ToVariant_Char_ReturnsCharVariant()
     {
         _ = 'a'.ConfirmEqual('a'.ToVariant().AsChar());
     }
 
     [TestCase]
-    public static void ToVariant_ByteArray_Returns_ByteArrayVariant()
+    public void ToVariant_ByteArray_Returns_ByteArrayVariant()
     {
         byte[] arr = new byte[] { 1, 2, 3 };
 
@@ -55,7 +55,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_Int32Array_Returns_Int32ArrayVariant()
+    public void ToVariant_Int32Array_Returns_Int32ArrayVariant()
     {
         int[] arr = new int[] { 3, 2, 1 };
 
@@ -63,7 +63,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_Int64Array_Returns_Int64ArrayVariant()
+    public void ToVariant_Int64Array_Returns_Int64ArrayVariant()
     {
         long[] arr = new long[] { 1L, 2L, 3L };
 
@@ -71,7 +71,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_FloatArray_Returns_FloatArrayVariant()
+    public void ToVariant_FloatArray_Returns_FloatArrayVariant()
     {
         float[] arr = new float[] { 0f, 0.1f, 0.2f };
 
@@ -79,7 +79,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_DoubleArray_Returns_DoubleArrayVariant()
+    public void ToVariant_DoubleArray_Returns_DoubleArrayVariant()
     {
         double[] arr = new double[] { 5d, 4.99d, 4.98d };
 
@@ -87,7 +87,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_Vector2_ReturnsVector2Variant()
+    public void ToVariant_Vector2_ReturnsVector2Variant()
     {
         _ = new Vector2(1, 2).ConfirmEqual(
             new Vector2(1, 2).ToVariant().AsVector2()
@@ -95,7 +95,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_Vector2Array_ReturnsVector2ArrayVariant()
+    public void ToVariant_Vector2Array_ReturnsVector2ArrayVariant()
     {
         _ = new Vector2[] { new(1, 2), new(3, 4) }.ConfirmEqual(
             new Vector2[] { new(1, 2), new(3, 4) }
@@ -105,7 +105,7 @@ public static class ConverterTest
     }
 
     [TestCase]
-    public static void ToVariant_UnknownType_ThrowsNotSupportedException()
+    public void ToVariant_UnknownType_ThrowsNotSupportedException()
     {
         _ = Confirm.Throws<NotSupportedException>(
             static () => Converter.ToVariant(new object())
