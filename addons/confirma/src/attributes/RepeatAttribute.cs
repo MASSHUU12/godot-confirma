@@ -10,7 +10,6 @@ public class RepeatAttribute : Attribute
 
     public bool IsFlaky { get; init; }
     public TimeSpan Backoff { get; init; }
-    public ushort MaxRetries { get; init; }
 
     public RepeatAttribute(
         ushort repeat,
@@ -29,7 +28,6 @@ public class RepeatAttribute : Attribute
         FailFast = failFast;
 
         IsFlaky = isFlaky;
-        MaxRetries = maxRetries;
         Backoff = backoff == 0 ? TimeSpan.Zero : new(backoff);
     }
 }
