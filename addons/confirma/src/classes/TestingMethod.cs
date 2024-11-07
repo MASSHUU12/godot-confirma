@@ -30,7 +30,11 @@ public class TestingMethod
     {
         foreach (TestCase test in TestCases)
         {
-            for (ushort i = 0; i <= (test.Repeat?.Repeat ?? 0); i++)
+            int iterations = test.Repeat?.IsFlaky == true
+                ? 0
+                : test.Repeat?.Repeat ?? 0;
+
+            for (ushort i = 0; i <= iterations; i++)
             {
                 IgnoreAttribute? attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
 

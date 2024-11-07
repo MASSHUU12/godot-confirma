@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmNotInstanceOf
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
+- Support for flaky tests.
 
 ### Changed
 
