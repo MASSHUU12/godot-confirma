@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using Confirma.Helpers;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.HelpElements;
 
 public class CodeElement : FileElement
 {

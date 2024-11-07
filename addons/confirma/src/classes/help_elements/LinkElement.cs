@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Confirma.Helpers;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.HelpElements;
 
 public class LinkElement : FileElement
 {

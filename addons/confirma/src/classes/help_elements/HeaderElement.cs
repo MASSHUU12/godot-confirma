@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.HelpElements;
 
 public class HeaderElement : FileElement
 {

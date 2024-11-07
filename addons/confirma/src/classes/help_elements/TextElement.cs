@@ -1,4 +1,4 @@
-namespace Confirma.Classes;
+namespace Confirma.Classes.HelpElements;
 
 public class TextElement : FileElement
 {}

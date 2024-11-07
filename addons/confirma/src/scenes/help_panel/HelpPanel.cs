@@ -13,6 +13,5 @@ public partial class HelpPanel : Control
     {
         Output = GetNode<RichTextLabel>("%Output");
         Log.RichOutput = Output;
-        GD.Print(Log.IsHeadless);
     }
 }

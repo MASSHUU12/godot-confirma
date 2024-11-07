@@ -5,7 +5,7 @@ using Confirma.Deserialization.Json;
 using Confirma.Enums;
 using Confirma.Helpers;
 
-namespace Confirma.Classes;
+namespace Confirma.Classes.HelpElements;
 
 [JsonConverter(typeof(FileElementConverter))]
 public abstract class FileElement

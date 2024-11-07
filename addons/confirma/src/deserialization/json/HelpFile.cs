@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Confirma.Classes;
+using Confirma.Classes.HelpElements;
 
 namespace Confirma.Deserialization.Json;
 
