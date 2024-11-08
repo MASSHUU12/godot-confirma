@@ -38,6 +38,8 @@ public abstract class FileElement
         return text;
     }
 
+
+//todo write tests for this method
     public virtual string GetText()
     {
         string? color, bgColor = null;
