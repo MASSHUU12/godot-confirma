@@ -131,7 +131,7 @@ public class TestLog
         string sState = GetTestCaseStateString(State);
         string pipe = Colors.ColorText("|", GetLangColor());
 
-        Log.PrintLine($" {pipe} {Name}... {Colors.ColorText(sState, color)}.");
+        Log.PrintLine($"{pipe} {Name}... {Colors.ColorText(sState, color)}.");
 
         if (Message is not null)
         {
