@@ -17,6 +17,6 @@ public class LinkElement : FileElement
     public void SetFormat()
     {
         FormatOverride = new List<string>(){"u"};
-        Color = "#2A7BDE";
+        Color = "#2a7bde";
     }
 }

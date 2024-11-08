@@ -39,7 +39,7 @@ public abstract class FileElement
     }
 
 
-//todo write tests for this method
+//todo write tests for this method (After fixing issue with fill)
     public virtual string GetText()
     {
         string? color, bgColor = null;
