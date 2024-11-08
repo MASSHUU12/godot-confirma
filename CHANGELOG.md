@@ -54,6 +54,7 @@ thrown when passing invalid path to '--confirma-gd-path'.
 - [#221] [GDScript] An error is thrown when path to GDScript tests is empty.
 - [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
 invalid.
+- [#225] Method name in verbose mode has additional space before pipe sign.
 
 ## [0.9.0-beta 2024.10.21]
 
