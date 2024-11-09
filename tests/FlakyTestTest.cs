@@ -11,7 +11,7 @@ public class FlakyTestTest
 {
     private static int _count;
 
-    [Repeat(2, IsFlaky = true)]
+    [Repeat(3, IsFlaky = true)]
     [TestCase]
     public void FailFirst_PassOnRetry()
     {
@@ -26,6 +26,6 @@ public class FlakyTestTest
 
     public void AfterAll()
     {
-        _ = _count.ConfirmEqual(3);
+        _ = _count.ConfirmEqual(2);
     }
 }
