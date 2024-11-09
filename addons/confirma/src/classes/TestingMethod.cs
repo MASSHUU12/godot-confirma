@@ -58,45 +58,63 @@ public class TestingMethod
                     continue;
                 }
 
-                try
+                int repeats = 0;
+                int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
+                int backoff = test.Repeat?.Backoff.Milliseconds ?? 0;
+
+                do
                 {
-                    test.Run(instance);
-                    Result.TestsPassed++;
-
-                    TestLog log = new(
-                        ELogType.Method,
-                        Name,
-                        Passed,
-                        test.Params,
-                        null,
-                        ELangType.CSharp
-                    );
-                    Result.TestLogs.Add(log);
-                }
-                catch (ConfirmAssertException e)
-                {
-                    Result.TestsFailed++;
-
-                    TestLog log = new(
-                        ELogType.Method,
-                        Name,
-                        Failed,
-                        test.Params,
-                        e.Message,
-                        ELangType.CSharp
-                    );
-                    Result.TestLogs.Add(log);
-
-                    if (test.Repeat?.FailFast == true)
+                    try
                     {
+                        test.Run(instance);
+                        Result.TestsPassed++;
+
+                        TestLog log = new(
+                            ELogType.Method,
+                            Name,
+                            Passed,
+                            test.Params,
+                            null,
+                            ELangType.CSharp
+                        );
+                        Result.TestLogs.Add(log);
                         break;
                     }
-
-                    if (props.ExitOnFail)
+                    catch (ConfirmAssertException e)
                     {
-                        props.CallExitOnFailure();
+                        if (maxRepeats != 0 && repeats != maxRepeats)
+                        {
+                            repeats++;
+                            // if (backoff != 0)
+                            // {
+                            //     Task.Delay(backoff).RunSynchronously();
+                            // }
+                            continue;
+                        }
+
+                        Result.TestsFailed++;
+
+                        TestLog log = new(
+                            ELogType.Method,
+                            Name,
+                            Failed,
+                            test.Params,
+                            e.Message,
+                            ELangType.CSharp
+                        );
+                        Result.TestLogs.Add(log);
+
+                        if (test.Repeat?.FailFast == true)
+                        {
+                            break;
+                        }
+
+                        if (props.ExitOnFail)
+                        {
+                            props.CallExitOnFailure();
+                        }
                     }
-                }
+                } while (repeats < maxRepeats);
             }
         }
 
