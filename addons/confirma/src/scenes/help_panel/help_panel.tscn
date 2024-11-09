@@ -25,3 +25,4 @@ grow_vertical = 2
 theme = SubResource("Theme_y0fn5")
 bbcode_enabled = true
 scroll_following = true
+autowrap_mode = 0

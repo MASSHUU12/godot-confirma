@@ -1,10 +1,16 @@
 using System;
 using Confirma.Enums;
+using Godot;
 
 namespace Confirma.Helpers;
 
 public static class TextFormatHelper
 {
+    public static string RemoveGodotTags (string FormattedText)
+    {
+        return FormattedText.Replace(@"\[[A-Za-z=]+\]", "");
+    }
+
      /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string FormatText<T> (
         T text,
@@ -81,27 +87,6 @@ public static class TextFormatHelper
         };
     }
 
-    public static string Fill<T>
-    (
-        T text,
-        int width = 0
-    )
-    where T : IConvertible
-    {
-        int windowWidth = Console.WindowWidth is not 0
-        ? Console.WindowWidth
-        : width is not 0
-            ? width
-            : 80;
-
-        string strText= text.ToString() ?? string.Empty;
-        windowWidth -= strText.Length;
-
-        if (windowWidth <= 0) { return strText; }
-
-        return strText + new string (' ',windowWidth);
-    }
-
     public static string Center<T>
     (
         T text
@@ -121,7 +106,76 @@ public static class TextFormatHelper
         return  Fill(new string (' ',windowWidth) + strText);
     }
 
-    #region link
+    #region Fill
+    public static string Fill<T>(T text, int width = 0)
+    where T : IConvertible
+    {
+        return Log.IsHeadless
+            ? FillToTerminal(text, width)
+            : FillToGodot (text, width);
+    }
+
+    public static string FillToTerminal<T>(T text, int width = 0)
+    where T : IConvertible
+    {
+        int windowWidth = Console.WindowWidth is not 0
+        ? Console.WindowWidth
+        : width is not 0
+            ? width
+            : 80;
+
+        string strText= text.ToString() ?? string.Empty;
+        windowWidth -= strText.Length;
+
+        if (windowWidth <= 0) { return strText; }
+
+        return strText + new string (' ',windowWidth);
+    }
+
+        public static string FillToGodot<T>(T text, int width = 0)
+        where T : IConvertible
+    {
+        string t = text?.ToString() ?? string.Empty;
+
+        Font? font = Log.RichOutput?.GetThemeDefaultFont();
+        int fontSize = Log.RichOutput?.GetThemeDefaultFontSize() ?? 16;
+
+        if (font is null)
+        {
+            return t;
+        }
+
+        int windowWidth = (int)(Log.RichOutput?.GetRect().Size.X ?? width);
+        int currentWidth = (int)font.GetStringSize(t, fontSize: fontSize).X;
+
+        if (currentWidth >= windowWidth)
+        {
+            return t;
+        }
+
+        int spaceWidth = (int)font.GetStringSize("\u00A0", fontSize: fontSize).X;
+        int numSpaces = (windowWidth - currentWidth) / spaceWidth;
+
+        string paddedText = t + new string('\u00A0', numSpaces);
+        currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+
+        // Adjust by adding or removing spaces as needed
+        while (currentWidth < windowWidth)
+        {
+            paddedText += "\u00A0";
+            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+        }
+        while (currentWidth > windowWidth && numSpaces > 0)
+        {
+            paddedText = paddedText.Remove(paddedText.Length - 1);
+            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+        }
+
+        return paddedText;
+    }
+    #endregion
+
+    #region Link
     public static string Link<T>
     (
         T text,

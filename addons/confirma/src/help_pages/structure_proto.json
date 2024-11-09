@@ -15,7 +15,9 @@
                 "bold",
                 "underline",
                 "italic",
-                "strikethrough"
+                "strikethrough",
+                "fill",
+                "center"
             ]
         },
         {
