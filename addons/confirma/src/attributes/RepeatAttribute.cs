@@ -9,13 +9,13 @@ public class RepeatAttribute : Attribute
     public bool FailFast { get; init; }
 
     public bool IsFlaky { get; init; }
-    public TimeSpan Backoff { get; init; }
+    public int Backoff { get; init; }
 
     public RepeatAttribute(
         ushort repeat,
         bool failFast = false,
         bool isFlaky = false,
-        long backoff = 0
+        int backoff = 0
     )
     {
         if (repeat == 0)
@@ -27,7 +27,7 @@ public class RepeatAttribute : Attribute
         FailFast = failFast;
 
         IsFlaky = isFlaky;
-        Backoff = backoff == 0 ? TimeSpan.Zero : new(backoff);
+        Backoff = backoff;
     }
 
     public int GetFlakyRetries => Repeat + 1;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
@@ -60,7 +61,7 @@ public class TestingMethod
 
                 int repeats = 0;
                 int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
-                int backoff = test.Repeat?.Backoff.Milliseconds ?? 0;
+                int backoff = test.Repeat?.Backoff ?? 0;
 
                 do
                 {
@@ -85,10 +86,15 @@ public class TestingMethod
                         if (maxRepeats != 0 && repeats != maxRepeats)
                         {
                             repeats++;
-                            // if (backoff != 0)
-                            // {
-                            //     Task.Delay(backoff).RunSynchronously();
-                            // }
+                            if (backoff != 0)
+                            {
+                                // Workaround for:
+                                // https://github.com/godotengine/godot/issues/94510
+                                Task task = Task.Run(
+                                    async () => await Task.Delay(backoff)
+                                );
+                                task.Wait();
+                            }
                             continue;
                         }
 
