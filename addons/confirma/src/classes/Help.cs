@@ -33,6 +33,6 @@ public static class Help
             return;
         }
 
-        Log.PrintError($"File: `{pageName}.json`, not found\n");
+        Log.Print(Colors.ColorText($"Page: `{pageName}`, not found\n", Colors.Error));
     }
 }

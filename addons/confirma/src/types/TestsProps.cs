@@ -37,6 +37,8 @@ public struct TestsProps
             "./test_results.json"
         )
         .AsString();
+    public string SelectedHelpPage { get; set; } = "default";
+
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 
     public TestsProps() { }

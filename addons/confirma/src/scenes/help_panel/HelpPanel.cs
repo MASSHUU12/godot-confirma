@@ -1,3 +1,4 @@
+using Confirma.Classes;
 using Confirma.Helpers;
 using Godot;
 
@@ -5,13 +6,13 @@ namespace Confirma.Scenes;
 
 public partial class HelpPanel : Control
 {
-
-#nullable disable
-    protected RichTextLabel Output { get; set; }
-#nullable restore
     public override void _Ready()
     {
-        Output = GetNode<RichTextLabel>("%Output");
-        Log.RichOutput = Output;
+        Log.RichOutput = GetNode<RichTextLabel>("%Output");
+
+        ConfirmaAutoload autoload = GetNodeOrNull<ConfirmaAutoload>("/root/Confirma");
+
+        Help.ShowHelpPage(autoload.Props.SelectedHelpPage);
+
     }
 }
