@@ -15,7 +15,6 @@ public class RepeatAttribute : Attribute
         ushort repeat,
         bool failFast = false,
         bool isFlaky = false,
-        ushort maxRetries = 1,
         long backoff = 0
     )
     {
@@ -30,4 +29,6 @@ public class RepeatAttribute : Attribute
         IsFlaky = isFlaky;
         Backoff = backoff == 0 ? TimeSpan.Zero : new(backoff);
     }
+
+    public int GetFlakyRetries => Repeat + 1;
 }
