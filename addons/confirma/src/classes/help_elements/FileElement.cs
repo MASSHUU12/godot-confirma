@@ -42,6 +42,41 @@ public abstract class FileElement
 //todo write tests for this method (After fixing issue with fill)
     public virtual string GetText()
     {
+        return Log.IsHeadless
+        ? GetTextToTerminal()
+        : GetTextToGodot();
+    }
+
+    public virtual string GetTextToGodot()
+    {
+        string? color, bgColor = null;
+        string text = Format(Text);
+
+        if (FormatOverride.Any((string a) =>
+            a == "center" || a == "c"
+        ))
+        {
+            text = TextFormatHelper.FormatText(text, EFormatType.center);
+        }
+
+        if (FormatOverride.Any((string a) =>
+            a == "fill" || a == "f"
+        ))
+        {
+            text = TextFormatHelper.FormatText(text, EFormatType.fill);
+        }
+
+        if (Color?.Length == 0) { color = null; }
+        else { color = Color; }
+
+        if (BgColor?.Length == 0) { bgColor = null; }
+        else { bgColor=BgColor; }
+
+        return Colors.Color(text, color, bgColor);
+    }
+
+    public virtual string GetTextToTerminal()
+    {
         string? color, bgColor = null;
         string text = Text;
 

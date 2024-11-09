@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Confirma.Enums;
 using Godot;
 
@@ -6,9 +8,23 @@ namespace Confirma.Helpers;
 
 public static class TextFormatHelper
 {
-    public static string RemoveGodotTags (string FormattedText)
+    public static int GetTagsCompactedSize (string text)
     {
-        return FormattedText.Replace(@"\[[A-Za-z=]+\]", "");
+        MatchCollection matches = Regex.Matches(text,@"\[([A-Za-z0-9\/=#]*\])");
+
+        Font? font = Log.RichOutput?.GetThemeDefaultFont();
+        int fontSize = Log.RichOutput?.GetThemeDefaultFontSize() ?? 16;
+
+        if (font is null)
+        {
+            return 0;
+        }
+
+        return matches.Sum((Match match) => {
+            string strMatch= match.Value;
+
+            return (int)font.GetStringSize(strMatch, fontSize: fontSize).X;
+        });
     }
 
      /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
@@ -154,21 +170,22 @@ public static class TextFormatHelper
         }
 
         int spaceWidth = (int)font.GetStringSize("\u00A0", fontSize: fontSize).X;
-        int numSpaces = (windowWidth - currentWidth) / spaceWidth;
+        int tagsSpace = GetTagsCompactedSize(t);
+        int numSpaces = (windowWidth - currentWidth + tagsSpace) / spaceWidth;
 
         string paddedText = t + new string('\u00A0', numSpaces);
-        currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+        currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X - tagsSpace;
 
         // Adjust by adding or removing spaces as needed
         while (currentWidth < windowWidth)
         {
             paddedText += "\u00A0";
-            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X - tagsSpace;
         }
         while (currentWidth > windowWidth && numSpaces > 0)
         {
             paddedText = paddedText.Remove(paddedText.Length - 1);
-            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X;
+            currentWidth = (int)font.GetStringSize(paddedText, fontSize: fontSize).X - tagsSpace;
         }
 
         return paddedText;
