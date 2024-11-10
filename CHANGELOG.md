@@ -24,8 +24,10 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated documentation:
-  - Added note in TESTING.md about script templates & mocking library.
+  - Added note in TESTING.md about script templates, flaky tests & mocking library.
   - Added info about mocking libary in README.md.
+  - Updated docs about `Repeat` attribute.
+- Adjusted `Repeat` attribute to handle flaky tests.
 
 ### Removed
 
