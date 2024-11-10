@@ -33,7 +33,7 @@ public abstract class FileElement
                 continue;
             }
 
-            text = TextFormatHelper.FormatText(text, a);
+            text = TextFormatHelper.FormatText(text, a, false);
         }
         return text;
     }
@@ -100,8 +100,8 @@ public abstract class FileElement
         if (BgColor?.Length == 0) { bgColor = null; }
         else { bgColor=BgColor; }
 
-        text = Colors.Color(text, color, bgColor);
+        text = Colors.Color(text, color, bgColor, false);
 
-        return Format(text);
+        return Format(text) + Colors.TerminalReset;
     }
 }

@@ -8,6 +8,8 @@ namespace Confirma.Helpers;
 
 public static class TextFormatHelper
 {
+    public static readonly string TerminalReset = "\x1b[0m";
+
     public static int GetTagsCompactedSize (string text)
     {
         MatchCollection matches = Regex.Matches(text,@"\[([A-Za-z0-9\/=#]*\])");
@@ -28,48 +30,38 @@ public static class TextFormatHelper
     }
 
      /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
-    public static string FormatText<T> (
-        T text,
-        EFormatType type
-    )
+    public static string FormatText<T>(T text, EFormatType type, bool addReset = true)
     where T : IConvertible
     {
         return Log.IsHeadless
-        ? ToTerminal (text, type)
+        ? ToTerminal (text, type, addReset)
         : ToGodot (text, type);
-
     }
 
      /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
-    public static string FormatText<T> (
-        T text,
-        string type
-    )
+    public static string FormatText<T>(T text, string type, bool addReset = true)
     where T : IConvertible
     {
         return type.ToLower() switch
         {
-            "bold" => FormatText(text, EFormatType.bold),
-            "italic" => FormatText(text, EFormatType.italic),
-            "strikethrough" => FormatText(text, EFormatType.strikethrough),
-            "underline" => FormatText(text, EFormatType.underline),
-            "fill" => FormatText(text, EFormatType.fill),
-            "center" => FormatText(text,EFormatType.center),
-            "b" => FormatText(text, EFormatType.bold),
-            "i" => FormatText(text, EFormatType.italic),
-            "s" => FormatText(text, EFormatType.strikethrough),
-            "u" => FormatText(text, EFormatType.underline),
-            "f" => FormatText(text, EFormatType.fill),
-            "c" => FormatText(text,EFormatType.center),
+            "bold" => FormatText(text, EFormatType.bold, addReset),
+            "italic" => FormatText(text, EFormatType.italic, addReset),
+            "strikethrough" => FormatText(text, EFormatType.strikethrough, addReset),
+            "underline" => FormatText(text, EFormatType.underline, addReset),
+            "fill" => FormatText(text, EFormatType.fill, addReset),
+            "center" => FormatText(text,EFormatType.center, addReset),
+            "b" => FormatText(text, EFormatType.bold, addReset),
+            "i" => FormatText(text, EFormatType.italic, addReset),
+            "s" => FormatText(text, EFormatType.strikethrough, addReset),
+            "u" => FormatText(text, EFormatType.underline, addReset),
+            "f" => FormatText(text, EFormatType.fill, addReset),
+            "c" => FormatText(text,EFormatType.center, addReset),
             _ => $"{text}"
         };
     }
 
     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
-    public static string ToGodot<T> (
-        T text,
-        EFormatType type
-    )
+    public static string ToGodot<T>(T text, EFormatType type)
     where T : IConvertible
     {
         return type switch
@@ -85,28 +77,24 @@ public static class TextFormatHelper
     }
 
     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
-    public static string ToTerminal<T> (
-        T text,
-        EFormatType type
-    )
+    public static string ToTerminal<T>(T text, EFormatType type, bool addReset = true)
     where T : IConvertible
     {
+        string reset = addReset ? TerminalReset : string.Empty;
+
         return type switch
         {
-            EFormatType.bold => $"\x1b[1m{text}\x1b[0m",
-            EFormatType.italic => $"\x1b[3m{text}\x1b[0m",
-            EFormatType.underline => $"\x1b[4m{text}\x1b[0m",
-            EFormatType.strikethrough => $"\x1b[9m{text}\x1b[0m",
+            EFormatType.bold => $"\x1b[1m{text}{reset}",
+            EFormatType.italic => $"\x1b[3m{text}{reset}",
+            EFormatType.underline => $"\x1b[4m{text}{reset}",
+            EFormatType.strikethrough => $"\x1b[9m{text}{reset}",
             EFormatType.fill => Fill(text),
             EFormatType.center => Center(text),
             _ => $"{text}"
         };
     }
 
-    public static string Center<T>
-    (
-        T text
-    )
+    public static string Center<T>(T text)
     where T : IConvertible
     {
         int windowWidth = Console.WindowWidth is not 0
