@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Confirma.Attributes;
 using Confirma.Extensions;
 
@@ -131,4 +132,182 @@ public class RandomNumberExtensionsTest
 
         _ = action.ConfirmThrows<InvalidOperationException>();
     }
+
+    #region NextGaussianDouble
+    [TestCase]
+    public void NextGaussianDouble_MeanIsCorrect()
+    {
+        const double mean = 10.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        double sum = 0.0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            sum += rg.NextGaussianDouble(mean, standardDeviation);
+        }
+
+        _ = (sum / numSamples).ConfirmCloseTo(mean, 0.1);
+    }
+
+    [TestCase]
+    public void NextGaussianDouble_StandardDeviationIsCorrect()
+    {
+        const double mean = 0.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        double sumOfSquares = 0.0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            double sample = rg.NextGaussianDouble(mean, standardDeviation);
+            sumOfSquares += Math.Pow(sample, 2);
+        }
+
+        double variance = sumOfSquares / numSamples;
+        _ = variance.ConfirmCloseTo(Math.Pow(standardDeviation, 2), 0.1);
+    }
+
+    [TestCase]
+    public void NextGaussianDouble_DistributionIsSymmetric()
+    {
+        const double mean = 0.0;
+        const double standardDeviation = 1.0;
+        const int numSamples = 100000;
+
+        int positiveCount = 0;
+        int negativeCount = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            double sample = rg.NextGaussianDouble(mean, standardDeviation);
+            if (sample > 0)
+            {
+                positiveCount++;
+            }
+            else if (sample < 0)
+            {
+                negativeCount++;
+            }
+        }
+
+        _ = positiveCount.ConfirmCloseTo(negativeCount, 1000);
+    }
+    #endregion NextGaussianDouble
+
+    #region NextExponentialDouble
+    [TestCase]
+    public void NextExponentialDouble_Always_ReturnsNonNegativeValue()
+    {
+        const double lambda = 1.0;
+
+        _ = rg.NextExponentialDouble(lambda).ConfirmGreaterThanOrEqual(0);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_Always_ReturnsDifferentValues()
+    {
+        const double lambda = 1.0;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Distinct().Count().ConfirmEqual(numSamples);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_LargeLambda_ReturnsSmallValues()
+    {
+        const double lambda = 1000.0;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Average().ConfirmLessThan(0.01);
+    }
+
+    [TestCase]
+    public void NextExponentialDouble_SmallLambda_ReturnsLargeValues()
+    {
+        const double lambda = 0.001;
+        const int numSamples = 1000;
+
+        double[] results = new double[numSamples];
+        for (int i = 0; i < numSamples; i++)
+        {
+            results[i] = rg.NextExponentialDouble(lambda);
+        }
+
+        _ = results.Average().ConfirmGreaterThan(100);
+    }
+    #endregion NextExponentialDouble
+
+    #region NextPoissonInt
+    [TestCase]
+    public void NextPoissonInt_ReturnsNonNegativeValue()
+    {
+        const double lambda = 1.0;
+
+        int result = rg.NextPoissonInt(lambda);
+
+        _ = result.ConfirmGreaterThanOrEqual(0);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsZeroWhenLambdaIsZero()
+    {
+        const double lambda = 0.0;
+
+        int result = rg.NextPoissonInt(lambda);
+
+        _ = result.ConfirmEqual(0);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsExpectedMean()
+    {
+        const double lambda = 10.0;
+        const int numSamples = 100000;
+
+        double mean = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            mean += rg.NextPoissonInt(lambda);
+        }
+        mean /= numSamples;
+
+        _ = mean.ConfirmCloseTo(lambda, 0.1);
+    }
+
+    [TestCase]
+    public void NextPoissonInt_ReturnsExpectedVariance()
+    {
+        const double lambda = 10.0;
+        const int numSamples = 100000;
+
+        double mean = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            mean += rg.NextPoissonInt(lambda);
+        }
+        mean /= numSamples;
+
+        double variance = 0;
+        for (int i = 0; i < numSamples; i++)
+        {
+            int sample = rg.NextPoissonInt(lambda);
+            variance += Math.Pow(sample - mean, 2);
+        }
+        variance /= numSamples;
+
+        _ = variance.ConfirmCloseTo(lambda, 0.1);
+    }
+    #endregion NextPoissonInt
 }

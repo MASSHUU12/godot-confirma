@@ -12,11 +12,20 @@ All notable changes to this project will be documented in this file.
   - TestFull.cs
   - test_full.gd
 - Classes:
-  - Mock.cs
-  - CallRecord.cs
+  - Mock
+  - CallRecord
+  - FuzzGenerator
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
+- Enums:
+  - EDistributionType
+- Attributes:
+  - FuzzAttribute
+- Random extensions:
+  - NextGaussianDouble
+  - NextExponentialDouble
+  - NextPoissonInt
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
 - Support for flaky tests.
@@ -24,15 +33,20 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated documentation:
-  - Added note in TESTING.md about script templates, flaky tests & mocking library.
+  - Added info in TESTING.md about script templates, mocking library,
+flaky tests & fuzz testing.
   - Added info about mocking libary in README.md.
   - Updated docs about `Repeat` attribute.
+- Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
+`NextDouble` extensions of `Random` class.
+- Adjusted warnings for `Repeat` attribute.
 - Adjusted `Repeat` attribute to handle flaky tests.
 
 ### Removed
 
 - '>' character from test output.
 - Script run_tests.sh.
+- `GetTestCasesFromMethod` from CsTestDiscovery.cs.
 
 ### Fixed
 
@@ -43,6 +57,7 @@ thrown when passing invalid path to '--confirma-gd-path'.
 - [#221] [GDScript] An error is thrown when path to GDScript tests is empty.
 - [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
 invalid.
+- [#225] Method name in verbose mode has additional space before pipe sign.
 
 ## [0.9.0-beta 2024.10.21]
 
