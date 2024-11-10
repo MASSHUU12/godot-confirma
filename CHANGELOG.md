@@ -28,16 +28,19 @@ All notable changes to this project will be documented in this file.
   - NextPoissonInt
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
+- Support for flaky tests.
 
 ### Changed
 
 - Updated documentation:
-  - Added info in TESTING.md about script templates, mocking library
-& fuzz testing.
+  - Added info in TESTING.md about script templates, mocking library,
+flaky tests & fuzz testing.
   - Added info about mocking libary in README.md.
+  - Updated docs about `Repeat` attribute.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
 `NextDouble` extensions of `Random` class.
 - Adjusted warnings for `Repeat` attribute.
+- Adjusted `Repeat` attribute to handle flaky tests.
 
 ### Removed
 

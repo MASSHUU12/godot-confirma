@@ -40,6 +40,13 @@ Confirma includes a simple library for
 [mocking](https://stackoverflow.com/questions/2665812/what-is-mocking#2666006),
 which is located in the `Confirma.Classes.Mock` namespace.
 
+### Flaky tests
+
+Confirma includes basic support for handling
+[flaky tests](https://www.lambdatest.com/learning-hub/flaky-test).
+
+Flaky tests use the [Repeat](#repeat) attribute.
+
 ### Fuzz testing
 
 Confirma includes basic support for
@@ -120,6 +127,12 @@ so the order in which the attributes are defined matters.
 
 The attribute optionally takes a flag as a second argument
 indicating whether to stop running the test after the first error encountered.
+
+This attribute also allows the test to be marked as [flaky](#flaky-tests).
+Meaning that if it fails, it will be restarted up to a certain number of times
+before it is considered a failure.
+The `Backoff` variable allows to set the interval in milliseconds between
+successive attempts to execute the test.
 
 ### Lifecycle attributes
 
