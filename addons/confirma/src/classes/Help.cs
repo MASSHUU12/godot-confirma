@@ -8,7 +8,7 @@ public static class Help
 {
     public static async void ShowHelpPage(string pageName)
     {
-        var file = await Json.LoadFromFile<HelpFile>($"{Plugin.GetPluginLocation()}src/help_pages/{pageName}.json");
+        var file = await Json.LoadFromFile<HelpFile>($"{Plugin.GetPluginLocation()}docs/help_pages/{pageName}.json");
 
         if (file is not null)
         {
