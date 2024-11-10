@@ -20,11 +20,13 @@
 ### Features
 
 - JSON output
+- Flaky tests
 - Parametrized tests
 - Parallelized tests
 - Simple mocking library
 - Extensions for Random class
-- Accessible via editor or CLI.
+- Accessible via editor or CLI
+- Basic support for fuzz testing
 - Simple syntax for writing tests
 - Writing and executing tests in C# and GDScript
 - Custom assertion library (over 130 assertions)
