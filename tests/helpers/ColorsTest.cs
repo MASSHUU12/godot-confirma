@@ -25,7 +25,7 @@ public class ColorsTest
 
         _ = result.ConfirmEqual(
             Log.IsHeadless
-                ? "\x1b[48;2;255;0;0m\x1b[38;2;255;0;0mSome Text\x1b[0m\x1b[0m"
+                ? "\x1b[48;2;255;0;0m\x1b[38;2;255;0;0mSome Text\x1b[0m"
                 : "[bgcolor=#ff0000ff][color=#ff0000ff]Some Text[/color][/bgcolor]"
         );
     }

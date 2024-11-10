@@ -29,7 +29,7 @@ public class CodeElementTest
             Log.IsHeadless
             ? $"\u001b[3m\u001b[48;2;13;17;23m\u001b[38;2;201;209;217mLine1{new string(' ',Console.WindowWidth-5)}" +
               $"\nLine2{new string(' ',Console.WindowWidth-5)}" +
-              $"\nLine3{new string(' ',Console.WindowWidth-5)}\u001b[0m\u001b[0m\u001b[0m"
+              $"\nLine3{new string(' ',Console.WindowWidth-5)}\x1b[0m"
             : "[i][bgcolor=#0d1117ff][color=#c9d1d9ff]Line\nLine2\nLine3[/color][/bgcolor][/i]" //fixme add fill space after fixing fill format
         );
     }

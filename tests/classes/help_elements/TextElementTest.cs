@@ -47,7 +47,7 @@ public class TextElementTest
         string result = element.Format("Hello World!");
 
         result.ConfirmEqual(Log.IsHeadless
-        ? "\u001b[4m\u001b[9m\u001b[3m\u001b[1mHello World!\u001b[0m\u001b[0m\u001b[0m\u001b[0m"
+        ? "\u001b[4m\u001b[9m\u001b[3m\u001b[1mHello World!"
         : "[u][s][i][b]Hello World![/b][/i][/s][/u]"
         );
     }
@@ -63,7 +63,7 @@ public class TextElementTest
         string result = element.Format("Hello World!");
 
         result.ConfirmEqual(Log.IsHeadless
-        ? "\u001b[4m\u001b[9m\u001b[3m\u001b[1mHello World!\u001b[0m\u001b[0m\u001b[0m\u001b[0m"
+        ? "\u001b[4m\u001b[9m\u001b[3m\u001b[1mHello World!"
         : "[u][s][i][b]Hello World![/b][/i][/s][/u]"
         );
     }
