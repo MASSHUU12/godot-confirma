@@ -41,6 +41,8 @@ flaky tests & fuzz testing.
 `NextDouble` extensions of `Random` class.
 - Adjusted warnings for `Repeat` attribute.
 - Adjusted `Repeat` attribute to handle flaky tests.
+- Optimized `ConfirmElementsAreOrdered<T>` and `ConfirmElementsAreEquivalent<T>`
+in `ConfirmIEnumerableExtensions`.
 
 ### Removed
 
