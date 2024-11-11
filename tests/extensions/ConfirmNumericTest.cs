@@ -251,4 +251,40 @@ public class ConfirmNumericTest
         );
     }
     #endregion ConfirmCloseTo
+
+    #region ConfirmIsNaN
+    [TestCase]
+    public void ConfirmIsNaN_WhenIsNaN()
+    {
+        _ = double.NaN.ConfirmIsNaN();
+    }
+
+    [TestCase]
+    public void ConfirmIsNaN_WhenIsNotNaN()
+    {
+        Action action = static () => 5d.ConfirmIsNaN();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNaN failed: Expected 5.00000 to be NaN."
+        );
+    }
+    #endregion ConfirmIsNaN
+
+    #region ConfirmIsNotNaN
+    [TestCase]
+    public void ConfirmIsNotNaN_WhenIsNotNaN()
+    {
+        _ = 5d.ConfirmIsNotNaN();
+    }
+
+    [TestCase]
+    public void ConfirmIsNotNaN_WhenIsNaN()
+    {
+        Action action = static () => double.NaN.ConfirmIsNotNaN();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmIsNotNaN failed: Expected value not to be NaN."
+        );
+    }
+    #endregion ConfirmIsNotNaN
 }
