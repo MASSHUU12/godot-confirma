@@ -37,7 +37,7 @@ public static class Colors
         {
             coloredText = ColorBackground(coloredText, new Color(BgColor), false);
         }
-        return addReset
+        return addReset && Log.IsHeadless
             ? coloredText + TerminalReset
             : coloredText;
     }

@@ -23,7 +23,7 @@ public class LinkElementTest
         result.ConfirmEqual(
             Log.IsHeadless
             ? "\u001b[4m\u001b[38;2;42;123;222m\u001b]8;;https://www.youtube.com/watch?v=gvYfRiJQIX8\u001b\\link\u001b]8;;\u001b\\\x1b[0m"
-            : "[u][color=#2a7bdeff][url=https://www.youtube.com/watch?v=gvYfRiJQIX8]link[/url][/color][/u]"
+            : "[color=#2a7bdeff][u][url=https://www.youtube.com/watch?v=gvYfRiJQIX8]link[/url][/u][/color]"
         );
     }
 
