@@ -414,6 +414,54 @@ public class ConfirmIEnumerableTest
             + "Expected elements to be in order."
         );
     }
+
+    [TestCase]
+    public void ConfirmElementsAreOrdered_Ordered_ReturnsOriginalSequence()
+    {
+        int[] actual = new[] { 1, 2, 3 };
+        IEnumerable<int> result = actual.ConfirmElementsAreOrdered(
+            Comparer<int>.Default
+        );
+
+        _ = actual.ConfirmEqual(result);
+    }
+
+    [TestCase]
+    public void ConfirmElementsAreOrdered_Unordered_ThrowsConfirmAssertException()
+    {
+        Action action = static () => new[] { 3, 2, 1 }
+            .ConfirmElementsAreOrdered(Comparer<int>.Default);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreOrdered failed: "
+            + "Expected elements to be in order."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmElementsAreOrdered_CustomComparer_ReturnsOriginalSequence()
+    {
+        string[] actual = new[] { "a", "b", "c" };
+        IEnumerable<string> result = actual.ConfirmElementsAreOrdered(
+            StringComparer.OrdinalIgnoreCase
+        );
+
+        _ = actual.ConfirmEqual(result);
+    }
+
+    [TestCase]
+    public void ConfirmElementsAreOrdered_CustomComparer_ThrowsConfirmAssertException()
+    {
+        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+        Action action = static () => new[] { "a", "c", "b" }
+            .ConfirmElementsAreOrdered(StringComparer.OrdinalIgnoreCase);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmElementsAreOrdered failed: "
+            + "Expected elements to be in order."
+        );
+    }
     #endregion ConfirmElementsAreOrdered
 
     #region ConfirmElementsAreInRange

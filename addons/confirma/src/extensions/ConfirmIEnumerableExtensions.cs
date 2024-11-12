@@ -299,6 +299,7 @@ public static class ConfirmIEnumerableExtensions
         );
     }
 
+    #region ConfirmElementsAreOrdered
     public static IEnumerable<T> ConfirmElementsAreOrdered<T>(
         this IEnumerable<T> actual,
         string? message = null
@@ -318,6 +319,28 @@ public static class ConfirmIEnumerableExtensions
             message
         );
     }
+
+    public static IEnumerable<T> ConfirmElementsAreOrdered<T>(
+        this IEnumerable<T> actual,
+        IComparer<T> comparer,
+        string? message = null
+    )
+    {
+        if (actual.Order(comparer).SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements to be in order.",
+            nameof(ConfirmElementsAreOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+    #endregion ConfirmElementsAreOrdered
 
     public static IEnumerable<T> ConfirmElementsAreInRange<T>(
         this IEnumerable<T> actual,
