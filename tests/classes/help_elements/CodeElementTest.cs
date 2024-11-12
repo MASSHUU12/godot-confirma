@@ -7,7 +7,6 @@ using Confirma.Helpers;
 namespace Confirma.Tests;
 
 [TestClass]
-[Parallelizable]
 [Category("FileElement")]
 public class CodeElementTest
 {

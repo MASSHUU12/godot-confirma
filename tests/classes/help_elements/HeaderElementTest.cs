@@ -5,7 +5,6 @@ using Confirma.Extensions;
 namespace Confirma.Tests;
 
 [TestClass]
-[Parallelizable]
 [Category("FileElement")]
 public class HeaderElementTest
 {
