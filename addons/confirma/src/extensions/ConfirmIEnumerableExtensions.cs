@@ -342,6 +342,49 @@ public static class ConfirmIEnumerableExtensions
     }
     #endregion ConfirmElementsAreOrdered
 
+    #region ConfirmElementsAreNotOrdered
+    public static IEnumerable<T> ConfirmElementsAreNotOrdered<T>(
+        this IEnumerable<T> actual,
+        string? message = null
+    )
+    {
+        if (!actual.Order().SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements not to be in order.",
+            nameof(ConfirmElementsAreNotOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+
+    public static IEnumerable<T> ConfirmElementsAreNotOrdered<T>(
+        this IEnumerable<T> actual,
+        IComparer<T> comparer,
+        string? message = null
+    )
+    {
+        if (!actual.Order(comparer).SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements not to be in order.",
+            nameof(ConfirmElementsAreNotOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+    #endregion ConfirmElementsAreNotOrdered
+
     public static IEnumerable<T> ConfirmElementsAreInRange<T>(
         this IEnumerable<T> actual,
         T from,
