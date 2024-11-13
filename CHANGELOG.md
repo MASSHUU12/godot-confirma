@@ -20,6 +20,8 @@ All notable changes to this project will be documented in this file.
   - ConfirmNotInstanceOf
   - ConfirmIsNaN
   - ConfirmIsNotNaN
+  - ConfirmElementsAreOrdered w/ comparer
+  - ConfirmElementsAreNotOrdered w/ & w/o comparer
 - Enums:
   - EDistributionType
 - Attributes:
