@@ -35,7 +35,7 @@
         },
         {
             "type":"text",
-            "text":"Launches tests\nargument: test_class_name - name of targeted class to be run\n"
+            "text":"Launches tests\nargument: test_class_name - name of targeted class to run\n"
         },
         {
             "type": "header",
@@ -63,7 +63,7 @@
         },
         {
             "type":"text",
-            "text":"Displays more information availible about the tests being run\n"
+            "text":"Displays more information available about the tests being run\n"
         },
         {
             "type":"header",
