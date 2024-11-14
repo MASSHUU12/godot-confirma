@@ -249,7 +249,7 @@ public partial class ConfirmaAutoload : Node
 
         if (!Engine.IsEditorHint())
         {
-            GetTree().Quit();
+            //GetTree().Quit();
         }
     }
 }
