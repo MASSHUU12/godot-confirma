@@ -33,6 +33,6 @@ public static class Help
             return;
         }
 
-        Log.Print(Colors.ColorText($"Page: `{pageName}`, not found or failed to\n", Colors.Error));
+        Log.Print(Colors.ColorText($"Page: `{pageName}`, not found or failed to load\n", Colors.Error));
     }
 }

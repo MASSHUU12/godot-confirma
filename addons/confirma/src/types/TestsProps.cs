@@ -14,6 +14,7 @@ public struct TestsProps
     public ConfirmaAutoload? Autoload { get; set; }
 
     public bool RunTests { get; set; }
+    public bool ShowHelp { get; set; }
     public bool IsVerbose { get; set; }
     public bool IsHeadless { get; set; }
     public bool ExitOnFail { get; set; }
