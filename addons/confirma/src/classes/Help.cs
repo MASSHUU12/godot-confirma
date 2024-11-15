@@ -1,12 +1,13 @@
 using Confirma.Deserialization.Json;
 using Confirma.Helpers;
 using Confirma.Classes.HelpElements;
+using System.Threading.Tasks;
 
 namespace Confirma.Classes;
 
 public static class Help
 {
-    public static async void ShowHelpPage(string pageName)
+    public static async Task ShowHelpPage(string pageName)
     {
         var file = await Json.LoadFromFile<HelpFile>($"{Plugin.GetPluginLocation()}docs/help_pages/{pageName}.json");
 

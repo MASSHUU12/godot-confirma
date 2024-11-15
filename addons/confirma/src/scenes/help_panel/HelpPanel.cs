@@ -6,15 +6,18 @@ namespace Confirma.Scenes;
 
 public partial class HelpPanel : Control
 {
-    public override void _Ready()
+    public override async void _Ready()
     {
         Log.RichOutput = GetNode<RichTextLabel>("%Output");
         Log.RichOutput.MetaClicked += _on_meta_clicked;
 
         ConfirmaAutoload autoload = GetNodeOrNull<ConfirmaAutoload>("/root/Confirma");
 
-        Help.ShowHelpPage(autoload.Props.SelectedHelpPage);
-
+        await Help.ShowHelpPage(autoload.Props.SelectedHelpPage);
+        if (Log.IsHeadless)
+        {
+            GetTree().Quit();
+        }
     }
 
     public void _on_meta_clicked (Variant meta)
