@@ -59,21 +59,11 @@ public partial class ConfirmaAutoload : Node
 
             if (arg.StartsWith(prefix + "help", InvariantCulture))
             {
+                Props.ShowHelp = true;
                 Props.SelectedHelpPage = ParseArgumentContent(arg).Equals(string.Empty)
                 ? "default"
                 : ParseArgumentContent(arg);
 
-                if (!Props.IsHeadless)
-                {
-                    _ = GetTree().CallDeferred("change_scene_to_file",
-                     $"{Plugin.GetPluginLocation()}src/scenes/help_panel/help_panel.tscn");
-
-                     _usedConfirmaApi = false; //fixme temporal
-                    return true;
-                }
-
-                Help.ShowHelpPage(Props.SelectedHelpPage);
-                _usedConfirmaApi = false; //fixme temporal
                 return true;
             }
 
@@ -233,6 +223,13 @@ public partial class ConfirmaAutoload : Node
 
     private void ChangeScene()
     {
+        if (Props.ShowHelp)
+        {
+            _ = GetTree().CallDeferred("change_scene_to_file",
+            $"{Plugin.GetPluginLocation()}src/scenes/help_panel/help_panel.tscn");
+            return;
+        }
+
         if (!Props.RunTests)
         {
             if (_usedConfirmaApi)
