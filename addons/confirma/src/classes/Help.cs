@@ -2,12 +2,13 @@ using Confirma.Deserialization.Json;
 using Confirma.Helpers;
 using Confirma.Classes.HelpElements;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Confirma.Classes;
 
 public static class Help
 {
-    public static async Task ShowHelpPage(string pageName)
+    public static async Task<bool> ShowHelpPage(string pageName)
     {
         var file = await Json.LoadFromFile<HelpFile>($"{Plugin.GetPluginLocation()}docs/help_pages/{pageName}.json");
 
@@ -31,9 +32,10 @@ public static class Help
                         break;
                 }
             }
-            return;
+            return true;
         }
 
-        Log.Print(Colors.ColorText($"Page: `{pageName}`, not found or failed to load\n", Colors.Error));
+        Log.PrintError($"Page: `{pageName}`, not found or failed to load");
+        return false;
     }
 }

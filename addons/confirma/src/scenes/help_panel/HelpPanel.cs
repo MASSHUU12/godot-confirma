@@ -13,7 +13,13 @@ public partial class HelpPanel : Control
 
         ConfirmaAutoload autoload = GetNodeOrNull<ConfirmaAutoload>("/root/Confirma");
 
-        await Help.ShowHelpPage(autoload.Props.SelectedHelpPage);
+        bool success = await Help.ShowHelpPage(autoload.Props.SelectedHelpPage);
+        if (!success)
+        {
+            GetTree().Quit(1);
+            return;
+        }
+
         if (Log.IsHeadless)
         {
             GetTree().Quit();
