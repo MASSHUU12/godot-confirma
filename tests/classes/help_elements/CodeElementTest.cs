@@ -11,7 +11,7 @@ namespace Confirma.Tests;
 public class CodeElementTest
 {
     [TestCase]
-    public void GetText_ReturnsFormatedText()
+    public void GetText_ReturnsFormattedText()
     {
         CodeElement element = new ()
         {
@@ -29,7 +29,10 @@ public class CodeElementTest
             ? $"\u001b[3m\u001b[48;2;13;17;23m\u001b[38;2;201;209;217mLine1{new string(' ',Console.WindowWidth-5)}" +
               $"\nLine2{new string(' ',Console.WindowWidth-5)}" +
               $"\nLine3{new string(' ',Console.WindowWidth-5)}\x1b[0m"
-            : "[bgcolor=#0d1117ff][color=#c9d1d9ff][i]Line1\nLine2\nLine3[/i][/color][/bgcolor]" //fixme add fill space after fixing fill format
+            : $"[bgcolor=#0d1117ff][color=#c9d1d9ff][i]Line1{new string('\u00A0',374)}\n" +
+            $"Line2{new string('\u00A0',374)}\n" +
+            $"Line3{new string('\u00A0',374)}" +
+            "[/i][/color][/bgcolor]" //fixme add fill space after fixing fill format
         );
     }
 
