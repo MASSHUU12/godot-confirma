@@ -154,6 +154,48 @@ public static class ConfirmNumericExtensions
     }
     #endregion ConfirmIsZero
 
+    #region ConfirmIsNaN
+    public static double ConfirmIsNaN(
+        this double actual,
+        string? message = null
+    )
+    {
+        if (double.IsNaN(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected {1} to be NaN.",
+            nameof(ConfirmIsNaN),
+            new NumericFormatter(),
+            actual,
+            null,
+            message
+        );
+    }
+
+    public static double ConfirmIsNotNaN(
+        this double actual,
+        string? message = null
+    )
+    {
+        if (!double.IsNaN(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected value not to be NaN.",
+            nameof(ConfirmIsNotNaN),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+    #endregion ConfirmIsNaN
+
     public static T ConfirmIsOdd<T>(this T actual, string? message = null)
         where T : INumber<T>
     {

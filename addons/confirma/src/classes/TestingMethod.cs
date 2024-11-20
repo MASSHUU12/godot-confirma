@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
@@ -32,7 +33,11 @@ public class TestingMethod
     {
         foreach (TestCase test in TestCases)
         {
-            for (ushort i = 0; i <= (test.Repeat?.Repeat ?? 0); i++)
+            int iterations = test.Repeat?.IsFlaky == true
+                ? 0
+                : test.Repeat?.Repeat ?? 0;
+
+            for (ushort i = 0; i <= iterations; i++)
             {
                 IgnoreAttribute? attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
 
@@ -56,45 +61,68 @@ public class TestingMethod
                     continue;
                 }
 
-                try
+                int repeats = 0;
+                int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
+                int backoff = test.Repeat?.Backoff ?? 0;
+
+                do
                 {
-                    test.Run(instance);
-                    Result.TestsPassed++;
-
-                    TestLog log = new(
-                        ELogType.Method,
-                        Name,
-                        Passed,
-                        test.Params,
-                        null,
-                        ELangType.CSharp
-                    );
-                    Result.TestLogs.Add(log);
-                }
-                catch (ConfirmAssertException e)
-                {
-                    Result.TestsFailed++;
-
-                    TestLog log = new(
-                        ELogType.Method,
-                        Name,
-                        Failed,
-                        test.Params,
-                        e.Message,
-                        ELangType.CSharp
-                    );
-                    Result.TestLogs.Add(log);
-
-                    if (test.Repeat?.FailFast == true)
+                    try
                     {
+                        test.Run(instance);
+                        Result.TestsPassed++;
+
+                        TestLog log = new(
+                            ELogType.Method,
+                            Name,
+                            Passed,
+                            test.Params,
+                            null,
+                            ELangType.CSharp
+                        );
+                        Result.TestLogs.Add(log);
                         break;
                     }
-
-                    if (props.ExitOnFail)
+                    catch (ConfirmAssertException e)
                     {
-                        props.CallExitOnFailure();
+                        if (maxRepeats != 0 && repeats != maxRepeats)
+                        {
+                            repeats++;
+                            if (backoff != 0)
+                            {
+                                // Workaround for:
+                                // https://github.com/godotengine/godot/issues/94510
+                                Task task = Task.Run(
+                                    async () => await Task.Delay(backoff)
+                                );
+                                task.Wait();
+                            }
+                            continue;
+                        }
+
+                        Result.TestsFailed++;
+
+                        TestLog log = new(
+                            ELogType.Method,
+                            Name,
+                            Failed,
+                            test.Params,
+                            e.Message,
+                            ELangType.CSharp
+                        );
+                        Result.TestLogs.Add(log);
+
+                        if (test.Repeat?.FailFast == true)
+                        {
+                            break;
+                        }
+
+                        if (props.ExitOnFail)
+                        {
+                            props.CallExitOnFailure();
+                        }
                     }
-                }
+                } while (repeats < maxRepeats);
             }
         }
 

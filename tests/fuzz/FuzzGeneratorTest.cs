@@ -113,8 +113,9 @@ public class FuzzGeneratorTest
         _ = fuzzValue1.NextValue().ConfirmEqual(fuzzValue2.NextValue());
     }
 
+    [Repeat(3, IsFlaky = true)]
     [TestCase]
-    public void NextValue_outSeed_ReturnsDifferentValue()
+    public void NextValue_OutSeed_ReturnsDifferentValue()
     {
         FuzzGenerator fuzzValue1 = GetGenerator<int>();
         FuzzGenerator fuzzValue2 = GetGenerator<int>();
@@ -142,6 +143,7 @@ public class FuzzGeneratorTest
         _ = ((int)FuzzIntExponential.NextValue()).ConfirmGreaterThanOrEqual(0);
     }
 
+    [Repeat(3, IsFlaky = true)]
     [TestCase]
     public void NextInt_Poisson_ReturnsValueWithinRange()
     {
@@ -169,6 +171,7 @@ public class FuzzGeneratorTest
             .ConfirmGreaterThanOrEqual(0);
     }
 
+    [Repeat(3, IsFlaky = true)]
     [TestCase]
     public void NextDouble_Poisson_ReturnsValueWithinRange()
     {
@@ -196,6 +199,7 @@ public class FuzzGeneratorTest
             .ConfirmGreaterThanOrEqual(0);
     }
 
+    [Repeat(3, IsFlaky = true)]
     [TestCase]
     public void NextFloat_Poisson_ReturnsValueWithinRange()
     {

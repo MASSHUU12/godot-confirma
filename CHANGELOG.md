@@ -30,6 +30,10 @@ All notable changes to this project will be documented in this file.
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
+  - ConfirmIsNaN
+  - ConfirmIsNotNaN
+  - ConfirmElementsAreOrdered w/ comparer
+  - ConfirmElementsAreNotOrdered w/ & w/o comparer
 - Enums:
   - EFormatType
   - EDistributionType
@@ -41,6 +45,8 @@ All notable changes to this project will be documented in this file.
   - NextPoissonInt
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
+- Support for flaky tests.
+- Ability to ignore tests in headless mode.
 
 ### Changed
 
@@ -53,12 +59,16 @@ All notable changes to this project will be documented in this file.
   - Renamed `ToGodot` to `TextToGodot`
 - Added `LoadFromFile` to `Json` class
 - Updated documentation:
-  - Added info in TESTING.md about script templates, mocking library
-& fuzz testing.
+  - Added info in TESTING.md about script templates, mocking library,
+flaky tests & fuzz testing.
   - Added info about mocking libary in README.md.
+  - Updated docs about `Repeat` and `Ignore` attribute.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
 `NextDouble` extensions of `Random` class.
 - Adjusted warnings for `Repeat` attribute.
+- Adjusted `Repeat` attribute to handle flaky tests.
+- Optimized `ConfirmElementsAreOrdered<T>` and `ConfirmElementsAreEquivalent<T>`
+in `ConfirmIEnumerableExtensions`.
 
 ### Removed
 
@@ -75,6 +85,7 @@ thrown when passing invalid path to '--confirma-gd-path'.
 - [#221] [GDScript] An error is thrown when path to GDScript tests is empty.
 - [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
 invalid.
+- [#225] Method name in verbose mode has additional space before pipe sign.
 
 ## [0.9.0-beta 2024.10.21]
 

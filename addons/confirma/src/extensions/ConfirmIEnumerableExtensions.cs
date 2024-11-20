@@ -299,12 +299,13 @@ public static class ConfirmIEnumerableExtensions
         );
     }
 
+    #region ConfirmElementsAreOrdered
     public static IEnumerable<T> ConfirmElementsAreOrdered<T>(
         this IEnumerable<T> actual,
         string? message = null
     )
     {
-        if (actual.OrderBy(static x => x).SequenceEqual(actual))
+        if (actual.Order().SequenceEqual(actual))
         {
             return actual;
         }
@@ -318,6 +319,71 @@ public static class ConfirmIEnumerableExtensions
             message
         );
     }
+
+    public static IEnumerable<T> ConfirmElementsAreOrdered<T>(
+        this IEnumerable<T> actual,
+        IComparer<T> comparer,
+        string? message = null
+    )
+    {
+        if (actual.Order(comparer).SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements to be in order.",
+            nameof(ConfirmElementsAreOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+    #endregion ConfirmElementsAreOrdered
+
+    #region ConfirmElementsAreNotOrdered
+    public static IEnumerable<T> ConfirmElementsAreNotOrdered<T>(
+        this IEnumerable<T> actual,
+        string? message = null
+    )
+    {
+        if (!actual.Order().SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements not to be in order.",
+            nameof(ConfirmElementsAreNotOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+
+    public static IEnumerable<T> ConfirmElementsAreNotOrdered<T>(
+        this IEnumerable<T> actual,
+        IComparer<T> comparer,
+        string? message = null
+    )
+    {
+        if (!actual.Order(comparer).SequenceEqual(actual))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "Expected elements not to be in order.",
+            nameof(ConfirmElementsAreNotOrdered),
+            null,
+            null,
+            null,
+            message
+        );
+    }
+    #endregion ConfirmElementsAreNotOrdered
 
     public static IEnumerable<T> ConfirmElementsAreInRange<T>(
         this IEnumerable<T> actual,
@@ -348,10 +414,7 @@ public static class ConfirmIEnumerableExtensions
         string? message = null
     )
     {
-        if (actual
-            .OrderBy(static x => x)
-            .SequenceEqual(expected.OrderBy(static x => x))
-        )
+        if (actual.Order().SequenceEqual(expected.Order()))
         {
             return actual;
         }
