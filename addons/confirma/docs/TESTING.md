@@ -105,8 +105,9 @@ or to exclude them from running.
 
 Ignore class/method during testing.
 
-Can ignore always, only when run from the editor
+Can ignore always, only when run in editor/headless mode
 or when tests are not run from the specified category.
+
 The third option can be a bit confusing,
 but allows creating tests that will not be always run,
 but only under certain circumstances.
