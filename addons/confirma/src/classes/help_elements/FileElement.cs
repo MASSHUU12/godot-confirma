@@ -38,8 +38,6 @@ public abstract class FileElement
         return text;
     }
 
-
-//todo write tests for this method (After fixing issue with fill)
     public virtual string GetText()
     {
         return Log.IsHeadless

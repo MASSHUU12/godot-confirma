@@ -32,7 +32,7 @@ public class CodeElementTest
             : $"[bgcolor=#0d1117ff][color=#c9d1d9ff][i]Line1{new string('\u00A0',374)}\n" +
             $"Line2{new string('\u00A0',374)}\n" +
             $"Line3{new string('\u00A0',374)}" +
-            "[/i][/color][/bgcolor]" //fixme add fill space after fixing fill format
+            "[/i][/color][/bgcolor]"
         );
     }
 
