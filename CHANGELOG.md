@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
 - Script test.sh.
 - Library allowing to mock interfaces and classes.
 - Support for flaky tests.
+- Ability to ignore tests in headless mode.
 
 ### Changed
 
@@ -40,7 +41,7 @@ All notable changes to this project will be documented in this file.
   - Added info in TESTING.md about script templates, mocking library,
 flaky tests & fuzz testing.
   - Added info about mocking libary in README.md.
-  - Updated docs about `Repeat` attribute.
+  - Updated docs about `Repeat` and `Ignore` attribute.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
 `NextDouble` extensions of `Random` class.
 - Adjusted warnings for `Repeat` attribute.
