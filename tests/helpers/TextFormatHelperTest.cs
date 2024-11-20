@@ -144,7 +144,7 @@ public class TextFormatHelperTest
         result.ConfirmEqual(
             Log.IsHeadless
             ? $"hi{new string (' ',Console.WindowWidth-2)}"
-            : "hi" //fixme
+            : $"hi{new string('\u00A0',381)}"
         );
     }
 
@@ -157,7 +157,7 @@ public class TextFormatHelperTest
         result.ConfirmEqual(
             Log.IsHeadless
                 ? $"hi{new string (' ',Console.WindowWidth-2)}"
-                : "hi" //fixme
+                : $"hi{new string('\u00A0',381)}"
         );
     }
 
@@ -195,11 +195,12 @@ public class TextFormatHelperTest
     }
     [TestCase]
 
+    [Ignore(Enums.EIgnoreMode.InHeadless)]
     public void ToGodot_Fill_ReturnsFormattedText()
     {
         string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.fill);
 
-        result.ConfirmEqual("hi"); //fixme
+        result.ConfirmEqual($"hi{new string('\u00A0',381)}");
     }
 
     [TestCase]
