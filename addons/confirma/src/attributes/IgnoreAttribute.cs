@@ -38,6 +38,7 @@ public class IgnoreAttribute : Attribute
                 && target.Name != Category)
                 || string.IsNullOrEmpty(target.Name)
             ),
+            EIgnoreMode.InHeadless => DisplayServer.GetName() == "headless",
             _ => false
         };
     }

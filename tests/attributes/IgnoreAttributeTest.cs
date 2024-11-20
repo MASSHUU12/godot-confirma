@@ -77,4 +77,17 @@ public class IgnoreAttributeTest
             .IsIgnored(new(Name: "Lorem"))
             .ConfirmEqual(Engine.IsEditorHint());
     }
+
+    [TestCase]
+    public void IsIgnored_Headless_ReturnsCorrectValue()
+    {
+        IgnoreAttribute attr = new(EIgnoreMode.InHeadless);
+
+        _ = attr.IsIgnored(new())
+            .ConfirmEqual(DisplayServer.GetName() == "headless");
+    }
+
+    [TestCase]
+    [Ignore(EIgnoreMode.InHeadless, "Lorem")]
+    public void Test() { }
 }
