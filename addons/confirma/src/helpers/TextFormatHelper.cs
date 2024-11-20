@@ -70,7 +70,7 @@ public static class TextFormatHelper
             EFormatType.italic => $"[i]{text}[/i]",
             EFormatType.underline => $"[u]{text}[/u]",
             EFormatType.strikethrough => $"[s]{text}[/s]",
-            EFormatType.fill => Fill(text),
+            EFormatType.fill => FillToGodot(text),
             EFormatType.center => $"[center]{text}[/center]",
             _ => $"{text}"
         };
@@ -88,7 +88,7 @@ public static class TextFormatHelper
             EFormatType.italic => $"\x1b[3m{text}{reset}",
             EFormatType.underline => $"\x1b[4m{text}{reset}",
             EFormatType.strikethrough => $"\x1b[9m{text}{reset}",
-            EFormatType.fill => Fill(text),
+            EFormatType.fill => FillToTerminal(text),
             EFormatType.center => Center(text),
             _ => $"{text}"
         };
@@ -107,7 +107,7 @@ public static class TextFormatHelper
 
         if (windowWidth <= 0) { return strText; }
 
-        return  Fill(new string (' ',windowWidth) + strText);
+        return  FillToTerminal(new string (' ',windowWidth) + strText);
     }
 
     #region Fill
