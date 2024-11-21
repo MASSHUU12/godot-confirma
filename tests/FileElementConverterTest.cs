@@ -11,14 +11,14 @@ namespace Confirma.Tests;
 [Parallelizable]
 public class FileElementConverterTest
 {
-    private readonly JsonSerializerOptions _options = new JsonSerializerOptions
+    private readonly JsonSerializerOptions _options = new()
     {
         Converters = { new FileElementConverter() },
         PropertyNameCaseInsensitive = true
     };
 
     [TestCase]
-    public void Converter_text_returnsTextElement ()
+    public void Converter_text_returnsTextElement()
     {
         string TestData = @"
         {
@@ -50,7 +50,7 @@ public class FileElementConverterTest
     }
 
     [TestCase]
-    public void Converter_header_returnsHeaderElement ()
+    public void Converter_header_returnsHeaderElement()
     {
         string TestData = @"
         {
@@ -75,7 +75,7 @@ public class FileElementConverterTest
     }
 
     [TestCase]
-    public void Converter_code_returnsCodeElement ()
+    public void Converter_code_returnsCodeElement()
     {
         string TestData = @"
         {
@@ -94,7 +94,7 @@ public class FileElementConverterTest
     }
 
     [TestCase]
-    public void Converter_link_returnsLinkElement ()
+    public void Converter_link_returnsLinkElement()
     {
         string TestData = @"
         {
@@ -117,7 +117,7 @@ public class FileElementConverterTest
     [TestCase("randomType")]
     [TestCase("type")]
     [TestCase("line")]
-    public void Converter_unsupported_throwsNotSupportedException (string type)
+    public void Converter_unsupported_throwsNotSupportedException(string type)
     {
         string TestData = $@"
         {{
@@ -130,7 +130,7 @@ public class FileElementConverterTest
     }
 
     [TestCase]
-    public void Converter_misplacedTypeProperty_throwsJsonException ()
+    public void Converter_misplacedTypeProperty_throwsJsonException()
     {
         string TestData = $@"
         {{
@@ -147,7 +147,7 @@ public class FileElementConverterTest
     [TestCase(typeof(HeaderElement))]
     [TestCase(typeof(LinkElement))]
     [TestCase(typeof(CodeElement))]
-    public void CanConvert_FileElementSubClass_returnsTrue (Type type)
+    public void CanConvert_FileElementSubClass_returnsTrue(Type type)
     {
         FileElementConverter converter = new FileElementConverter();
 
@@ -157,7 +157,7 @@ public class FileElementConverterTest
     [TestCase(typeof(string))]
     [TestCase(typeof(int))]
     [TestCase(typeof(float))]
-    public void CanConvert_OtherClass_returnsFalse (Type type)
+    public void CanConvert_OtherClass_returnsFalse(Type type)
     {
         FileElementConverter converter = new FileElementConverter();
 

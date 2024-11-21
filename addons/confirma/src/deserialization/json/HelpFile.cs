@@ -8,6 +8,7 @@ public class HelpFile
 {
     [JsonPropertyName("version")]
     public int Version { get; set; }
+
     [JsonPropertyName("data")]
     public List<FileElement> Data { get; set; } = new ();
 }

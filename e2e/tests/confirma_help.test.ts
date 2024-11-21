@@ -27,4 +27,3 @@ test("Passed existing page, returns help page", async() => {
     expect(stdout.toString()).toContain("Arguments");
     expect(stderr.toString()).toBeEmpty();
 });
-``

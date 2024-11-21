@@ -46,12 +46,13 @@ public static class Json
         return true;
     }
 
-    public static async Task<T?> LoadFromFile <T>(string fileName)
+    public static async Task<T?> LoadFromFile<T>(string fileName)
     {
         fileName = ProjectSettings.GlobalizePath(fileName);
+
         try
         {
-            await using FileStream stream = new FileStream(fileName,FileMode.Open);
+            await using FileStream stream = new FileStream(fileName, FileMode.Open);
             return await JsonSerializer.DeserializeAsync<T>(stream);
         }
         catch(Exception e) when (

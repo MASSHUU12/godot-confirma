@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Confirma.Classes.HelpElements;
 
 public class HeaderElement : FileElement
 {
-    [JsonPropertyName("level")]
     public int Level { get; set; }
 
     public override string GetText()

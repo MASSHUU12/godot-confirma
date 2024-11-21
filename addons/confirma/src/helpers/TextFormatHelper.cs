@@ -8,11 +8,11 @@ namespace Confirma.Helpers;
 
 public static class TextFormatHelper
 {
-    public static readonly string TerminalReset = "\x1b[0m";
+    private static readonly string _terminalReset = Colors.TerminalReset;
 
-    public static int GetTagsCompactedSize (string text)
+    public static int GetTagsCompactedSize(string text)
     {
-        MatchCollection matches = Regex.Matches(text,@"\[([A-Za-z0-9\/=#]*\])");
+        MatchCollection matches = Regex.Matches(text, @"\[([A-Za-z0-9\/=#]*\])");
 
         Font? font = Log.RichOutput?.GetThemeDefaultFont();
         int fontSize = Log.RichOutput?.GetThemeDefaultFontSize() ?? 16;
@@ -29,16 +29,16 @@ public static class TextFormatHelper
         });
     }
 
-     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
+    /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string FormatText<T>(T text, EFormatType type, bool addReset = true)
     where T : IConvertible
     {
         return Log.IsHeadless
-        ? ToTerminal (text, type, addReset)
-        : ToGodot (text, type);
+        ? ToTerminal(text, type, addReset)
+        : ToGodot(text, type);
     }
 
-     /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
+    /// <remarks><c>EFormatType.fill</c> or <c>EFormatType.center</c> must be called before anything else (color or format) to work properly</remarks>
     public static string FormatText<T>(T text, string type, bool addReset = true)
     where T : IConvertible
     {
@@ -49,13 +49,13 @@ public static class TextFormatHelper
             "strikethrough" => FormatText(text, EFormatType.strikethrough, addReset),
             "underline" => FormatText(text, EFormatType.underline, addReset),
             "fill" => FormatText(text, EFormatType.fill, addReset),
-            "center" => FormatText(text,EFormatType.center, addReset),
+            "center" => FormatText(text, EFormatType.center, addReset),
             "b" => FormatText(text, EFormatType.bold, addReset),
             "i" => FormatText(text, EFormatType.italic, addReset),
             "s" => FormatText(text, EFormatType.strikethrough, addReset),
             "u" => FormatText(text, EFormatType.underline, addReset),
             "f" => FormatText(text, EFormatType.fill, addReset),
-            "c" => FormatText(text,EFormatType.center, addReset),
+            "c" => FormatText(text, EFormatType.center, addReset),
             _ => $"{text}"
         };
     }
@@ -80,7 +80,7 @@ public static class TextFormatHelper
     public static string ToTerminal<T>(T text, EFormatType type, bool addReset = true)
     where T : IConvertible
     {
-        string reset = addReset ? TerminalReset : string.Empty;
+        string reset = addReset ? _terminalReset : string.Empty;
 
         return type switch
         {
@@ -107,7 +107,7 @@ public static class TextFormatHelper
 
         if (windowWidth <= 0) { return strText; }
 
-        return  FillToTerminal(new string (' ',windowWidth) + strText);
+        return  FillToTerminal(new string (' ', windowWidth) + strText);
     }
 
     #region Fill
@@ -133,11 +133,11 @@ public static class TextFormatHelper
 
         if (windowWidth <= 0) { return strText; }
 
-        return strText + new string (' ',windowWidth);
+        return strText + new string (' ', windowWidth);
     }
 
-        public static string FillToGodot<T>(T text, int width = 0)
-        where T : IConvertible
+    public static string FillToGodot<T>(T text, int width = 0)
+    where T : IConvertible
     {
         string t = text?.ToString() ?? string.Empty;
 
@@ -178,14 +178,10 @@ public static class TextFormatHelper
 
         return paddedText;
     }
-    #endregion
+    #endregion Fill
 
     #region Link
-    public static string Link<T>
-    (
-        T text,
-        string url
-    )
+    public static string Link<T>(T text, string url)
     where T : IConvertible
     {
         return Log.IsHeadless
@@ -193,24 +189,16 @@ public static class TextFormatHelper
         : LinkToGodot (text, url);
     }
 
-    public static string LinkToGodot<T>
-    (
-        T text,
-        string url
-    )
+    public static string LinkToGodot<T>(T text, string url)
     where T : IConvertible
     {
         return $"[url={url}]{text}[/url]";
     }
 
-    public static string LinkToTerminal<T>
-    (
-        T text,
-        string url
-    )
+    public static string LinkToTerminal<T>(T text, string url)
     where T : IConvertible
     {
         return $"\x1b]8;;{url}\x1b\\{text}\x1b]8;;\x1b\\";
     }
-    #endregion
+    #endregion Link
 }

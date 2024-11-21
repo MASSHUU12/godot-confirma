@@ -13,7 +13,7 @@ public static class Colors
     public static readonly string Gdscript = "#478cbf";
     public static readonly string TerminalReset = "\x1b[0m";
 
-    public static string Color<T> (
+    public static string Color<T>(
         T text,
         string? TextColor = null,
         string? BgColor = null,
@@ -41,6 +41,7 @@ public static class Colors
             ? coloredText + TerminalReset
             : coloredText;
     }
+
 #region Text
     public static string ColorText<T>(T text, string color, bool addReset = true)
     where T : IConvertible
@@ -70,7 +71,7 @@ public static class Colors
     {
         return $"[color=#{color.ToHtml()}]{text}[/color]";
     }
-#endregion
+#endregion Text
 
 #region Background
     public static string ColorBackground<T>(T text, string color, bool addReset = true)
@@ -99,5 +100,5 @@ public static class Colors
     {
         return $"[bgcolor=#{color.ToHtml()}]{text}[/bgcolor]";
     }
-#endregion
+#endregion Background
 }

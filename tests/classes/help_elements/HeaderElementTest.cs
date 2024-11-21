@@ -8,10 +8,10 @@ namespace Confirma.Tests;
 [Category("FileElement")]
 public class HeaderElementTest
 {
-    [TestCase (1)]
-    [TestCase (2)]
-    [TestCase (3)]
-    [TestCase (4)]
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(3)]
+    [TestCase(4)]
     public void SetFormat_WhenSetsCorrectFormat(int level)
     {
         HeaderElement element = new ();

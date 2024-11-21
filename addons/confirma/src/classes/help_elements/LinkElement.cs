@@ -10,7 +10,7 @@ public class LinkElement : FileElement
     {
         SetFormat();
 
-        Text = TextFormatHelper.Link(Text,Url);
+        Text = TextFormatHelper.Link(Text, Url);
         return base.GetText();
     }
 

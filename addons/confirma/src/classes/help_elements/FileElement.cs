@@ -15,7 +15,7 @@ public abstract class FileElement
     public string BgColor { get; set; } = string.Empty;
     public List<string> FormatOverride { get; set; } = new();
 
-    //I didn't had any idea how to name this method not to be misleading
+    //I didn't have any idea how to name this method not to be misleading
     public virtual string Format(string text)
     {
         if (FormatOverride is null)
@@ -26,7 +26,8 @@ public abstract class FileElement
         foreach(string? a in FormatOverride)
         {
             if (
-                a is null || a == "fill" || a == "f"
+                a is null
+                || a == "fill" || a == "f"
                 || a == "center" || a == "c"
             )
             {

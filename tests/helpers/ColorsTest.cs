@@ -79,9 +79,7 @@ public class ColorsTest
 
     [TestCase("#Invalid")]
     [TestCase("#1234567")]
-    public void ColorText_WithInvalidColorCode_ThrowsException(
-        string invalidColor
-    )
+    public void ColorText_WithInvalidColorCode_ThrowsException(string invalidColor)
     {
         const string text = "Hello, World!";
 
@@ -120,9 +118,7 @@ public class ColorsTest
 
     [TestCase("#Invalid")]
     [TestCase("#1234567")]
-    public void ColorBackGround_WithInvalidColorCode_ThrowsException(
-        string invalidColor
-    )
+    public void ColorBackGround_WithInvalidColorCode_ThrowsException(string invalidColor)
     {
         const string text = "Hello, World!";
 

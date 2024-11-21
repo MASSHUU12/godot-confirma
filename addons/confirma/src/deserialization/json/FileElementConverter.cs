@@ -57,7 +57,7 @@ public class FileElementConverter : JsonConverter<FileElement>
     }
 
 #region Type converters
-    public static FileElement ConvertText (ref Utf8JsonReader reader)
+    public static FileElement ConvertText(ref Utf8JsonReader reader)
     {
         TextElement element = new();
 
@@ -97,7 +97,7 @@ public class FileElementConverter : JsonConverter<FileElement>
         return element;
     }
 
-    public FileElement ConvertHeader (ref Utf8JsonReader reader)
+    public FileElement ConvertHeader(ref Utf8JsonReader reader)
     {
         HeaderElement element = new ();
 
@@ -128,7 +128,7 @@ public class FileElementConverter : JsonConverter<FileElement>
         return element;
     }
 
-    public FileElement ConvertCode (ref Utf8JsonReader reader, JsonSerializerOptions options)
+    public FileElement ConvertCode(ref Utf8JsonReader reader, JsonSerializerOptions options)
     {
         CodeElement element = new();
 
@@ -150,7 +150,7 @@ public class FileElementConverter : JsonConverter<FileElement>
         return element;
     }
 
-    public FileElement ConvertLink (ref Utf8JsonReader reader)
+    public FileElement ConvertLink(ref Utf8JsonReader reader)
     {
         LinkElement element = new();
 
@@ -174,5 +174,5 @@ public class FileElementConverter : JsonConverter<FileElement>
         }
         return element;
     }
-    #endregion;
+    #endregion Type converters
 }

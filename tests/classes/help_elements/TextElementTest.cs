@@ -12,7 +12,7 @@ public class TextElementTest
     [TestCase]
     public void Format_EmptyFormatOverride_ReturnsClearText()
     {
-        TextElement element = new ();
+        TextElement element = new();
 
         string result = element.Format("Hello World!");
 
@@ -25,7 +25,7 @@ public class TextElementTest
     [TestCase("center")]
     public void Format_SkipFillAndCenterFormat_ReturnsClearText(string format)
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {format}
         };
@@ -38,7 +38,7 @@ public class TextElementTest
     [TestCase]
     public void Format_EveryShortFormat_ReturnsFormattedText()
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {"b","i","s","u","c","f"}
         };
@@ -54,7 +54,7 @@ public class TextElementTest
     [TestCase]
     public void Format_EveryLongFormat_ReturnsFormattedText()
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {"bold","italic","strikethrough","underline","center","fill"}
         };
@@ -70,7 +70,7 @@ public class TextElementTest
     [TestCase]
     public void GetText_AllExceptCenterAndFill_ReturnsFormattedText()
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {"bold","italic","strikethrough","underline"},
             Color = "#001122",
@@ -90,7 +90,7 @@ public class TextElementTest
     [TestCase]
     public void GetText_Fill_ReturnsFormattedText()
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {"bold","italic","strikethrough","underline", "fill"},
             Color = "#001122",
@@ -108,7 +108,7 @@ public class TextElementTest
         [TestCase]
     public void GetText_Center_ReturnsFormattedText()
     {
-        TextElement element = new ()
+        TextElement element = new()
         {
             FormatOverride = {"bold","italic","strikethrough","underline", "center"},
             Color = "#001122",

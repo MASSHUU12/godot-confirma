@@ -9,7 +9,7 @@ public partial class HelpPanel : Control
     public override async void _Ready()
     {
         Log.RichOutput = GetNode<RichTextLabel>("%Output");
-        Log.RichOutput.MetaClicked += _on_meta_clicked;
+        Log.RichOutput.MetaClicked += OnMetaClicked;
 
         ConfirmaAutoload autoload = GetNodeOrNull<ConfirmaAutoload>("/root/Confirma");
 
@@ -26,7 +26,7 @@ public partial class HelpPanel : Control
         }
     }
 
-    public void _on_meta_clicked (Variant meta)
+    public void OnMetaClicked(Variant meta)
     {
         switch(meta.VariantType)
         {

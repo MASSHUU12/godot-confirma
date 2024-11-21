@@ -16,6 +16,7 @@ public static class Help
             Log.PrintError($"Page: `{pageName}`, not found or failed to load");
             return false;
         }
+
         foreach(FileElement element in file.Data)
         {
             switch(element)

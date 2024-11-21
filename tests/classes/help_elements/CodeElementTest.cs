@@ -13,7 +13,7 @@ public class CodeElementTest
     [TestCase]
     public void GetText_ReturnsFormattedText()
     {
-        CodeElement element = new ()
+        CodeElement element = new()
         {
             Lines = new()
             {
@@ -26,9 +26,10 @@ public class CodeElementTest
         string result = element.GetText();
         result.ConfirmEqual(
             Log.IsHeadless
-            ? $"\u001b[3m\u001b[48;2;13;17;23m\u001b[38;2;201;209;217mLine1{new string(' ',Console.WindowWidth-5)}" +
-              $"\nLine2{new string(' ',Console.WindowWidth-5)}" +
-              $"\nLine3{new string(' ',Console.WindowWidth-5)}\x1b[0m"
+            ? $"\u001b[3m\u001b[48;2;13;17;23m\u001b[38;2;201;209;217mLine1{new string(' ', Console.WindowWidth-5)}" +
+              $"\nLine2{new string(' ', Console.WindowWidth-5)}" +
+              $"\nLine3{new string(' ', Console.WindowWidth-5)}\x1b[0m"
+
             : $"[bgcolor=#0d1117ff][color=#c9d1d9ff][i]Line1{new string('\u00A0',374)}\n" +
             $"Line2{new string('\u00A0',374)}\n" +
             $"Line3{new string('\u00A0',374)}" +
@@ -39,7 +40,7 @@ public class CodeElementTest
     [TestCase]
     public void SetFormat_WhenSetsCorrectFormat()
     {
-        CodeElement element = new ();
+        CodeElement element = new();
 
         element.SetFormat();
 

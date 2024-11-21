@@ -10,7 +10,7 @@ namespace Confirma.Tests;
 public class LinkElementTest
 {
     [TestCase]
-    public void GetText_ReturnsFormatedText()
+    public void GetText_ReturnsFormattedText()
     {
         LinkElement element = new ()
         {
