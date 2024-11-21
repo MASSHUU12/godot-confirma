@@ -21,6 +21,12 @@ public class TestCaseTest
     {
         throw new Exception("Test exception");
     }
+
+    public static void EmptyMethod() { }
+
+    public static void MethodWParams(params int[] nums) { }
+
+    public static void MethodWParamsAndOtherArgs(bool b, params int[] nums) { }
     #endregion TestMethods
 
     [TestCase]
@@ -38,6 +44,7 @@ public class TestCaseTest
         _ = testCase.Repeat.ConfirmEqual(repeat);
     }
 
+    #region Run
     [TestCase]
     public void Run_MethodInvokesSuccessfully()
     {
@@ -65,10 +72,9 @@ public class TestCaseTest
     [TestCase]
     public void Run_ThrowsArgumentException()
     {
-        MethodInfo? method = typeof(TestCaseTest)
-            .GetMethod(nameof(TestMethod));
+        MethodInfo method = typeof(TestCaseTest).GetMethod(nameof(TestMethod))!;
         object[] parameters = new[] { "Hello", "test" };
-        TestCase testCase = new(method!, parameters, null);
+        TestCase testCase = new(method, parameters, null);
 
         Action action = () => testCase.Run();
 
@@ -90,4 +96,47 @@ public class TestCaseTest
             "- Failed: Parameter count mismatch."
         );
     }
+    #endregion Run
+
+    #region GenerateArguments
+    [TestCase]
+    public void GenerateArguments_EmptyMethod_NoParameters()
+    {
+        MethodInfo method = typeof(TestCaseTest).GetMethod(nameof(EmptyMethod))!;
+
+        _ = new TestCase(method, null, null).Parameters.ConfirmNull();
+    }
+
+    [TestCase]
+    public void GenerateArguments_TestMethod_ReturnsAllParameters()
+    {
+        MethodInfo method = typeof(TestCaseTest).GetMethod(nameof(TestMethod))!;
+
+        _ = new TestCase(method, new object[] { 5, "five" }, null).Parameters!
+            .ConfirmCount(2);
+    }
+
+    [TestCase]
+    public void GenerateArguments_MethodWParams_ReturnsArray()
+    {
+        MethodInfo method = typeof(TestCaseTest).GetMethod(nameof(MethodWParams))!;
+        object?[] p = new TestCase(method, new object[] { 1, 2, 3 }, null).Parameters!;
+
+        _ = p.ConfirmCount(1);
+        _ = p[0].ConfirmEqual(new object[] { 1, 2, 3 });
+    }
+
+    [TestCase]
+    public void GenerateArguments_MethodWParamsAndOtherArgs_ReturnsGeneratedArgs()
+    {
+        MethodInfo method = typeof(TestCaseTest)
+            .GetMethod(nameof(MethodWParamsAndOtherArgs))!;
+        object?[] p = new TestCase(method, new object[] { true, 1, 2, 3 }, null)
+            .Parameters!;
+
+        _ = p.ConfirmCount(2);
+        _ = p[0].ConfirmEqual(true);
+        _ = p[1].ConfirmEqual(new object[] { 1, 2, 3 });
+    }
+    #endregion GenerateArguments
 }
