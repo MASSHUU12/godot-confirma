@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Exceptions;
+using Confirma.Extensions;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
@@ -20,9 +22,9 @@ public class TestCase
     )
     {
         Method = method;
-        Parameters = parameters;
-        Params = parameters is not null && parameters.Length != 0
-            ? CollectionHelper.ToString(parameters, addBrackets: false)
+        Parameters = GenerateArguments(parameters);
+        Params = Parameters is not null && Parameters.Length != 0
+            ? CollectionHelper.ToString(Parameters, addBrackets: false)
             : string.Empty;
 
         Repeat = repeat;
@@ -50,5 +52,31 @@ public class TestCase
         {
             throw new ConfirmAssertException($"- Failed: {e.Message}");
         }
+    }
+
+    private object?[]? GenerateArguments(object?[]? parameters)
+    {
+        return Method.IsUsingParamsModifier()
+            ? HandleParamsModifier(parameters)
+            : parameters;
+    }
+
+    private object?[]? HandleParamsModifier(object?[]? parameters)
+    {
+        // This approach prevents the creation of ListPartitions
+        // that create problems with assertions
+
+        int numOfRegularArgs = Method.GetParameters().Length - 1;
+
+        if (parameters?.Length <= numOfRegularArgs)
+        {
+            return parameters;
+        }
+
+        object?[] result = new object?[numOfRegularArgs + 1];
+        Array.Copy(parameters!, result, numOfRegularArgs);
+        result[numOfRegularArgs] = parameters![numOfRegularArgs..];
+
+        return result;
     }
 }
