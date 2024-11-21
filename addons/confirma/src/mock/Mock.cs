@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Confirma.Classes.Mock;
+namespace Confirma.Mock;
 
 public class Mock<T> where T : class
 {

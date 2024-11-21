@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes;
-using Confirma.Classes.Mock;
 using Confirma.Extensions;
 using Confirma.Helpers;
+using Confirma.Mock;
 
 namespace Confirma.Tests;
 
