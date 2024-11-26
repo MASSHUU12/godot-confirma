@@ -36,6 +36,7 @@ All notable changes to this project will be documented in this file.
 - Support for flaky tests.
 - Ability to ignore tests in headless mode.
 - Support for test methods with `params` modifier.
+- Flag to `CollectionHelper.ToString` & `CollectionFormatter` for adding type hint.
 
 ### Changed
 
@@ -50,6 +51,7 @@ flaky tests, fuzz testing & `params` modifier.
 - Adjusted `Repeat` attribute to handle flaky tests.
 - Optimized `ConfirmElementsAreOrdered<T>` and `ConfirmElementsAreEquivalent<T>`
 in `ConfirmIEnumerableExtensions`.
+- String representation of arrays also displays their type.
 
 ### Removed
 
