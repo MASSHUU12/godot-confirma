@@ -10,18 +10,18 @@ namespace Confirma.Tests;
 [Parallelizable]
 public class ConfirmArrayTest
 {
-    [TestCase(new int[] { }, 0)]
-    [TestCase(new int[] { 1 }, 1)]
-    [TestCase(new int[] { 1, 2 }, 2)]
-    public void ConfirmSize_WhenIsOfSize(int[] array, int expectedSize)
+    [TestCase(0)]
+    [TestCase(1, 1)]
+    [TestCase(2, 1, 2)]
+    public void ConfirmSize_WhenIsOfSize(int expectedSize, params int[] array)
     {
         _ = array.ConfirmSize(expectedSize);
     }
 
-    [TestCase(new int[] { 1 }, 0)]
-    [TestCase(new int[] { 1, 2 }, 1)]
-    [TestCase(new int[] { 1, 2, 3 }, 2)]
-    public void ConfirmSize_WhenIsNotOfSize(int[] array, int expectedSize)
+    [TestCase(0, 1)]
+    [TestCase(1, 1, 2)]
+    [TestCase(2, 1, 2, 3)]
+    public void ConfirmSize_WhenIsNotOfSize(int expectedSize, params int[] array)
     {
         Action action = () => array.ConfirmSize(expectedSize);
 
@@ -37,10 +37,10 @@ public class ConfirmArrayTest
         _ = Array.Empty<int>().ConfirmEmpty();
     }
 
-    [TestCase(new int[] { 1 })]
-    [TestCase(new int[] { 1, 2 })]
-    [TestCase(new int[] { 1, 2, 3 })]
-    public void ConfirmEmpty_WhenIsNotEmpty(int[] array)
+    [TestCase(1)]
+    [TestCase(1, 2)]
+    [TestCase(1, 2, 3)]
+    public void ConfirmEmpty_WhenIsNotEmpty(params int[] array)
     {
         Action action = () => array.ConfirmEmpty();
 
@@ -66,18 +66,18 @@ public class ConfirmArrayTest
         );
     }
 
-    [TestCase(new int[] { 1 }, 1)]
-    [TestCase(new int[] { 1, 2 }, 2)]
-    [TestCase(new int[] { 1, 2, 3 }, 2)]
-    public void ConfirmContains_WhenContains(int[] array, int expected)
+    [TestCase(1, 1)]
+    [TestCase(2, 1, 2)]
+    [TestCase(2, 1, 2, 3)]
+    public void ConfirmContains_WhenContains(int expected, params int[] array)
     {
         _ = array.ConfirmContains(expected);
     }
 
-    [TestCase(new int[] { 1 }, 2)]
-    [TestCase(new int[] { 1, 2 }, 3)]
-    [TestCase(new int[] { 1, 2, 3 }, 4)]
-    public void ConfirmContains_WhenNotContains(int[] array, int expected)
+    [TestCase(2, 1)]
+    [TestCase(3, 1, 2)]
+    [TestCase(4, 1, 2, 3)]
+    public void ConfirmContains_WhenNotContains(int expected, params int[] array)
     {
         Action action = () => array.ConfirmContains(expected);
 
