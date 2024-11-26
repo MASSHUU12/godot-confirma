@@ -22,9 +22,9 @@ public class ConfirmReferenceTest
     [TestCase(5, "5", 15, "15")]
     [TestCase(
         new byte[] { 1, 2, 3 },
-        "[1, 2, 3]",
+        "Byte[1, 2, 3]",
         new byte[] { 1, 2, 3 },
-        "[1, 2, 3]"
+        "Byte[1, 2, 3]"
     )]
     [TestCase(
         "Lorem ipsum",
@@ -61,7 +61,7 @@ public class ConfirmReferenceTest
     }
 
     [TestCase(5, "5")]
-    [TestCase(new byte[] { 1, 2, 3 }, "[1, 2, 3]")]
+    [TestCase(new byte[] { 1, 2, 3 }, "Byte[1, 2, 3]")]
     [TestCase(
         "Lorem ipsum dolor sit amet",
         "\"Lorem ipsum dolor sit amet\""

@@ -123,7 +123,7 @@ public class TestCaseTest
         object?[] p = new TestCase(method, new object[] { 1, 2, 3 }, null).Parameters!;
 
         _ = p.ConfirmCount(1);
-        _ = p[0].ConfirmEqual(new object[] { 1, 2, 3 });
+        _ = p[0].ConfirmEqual(new int[] { 1, 2, 3 });
     }
 
     [TestCase]
@@ -145,7 +145,7 @@ public class TestCaseTest
 
         _ = p.ConfirmCount(2);
         _ = p[0].ConfirmEqual(true);
-        _ = p[1].ConfirmEqual(new object[] { 1, 2, 3 });
+        _ = p[1].ConfirmEqual(new int[] { 1, 2, 3 });
     }
 
     [TestCase]
@@ -158,7 +158,7 @@ public class TestCaseTest
 
         _ = p.ConfirmCount(2);
         _ = p[0].ConfirmEqual(true);
-        _ = p[1].ConfirmEqual(Array.Empty<object>());
+        _ = p[1].ConfirmEqual(Array.Empty<int>());
     }
     #endregion GenerateArguments
 }

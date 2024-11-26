@@ -73,7 +73,7 @@ public class ConfirmEqualTest
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
             "Assertion ConfirmEqual failed: "
-            + "Expected [1, 2, 3], but got [0, 1, 2]."
+            + "Expected Object[1, 2, 3], but got Object[0, 1, 2]."
         );
     }
 
@@ -143,7 +143,7 @@ public class ConfirmEqualTest
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
             "Assertion ConfirmNotEqual failed: "
-            + "Expected not [\"Hello,\", \"world!\"]."
+            + "Expected not String[\"Hello,\", \"world!\"]."
         );
     }
 
@@ -159,7 +159,7 @@ public class ConfirmEqualTest
         };
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Assertion ConfirmNotEqual failed: Expected not [0, 1, 2]."
+            "Assertion ConfirmNotEqual failed: Expected not Object[0, 1, 2]."
         );
     }
     #endregion ConfirmNotEqual
