@@ -37,7 +37,7 @@ public static class CollectionHelper
                     continue;
                 }
 
-                string result = ToString(e, depth + 1, maxDepth);
+                string result = ToString(e, depth + 1, maxDepth, addBrackets: false);
                 list.Add($"[{string.Join(", ", result)}]");
                 continue;
             }
