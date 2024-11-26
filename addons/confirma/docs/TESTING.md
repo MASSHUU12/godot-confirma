@@ -95,6 +95,16 @@ public static void NextChar_AllowedChars_ReturnsCharFromAllowedChars(string allo
 }
 ```
 
+Confirma supports `params` modifier:
+
+```cs
+[TestCase(2, 40, 37)]
+public void Test(int num, params int[] nums)
+{
+    _ = nums.ConfirmCount(num);
+}
+```
+
 #### Category
 
 Allows to assign a category to a test class.
