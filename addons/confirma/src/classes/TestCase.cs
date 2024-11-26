@@ -43,10 +43,9 @@ public class TestCase
         }
         catch (Exception e) when (e is ArgumentException or ArgumentNullException)
         {
-            // throw new ConfirmAssertException(
-            //     $"- Failed: Invalid test case parameters: {Params}."
-            // );
-            throw new ConfirmAssertException(e.Message);
+            throw new ConfirmAssertException(
+                $"- Failed: Invalid test case parameters: {Params}."
+            );
         }
         catch (Exception e)
         {
