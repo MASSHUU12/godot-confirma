@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Exceptions;
@@ -68,14 +67,14 @@ public class TestCase
 
         int numOfRegularArgs = Method.GetParameters().Length - 1;
 
-        if (parameters?.Length <= numOfRegularArgs)
+        if (parameters is null)
         {
-            return parameters;
+            return Array.Empty<object[]>();
         }
 
         object?[] result = new object?[numOfRegularArgs + 1];
-        Array.Copy(parameters!, result, numOfRegularArgs);
-        result[numOfRegularArgs] = parameters![numOfRegularArgs..];
+        Array.Copy(parameters, result, numOfRegularArgs);
+        result[numOfRegularArgs] = parameters[numOfRegularArgs..];
 
         return result;
     }
