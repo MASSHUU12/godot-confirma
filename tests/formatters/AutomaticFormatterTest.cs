@@ -16,7 +16,7 @@ public class AutomaticFormatterTest
     [TestCase(12345u, "12,345")]
     [TestCase((byte)123, "123")]
     [TestCase(123.456f, "123.45600")]
-    [TestCase(new int[] { 1, 2, 3 }, "[1, 2, 3]")]
+    [TestCase(new int[] { 1, 2, 3 }, "Int32[1, 2, 3]")]
     [TestCase("Hello, World!", "\"Hello, World!\"")]
     public void Format_CorrectlyFormatsSupportedTypes(
         object actual,

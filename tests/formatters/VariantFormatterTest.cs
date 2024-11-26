@@ -46,6 +46,6 @@ public class VariantFormatterTest
     {
         _ = _formatter
             .Format(new int[] { 1, 2, 3 })
-            .ConfirmEqual("[1, 2, 3]");
+            .ConfirmEqual("Int32[1, 2, 3]");
     }
 }
