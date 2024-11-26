@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Confirma.Formatters;
 
 namespace Confirma.Helpers;
@@ -21,32 +22,41 @@ public static class CollectionHelper
             return addBrackets ? typeName + "[]" : string.Empty;
         }
 
-        List<string> list = new();
+        StringBuilder sb = new();
 
         foreach (T item in collection)
         {
             if (item is null)
             {
-                list.Add("null");
-                continue;
+                _ = sb.Append("null");
             }
-
-            if (item is IEnumerable<object> e && item is not string)
+            else if (item is IEnumerable<object> e && item is not string)
             {
                 if (depth + 1 > maxDepth)
                 {
-                    list.Add(typeName + "[...]");
-                    continue;
+                    _ = sb.Append(typeName + "[...]");
                 }
-
-                string result = ToString(e, depth + 1, maxDepth, addBrackets: false);
-                list.Add(typeName + $"[{string.Join(", ", result)}]");
-                continue;
+                else
+                {
+                    string result = ToString(e, depth + 1, maxDepth, false, false);
+                    _ = sb.Append(typeName + $"[{string.Join(", ", result)}]");
+                }
+            }
+            else
+            {
+                _ = sb.Append(new AutomaticFormatter().Format(item));
             }
 
-            list.Add(new AutomaticFormatter().Format(item));
+            _ = sb.Append(", ");
         }
-        string text = string.Join(", ", list);
+
+        // Remove the trailing comma and space
+        if (sb.Length > 2)
+        {
+            sb.Length -= 2;
+        }
+
+        string text = sb.ToString();
 
         return addBrackets ? typeName + $"[{text}]" : text;
     }
