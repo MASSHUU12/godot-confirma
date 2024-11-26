@@ -20,10 +20,10 @@ test("Passed nonexisting page, returns with error", async() => {
 });
 test("Passed existing page, returns help page", async() => {
     const { exitCode, stderr, stdout } = await runGodot(
-        "--confirma-help=default", //todo change to non-default page
+        "--confirma-help=testing-gd",
       );
 
     expect(exitCode).toBe(0);
-    expect(stdout.toString()).toContain("Arguments");
+    expect(stdout.toString()).toContain("Testing GdScript");
     expect(stderr.toString()).toBeEmpty();
 });
