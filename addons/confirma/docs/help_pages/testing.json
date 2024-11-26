@@ -2,79 +2,18 @@
     "version":1,
     "data":[
         {
-            "type": "header",
-            "text": "Testing",
-            "level": 1
-        },
-        {
             "type":"header",
-            "text":"C#",
+            "text":"Testing",
             "level":1
         },
         {
-            "type":"header",
-            "text":"Writing tests",
-            "level":2
+            "type":"text",
+            "format":["b"],
+            "text":"Help pages, related to the testing:\n"
         },
         {
             "type":"text",
-            "text":"Confirma will detect all tests, regardless of where in the project they're placed.\nEach class that contains tests must be labelled with the TestClass attribute. Each test method must be tagged with the TestCase attribute.\nChaining assertions is allowed, so something like this is possible:\n\n"
-        },
-        {
-            "type":"code",
-            "lines":
-            [
-                "using Confirma.Attributes;",
-                "using Confirma.Extensions;",
-                "",
-                "[TestClass]",
-                "[Parallelizable]",
-                "public static class TestSomething",
-                "{",
-                "    [TestCase]",
-                "    public static void Something()",
-                "    {",
-                "        5.ConfirmInRange(0, 15)",
-                "            .ConfirmNotEqual(7);",
-                "    }",
-                "}"
-            ]
-        },
-        {
-            "type":"header",
-            "text":"Mocking",
-            "level":2
-        },
-        {
-            "type":"text",
-            "text":"Confirma includes a simple library for"
-        },
-        {
-            "type":"link",
-            "text":"mocking",
-            "url":"https://stackoverflow.com/questions/2665812/what-is-mocking#2666006"
-        },
-        {
-            "type":"text",
-            "text":", which is located in the Confirma.Classes.Mock namespace."
-        },
-        {
-            "type":"header",
-            "text":"Flasky tests",
-            "level":2
-        },
-        {
-            "type":"text",
-            "text":"Confirma includes basic support for handling"
-        },
-        {
-            "type":"link",
-            "text":"flasky tests.",
-            "url":"https://www.lambdatest.com/learning-hub/flaky-test"
-        },
-        {
-            "type":"text",
-            "text":"\n\nFlaky tests use the Repeat attribute."
+            "text":"- C# (testing-csharp)\n- GDscript (testing-gd)\n\n"
         }
     ]
 }
