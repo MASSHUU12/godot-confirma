@@ -43,9 +43,10 @@ public class TestCase
         }
         catch (Exception e) when (e is ArgumentException or ArgumentNullException)
         {
-            throw new ConfirmAssertException(
-                $"- Failed: Invalid test case parameters: {Params}."
-            );
+            // throw new ConfirmAssertException(
+            //     $"- Failed: Invalid test case parameters: {Params}."
+            // );
+            throw new ConfirmAssertException(e.Message);
         }
         catch (Exception e)
         {
@@ -65,16 +66,26 @@ public class TestCase
         // This approach prevents the creation of ListPartitions
         // that create problems with assertions
 
-        int numOfRegularArgs = Method.GetParameters().Length - 1;
-
         if (parameters is null)
         {
-            return Array.Empty<object[]>();
+            return null;
         }
 
+        int numOfRegularArgs = Method.GetParameters().Length - 1;
         object?[] result = new object?[numOfRegularArgs + 1];
         Array.Copy(parameters, result, numOfRegularArgs);
-        result[numOfRegularArgs] = parameters[numOfRegularArgs..];
+
+        ParameterInfo paramsParameter = Method.GetParameters()[numOfRegularArgs];
+        Type elementType = paramsParameter.ParameterType.GetElementType()
+            ?? throw new InvalidOperationException(
+                "Unable to determine the element type of the 'params' parameter."
+            );
+
+        int paramsLength = parameters.Length - numOfRegularArgs;
+        Array paramsArray = Array.CreateInstance(elementType, paramsLength);
+        Array.Copy(parameters, numOfRegularArgs, paramsArray, 0, paramsLength);
+
+        result[numOfRegularArgs] = paramsArray;
 
         return result;
     }
