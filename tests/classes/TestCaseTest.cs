@@ -127,6 +127,15 @@ public class TestCaseTest
     }
 
     [TestCase]
+    public void GenerateArguments_MethodWParams_Empty_ReturnsEmptyArray()
+    {
+        MethodInfo method = typeof(TestCaseTest).GetMethod(nameof(MethodWParams))!;
+        object?[] p = new TestCase(method, null, null).Parameters!;
+
+        _ = p.ConfirmEmpty();
+    }
+
+    [TestCase]
     public void GenerateArguments_MethodWParamsAndOtherArgs_ReturnsGeneratedArgs()
     {
         MethodInfo method = typeof(TestCaseTest)
@@ -137,6 +146,19 @@ public class TestCaseTest
         _ = p.ConfirmCount(2);
         _ = p[0].ConfirmEqual(true);
         _ = p[1].ConfirmEqual(new object[] { 1, 2, 3 });
+    }
+
+    [TestCase]
+    public void GenerateArguments_MethodWParamsAndOtherArgs_EmptyParams_ReturnsGeneratedArgs()
+    {
+        MethodInfo method = typeof(TestCaseTest)
+            .GetMethod(nameof(MethodWParamsAndOtherArgs))!;
+        object?[] p = new TestCase(method, new object[] { true }, null)
+            .Parameters!;
+
+        _ = p.ConfirmCount(2);
+        _ = p[0].ConfirmEqual(true);
+        _ = p[1].ConfirmEqual(Array.Empty<object>());
     }
     #endregion GenerateArguments
 }
