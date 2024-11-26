@@ -86,8 +86,4 @@ public class IgnoreAttributeTest
         _ = attr.IsIgnored(new())
             .ConfirmEqual(DisplayServer.GetName() == "headless");
     }
-
-    [TestCase]
-    [Ignore(EIgnoreMode.InHeadless, "Lorem")]
-    public void Test() { }
 }
