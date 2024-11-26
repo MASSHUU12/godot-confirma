@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
   - Mock
   - CallRecord
   - FuzzGenerator
+  - MethodInfoExtensions
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
@@ -34,12 +35,13 @@ All notable changes to this project will be documented in this file.
 - Library allowing to mock interfaces and classes.
 - Support for flaky tests.
 - Ability to ignore tests in headless mode.
+- Support for test methods with `params` modifier.
 
 ### Changed
 
 - Updated documentation:
   - Added info in TESTING.md about script templates, mocking library,
-flaky tests & fuzz testing.
+flaky tests, fuzz testing & `params` modifier.
   - Added info about mocking libary in README.md.
   - Updated docs about `Repeat` and `Ignore` attribute.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
@@ -65,6 +67,7 @@ thrown when passing invalid path to '--confirma-gd-path'.
 - [#221] [GDScript] An incorrect error is thrown when path to GDScript tests is
 invalid.
 - [#225] Method name in verbose mode has additional space before pipe sign.
+- `CollectionHelper.ToString` sometimes added unnecessary parentheses.
 
 ## [0.9.0-beta 2024.10.21]
 
