@@ -25,7 +25,7 @@ public class CollectionFormatterTest
         IEnumerable<object> value = Enumerable.Empty<object>();
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[]");
+        _ = result.ConfirmEqual("Object[]");
     }
 
     [TestCase]
@@ -34,7 +34,7 @@ public class CollectionFormatterTest
         IEnumerable<string> value = new[] { "Hello" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[\"Hello\"]");
+        _ = result.ConfirmEqual("String[\"Hello\"]");
     }
 
     [TestCase]
@@ -43,7 +43,7 @@ public class CollectionFormatterTest
         List<float> value = new() { 20f, 25f };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[20.00000, 25.00000]");
+        _ = result.ConfirmEqual("Single[20.00000, 25.00000]");
     }
 
     [TestCase]
@@ -52,7 +52,7 @@ public class CollectionFormatterTest
         float[] value = Array.Empty<float>();
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[]");
+        _ = result.ConfirmEqual("Single[]");
     }
 
     [TestCase]
@@ -61,7 +61,7 @@ public class CollectionFormatterTest
         object[] value = new[] { "Hello" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[\"Hello\"]");
+        _ = result.ConfirmEqual("String[\"Hello\"]");
     }
 
     [TestCase]
@@ -70,7 +70,7 @@ public class CollectionFormatterTest
         object[] value = new[] { "Hello", "World" };
         string result = _formatter!.Format(value);
 
-        _ = result.ConfirmEqual("[\"Hello\", \"World\"]");
+        _ = result.ConfirmEqual("String[\"Hello\", \"World\"]");
     }
 
     [TestCase]
