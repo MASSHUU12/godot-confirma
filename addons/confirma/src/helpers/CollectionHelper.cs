@@ -10,13 +10,15 @@ public static class CollectionHelper
         IEnumerable<T> collection,
         uint depth = 0,
         uint maxDepth = 1,
-        bool addBrackets = true
-
+        bool addBrackets = true,
+        bool addTypeHint = true
     )
     {
+        string typeName = addTypeHint ? typeof(T).Name : string.Empty;
+
         if (depth > maxDepth || !collection.Any())
         {
-            return addBrackets ? "[]" : string.Empty;
+            return addBrackets ? typeName + "[]" : string.Empty;
         }
 
         List<string> list = new();
@@ -33,12 +35,12 @@ public static class CollectionHelper
             {
                 if (depth + 1 > maxDepth)
                 {
-                    list.Add("[...]");
+                    list.Add(typeName + "[...]");
                     continue;
                 }
 
                 string result = ToString(e, depth + 1, maxDepth, addBrackets: false);
-                list.Add($"[{string.Join(", ", result)}]");
+                list.Add(typeName + $"[{string.Join(", ", result)}]");
                 continue;
             }
 
@@ -46,6 +48,6 @@ public static class CollectionHelper
         }
         string text = string.Join(", ", list);
 
-        return addBrackets ? $"[{text}]" : text;
+        return addBrackets ? typeName + $"[{text}]" : text;
     }
 }

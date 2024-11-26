@@ -14,7 +14,7 @@ public class CollectionHelperTest
     public void ToString_EmptyEnumerable_ReturnsEmptyArrayString()
     {
         IEnumerable<object> value = Enumerable.Empty<object>();
-        _ = CollectionHelper.ToString(value).ConfirmEqual("[]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("Object[]");
     }
 
     [TestCase]
@@ -31,7 +31,7 @@ public class CollectionHelperTest
     {
         IEnumerable<string> value = new[] { "Hello" };
 
-        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\"]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("String[\"Hello\"]");
     }
 
     [TestCase]
@@ -39,7 +39,8 @@ public class CollectionHelperTest
     {
         List<float> value = new() { 20f, 25f };
 
-        _ = CollectionHelper.ToString(value).ConfirmEqual("[20.00000, 25.00000]");
+        _ = CollectionHelper.ToString(value)
+            .ConfirmEqual("Single[20.00000, 25.00000]");
     }
 
     [TestCase]
@@ -47,7 +48,7 @@ public class CollectionHelperTest
     {
         object[] value = new[] { "Hello" };
 
-        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\"]");
+        _ = CollectionHelper.ToString(value).ConfirmEqual("Object[\"Hello\"]");
     }
 
     [TestCase]
@@ -55,7 +56,8 @@ public class CollectionHelperTest
     {
         object[] value = new[] { "Hello", "World" };
 
-        _ = CollectionHelper.ToString(value).ConfirmEqual("[\"Hello\", \"World\"]");
+        _ = CollectionHelper.ToString(value)
+            .ConfirmEqual("Object[\"Hello\", \"World\"]");
     }
 
     [TestCase]
@@ -66,5 +68,14 @@ public class CollectionHelperTest
         _ = CollectionHelper
             .ToString(value, addBrackets: false)
             .ConfirmEqual("\"Hello\"");
+    }
+
+    [TestCase]
+    public void ToString_NoTypeHint_EmptyEnumerable_ReturnsEmptyArrayString()
+    {
+        IEnumerable<object> value = Enumerable.Empty<object>();
+        _ = CollectionHelper
+            .ToString(value, addTypeHint: false)
+            .ConfirmEqual("[]");
     }
 }
