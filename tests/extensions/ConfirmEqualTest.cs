@@ -61,29 +61,63 @@ public class ConfirmEqualTest
     }
 
     [TestCase]
-    public void ConfirmEqual_ArrayAsObject_NotEqual_ThrowsExceptionWMessage()
-    {
-        Action action = static () =>
-        {
-            object arr1 = new object[] { 0, 1, 2 };
-            object arr2 = new object[] { 1, 2, 3 };
-
-            _ = arr1.ConfirmEqual(arr2);
-        };
-
-        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
-            "Assertion ConfirmEqual failed: "
-            + "Expected Object[1, 2, 3], but got Object[0, 1, 2]."
-        );
-    }
-
-    [TestCase]
     public void ConfirmEqual_Null_ThrowsExceptionWMessage()
     {
         Action action = static () => "".ConfirmEqual(null);
 
         _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
             "Assertion ConfirmEqual failed: Expected null, but got \"\"."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmEqual_Array_ReturnsActualArray()
+    {
+        Array actual = new int[] { 1, 2, 3 };
+        Array expected = new int[] { 1, 2, 3 };
+
+        _ = actual.ConfirmEqual(expected);
+    }
+
+    [TestCase]
+    public void ConfirmEqual_Array_DifferentLengths_ThrowsConfirmAssertException()
+    {
+        Array actual = new int[] { 1, 2, 3 };
+        Array expected = new int[] { 1, 2 };
+
+        Action action = () => actual.ConfirmEqual(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqual failed: "
+            + "Expected array of length 2, but got array of length 3."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmEqual_Array_DifferentValue_ThrowsConfirmAssertException()
+    {
+        Array actual = new int[] { 1, 2, 3 };
+        Array expected = new int[] { 1, 2, 4 };
+
+        Action action = () => actual.ConfirmEqual(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqual failed: "
+            + "Arrays differ at index 2. Expected 4, but got 3."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmEqual_Array_DifferentTypes_ThrowsConfirmAssertException()
+    {
+        Array actual = new int[] { 1, 2, 3 };
+        Array expected = new double[] { 1, 2, 3 };
+
+        Action action = () => actual.ConfirmEqual(expected);
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmEqual failed: "
+            + "Arrays differ at index 0. Expected 1.00000, but got 1."
         );
     }
     #endregion ConfirmEqual
