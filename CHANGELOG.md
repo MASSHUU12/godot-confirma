@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmIsNotNaN
   - ConfirmElementsAreOrdered w/ comparer
   - ConfirmElementsAreNotOrdered w/ & w/o comparer
+  - Overload for ConfirmEqual/ConfirmNotEqual accepting Array.
 - Enums:
   - EDistributionType
 - Attributes:
@@ -52,6 +53,7 @@ flaky tests, fuzz testing & `params` modifier.
 - Optimized `ConfirmElementsAreOrdered<T>` and `ConfirmElementsAreEquivalent<T>`
 in `ConfirmIEnumerableExtensions`.
 - String representation of arrays also displays their type.
+- `ConfirmEqual` handles arrays in a better way.
 
 ### Removed
 
