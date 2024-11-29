@@ -5,11 +5,12 @@ namespace Confirma.Cli;
 public class Argument
 {
     public string Name { get; init; }
-    public string? Value { get; set; }
-    public Action? Action { get; init; }
+    public string? Value { get; private set; }
 
     public bool IsFlag { get; init; }
     public bool UsePrefix { get; init; }
+
+    private readonly Action? _action;
 
     public Argument(
         string name,
@@ -21,12 +22,19 @@ public class Argument
         Name = name;
         UsePrefix = usePrefix;
         IsFlag = isFlag;
-        Action = action;
+        _action = action;
+    }
+
+    public bool Parse(string? value)
+    {
+        Value = IsFlag ? "true" : value;
+
+        return true;
     }
 
     public void Invoke()
     {
-        Action?.Invoke();
+        _action?.Invoke();
     }
 
     public override bool Equals(object? obj)
