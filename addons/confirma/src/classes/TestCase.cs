@@ -67,7 +67,7 @@ public class TestCase
 
         if (parameters is null)
         {
-            return null;
+            return Array.Empty<object?>();
         }
 
         int numOfRegularArgs = Method.GetParameters().Length - 1;
