@@ -28,7 +28,7 @@ public class Cli
         return _arguments.Add(argument);
     }
 
-    public List<string> Parse(string[] args)
+    public List<string> Parse(string[] args, bool invokeActions = false)
     {
         List<string> errors = new();
 
@@ -52,7 +52,10 @@ public class Cli
                     continue;
                 }
 
-                // TODO: Optionally invoke method when argument is found.
+                if (invokeActions)
+                {
+                    argument.Invoke();
+                }
             }
             else
             {
