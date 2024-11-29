@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Confirma.Helpers;
@@ -33,7 +34,11 @@ public class Cli
             (string argName, string? argValue) = ParseArgumentString(args[i]);
 
             Argument? argument = _arguments.FirstOrDefault(a =>
-                (a.UsePrefix ? _prefix + a.Name : a.Name) == argName
+                string.Equals(
+                    a.UsePrefix ? _prefix + a.Name : a.Name,
+                    argName,
+                    StringComparison.OrdinalIgnoreCase
+                )
             );
 
             if (argument is not null)
@@ -42,7 +47,10 @@ public class Cli
             }
             else
             {
-                if (!argName.StartsWith(_prefix))
+                if (!argName.StartsWith(
+                    _prefix,
+                    StringComparison.OrdinalIgnoreCase
+                ))
                 {
                     continue;
                 }
