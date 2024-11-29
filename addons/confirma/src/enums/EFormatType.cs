@@ -2,10 +2,10 @@ namespace Confirma.Enums;
 
 public enum EFormatType
 {
-    bold = 0,
-    underline = 1,
-    italic = 2,
-    strikethrough = 3,
-    fill = 4,
-    center = 5
+    Bold = 0,
+    Underline = 1,
+    Italic = 2,
+    Strikethrough = 3,
+    Fill = 4,
+    Center = 5
 }

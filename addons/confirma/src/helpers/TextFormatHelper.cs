@@ -44,18 +44,18 @@ public static class TextFormatHelper
     {
         return type.ToLower() switch
         {
-            "bold" => FormatText(text, EFormatType.bold, addReset),
-            "italic" => FormatText(text, EFormatType.italic, addReset),
-            "strikethrough" => FormatText(text, EFormatType.strikethrough, addReset),
-            "underline" => FormatText(text, EFormatType.underline, addReset),
-            "fill" => FormatText(text, EFormatType.fill, addReset),
-            "center" => FormatText(text, EFormatType.center, addReset),
-            "b" => FormatText(text, EFormatType.bold, addReset),
-            "i" => FormatText(text, EFormatType.italic, addReset),
-            "s" => FormatText(text, EFormatType.strikethrough, addReset),
-            "u" => FormatText(text, EFormatType.underline, addReset),
-            "f" => FormatText(text, EFormatType.fill, addReset),
-            "c" => FormatText(text, EFormatType.center, addReset),
+            "bold" => FormatText(text, EFormatType.Bold, addReset),
+            "italic" => FormatText(text, EFormatType.Italic, addReset),
+            "strikethrough" => FormatText(text, EFormatType.Strikethrough, addReset),
+            "underline" => FormatText(text, EFormatType.Underline, addReset),
+            "fill" => FormatText(text, EFormatType.Fill, addReset),
+            "center" => FormatText(text, EFormatType.Center, addReset),
+            "b" => FormatText(text, EFormatType.Bold, addReset),
+            "i" => FormatText(text, EFormatType.Italic, addReset),
+            "s" => FormatText(text, EFormatType.Strikethrough, addReset),
+            "u" => FormatText(text, EFormatType.Underline, addReset),
+            "f" => FormatText(text, EFormatType.Fill, addReset),
+            "c" => FormatText(text, EFormatType.Center, addReset),
             _ => $"{text}"
         };
     }
@@ -66,12 +66,12 @@ public static class TextFormatHelper
     {
         return type switch
         {
-            EFormatType.bold => $"[b]{text}[/b]",
-            EFormatType.italic => $"[i]{text}[/i]",
-            EFormatType.underline => $"[u]{text}[/u]",
-            EFormatType.strikethrough => $"[s]{text}[/s]",
-            EFormatType.fill => FillToGodot(text),
-            EFormatType.center => $"[center]{text}[/center]",
+            EFormatType.Bold => $"[b]{text}[/b]",
+            EFormatType.Italic => $"[i]{text}[/i]",
+            EFormatType.Underline => $"[u]{text}[/u]",
+            EFormatType.Strikethrough => $"[s]{text}[/s]",
+            EFormatType.Fill => FillToGodot(text),
+            EFormatType.Center => $"[center]{text}[/center]",
             _ => $"{text}"
         };
     }
@@ -84,12 +84,12 @@ public static class TextFormatHelper
 
         return type switch
         {
-            EFormatType.bold => $"\x1b[1m{text}{reset}",
-            EFormatType.italic => $"\x1b[3m{text}{reset}",
-            EFormatType.underline => $"\x1b[4m{text}{reset}",
-            EFormatType.strikethrough => $"\x1b[9m{text}{reset}",
-            EFormatType.fill => FillToTerminal(text),
-            EFormatType.center => Center(text),
+            EFormatType.Bold => $"\x1b[1m{text}{reset}",
+            EFormatType.Italic => $"\x1b[3m{text}{reset}",
+            EFormatType.Underline => $"\x1b[4m{text}{reset}",
+            EFormatType.Strikethrough => $"\x1b[9m{text}{reset}",
+            EFormatType.Fill => FillToTerminal(text),
+            EFormatType.Center => Center(text),
             _ => $"{text}"
         };
     }

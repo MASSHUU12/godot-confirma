@@ -55,14 +55,14 @@ public abstract class FileElement
             a == "center" || a == "c"
         ))
         {
-            text = TextFormatHelper.FormatText(text, EFormatType.center);
+            text = TextFormatHelper.FormatText(text, EFormatType.Center);
         }
 
         if (FormatOverride.Any((string a) =>
             a == "fill" || a == "f"
         ))
         {
-            text = TextFormatHelper.FormatText(text, EFormatType.fill);
+            text = TextFormatHelper.FormatText(text, EFormatType.Fill);
         }
 
         if (Color?.Length == 0) { color = null; }
@@ -83,14 +83,14 @@ public abstract class FileElement
             a == "center" || a == "c"
         ))
         {
-            text = TextFormatHelper.FormatText(text, EFormatType.center);
+            text = TextFormatHelper.FormatText(text, EFormatType.Center);
         }
 
         if (FormatOverride.Any((string a) =>
             a == "fill" || a == "f"
         ))
         {
-            text = TextFormatHelper.FormatText(text, EFormatType.fill);
+            text = TextFormatHelper.FormatText(text, EFormatType.Fill);
         }
 
         if (Color?.Length == 0) { color = null; }

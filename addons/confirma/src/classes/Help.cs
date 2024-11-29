@@ -13,7 +13,7 @@ public static class Help
 
         if (file is null)
         {
-            Log.PrintError($"Page: `{pageName}`, not found or failed to load\n");
+            Log.PrintError($"Page: `{pageName}`, not found or failed to load.\n");
             return false;
         }
 

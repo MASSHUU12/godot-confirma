@@ -22,7 +22,7 @@ public class TextFormatHelperTest
     public void FormatText_BoldEFormatType_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.bold, reset);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Bold, reset);
 
         result.ConfirmEqual(
             Log.IsHeadless
@@ -52,7 +52,7 @@ public class TextFormatHelperTest
     public void FormatText_ItalicEFormatType_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.italic, reset);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Italic, reset);
 
         result.ConfirmEqual(
             Log.IsHeadless
@@ -83,7 +83,7 @@ public class TextFormatHelperTest
     public void FormatText_UnderlineEFormatType_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.underline, reset);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Underline, reset);
 
         result.ConfirmEqual(
             Log.IsHeadless
@@ -113,7 +113,7 @@ public class TextFormatHelperTest
     public void FormatText_strikethroughEFormatType(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.strikethrough, reset);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Strikethrough, reset);
 
         result.ConfirmEqual(Log.IsHeadless
             ? $"\x1b[9mhi{TerminalReset}"
@@ -139,7 +139,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void FormatText_FillEFormatType_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.fill);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Fill);
 
         result.ConfirmEqual(
             Log.IsHeadless
@@ -164,7 +164,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void FormatText_CenterEFormatType_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.center);
+        string result = TextFormatHelper.FormatText("hi", Enums.EFormatType.Center);
 
         result.ConfirmEqual(
             Log.IsHeadless
@@ -191,7 +191,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToGodot_Center_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.center);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Center);
         result.ConfirmEqual("[center]hi[/center]");
     }
     [TestCase]
@@ -199,7 +199,7 @@ public class TextFormatHelperTest
     [Ignore(Enums.EIgnoreMode.InHeadless)]
     public void ToGodot_Fill_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.fill);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Fill);
 
         result.ConfirmEqual($"hi{new string('\u00A0', 381)}");
     }
@@ -207,7 +207,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToGodot_Underline_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.underline);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Underline);
 
         result.ConfirmEqual("[u]hi[/u]");
     }
@@ -215,7 +215,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToGodot_Strikethrough_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.strikethrough);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Strikethrough);
 
         result.ConfirmEqual("[s]hi[/s]");
     }
@@ -223,7 +223,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToGodot_Italic_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.italic);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Italic);
 
         result.ConfirmEqual("[i]hi[/i]");
     }
@@ -231,7 +231,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToGodot_Bold_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.bold);
+        string result = TextFormatHelper.ToGodot("hi", Enums.EFormatType.Bold);
 
         result.ConfirmEqual("[b]hi[/b]");
     }
@@ -241,7 +241,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToTerminal_Center_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.center);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Center);
 
         result.ConfirmEqual(
             $"{new string (' ', Console.WindowWidth/2-1)}hi{new  string (' ', Console.WindowWidth/2-1)}"
@@ -251,7 +251,7 @@ public class TextFormatHelperTest
     [TestCase]
     public void ToTerminal_Fill_ReturnsFormattedText()
     {
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.fill);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Fill);
 
         result.ConfirmEqual($"hi{new string (' ', Console.WindowWidth-2)}");
     }
@@ -261,7 +261,7 @@ public class TextFormatHelperTest
     public void ToTerminal_Underline_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.underline, reset);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Underline, reset);
 
         result.ConfirmEqual($"\x1b[4mhi{TerminalReset}");
     }
@@ -271,7 +271,7 @@ public class TextFormatHelperTest
     public void ToTerminal_Strikethrough_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.strikethrough, reset);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Strikethrough, reset);
 
         result.ConfirmEqual($"\x1b[9mhi{TerminalReset}");
     }
@@ -281,7 +281,7 @@ public class TextFormatHelperTest
     public void ToTerminal_Italic_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.italic, reset);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Italic, reset);
 
         result.ConfirmEqual($"\x1b[3mhi{TerminalReset}");
     }
@@ -291,7 +291,7 @@ public class TextFormatHelperTest
     public void ToTerminal_Bold_ReturnsFormattedText(bool reset)
     {
         string TerminalReset = getResetCode(reset);
-        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.bold, reset);
+        string result = TextFormatHelper.ToTerminal("hi", Enums.EFormatType.Bold, reset);
 
         result.ConfirmEqual($"\x1b[1mhi{TerminalReset}");
     }
