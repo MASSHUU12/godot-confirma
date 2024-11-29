@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Confirma.Helpers;
 using Godot;
 
 namespace Confirma.Cli;
@@ -29,8 +28,10 @@ public class Cli
         return _arguments.Add(argument);
     }
 
-    public void Parse(string[] args)
+    public List<string> Parse(string[] args)
     {
+        List<string> errors = new();
+
         for (int i = 0; i < args.Length; i++)
         {
             (string argName, string? argValue) = ParseArgumentString(args[i]);
@@ -47,8 +48,7 @@ public class Cli
             {
                 if (!argument.Parse(argValue))
                 {
-                    // TODO: Collect errors for later use.
-                    Log.PrintError($"Invalid value: {argValue}.\n");
+                    errors.Add($"Invalid value: {argValue}.\n");
                     continue;
                 }
 
@@ -64,10 +64,11 @@ public class Cli
                     continue;
                 }
 
-                // TODO: Collect errors for later use.
-                Log.PrintError($"Unknown argument: {argName}.\n");
+                errors.Add($"Unknown argument: {argName}.\n");
             }
         }
+
+        return errors;
     }
 
     private static (string, string?) ParseArgumentString(string argument)
