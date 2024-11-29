@@ -59,7 +59,7 @@ public class Cli
             return (argument, null);
         }
 
-        string[] split = argument.Split('=');
+        string[] split = argument.Split('=', 2);
 
         return (split[0], split[1]);
     }
