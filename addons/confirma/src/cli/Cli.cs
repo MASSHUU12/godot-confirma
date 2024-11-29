@@ -9,8 +9,10 @@ namespace Confirma.Cli;
 public class Cli
 {
     private readonly string _prefix;
+    // TODO: Consider using Dictionary.
     private readonly HashSet<Argument> _arguments = new();
 
+    // TODO: Add support for multiple prefixes
     public Cli(string prefix)
     {
         _prefix = prefix;
@@ -43,7 +45,14 @@ public class Cli
 
             if (argument is not null)
             {
-                argument.Value = argument.IsFlag ? "true" : argValue;
+                if (!argument.Parse(argValue))
+                {
+                    // TODO: Collect errors for later use.
+                    Log.PrintError($"Invalid value: {argValue}.\n");
+                    continue;
+                }
+
+                // TODO: Optionally invoke method when argument is found.
             }
             else
             {
@@ -55,6 +64,7 @@ public class Cli
                     continue;
                 }
 
+                // TODO: Collect errors for later use.
                 Log.PrintError($"Unknown argument: {argName}.\n");
             }
         }
