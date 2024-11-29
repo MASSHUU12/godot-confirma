@@ -5,13 +5,25 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-
+- JSON deserialization classes:
+  - HelpFile
+  - FileElementConverter
+- Arguments:
+  - '--confirma-help'
 - Script templates:
   - Test.cs
   - test.gd
   - TestFull.cs
   - test_full.gd
 - Classes:
+  - FileElement
+  - CodeElement
+  - HeaderElement
+  - LinkElement
+  - TextElement
+  - Help
+  - HelpPanel
+  - FormatTextHelper
   - Mock
   - CallRecord
   - FuzzGenerator
@@ -25,6 +37,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmElementsAreNotOrdered w/ & w/o comparer
   - Overload for ConfirmEqual/ConfirmNotEqual accepting Array.
 - Enums:
+  - EFormatType
   - EDistributionType
 - Attributes:
   - FuzzAttribute
@@ -41,6 +54,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- `Colors`:
+  - Added `ColorBackground`
+  - Added `BackgroundToTerminal`
+  - Added `BackgroundToGodot`
+  - Added `Color` which allows to color both background and text at the same time
+  - Renamed `ToTerminal` to `TextToTerminal`
+  - Renamed `ToGodot` to `TextToGodot`
+- Added `LoadFromFile` to `Json` class
 - Updated documentation:
   - Added info in TESTING.md about script templates, mocking library,
 flaky tests, fuzz testing & `params` modifier.

@@ -1,0 +1,37 @@
+{
+    "version": 1,
+    "data":[
+        {
+            "type":"header",
+            "text": "",
+            "level": 0
+        },
+        {
+            "type": "text",
+            "text":"",
+            "color":"#ffffff",
+            "bg_color":"#ffffff",
+            "format": [
+                "bold",
+                "underline",
+                "italic",
+                "strikethrough",
+                "fill",
+                "center"
+            ]
+        },
+        {
+            "type":"code",
+            "lines":[
+                "line 1",
+                "line 2"
+            ]
+        },
+        {
+            "type":"link",
+            "text":"",
+            "url": ""
+        }
+    ]
+}
+

@@ -57,6 +57,16 @@ public partial class ConfirmaAutoload : Node
                 _usedConfirmaApi = true;
             }
 
+            if (arg.StartsWith(prefix + "help", InvariantCulture))
+            {
+                Props.ShowHelp = true;
+                Props.SelectedHelpPage = ParseArgumentContent(arg).Equals(string.Empty)
+                ? "default"
+                : ParseArgumentContent(arg);
+
+                return true;
+            }
+
             if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
             {
                 string name = ParseArgumentContent(arg);
@@ -213,6 +223,13 @@ public partial class ConfirmaAutoload : Node
 
     private void ChangeScene()
     {
+        if (Props.ShowHelp)
+        {
+            _ = GetTree().CallDeferred("change_scene_to_file",
+            $"{Plugin.GetPluginLocation()}src/scenes/help_panel/help_panel.tscn");
+            return;
+        }
+
         if (!Props.RunTests)
         {
             if (_usedConfirmaApi)

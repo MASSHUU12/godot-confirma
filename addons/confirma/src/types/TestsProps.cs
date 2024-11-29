@@ -14,6 +14,7 @@ public struct TestsProps
     public ConfirmaAutoload? Autoload { get; set; }
 
     public bool RunTests { get; set; }
+    public bool ShowHelp { get; set; }
     public bool IsVerbose { get; set; }
     public bool IsHeadless { get; set; }
     public bool ExitOnFail { get; set; }
@@ -37,6 +38,8 @@ public struct TestsProps
             "./test_results.json"
         )
         .AsString();
+    public string SelectedHelpPage { get; set; } = "default";
+
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
 
     public TestsProps() { }
