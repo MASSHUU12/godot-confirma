@@ -38,7 +38,7 @@ public class Cli
 
             if (argument is not null)
             {
-                argument.Value = argValue;
+                argument.Value = argument.IsFlag ? "true" : argValue;
             }
             else
             {
