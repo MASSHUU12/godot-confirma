@@ -202,7 +202,17 @@
         },
         {
             "type":"text",
-            "text":"All lifecycle attributes are assignable to the test class\nand **not** the method.\n\nThey take the name of the method to run, by default the attribute name.\n\n"
+            "text":"All lifecycle attributes are assignable to the test class\nand"
+        },
+        {
+            "type":"text",
+            "text":" not ",
+            "format":["b"],
+            "color":"#ffdd65"
+        },
+        {
+            "type":"text",
+            "text":"the method.\n\nThey take the name of the method to run, by default the attribute name.\n\n"
         },
         {
             "type":"header",
