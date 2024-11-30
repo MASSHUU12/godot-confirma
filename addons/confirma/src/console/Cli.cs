@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Confirma.Cli;
+namespace Confirma.Console;
 
 public class Cli
 {

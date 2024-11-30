@@ -1,6 +1,6 @@
 using System;
 
-namespace Confirma.Cli;
+namespace Confirma.Console;
 
 public class Argument
 {
