@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Confirma.Console;
+namespace Confirma.Terminal;
 
 public class Cli
 {
@@ -17,10 +17,14 @@ public class Cli
         _prefix = prefix;
     }
 
+    public Argument? GetArgument(string name)
+    {
+        return _arguments.FirstOrDefault(a => a.Name == name);
+    }
+
     public string? GetArgumentValue(string name)
     {
-        Argument? argument = _arguments.FirstOrDefault(a => a.Name == name);
-        return argument?.Value;
+        return GetArgument(name)?.Value;
     }
 
     public bool RegisterArgument(Argument argument)
@@ -46,6 +50,7 @@ public class Cli
 
             if (argument is not null)
             {
+                // TODO: Parse should return errors list.
                 if (!argument.Parse(argValue))
                 {
                     errors.Add($"Invalid value: {argValue}.\n");
