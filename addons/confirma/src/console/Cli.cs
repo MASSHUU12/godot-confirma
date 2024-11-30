@@ -86,7 +86,7 @@ public class Cli
 
                 if (invokeActions)
                 {
-                    argument.Invoke(argValue);
+                    argument.Invoke(parsed);
                 }
             }
             else
