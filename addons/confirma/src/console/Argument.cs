@@ -1,6 +1,6 @@
 using System;
 
-namespace Confirma.Console;
+namespace Confirma.Terminal;
 
 public class Argument
 {
@@ -9,14 +9,15 @@ public class Argument
 
     public bool IsFlag { get; init; }
     public bool UsePrefix { get; init; }
+    public bool AllowEmpty { get; init; } // TODO
 
-    private readonly Action? _action;
+    private readonly Action<string?>? _action;
 
     public Argument(
         string name,
-        bool usePrefix,
+        bool usePrefix = true,
         bool isFlag = false,
-        Action? action = null
+        Action<string?>? action = null
     )
     {
         Name = name;
@@ -34,7 +35,7 @@ public class Argument
 
     public void Invoke()
     {
-        _action?.Invoke();
+        _action?.Invoke(Value);
     }
 
     public override bool Equals(object? obj)
