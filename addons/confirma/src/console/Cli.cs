@@ -10,6 +10,7 @@ public class Cli
     private readonly string _prefix;
     // TODO: Consider using Dictionary.
     private readonly HashSet<Argument> _arguments = new();
+    private readonly Dictionary<string, string?> _argumentValues = new();
 
     // TODO: Add support for multiple prefixes
     public Cli(string prefix)
@@ -24,12 +25,32 @@ public class Cli
 
     public string? GetArgumentValue(string name)
     {
-        return GetArgument(name)?.Value;
+        _ = _argumentValues.TryGetValue(name, out string? value);
+        return value;
+    }
+
+    public int GetValuesCount()
+    {
+        return _argumentValues.Count;
     }
 
     public bool RegisterArgument(Argument argument)
     {
         return _arguments.Add(argument);
+    }
+
+    public bool InvokeArgumentAction(string name)
+    {
+        Argument? argument = GetArgument(name);
+
+        if (argument is null)
+        {
+            return false;
+        }
+
+        argument.Invoke(GetArgumentValue(name));
+
+        return true;
     }
 
     public List<string> Parse(string[] args, bool invokeActions = false)
@@ -50,7 +71,10 @@ public class Cli
 
             if (argument is not null)
             {
-                List<string> argErrors = argument.Parse(argValue);
+                List<string> argErrors = argument.Parse(
+                    argValue,
+                    out string? parsed
+                );
 
                 if (argErrors.Count > 0)
                 {
@@ -58,9 +82,11 @@ public class Cli
                     continue;
                 }
 
+                _argumentValues[argument.Name] = parsed;
+
                 if (invokeActions)
                 {
-                    argument.Invoke();
+                    argument.Invoke(argValue);
                 }
             }
             else
@@ -73,6 +99,7 @@ public class Cli
                     continue;
                 }
 
+                // TODO: Display similar arguments.
                 errors.Add($"Unknown argument: {argName}.\n");
             }
         }

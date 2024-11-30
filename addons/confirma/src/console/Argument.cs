@@ -6,7 +6,6 @@ namespace Confirma.Terminal;
 public class Argument
 {
     public string Name { get; init; }
-    public string? Value { get; private set; }
 
     public bool IsFlag { get; init; }
     public bool UsePrefix { get; init; }
@@ -29,9 +28,10 @@ public class Argument
         AllowEmpty = allowEmpty;
     }
 
-    public List<string> Parse(string? value)
+    public List<string> Parse(string? value, out string? parsed)
     {
         List<string> errors = new();
+        parsed = null;
 
         if (!AllowEmpty && string.IsNullOrEmpty(value))
         {
@@ -39,14 +39,14 @@ public class Argument
             return errors;
         }
 
-        Value = IsFlag ? "true" : value;
+        parsed = IsFlag ? "true" : value;
 
         return errors;
     }
 
-    public void Invoke()
+    public void Invoke(string? value)
     {
-        _action?.Invoke(Value);
+        _action?.Invoke(value);
     }
 
     public override bool Equals(object? obj)
