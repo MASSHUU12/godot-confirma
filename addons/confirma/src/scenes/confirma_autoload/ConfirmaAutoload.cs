@@ -35,8 +35,6 @@ public partial class ConfirmaAutoload : Node
         {
             ChangeScene();
         }
-
-        GetTree().Quit(0);
     }
 
     private void SetupGlobals()
@@ -80,11 +78,80 @@ public partial class ConfirmaAutoload : Node
                 }
             )
         );
+        _ = _cli.RegisterArgument(
+            new(
+                "method",
+                allowEmpty: false,
+                action: (value) =>
+                {
+                    if (string.IsNullOrEmpty(Props.Target.Name))
+                    {
+                        Log.PrintError(
+                            "Invalid value: argument '--confirma-run' cannot be empty"
+                            + " when using argument '--confirma-method'.\n"
+                        );
+                        Props.RunTests = false;
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        Log.PrintError(
+                            "Invalid value: '--confirma-method' cannot be empty.\n"
+                        );
+                        Props.RunTests = false;
+                        return;
+                    }
+
+                    Props.Target = Props.Target with
+                    {
+                        Target = ERunTargetType.Method,
+                        DetailedName = value
+                    };
+                }
+            )
+        );
+
+        /**
+        if (Props.RunTests
+            && arg.StartsWith(prefix + "method", InvariantCulture)
+        )
+        {
+            if (string.IsNullOrEmpty(Props.Target.Name))
+            {
+                Log.PrintError(
+                    "Invalid value: argument '--confirma-run' cannot be empty"
+                    + " when using argument '--confirma-method'.\n"
+                );
+                return false;
+            }
+
+            string method = ParseArgumentContent(arg);
+
+            if (string.IsNullOrEmpty(method))
+            {
+                Log.PrintError(
+                    "Invalid value: '--confirma-method' cannot be empty.\n"
+                );
+                return false;
+            }
+
+            Props.Target = Props.Target with
+            {
+                Target = ERunTargetType.Method,
+                DetailedName = method
+            };
+
+            continue;
+        }
+        */
     }
 
     private bool ParseArguments()
     {
         List<string> errors = _cli.Parse(OS.GetCmdlineUserArgs(), true);
+
+        _usedConfirmaApi = _cli.GetValuesCount() != 0;
 
         if (errors.Count == 0)
         {
@@ -104,37 +171,6 @@ private bool CheckArguments()
 {
             foreach (string arg in args)
             {
-                if (arg.StartsWith(prefix, InvariantCulture))
-                {
-                    _usedConfirmaApi = true;
-                }
-
-                if (arg.StartsWith(prefix + "help", InvariantCulture))
-                {
-                    Props.ShowHelp = true;
-                    Props.SelectedHelpPage = ParseArgumentContent(arg).Equals(string.Empty)
-                    ? "default"
-                    : ParseArgumentContent(arg);
-
-                    return true;
-                }
-
-                if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
-                {
-                    string name = ParseArgumentContent(arg);
-
-                    Props.RunTests = true;
-                    Props.Target = Props.Target with
-                    {
-                        Target = string.IsNullOrEmpty(name)
-                            ? ERunTargetType.All
-                            : ERunTargetType.Class,
-                        Name = name
-                    };
-
-                    continue;
-                }
-
                 if (Props.RunTests
                     && arg.StartsWith(prefix + "method", InvariantCulture)
                 )
