@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Confirma.Terminal;
 
@@ -9,7 +10,7 @@ public class Argument
 
     public bool IsFlag { get; init; }
     public bool UsePrefix { get; init; }
-    public bool AllowEmpty { get; init; } // TODO
+    public bool AllowEmpty { get; init; }
 
     private readonly Action<string?>? _action;
 
@@ -17,6 +18,7 @@ public class Argument
         string name,
         bool usePrefix = true,
         bool isFlag = false,
+        bool allowEmpty = true,
         Action<string?>? action = null
     )
     {
@@ -24,13 +26,22 @@ public class Argument
         UsePrefix = usePrefix;
         IsFlag = isFlag;
         _action = action;
+        AllowEmpty = allowEmpty;
     }
 
-    public bool Parse(string? value)
+    public List<string> Parse(string? value)
     {
+        List<string> errors = new();
+
+        if (!AllowEmpty && string.IsNullOrEmpty(value))
+        {
+            errors.Add($"Value for {Name} cannot be empty.");
+            return errors;
+        }
+
         Value = IsFlag ? "true" : value;
 
-        return true;
+        return errors;
     }
 
     public void Invoke()

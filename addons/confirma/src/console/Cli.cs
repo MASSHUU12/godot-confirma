@@ -50,10 +50,11 @@ public class Cli
 
             if (argument is not null)
             {
-                // TODO: Parse should return errors list.
-                if (!argument.Parse(argValue))
+                List<string> argErrors = argument.Parse(argValue);
+
+                if (argErrors.Count > 0)
                 {
-                    errors.Add($"Invalid value: {argValue}.\n");
+                    errors.AddRange(argErrors);
                     continue;
                 }
 
