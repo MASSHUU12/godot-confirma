@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 namespace Confirma.Terminal;
@@ -9,7 +8,9 @@ public class Cli
 {
     private readonly string _prefix;
     // TODO: Consider using Dictionary.
-    private readonly HashSet<Argument> _arguments = new();
+    private readonly Dictionary<string, Argument> _arguments = new(
+        StringComparer.OrdinalIgnoreCase
+    );
     private readonly Dictionary<string, string?> _argumentValues = new();
 
     // TODO: Add support for multiple prefixes
@@ -20,7 +21,11 @@ public class Cli
 
     public Argument? GetArgument(string name)
     {
-        return _arguments.FirstOrDefault(a => a.Name == name);
+        if (!_arguments.TryGetValue(_prefix + name, out Argument? argument))
+        {
+            _ = _arguments.TryGetValue(name, out argument);
+        }
+        return argument;
     }
 
     public string? GetArgumentValue(string name)
@@ -36,7 +41,9 @@ public class Cli
 
     public bool RegisterArgument(Argument argument)
     {
-        return _arguments.Add(argument);
+        string key = argument.UsePrefix ? _prefix + argument.Name : argument.Name;
+
+        return _arguments.TryAdd(key, argument);
     }
 
     public bool InvokeArgumentAction(string name)
@@ -60,47 +67,40 @@ public class Cli
         for (int i = 0; i < args.Length; i++)
         {
             (string argName, string? argValue) = ParseArgumentString(args[i]);
+            string key = _prefix + argName;
 
-            Argument? argument = _arguments.FirstOrDefault(a =>
-                string.Equals(
-                    a.UsePrefix ? _prefix + a.Name : a.Name,
-                    argName,
-                    StringComparison.OrdinalIgnoreCase
-                )
-            );
-
-            if (argument is not null)
+            // Check if argument exists in the dictionary
+            if (!_arguments.ContainsKey(key))
             {
-                List<string> argErrors = argument.Parse(
-                    argValue,
-                    out string? parsed
-                );
-
-                if (argErrors.Count > 0)
+                // Try without the prefix
+                key = argName;
+                if (!_arguments.ContainsKey(key))
                 {
-                    errors.AddRange(argErrors);
+                    // Unknown argument
+                    if (argName.StartsWith(_prefix, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // TODO: Display similar arguments.
+                        errors.Add($"Unknown argument: {argName}.");
+                    }
                     continue;
-                }
-
-                _argumentValues[argument.Name] = parsed;
-
-                if (invokeActions)
-                {
-                    argument.Invoke(parsed);
                 }
             }
-            else
-            {
-                if (!argName.StartsWith(
-                    _prefix,
-                    StringComparison.OrdinalIgnoreCase
-                ))
-                {
-                    continue;
-                }
 
-                // TODO: Display similar arguments.
-                errors.Add($"Unknown argument: {argName}.\n");
+            Argument argument = _arguments[key];
+
+            List<string> argErrors = argument.Parse(argValue, out string? parsed);
+
+            if (argErrors.Count > 0)
+            {
+                errors.AddRange(argErrors);
+                continue;
+            }
+
+            _argumentValues[argument.Name] = parsed;
+
+            if (invokeActions)
+            {
+                argument.Invoke(parsed);
             }
         }
 
