@@ -28,6 +28,7 @@ public class Argument
         AllowEmpty = allowEmpty;
     }
 
+    // TODO: Find a way to pass a prefix.
     public List<string> Parse(string? value, out string? parsed)
     {
         List<string> errors = new();
@@ -36,6 +37,12 @@ public class Argument
         if (!AllowEmpty && string.IsNullOrEmpty(value))
         {
             errors.Add($"Value for {Name} cannot be empty.");
+            return errors;
+        }
+
+        if (IsFlag && !string.IsNullOrEmpty(value))
+        {
+            errors.Add($"{Name} is a flag and doesn't accept any value.");
             return errors;
         }
 
@@ -53,7 +60,9 @@ public class Argument
     {
         return obj is Argument other
             && Name == other.Name
-            && UsePrefix == other.UsePrefix;
+            && UsePrefix == other.UsePrefix
+            && IsFlag == other.IsFlag
+            && AllowEmpty == other.AllowEmpty;
     }
 
     public override int GetHashCode()
