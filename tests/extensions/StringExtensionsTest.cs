@@ -8,6 +8,7 @@ namespace Confirma.Tests;
 [Parallelizable]
 public class StringExtensionsTest
 {
+    #region EscapeInvisibleCharacters
     [TestCase]
     public void EscapeInvisibleCharacters_EmptyString_ReturnsEmptyString()
     {
@@ -43,4 +44,34 @@ public class StringExtensionsTest
             .EscapeInvisibleCharacters()
             .ConfirmEqual("\\0\\a\\b\\f\\n\\r\\t\\v");
     }
+    #endregion EscapeInvisibleCharacters
+
+    #region LevenshteinDistance
+    [TestCase]
+    public void LevenshteinDistance_EmptyStrings()
+    {
+        _ = "".LevenshteinDistance("").ConfirmIsZero();
+    }
+
+    [TestCase]
+    public void LevenshteinDistance_CaseSensitivity()
+    {
+        _ = "Test".LevenshteinDistance("test").ConfirmEqual(1);
+    }
+
+    [TestCase("a", "", 1)]
+    [TestCase("", "bb", 2)]
+    [TestCase("kitten", "sitten", 1)]
+    [TestCase("kitten", "kitten", 0)]
+    [TestCase("kitten", "monkey", 5)]
+    [TestCase("kitten", "sitting", 3)]
+    public void LevenshteinDistance_ReturnsCorrectDistance(
+        string a,
+        string b,
+        int expected
+    )
+    {
+        _ = a.LevenshteinDistance(b).ConfirmEqual(expected);
+    }
+    #endregion LevenshteinDistance
 }
