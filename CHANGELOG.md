@@ -28,6 +28,8 @@ All notable changes to this project will be documented in this file.
   - CallRecord
   - FuzzGenerator
   - MethodInfoExtensions
+  - Cli
+  - Argument
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
@@ -41,6 +43,8 @@ All notable changes to this project will be documented in this file.
   - EDistributionType
 - Attributes:
   - FuzzAttribute
+- Extensions:
+  - LevenshteinDistance
 - Random extensions:
   - NextGaussianDouble
   - NextExponentialDouble
@@ -51,6 +55,7 @@ All notable changes to this project will be documented in this file.
 - Ability to ignore tests in headless mode.
 - Support for test methods with `params` modifier.
 - Flag to `CollectionHelper.ToString` & `CollectionFormatter` for adding type hint.
+- When passing an invalid command line argument, a similar one is suggested if available.
 
 ### Changed
 
@@ -75,6 +80,7 @@ flaky tests, fuzz testing & `params` modifier.
 in `ConfirmIEnumerableExtensions`.
 - String representation of arrays also displays their type.
 - `ConfirmEqual` handles arrays in a better way.
+- Replaced old system for handling command line arguments with a new one.
 
 ### Removed
 
