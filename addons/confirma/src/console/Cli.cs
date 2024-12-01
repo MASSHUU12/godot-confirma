@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Confirma.Extensions;
 using Godot;
 
 namespace Confirma.Terminal;
@@ -76,11 +78,9 @@ public class Cli
                 key = argName;
                 if (!_arguments.ContainsKey(key))
                 {
-                    // Unknown argument
                     if (argName.StartsWith(_prefix, StringComparison.OrdinalIgnoreCase))
                     {
-                        // TODO: Display similar arguments.
-                        errors.Add($"Unknown argument: {argName}.");
+                        errors.Add(GenerateErrorForInvalidArgument(argName));
                     }
                     continue;
                 }
@@ -105,6 +105,40 @@ public class Cli
         }
 
         return errors;
+    }
+
+    private string? FindSimilarArgument(string name)
+    {
+        const int maxDistance = 3;
+        int minDistance = int.MaxValue;
+        string? similarArgument = null;
+
+        foreach (string key in _arguments.Keys)
+        {
+            int currentDistance = name.LevenshteinDistance(key);
+
+            if (currentDistance < minDistance)
+            {
+                minDistance = currentDistance;
+                similarArgument = key;
+            }
+        }
+
+        return minDistance <= maxDistance
+            ? similarArgument
+            : null;
+    }
+
+    private string GenerateErrorForInvalidArgument(string name)
+    {
+        string? similarArgument = FindSimilarArgument(name);
+
+        return $"Unknown argument: {name}."
+            + (
+                string.IsNullOrEmpty(similarArgument)
+                    ? string.Empty
+                    : $" Did you mean {similarArgument}?"
+            );
     }
 
     private static (string, string?) ParseArgumentString(string argument)
