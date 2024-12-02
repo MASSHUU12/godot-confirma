@@ -42,11 +42,21 @@ public class Cli
         return _argumentValues.Count;
     }
 
-    public bool RegisterArgument(Argument argument)
+    public bool RegisterArgument(params Argument[] arguments)
     {
-        string key = argument.UsePrefix ? _prefix + argument.Name : argument.Name;
+        foreach (Argument argument in arguments)
+        {
+            string key = argument.UsePrefix
+                ? _prefix + argument.Name
+                : argument.Name;
 
-        return _arguments.TryAdd(key, argument);
+            if (!_arguments.TryAdd(key, argument))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool InvokeArgumentAction(string name)
