@@ -65,9 +65,7 @@ public partial class ConfirmaAutoload : Node
                         Name = value ?? string.Empty
                     };
                 }
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "help",
                 action: (value) =>
@@ -77,9 +75,7 @@ public partial class ConfirmaAutoload : Node
                         ? "default"
                         : value;
                 }
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "method",
                 allowEmpty: false,
@@ -101,9 +97,7 @@ public partial class ConfirmaAutoload : Node
                         DetailedName = value!
                     };
                 }
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "category",
                 allowEmpty: false,
@@ -115,58 +109,42 @@ public partial class ConfirmaAutoload : Node
                         Name = value!
                     };
                 }
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "exit-on-failure",
                 isFlag: true,
                 action: (_) => Props.ExitOnFail = true
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "verbose",
                 isFlag: true,
                 action: (_) => Props.IsVerbose = true
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "sequential",
                 isFlag: true,
                 action: (_) => Props.DisableParallelization = true
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "disable-orphans-monitor",
                 isFlag: true,
                 action: (_) => Props.MonitorOrphans = false
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "disable-cs",
                 isFlag: true,
                 action: (_) => Props.DisableCsharp = true
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "disable-gd",
                 isFlag: true,
                 action: (_) => Props.DisableGdScript = true
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "gd-path",
                 allowEmpty: false,
                 action: (value) => Props.GdTestPath = value!
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "output",
                 allowEmpty: false,
@@ -186,9 +164,7 @@ public partial class ConfirmaAutoload : Node
 
                     Props.OutputType = type;
                 }
-            )
-        );
-        _ = _cli.RegisterArgument(
+            ),
             new(
                 "output-path",
                 allowEmpty: false,
