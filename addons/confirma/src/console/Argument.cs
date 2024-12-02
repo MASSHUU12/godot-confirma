@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Generic;
+
+using static Confirma.Terminal.EArgumentParseResult;
 
 namespace Confirma.Terminal;
 
@@ -28,25 +29,24 @@ public class Argument
         AllowEmpty = allowEmpty;
     }
 
-    // TODO: Find a way to pass a prefix.
-    public string? Parse(string? value, out string? parsed)
+    public EArgumentParseResult Parse(string? value, out string? parsed)
     {
         parsed = null;
 
         if (!AllowEmpty && string.IsNullOrEmpty(value))
         {
-            return $"Value for {Name} cannot be empty.";
+            return ValueRequired;
         }
 
         if (IsFlag && !string.IsNullOrEmpty(value))
         {
-            return $"{Name} is a flag and doesn't accept any value.";
+            return UnexpectedValue;
         }
 
         // TODO: Find a better way to indicate that the flag is set.
         parsed = IsFlag ? "true" : value;
 
-        return null;
+        return Success;
     }
 
     public void Invoke(string? value)
