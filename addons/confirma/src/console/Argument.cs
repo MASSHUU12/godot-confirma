@@ -29,26 +29,24 @@ public class Argument
     }
 
     // TODO: Find a way to pass a prefix.
-    public List<string> Parse(string? value, out string? parsed)
+    public string? Parse(string? value, out string? parsed)
     {
-        List<string> errors = new();
         parsed = null;
 
         if (!AllowEmpty && string.IsNullOrEmpty(value))
         {
-            errors.Add($"Value for {Name} cannot be empty.");
-            return errors;
+            return $"Value for {Name} cannot be empty.";
         }
 
         if (IsFlag && !string.IsNullOrEmpty(value))
         {
-            errors.Add($"{Name} is a flag and doesn't accept any value.");
-            return errors;
+            return $"{Name} is a flag and doesn't accept any value.";
         }
 
+        // TODO: Find a better way to indicate that the flag is set.
         parsed = IsFlag ? "true" : value;
 
-        return errors;
+        return null;
     }
 
     public void Invoke(string? value)

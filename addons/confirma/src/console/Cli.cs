@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Confirma.Extensions;
 using Godot;
+
+using static System.StringComparison;
 
 namespace Confirma.Terminal;
 
 public class Cli
 {
     private readonly string _prefix;
-    // TODO: Consider using Dictionary.
     private readonly Dictionary<string, Argument> _arguments = new(
         StringComparer.OrdinalIgnoreCase
     );
@@ -71,14 +71,13 @@ public class Cli
             (string argName, string? argValue) = ParseArgumentString(args[i]);
             string key = _prefix + argName;
 
-            // Check if argument exists in the dictionary
             if (!_arguments.ContainsKey(key))
             {
                 // Try without the prefix
                 key = argName;
                 if (!_arguments.ContainsKey(key))
                 {
-                    if (argName.StartsWith(_prefix, StringComparison.OrdinalIgnoreCase))
+                    if (argName.StartsWith(_prefix, OrdinalIgnoreCase))
                     {
                         errors.Add(GenerateErrorForInvalidArgument(argName));
                     }
@@ -88,11 +87,11 @@ public class Cli
 
             Argument argument = _arguments[key];
 
-            List<string> argErrors = argument.Parse(argValue, out string? parsed);
+            string? argError = argument.Parse(argValue, out string? parsed);
 
-            if (argErrors.Count > 0)
+            if (argError is not null)
             {
-                errors.AddRange(argErrors);
+                errors.Add(argError);
                 continue;
             }
 
