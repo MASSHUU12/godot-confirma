@@ -4,6 +4,7 @@ using Confirma.Extensions;
 using Godot;
 
 using static System.StringComparison;
+using static Confirma.Terminal.EArgumentParseResult;
 
 namespace Confirma.Terminal;
 
@@ -86,12 +87,16 @@ public class Cli
             }
 
             Argument argument = _arguments[key];
+            EArgumentParseResult argResult = argument.Parse(
+                argValue,
+                out string? parsed
+            );
 
-            string? argError = argument.Parse(argValue, out string? parsed);
-
-            if (argError is not null)
+            if (argResult is not Success)
             {
-                errors.Add(argError);
+                errors.Add(
+                    GenerateErrorForArgumentParsingFailure(argument, argResult)
+                );
                 continue;
             }
 
@@ -126,6 +131,23 @@ public class Cli
         return minDistance <= maxDistance
             ? similarArgument
             : null;
+    }
+
+    private string GenerateErrorForArgumentParsingFailure(
+        Argument arg,
+        EArgumentParseResult result
+    )
+    {
+        string fullName = arg.UsePrefix ? _prefix + arg.Name : arg.Name;
+
+        return result switch
+        {
+            Success => string.Empty,
+            ValueRequired => $"Value for {fullName} cannot be empty.",
+            UnexpectedValue =>
+                $"{fullName} is a flag and doesn't accept any value.",
+            _ => $"An error occurred while parsing {fullName}."
+        };
     }
 
     private string GenerateErrorForInvalidArgument(string name)
