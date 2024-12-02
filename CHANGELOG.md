@@ -41,6 +41,7 @@ All notable changes to this project will be documented in this file.
 - Enums:
   - EFormatType
   - EDistributionType
+  - EArgumentParseResult
 - Attributes:
   - FuzzAttribute
 - Extensions:
@@ -49,7 +50,13 @@ All notable changes to this project will be documented in this file.
   - NextGaussianDouble
   - NextExponentialDouble
   - NextPoissonInt
-- Script test.sh.
+- `Colors`:
+  - `ColorBackground`
+  - `BackgroundToTerminal`
+  - `BackgroundToGodot`
+  - `Color` which allows to color both background and text at the same time.
+- Added `LoadFromFile` to `Json` class.
+- Script `test.sh`.
 - Library allowing to mock interfaces and classes.
 - Support for flaky tests.
 - Ability to ignore tests in headless mode.
@@ -60,13 +67,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - `Colors`:
-  - Added `ColorBackground`
-  - Added `BackgroundToTerminal`
-  - Added `BackgroundToGodot`
-  - Added `Color` which allows to color both background and text at the same time
   - Renamed `ToTerminal` to `TextToTerminal`
   - Renamed `ToGodot` to `TextToGodot`
-- Added `LoadFromFile` to `Json` class
 - Updated documentation:
   - Added info in TESTING.md about script templates, mocking library,
 flaky tests, fuzz testing & `params` modifier.
@@ -85,8 +87,8 @@ in `ConfirmIEnumerableExtensions`.
 ### Removed
 
 - '>' character from test output.
-- Script run_tests.sh.
-- `GetTestCasesFromMethod` from CsTestDiscovery.cs.
+- Script `run_tests.sh`.
+- `GetTestCasesFromMethod` from `CsTestDiscovery.cs`.
 
 ### Fixed
 
