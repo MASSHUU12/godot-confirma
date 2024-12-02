@@ -17,7 +17,7 @@ public class Cli
     private readonly Dictionary<string, string?> _argumentValues = new();
 
     // TODO: Add support for multiple prefixes
-    public Cli(string prefix)
+    public Cli(string prefix = "")
     {
         _prefix = prefix;
     }
