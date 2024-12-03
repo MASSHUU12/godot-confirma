@@ -14,7 +14,7 @@ public class Cli
     private readonly Dictionary<string, Argument> _arguments = new(
         StringComparer.OrdinalIgnoreCase
     );
-    private readonly Dictionary<string, string?> _argumentValues = new();
+    private readonly Dictionary<string, object?> _argumentValues = new();
 
     // TODO: Add support for multiple prefixes
     public Cli(string prefix = "")
@@ -31,10 +31,15 @@ public class Cli
         return argument;
     }
 
-    public string? GetArgumentValue(string name)
+    public object? GetArgumentValue(string name)
     {
-        _ = _argumentValues.TryGetValue(name, out string? value);
+        _ = _argumentValues.TryGetValue(name, out object? value);
         return value;
+    }
+
+    public bool IsFlagSet(string name)
+    {
+        return GetArgumentValue(name) is bool isSet && isSet;
     }
 
     public int GetValuesCount()
