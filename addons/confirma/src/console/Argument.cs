@@ -12,14 +12,14 @@ public class Argument
     public bool UsePrefix { get; init; }
     public bool AllowEmpty { get; init; }
 
-    private readonly Action<string?>? _action;
+    private readonly Action<object?>? _action;
 
     public Argument(
         string name,
         bool usePrefix = true,
         bool isFlag = false,
         bool allowEmpty = true,
-        Action<string?>? action = null
+        Action<object?>? action = null
     )
     {
         Name = name;
@@ -29,7 +29,7 @@ public class Argument
         AllowEmpty = allowEmpty;
     }
 
-    public EArgumentParseResult Parse(string? value, out string? parsed)
+    public EArgumentParseResult Parse(string? value, out object? parsed)
     {
         parsed = null;
 
@@ -38,18 +38,23 @@ public class Argument
             return ValueRequired;
         }
 
-        if (IsFlag && !string.IsNullOrEmpty(value))
+        if (IsFlag)
         {
-            return UnexpectedValue;
+            if (!string.IsNullOrEmpty(value))
+            {
+                return UnexpectedValue;
+            }
+            parsed = true;
         }
-
-        // TODO: Find a better way to indicate that the flag is set.
-        parsed = IsFlag ? "true" : value;
+        else
+        {
+            parsed = value;
+        }
 
         return Success;
     }
 
-    public void Invoke(string? value)
+    public void Invoke(object? value)
     {
         _action?.Invoke(value);
     }
