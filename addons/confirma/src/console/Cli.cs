@@ -73,7 +73,7 @@ public class Cli
             return false;
         }
 
-        argument.Invoke(GetArgumentValue(name));
+        argument.Invoke(GetArgumentValue(name)!);
 
         return true;
     }
@@ -104,7 +104,7 @@ public class Cli
             Argument argument = _arguments[key];
             EArgumentParseResult argResult = argument.Parse(
                 argValue,
-                out string? parsed
+                out object? parsed
             );
 
             if (argResult is not Success)
@@ -119,7 +119,7 @@ public class Cli
 
             if (invokeActions)
             {
-                argument.Invoke(parsed);
+                argument.Invoke(parsed!);
             }
         }
 

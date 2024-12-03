@@ -12,14 +12,14 @@ public class Argument
     public bool UsePrefix { get; init; }
     public bool AllowEmpty { get; init; }
 
-    private readonly Action<object?>? _action;
+    private readonly Action<object>? _action;
 
     public Argument(
         string name,
         bool usePrefix = true,
         bool isFlag = false,
         bool allowEmpty = true,
-        Action<object?>? action = null
+        Action<object>? action = null
     )
     {
         Name = name;
@@ -54,7 +54,7 @@ public class Argument
         return Success;
     }
 
-    public void Invoke(object? value)
+    public void Invoke(object value)
     {
         _action?.Invoke(value);
     }

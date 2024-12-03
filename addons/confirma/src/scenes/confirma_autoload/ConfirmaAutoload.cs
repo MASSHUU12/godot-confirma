@@ -56,13 +56,15 @@ public partial class ConfirmaAutoload : Node
                 "run",
                 action: (value) =>
                 {
+                    string name = (string)value;
+
                     Props.RunTests = true;
                     Props.Target = Props.Target with
                     {
-                        Target = string.IsNullOrEmpty(value)
+                        Target = string.IsNullOrEmpty(name)
                             ? ERunTargetType.All
                             : ERunTargetType.Class,
-                        Name = value ?? string.Empty
+                        Name = name
                     };
                 }
             ),
@@ -70,10 +72,12 @@ public partial class ConfirmaAutoload : Node
                 "help",
                 action: (value) =>
                 {
+                    string name = (string)value;
+
                     Props.ShowHelp = true;
-                    Props.SelectedHelpPage = string.IsNullOrEmpty(value)
+                    Props.SelectedHelpPage = string.IsNullOrEmpty(name)
                         ? "default"
-                        : value;
+                        : name;
                 }
             ),
             new(
@@ -94,7 +98,7 @@ public partial class ConfirmaAutoload : Node
                     Props.Target = Props.Target with
                     {
                         Target = ERunTargetType.Method,
-                        DetailedName = value!
+                        DetailedName = (string)value
                     };
                 }
             ),
@@ -106,7 +110,7 @@ public partial class ConfirmaAutoload : Node
                     Props.Target = Props.Target with
                     {
                         Target = ERunTargetType.Category,
-                        Name = value!
+                        Name = (string)value
                     };
                 }
             ),
@@ -143,7 +147,7 @@ public partial class ConfirmaAutoload : Node
             new(
                 "gd-path",
                 allowEmpty: false,
-                action: (value) => Props.GdTestPath = value!
+                action: (value) => Props.GdTestPath = (string)value
             ),
             new(
                 "output",
@@ -151,7 +155,7 @@ public partial class ConfirmaAutoload : Node
                 action: (value) =>
                 {
                     if (!EnumHelper.TryParseFlagsEnum(
-                        value!,
+                        (string)value,
                         out ELogOutputType type
                     ))
                     {
@@ -170,16 +174,18 @@ public partial class ConfirmaAutoload : Node
                 allowEmpty: false,
                 action: (value) =>
                 {
-                    if (!Path.Exists(Path.GetDirectoryName(value))
-                        || Path.GetExtension(value) != ".json"
+                    string path = (string)value;
+
+                    if (!Path.Exists(Path.GetDirectoryName(path))
+                        || Path.GetExtension(path) != ".json"
                     )
                     {
-                        Log.PrintError($"Invalid output path: {value}.\n");
+                        Log.PrintError($"Invalid output path: {path}.\n");
                         Props.RunTests = false;
                         return;
                     }
 
-                    Props.OutputPath = value!;
+                    Props.OutputPath = path;
                 }
             )
         );
