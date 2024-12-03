@@ -115,7 +115,7 @@ public class Cli
                 continue;
             }
 
-            _argumentValues[argument.Name] = parsed;
+            _argumentValues[argName] = parsed;
 
             if (invokeActions)
             {
