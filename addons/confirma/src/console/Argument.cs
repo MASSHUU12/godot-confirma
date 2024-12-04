@@ -33,11 +33,6 @@ public class Argument
     {
         parsed = null;
 
-        if (!AllowEmpty && string.IsNullOrEmpty(value))
-        {
-            return ValueRequired;
-        }
-
         if (IsFlag)
         {
             if (!string.IsNullOrEmpty(value))
@@ -48,6 +43,11 @@ public class Argument
         }
         else
         {
+            if (!AllowEmpty && string.IsNullOrEmpty(value))
+            {
+                return ValueRequired;
+            }
+
             parsed = value;
         }
 
