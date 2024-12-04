@@ -54,6 +54,7 @@ public partial class ConfirmaAutoload : Node
         _ = _cli.RegisterArgument(
             new(
                 "run",
+                allowEmpty: true,
                 action: (value) =>
                 {
                     string name = (string)value;
@@ -70,6 +71,7 @@ public partial class ConfirmaAutoload : Node
             ),
             new(
                 "help",
+                allowEmpty: true,
                 action: (value) =>
                 {
                     string name = (string)value;
@@ -82,7 +84,6 @@ public partial class ConfirmaAutoload : Node
             ),
             new(
                 "method",
-                allowEmpty: false,
                 action: (value) =>
                 {
                     if (string.IsNullOrEmpty(Props.Target.Name))
@@ -104,7 +105,6 @@ public partial class ConfirmaAutoload : Node
             ),
             new(
                 "category",
-                allowEmpty: false,
                 action: (value) =>
                 {
                     Props.Target = Props.Target with
@@ -151,7 +151,6 @@ public partial class ConfirmaAutoload : Node
             ),
             new(
                 "output",
-                allowEmpty: false,
                 action: (value) =>
                 {
                     if (!EnumHelper.TryParseFlagsEnum(
@@ -171,7 +170,6 @@ public partial class ConfirmaAutoload : Node
             ),
             new(
                 "output-path",
-                allowEmpty: false,
                 action: (value) =>
                 {
                     string path = (string)value;

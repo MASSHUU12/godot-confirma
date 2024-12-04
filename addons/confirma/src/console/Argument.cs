@@ -18,7 +18,7 @@ public class Argument
         string name,
         bool usePrefix = true,
         bool isFlag = false,
-        bool allowEmpty = true,
+        bool allowEmpty = false,
         Action<object>? action = null
     )
     {
