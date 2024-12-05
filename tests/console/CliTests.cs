@@ -48,8 +48,8 @@ public class CliTests
         List<string> errors = cli.Parse(args);
 
         _ = errors.ConfirmEmpty();
-        _ = cli.IsFlagSet("--help").ConfirmTrue();
-        _ = cli.IsFlagSet("--version").ConfirmFalse();
+        _ = cli.IsFlagSet("help").ConfirmTrue();
+        _ = cli.IsFlagSet("version").ConfirmFalse();
         _ = cli.GetArgumentValue<string>("output").ConfirmEqual("log.txt");
         _ = cli.GetValuesCount().ConfirmEqual(2);
     }
@@ -83,7 +83,7 @@ public class CliTests
         List<string> errors = cli.Parse(args);
 
         _ = errors.ConfirmCount(1);
-        _ = errors.ConfirmContains("Value for --input cannot be empty.");
+        _ = errors.ConfirmContains("Value for '--input' cannot be empty.");
     }
 
     [TestCase]
@@ -98,7 +98,7 @@ public class CliTests
         List<string> errors = cli.Parse(args);
 
         _ = errors.ConfirmCount(1);
-        _ = errors.ConfirmContains("Unknown argument: stat. Did you mean start?");
+        _ = errors.ConfirmContains("Unknown argument: stat. Did you mean 'start'?");
     }
 
     [TestCase]
@@ -138,6 +138,34 @@ public class CliTests
         _ = cli.Parse(args, invokeActions: true);
 
         _ = actionValue.ConfirmEqual("value");
+    }
+
+    [TestCase]
+    public void Parse_ArgWOPrefix_WhenPrefixRequired()
+    {
+        Cli cli = new("--");
+        Argument arg = new("help", usePrefix: true);
+        string[] args = { "help" };
+
+        _ = cli.RegisterArgument(arg);
+
+        List<string> errors = cli.Parse(args);
+        _ = errors.ConfirmCount(1);
+        _ = errors.ConfirmContains("Argument 'help' requires the prefix '--'.");
+    }
+
+    [TestCase]
+    public void Parse_ArgWPrefix_WhenPrefixShouldNotBeUsed()
+    {
+        Cli cli = new("--");
+        Argument arg = new("help", usePrefix: false);
+        string[] args = { "--help" };
+
+        _ = cli.RegisterArgument(arg);
+
+        List<string> errors = cli.Parse(args);
+        _ = errors.ConfirmCount(1);
+        _ = errors.ConfirmContains("Argument 'help' should not have the prefix '--'.");
     }
     #endregion Parse
 

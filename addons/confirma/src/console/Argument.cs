@@ -4,6 +4,8 @@ using static Confirma.Terminal.EArgumentParseResult;
 
 namespace Confirma.Terminal;
 
+// TODO: Implement a fluent interface for registering arguments e.q.:
+// new Argument("verbose").WithAlias("v").WithDescription("Enable verbose output");
 public class Argument
 {
     public string Name { get; init; }

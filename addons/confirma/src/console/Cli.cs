@@ -23,10 +23,7 @@ public class Cli
 
     public Argument? GetArgument(string name)
     {
-        if (!_arguments.TryGetValue(_prefix + name, out Argument? argument))
-        {
-            _ = _arguments.TryGetValue(name, out argument);
-        }
+        _ = _arguments.TryGetValue(name, out Argument? argument);
         return argument;
     }
 
@@ -53,11 +50,7 @@ public class Cli
     {
         foreach (Argument argument in arguments)
         {
-            string key = argument.UsePrefix
-                ? _prefix + argument.Name
-                : argument.Name;
-
-            if (!_arguments.TryAdd(key, argument))
+            if (!_arguments.TryAdd(argument.Name, argument))
             {
                 return false;
             }
@@ -87,37 +80,41 @@ public class Cli
         for (int i = 0; i < args.Length; i++)
         {
             (string argName, string? argValue) = ParseArgumentString(args[i]);
-            string key = _prefix + argName;
 
-            if (!_arguments.ContainsKey(key))
+            bool hasPrefix = ArgumentHasPrefix(argName);
+            string normalizedName = NormalizeArgumentName(argName);
+
+            if (!_arguments.TryGetValue(normalizedName, out Argument? argument))
             {
-                // Try without the prefix
-                key = argName;
-                if (!_arguments.ContainsKey(key))
-                {
-                    if (argName.StartsWith(_prefix, OrdinalIgnoreCase))
-                    {
-                        errors.Add(GenerateErrorForInvalidArgument(argName));
-                    }
-                    continue;
-                }
+                errors.Add(GenerateErrorForInvalidArgument(argName));
+                continue;
             }
 
-            Argument argument = _arguments[key];
-            EArgumentParseResult argResult = argument.Parse(
-                argValue,
-                out object? parsed
-            );
-
-            if (argResult is not Success)
+            if (argument.UsePrefix && !hasPrefix)
             {
                 errors.Add(
-                    GenerateErrorForArgumentParsingFailure(argument, argResult)
+                    $"Argument '{argument.Name}' requires the prefix '{_prefix}'."
                 );
                 continue;
             }
 
-            _argumentValues[argName] = parsed;
+            if (!argument.UsePrefix && hasPrefix)
+            {
+                errors.Add(
+                    $"Argument '{argument.Name}' should not have the prefix '{_prefix}'."
+                );
+                continue;
+            }
+
+            EArgumentParseResult argResult = argument.Parse(argValue, out object? parsed);
+
+            if (argResult is not Success)
+            {
+                errors.Add(GenerateErrorForArgumentParsingFailure(argument, argResult));
+                continue;
+            }
+
+            _argumentValues[argument.Name] = parsed;
 
             if (invokeActions)
             {
@@ -126,6 +123,18 @@ public class Cli
         }
 
         return errors;
+    }
+
+    private string NormalizeArgumentName(string argName)
+    {
+        return ArgumentHasPrefix(argName)
+            ? argName[_prefix.Length..]
+            : argName;
+    }
+
+    private bool ArgumentHasPrefix(string argName)
+    {
+        return argName.StartsWith(_prefix, OrdinalIgnoreCase);
     }
 
     private string? FindSimilarArgument(string name)
@@ -145,9 +154,7 @@ public class Cli
             }
         }
 
-        return minDistance <= maxDistance
-            ? similarArgument
-            : null;
+        return minDistance <= maxDistance ? similarArgument : null;
     }
 
     private string GenerateErrorForArgumentParsingFailure(
@@ -160,22 +167,26 @@ public class Cli
         return result switch
         {
             Success => string.Empty,
-            ValueRequired => $"Value for {fullName} cannot be empty.",
+            ValueRequired => $"Value for '{fullName}' cannot be empty.",
             UnexpectedValue =>
-                $"{fullName} is a flag and doesn't accept any value.",
-            _ => $"An error occurred while parsing {fullName}."
+                $"'{fullName}' is a flag and doesn't accept any value.",
+            _ => $"An error occurred while parsing '{fullName}'."
         };
     }
 
     private string GenerateErrorForInvalidArgument(string name)
     {
-        string? similarArgument = FindSimilarArgument(name);
+        string? similarArgument = FindSimilarArgument(
+            name.StartsWith(_prefix, OrdinalIgnoreCase
+        )
+            ? name[_prefix.Length..]
+            : name);
 
         return $"Unknown argument: {name}."
             + (
                 string.IsNullOrEmpty(similarArgument)
                     ? string.Empty
-                    : $" Did you mean {similarArgument}?"
+                    : $" Did you mean '{similarArgument}'?"
             );
     }
 
