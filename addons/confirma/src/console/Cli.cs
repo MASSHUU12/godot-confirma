@@ -16,7 +16,6 @@ public class Cli
     );
     private readonly Dictionary<string, object?> _argumentValues = new();
 
-    // TODO: Add support for multiple prefixes
     public Cli(string prefix = "")
     {
         _prefix = prefix;
@@ -31,15 +30,18 @@ public class Cli
         return argument;
     }
 
-    public object? GetArgumentValue(string name)
+    public T? GetArgumentValue<T>(string name)
     {
-        _ = _argumentValues.TryGetValue(name, out object? value);
-        return value;
+        if (_argumentValues.TryGetValue(name, out object? value) && value is T typedValue)
+        {
+            return typedValue;
+        }
+        return default;
     }
 
     public bool IsFlagSet(string name)
     {
-        return GetArgumentValue(name) is bool isSet && isSet;
+        return GetArgumentValue<bool>(name) is bool isSet && isSet;
     }
 
     public int GetValuesCount()
@@ -73,7 +75,7 @@ public class Cli
             return false;
         }
 
-        argument.Invoke(GetArgumentValue(name)!);
+        argument.Invoke(GetArgumentValue<object>(name)!);
 
         return true;
     }

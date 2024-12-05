@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Confirma.Attributes;
 using Confirma.Extensions;
@@ -51,7 +50,7 @@ public class CliTests
         _ = errors.ConfirmEmpty();
         _ = cli.IsFlagSet("--help").ConfirmTrue();
         _ = cli.IsFlagSet("--version").ConfirmFalse();
-        _ = cli.GetArgumentValue("output").ConfirmEqual("log.txt");
+        _ = cli.GetArgumentValue<string>("output").ConfirmEqual("log.txt");
         _ = cli.GetValuesCount().ConfirmEqual(2);
     }
 
