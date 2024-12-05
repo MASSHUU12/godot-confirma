@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Confirma.Extensions;
 using Godot;
 
@@ -143,14 +144,28 @@ public class Cli
         int minDistance = int.MaxValue;
         string? similarArgument = null;
 
-        foreach (string key in _arguments.Keys)
+        IEnumerable<string>? candidates = _arguments.Keys.Where(key =>
+            key.StartsWith(name[0])
+            || Math.Abs(key.Length - name.Length) <= maxDistance
+        );
+
+        foreach (string key in candidates)
         {
+            // TODO: Consider using Jaro-Winkler distance.
+            // TODO: Consider using Trie to reduce candidates for comparison.
             int currentDistance = name.LevenshteinDistance(key);
 
-            if (currentDistance < minDistance)
+            if (currentDistance >= minDistance)
             {
-                minDistance = currentDistance;
-                similarArgument = key;
+                continue;
+            }
+
+            minDistance = currentDistance;
+            similarArgument = key;
+
+            if (minDistance == 0)
+            {
+                break;
             }
         }
 
