@@ -140,36 +140,30 @@ public class Cli
 
     private string? FindSimilarArgument(string name)
     {
-        const int maxDistance = 3;
-        int minDistance = int.MaxValue;
+        const double minSimilarity = 0.88;
+        double maxSimilarity = double.MinValue;
         string? similarArgument = null;
 
         IEnumerable<string>? candidates = _arguments.Keys.Where(key =>
             key.StartsWith(name[0])
-            || Math.Abs(key.Length - name.Length) <= maxDistance
+            || Math.Abs(key.Length - name.Length) <= maxSimilarity
         );
 
+        // TODO: Consider using Trie to reduce candidates for comparison.
         foreach (string key in candidates)
         {
-            // TODO: Consider using Jaro-Winkler distance.
-            // TODO: Consider using Trie to reduce candidates for comparison.
-            int currentDistance = name.LevenshteinDistance(key);
+            double currentSimilarity = name.JaroWinklerSimilarity(key);
 
-            if (currentDistance >= minDistance)
+            if (currentSimilarity <= maxSimilarity)
             {
                 continue;
             }
 
-            minDistance = currentDistance;
+            maxSimilarity = currentSimilarity;
             similarArgument = key;
-
-            if (minDistance == 0)
-            {
-                break;
-            }
         }
 
-        return minDistance <= maxDistance ? similarArgument : null;
+        return maxSimilarity >= minSimilarity ? similarArgument : null;
     }
 
     private string GenerateErrorForArgumentParsingFailure(
@@ -192,10 +186,8 @@ public class Cli
     private string GenerateErrorForInvalidArgument(string name)
     {
         string? similarArgument = FindSimilarArgument(
-            name.StartsWith(_prefix, OrdinalIgnoreCase
-        )
-            ? name[_prefix.Length..]
-            : name);
+            NormalizeArgumentName(name)
+        );
 
         return $"Unknown argument: {name}."
             + (
