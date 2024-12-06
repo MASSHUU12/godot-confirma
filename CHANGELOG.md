@@ -44,8 +44,9 @@ All notable changes to this project will be documented in this file.
   - EArgumentParseResult
 - Attributes:
   - FuzzAttribute
-- Extensions:
+- String extensions:
   - LevenshteinDistance
+  - JaroDistance
 - Random extensions:
   - NextGaussianDouble
   - NextExponentialDouble

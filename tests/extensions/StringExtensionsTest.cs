@@ -74,4 +74,22 @@ public class StringExtensionsTest
         _ = a.LevenshteinDistance(b).ConfirmEqual(expected);
     }
     #endregion LevenshteinDistance
+
+    #region JaroDistance
+    [TestCase("", "b", 0d)]
+    [TestCase("a", "", 0d)]
+    [TestCase("abc", "xyz", 0d)]
+    [TestCase("example", "example", 1d)]
+    [TestCase("MARTHA", "MARHTA", 0.944444444444445)]
+    [TestCase("DIXON", "DICKSONX", 0.766666666666667)]
+    [TestCase("JELLYFISH", "SMELLYFISH", 0.896296296296296)]
+    public void JaroDistance_ReturnsCorrectDistance(
+        string a,
+        string b,
+        double distance
+    )
+    {
+        _ = a.JaroDistance(b).ConfirmCloseTo(distance, 0.001);
+    }
+    #endregion JaroDistance
 }

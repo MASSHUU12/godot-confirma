@@ -80,4 +80,88 @@ public static class StringExtensions
 
         return previousRow[b.Length];
     }
+
+    /// <summary>
+    /// Calculates the Jaro distance between two strings.
+    /// The Jaro distance is a measure of similarity between two strings.
+    /// It is a value between 0 and 1, where 1 means the strings are identical
+    /// and 0 means they have no similarity.
+    /// </summary>
+    /// <param name="a">The first string to compare.</param>
+    /// <param name="b">The second string to compare.</param>
+    /// <returns>The Jaro distance between the two strings.</returns>
+    public static double JaroDistance(this string a, string b)
+    {
+        int lenA = a.Length;
+        int lenB = b.Length;
+
+        if (lenA == 0 && lenB == 0)
+        {
+            return 1;
+        }
+
+        int matchDistance = (Math.Max(lenA, lenB) / 2) - 1;
+
+        bool[] matchesA = new bool[lenA];
+        bool[] matchesB = new bool[lenB];
+
+        int matches = 0;
+        int transpositions = 0;
+
+        for (int i = 0; i < lenA; i++)
+        {
+            int start = Math.Max(0, i - matchDistance);
+            int end = Math.Min(i + matchDistance + 1, lenB);
+
+            for (int j = start; j < end; j++)
+            {
+                if (matchesB[j] || a[i] != b[j])
+                {
+                    continue;
+                }
+
+                matchesA[i] = true;
+                matchesB[j] = true;
+                matches++;
+                break;
+            }
+        }
+
+        if (matches == 0)
+        {
+            return 0;
+        }
+
+        int k = 0;
+        for (int i = 0; i < lenA; i++)
+        {
+            if (!matchesA[i])
+            {
+                continue;
+            }
+
+            while (!matchesB[k])
+            {
+                k++;
+            }
+
+            if (a[i] != b[k])
+            {
+                transpositions++;
+            }
+
+            k++;
+        }
+
+        return (
+            ((double)matches / lenA)
+            + ((double)matches / lenB)
+            + ((matches - (transpositions / 2d)) / matches)
+        ) / 3d;
+    }
+
+    public static double JaroWinklerSimilarity(this string a, string b)
+    {
+        return 0d;
+    }
 }
