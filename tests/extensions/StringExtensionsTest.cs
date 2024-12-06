@@ -1,3 +1,4 @@
+using System;
 using Confirma.Attributes;
 using Confirma.Classes;
 using Confirma.Extensions;
@@ -92,4 +93,31 @@ public class StringExtensionsTest
         _ = a.JaroDistance(b).ConfirmCloseTo(distance, 0.001);
     }
     #endregion JaroDistance
+
+    #region JaroWinklerSimilarity
+    [TestCase("", "b", 0d)]
+    [TestCase("a", "", 0d)]
+    [TestCase("abc", "xyz", 0d)]
+    [TestCase("example", "example", 1d)]
+    [TestCase("MARTHA", "MARHTA", 0.961111092567444)]
+    [TestCase("DIXON", "DICKSONX", 0.813333320617676)]
+    [TestCase("JELLYFISH", "SMELLYFISH", 0.896296322345734)]
+    public void JaroWinklerSimilarity_ReturnsCorrectDistance(
+        string a,
+        string b,
+        double distance
+    )
+    {
+        _ = a.JaroWinklerSimilarity(b).ConfirmCloseTo(distance, 0.001);
+    }
+
+    [TestCase]
+    public void JaroWinklerSimilarity_ScalingFactorOutOfRange_ThrowsError()
+    {
+        Action action = static () => "Lorem".JaroWinklerSimilarity("Ipsum", 30);
+        _ = action.ConfirmThrowsWMessage<ArgumentOutOfRangeException>(
+            "The scaling factor must be between 0 and 0.25. (Parameter 'p')"
+        );
+    }
+    #endregion JaroWinklerSimilarity
 }

@@ -160,8 +160,53 @@ public static class StringExtensions
         ) / 3d;
     }
 
-    public static double JaroWinklerSimilarity(this string a, string b)
+    /// <summary>
+    /// Calculates the Jaro-Winkler similarity score between two strings.
+    /// </summary>
+    /// <param name="a">The first string.</param>
+    /// <param name="b">The second string.</param>
+    /// <param name="p">
+    /// The scaling factor for the common prefix (between 0 and 0.25).
+    /// Default is 0.1.
+    /// </param>
+    /// <returns>A similarity score between 0.0 and 1.0.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the scaling factor p is out of range.
+    /// </exception>
+    public static double JaroWinklerSimilarity(
+        this string a,
+        string b,
+        double p = 0.1
+    )
     {
-        return 0d;
+        if (p is < 0 or > 0.25)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(p),
+                "The scaling factor must be between 0 and 0.25."
+            );
+        }
+
+        if (a.Length == 0 && b.Length == 0)
+        {
+            return 1.0;
+        }
+
+        double distance = a.JaroDistance(b);
+
+        int prefixLength = 0;
+        int maxPrefixLength = Math.Min(4, Math.Min(a.Length, b.Length));
+
+        for (int i = 0; i < maxPrefixLength; i++)
+        {
+            if (a[i] != b[i])
+            {
+                break;
+            }
+
+            prefixLength++;
+        }
+
+        return distance + (prefixLength * p * (1 - distance));
     }
 }

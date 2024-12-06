@@ -47,6 +47,7 @@ All notable changes to this project will be documented in this file.
 - String extensions:
   - LevenshteinDistance
   - JaroDistance
+  - JaroWinklerSimilarity
 - Random extensions:
   - NextGaussianDouble
   - NextExponentialDouble
