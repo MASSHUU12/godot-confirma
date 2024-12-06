@@ -28,6 +28,8 @@ All notable changes to this project will be documented in this file.
   - CallRecord
   - FuzzGenerator
   - MethodInfoExtensions
+  - Cli
+  - Argument
 - Assertions:
   - ConfirmInstanceOf
   - ConfirmNotInstanceOf
@@ -39,29 +41,36 @@ All notable changes to this project will be documented in this file.
 - Enums:
   - EFormatType
   - EDistributionType
+  - EArgumentParseResult
 - Attributes:
   - FuzzAttribute
+- String extensions:
+  - LevenshteinDistance
+  - JaroDistance
+  - JaroWinklerSimilarity
 - Random extensions:
   - NextGaussianDouble
   - NextExponentialDouble
   - NextPoissonInt
-- Script test.sh.
+- `Colors`:
+  - `ColorBackground`
+  - `BackgroundToTerminal`
+  - `BackgroundToGodot`
+  - `Color` which allows to color both background and text at the same time.
+- Added `LoadFromFile` to `Json` class.
+- Script `test.sh`.
 - Library allowing to mock interfaces and classes.
 - Support for flaky tests.
 - Ability to ignore tests in headless mode.
 - Support for test methods with `params` modifier.
 - Flag to `CollectionHelper.ToString` & `CollectionFormatter` for adding type hint.
+- When passing an invalid command line argument, a similar one is suggested if available.
 
 ### Changed
 
 - `Colors`:
-  - Added `ColorBackground`
-  - Added `BackgroundToTerminal`
-  - Added `BackgroundToGodot`
-  - Added `Color` which allows to color both background and text at the same time
   - Renamed `ToTerminal` to `TextToTerminal`
   - Renamed `ToGodot` to `TextToGodot`
-- Added `LoadFromFile` to `Json` class
 - Updated documentation:
   - Added info in TESTING.md about script templates, mocking library,
 flaky tests, fuzz testing & `params` modifier.
@@ -75,12 +84,13 @@ flaky tests, fuzz testing & `params` modifier.
 in `ConfirmIEnumerableExtensions`.
 - String representation of arrays also displays their type.
 - `ConfirmEqual` handles arrays in a better way.
+- Replaced old system for handling command line arguments with a new one.
 
 ### Removed
 
 - '>' character from test output.
-- Script run_tests.sh.
-- `GetTestCasesFromMethod` from CsTestDiscovery.cs.
+- Script `run_tests.sh`.
+- `GetTestCasesFromMethod` from `CsTestDiscovery.cs`.
 
 ### Fixed
 

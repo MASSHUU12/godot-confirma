@@ -1,11 +1,12 @@
 #if TOOLS
+using System.Collections.Generic;
 using System.IO;
 using Confirma.Classes;
 using Confirma.Enums;
 using Confirma.Helpers;
+using Confirma.Terminal;
 using Confirma.Types;
 using Godot;
-using static System.StringComparison;
 
 namespace Confirma.Scenes;
 
@@ -15,10 +16,13 @@ public partial class ConfirmaAutoload : Node
     public TestsProps Props = new();
 
     private bool _usedConfirmaApi;
+    private readonly Cli _cli = new("--confirma-");
 
     public override void _Ready()
     {
-        if (!CheckArguments())
+        Initialize();
+
+        if (!ParseArguments())
         {
             Props.RunTests = false;
             GetTree().Quit(1);
@@ -40,185 +44,168 @@ public partial class ConfirmaAutoload : Node
         Global.Root = GetTree().Root;
     }
 
-    private bool CheckArguments()
+    private void Initialize()
     {
-        string[] args = OS.GetCmdlineUserArgs();
-        const string prefix = "--confirma-";
-
         if (DisplayServer.GetName() == "headless")
         {
             Props.IsHeadless = true;
         }
 
-        foreach (string arg in args)
-        {
-            if (arg.StartsWith(prefix, InvariantCulture))
-            {
-                _usedConfirmaApi = true;
-            }
-
-            if (arg.StartsWith(prefix + "help", InvariantCulture))
-            {
-                Props.ShowHelp = true;
-                Props.SelectedHelpPage = ParseArgumentContent(arg).Equals(string.Empty)
-                ? "default"
-                : ParseArgumentContent(arg);
-
-                return true;
-            }
-
-            if (!Props.RunTests && arg.StartsWith(prefix + "run", InvariantCulture))
-            {
-                string name = ParseArgumentContent(arg);
-
-                Props.RunTests = true;
-                Props.Target = Props.Target with
+        _ = _cli.RegisterArgument(
+            new(
+                "run",
+                allowEmpty: true,
+                action: (value) =>
                 {
-                    Target = string.IsNullOrEmpty(name)
-                        ? ERunTargetType.All
-                        : ERunTargetType.Class,
-                    Name = name
-                };
+                    string name = (string)value;
 
-                continue;
-            }
+                    Props.RunTests = true;
+                    Props.Target = Props.Target with
+                    {
+                        Target = string.IsNullOrEmpty(name)
+                            ? ERunTargetType.All
+                            : ERunTargetType.Class,
+                        Name = name
+                    };
+                }
+            ),
+            new(
+                "help",
+                allowEmpty: true,
+                action: (value) =>
+                {
+                    string name = (string)value;
 
-            if (Props.RunTests
-                && arg.StartsWith(prefix + "method", InvariantCulture)
+                    Props.ShowHelp = true;
+                    Props.SelectedHelpPage = string.IsNullOrEmpty(name)
+                        ? "default"
+                        : name;
+                }
+            ),
+            new(
+                "method",
+                action: (value) =>
+                {
+                    if (string.IsNullOrEmpty(Props.Target.Name))
+                    {
+                        Log.PrintError(
+                            "Invalid value: argument '--confirma-run' cannot be empty"
+                            + " when using argument '--confirma-method'.\n"
+                        );
+                        Props.RunTests = false;
+                        return;
+                    }
+
+                    Props.Target = Props.Target with
+                    {
+                        Target = ERunTargetType.Method,
+                        DetailedName = (string)value
+                    };
+                }
+            ),
+            new(
+                "category",
+                action: (value) =>
+                {
+                    Props.Target = Props.Target with
+                    {
+                        Target = ERunTargetType.Category,
+                        Name = (string)value
+                    };
+                }
+            ),
+            new(
+                "exit-on-failure",
+                isFlag: true,
+                action: (_) => Props.ExitOnFail = true
+            ),
+            new(
+                "verbose",
+                isFlag: true,
+                action: (_) => Props.IsVerbose = true
+            ),
+            new(
+                "sequential",
+                isFlag: true,
+                action: (_) => Props.DisableParallelization = true
+            ),
+            new(
+                "disable-orphans-monitor",
+                isFlag: true,
+                action: (_) => Props.MonitorOrphans = false
+            ),
+            new(
+                "disable-cs",
+                isFlag: true,
+                action: (_) => Props.DisableCsharp = true
+            ),
+            new(
+                "disable-gd",
+                isFlag: true,
+                action: (_) => Props.DisableGdScript = true
+            ),
+            new(
+                "gd-path",
+                allowEmpty: false,
+                action: (value) => Props.GdTestPath = (string)value
+            ),
+            new(
+                "output",
+                action: (value) =>
+                {
+                    if (!EnumHelper.TryParseFlagsEnum(
+                        (string)value,
+                        out ELogOutputType type
+                    ))
+                    {
+                        Log.PrintError(
+                            $"Invalid value '{value}' for '--confirma-output' argument.\n"
+                        );
+                        Props.RunTests = false;
+                        return;
+                    }
+
+                    Props.OutputType = type;
+                }
+            ),
+            new(
+                "output-path",
+                action: (value) =>
+                {
+                    string path = (string)value;
+
+                    if (!Path.Exists(Path.GetDirectoryName(path))
+                        || Path.GetExtension(path) != ".json"
+                    )
+                    {
+                        Log.PrintError($"Invalid output path: {path}.\n");
+                        Props.RunTests = false;
+                        return;
+                    }
+
+                    Props.OutputPath = path;
+                }
             )
-            {
-                if (string.IsNullOrEmpty(Props.Target.Name))
-                {
-                    Log.PrintError(
-                        "Invalid value: argument '--confirma-run' cannot be empty"
-                        + " when using argument '--confirma-method'.\n"
-                    );
-                    return false;
-                }
-
-                string method = ParseArgumentContent(arg);
-
-                if (string.IsNullOrEmpty(method))
-                {
-                    Log.PrintError(
-                        "Invalid value: '--confirma-method' cannot be empty.\n"
-                    );
-                    return false;
-                }
-
-                Props.Target = Props.Target with
-                {
-                    Target = ERunTargetType.Method,
-                    DetailedName = method
-                };
-
-                continue;
-            }
-
-            if (arg.StartsWith(prefix + "category", InvariantCulture))
-            {
-                string category = ParseArgumentContent(arg);
-
-                if (string.IsNullOrEmpty(category))
-                {
-                    Log.PrintError(
-                        "Invalid value: '--confirma-category' cannot be empty.\n"
-                    );
-                    return false;
-                }
-
-                Props.Target = Props.Target with
-                {
-                    Target = ERunTargetType.Category,
-                    Name = category
-                };
-
-                continue;
-            }
-
-            if (!Props.ExitOnFail && arg == prefix + "exit-on-failure")
-            {
-                Props.ExitOnFail = true;
-                continue;
-            }
-
-            if (!Props.IsVerbose && arg == prefix + "verbose")
-            {
-                Props.IsVerbose = true;
-                continue;
-            }
-
-            if (!Props.DisableParallelization && arg == prefix + "sequential")
-            {
-                Props.DisableParallelization = true;
-                continue;
-            }
-
-            if (Props.MonitorOrphans && arg == prefix + "disable-orphans-monitor")
-            {
-                Props.MonitorOrphans = false;
-                continue;
-            }
-
-            if (!Props.DisableCsharp && arg == prefix + "disable-cs")
-            {
-                Props.DisableCsharp = true;
-                continue;
-            }
-
-            if (!Props.DisableGdScript && arg == prefix + "disable-gd")
-            {
-                Props.DisableGdScript = true;
-                continue;
-            }
-
-            if (arg.StartsWith(prefix + "gd-path", InvariantCulture))
-            {
-                Props.GdTestPath = ParseArgumentContent(arg);
-                continue;
-            }
-
-            if (arg.StartsWith(prefix + "output", InvariantCulture)
-                && !arg.StartsWith(prefix + "output-path", InvariantCulture)
-            )
-            {
-                string value = ParseArgumentContent(arg);
-
-                if (!EnumHelper.TryParseFlagsEnum(value, out ELogOutputType type)
-                )
-                {
-                    Log.PrintError($"Invalid value '{value}' for '{prefix}output' argument.\n");
-                    return false;
-                }
-
-                Props.OutputType = type;
-                continue;
-            }
-
-            if (arg.StartsWith(prefix + "output-path", InvariantCulture))
-            {
-                string value = ParseArgumentContent(arg);
-
-                if (!Path.Exists(Path.GetDirectoryName(value))
-                    || Path.GetExtension(value) != ".json"
-                )
-                {
-                    Log.PrintError($"Invalid output path: {value}.\n");
-                    return false;
-                }
-
-                Props.OutputPath = value;
-            }
-        }
-
-        return true;
+        );
     }
 
-    private static string ParseArgumentContent(string argument)
+    private bool ParseArguments()
     {
-        return argument.Find('=') == -1
-            ? string.Empty
-            : argument.Split('=')[1];
+        List<string> errors = _cli.Parse(OS.GetCmdlineUserArgs(), true);
+
+        _usedConfirmaApi = _cli.GetValuesCount() != 0;
+
+        if (errors.Count == 0)
+        {
+            return true;
+        }
+
+        foreach (string error in errors)
+        {
+            Log.PrintError(error + "\n");
+        }
+
+        return false;
     }
 
     private void ChangeScene()
