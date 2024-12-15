@@ -14,6 +14,11 @@ public class RadixNode<T>
         Children = new Dictionary<string, RadixNode<T>>();
     }
 
+    public bool IsLeaf()
+    {
+        return Value is not null;
+    }
+
     public override string? ToString()
     {
         return $"RadixNode(Prefix=\"{Prefix}\", Value={Value})";
