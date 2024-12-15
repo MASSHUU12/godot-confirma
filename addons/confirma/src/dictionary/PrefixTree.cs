@@ -29,6 +29,7 @@ public abstract class PrefixTree<TValue> : IDictionary<string, TValue>
     public abstract bool Remove(string key);
     public abstract bool Remove(KeyValuePair<string, TValue> item);
     public abstract IEnumerable<KeyValuePair<string, TValue>> Search(string prefix);
+    public abstract bool Lookup(string x);
     public abstract bool TryGetValue(string key, [MaybeNullWhen(false)] out TValue value);
 
     public virtual bool ContainsKey(string key)
