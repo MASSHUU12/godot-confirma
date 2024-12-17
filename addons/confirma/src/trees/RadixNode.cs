@@ -1,17 +1,25 @@
+using System;
 using System.Collections.Generic;
 
 namespace Confirma.Trees;
 
+// TODO: Tests
 public class RadixNode<T>
 {
-    public string Prefix { get; set; }
+    public ReadOnlyMemory<char> Prefix { get; set; }
     public T? Value { get; set; }
-    public Dictionary<string, RadixNode<T>> Children { get; set; }
+    public Dictionary<char, RadixNode<T>> Children { get; set; }
 
-    public RadixNode(string prefix)
+    public RadixNode()
+    {
+        Prefix = string.Empty.AsMemory();
+        Children = new Dictionary<char, RadixNode<T>>();
+    }
+
+    public RadixNode(ReadOnlyMemory<char> prefix)
     {
         Prefix = prefix;
-        Children = new Dictionary<string, RadixNode<T>>();
+        Children = new Dictionary<char, RadixNode<T>>();
     }
 
     public bool IsLeaf()
