@@ -149,7 +149,6 @@ public class Cli
             || Math.Abs(key.Length - name.Length) <= maxSimilarity
         );
 
-        // TODO: Consider using Trie to reduce candidates for comparison.
         foreach (string key in candidates)
         {
             double currentSimilarity = name.JaroWinklerSimilarity(key);

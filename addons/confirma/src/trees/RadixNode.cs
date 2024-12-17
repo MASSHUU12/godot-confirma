@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Confirma.Dictionary;
+namespace Confirma.Trees;
 
 public class RadixNode<T>
 {
