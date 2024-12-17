@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -25,6 +26,7 @@ public abstract class PrefixTree<TValue> : IDictionary<string, TValue>
     public virtual bool IsReadOnly => false;
 
     public abstract void Add(string key, TValue value);
+    public abstract void Add(ReadOnlySpan<char> key, TValue value);
     public abstract void Clear();
     public abstract bool Remove(string key);
     public abstract bool Remove(KeyValuePair<string, TValue> item);

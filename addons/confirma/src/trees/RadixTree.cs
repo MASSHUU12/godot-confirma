@@ -17,6 +17,11 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         _ = GetOrAddNode(key, value);
     }
 
+    public override void Add(ReadOnlySpan<char> key, TValue value)
+    {
+        _ = GetOrAddNode(key, value);
+    }
+
     public override void Clear()
     {
         throw new System.NotImplementedException();
