@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Confirma.Dictionary;
+namespace Confirma.Trees;
 
 public abstract class PrefixTree<TValue> : IDictionary<string, TValue>
 {
