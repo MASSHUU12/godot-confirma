@@ -39,7 +39,54 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override IEnumerable<KeyValuePair<string, TValue>> Search(string prefix)
     {
-        throw new System.NotImplementedException();
+        List<KeyValuePair<string, TValue>> results = new();
+        RadixNode<TValue>? node = _root;
+        ReadOnlySpan<char> remainingPrefix = prefix.AsSpan();
+        Stack<(RadixNode<TValue> Node, string KeySoFar)> stack = new();
+
+        while (!remainingPrefix.IsEmpty)
+        {
+            char firstChar = remainingPrefix[0];
+
+            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+            {
+                // No matching prefix
+                return results;
+            }
+
+            ReadOnlySpan<char> label = child.Prefix.Span;
+            int matchLength = CommonPrefixLength(remainingPrefix, label);
+
+            if (matchLength < label.Length)
+            {
+                // Prefix doesn't fully match
+                return results;
+            }
+
+            remainingPrefix = remainingPrefix[matchLength..];
+            node = child;
+        }
+
+        // Perform DFS to collect all nodes under the prefix
+        stack.Push((node, prefix));
+
+        while (stack.Count > 0)
+        {
+            (RadixNode<TValue> currentNode, string keySoFar) = stack.Pop();
+
+            if (currentNode.Value is not null)
+            {
+                results.Add(new KeyValuePair<string, TValue>(keySoFar, currentNode.Value));
+            }
+
+            foreach (RadixNode<TValue> child in currentNode.Children.Values)
+            {
+                string childKey = keySoFar + child.Prefix.ToString();
+                stack.Push((child, childKey));
+            }
+        }
+
+        return results;
     }
 
     public override bool Lookup(string x)

@@ -171,5 +171,25 @@ public class RadixTreeTests
                 "Should return all keys starting with 'ap'."
             );
     }
+
+    [TestCase]
+    public void Search_NonExistingWithPrefix_ShoudReturnEmptyEnumerable()
+    {
+        RadixTree<string> tree = new()
+        {
+            { "apple", "fruit" },
+            { "app", "application" },
+            { "apricot", "fruit" },
+            { "banana", "fruit" }
+        };
+
+        List<KeyValuePair<string, string>> results = tree.Search("ra").ToList();
+        List<string> expectedKeys = new() { };
+
+        _ = results.ConvertAll(static kvp => kvp.Key).ConfirmElementsAreEquivalent(
+                expectedKeys,
+                "Should return empty enumerable."
+            );
+    }
     #endregion Search
 }
