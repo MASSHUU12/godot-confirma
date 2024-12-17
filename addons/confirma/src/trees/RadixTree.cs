@@ -75,7 +75,40 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override bool TryGetValue(string key, [MaybeNullWhen(false)] out TValue value)
     {
-        throw new System.NotImplementedException();
+        RadixNode<TValue> node = _root;
+        ReadOnlySpan<char> remainingKey = key.AsSpan();
+
+        while (!remainingKey.IsEmpty)
+        {
+            char firstChar = remainingKey[0];
+
+            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+            {
+                value = default;
+                return false;
+            }
+
+            ReadOnlySpan<char> label = child.Prefix.Span;
+            int matchLength = CommonPrefixLength(remainingKey, label);
+
+            if (matchLength < label.Length)
+            {
+                value = default;
+                return false;
+            }
+
+            remainingKey = remainingKey[matchLength..];
+            node = child;
+        }
+
+        if (node.Value is not null)
+        {
+            value = node.Value;
+            return true;
+        }
+
+        value = default;
+        return false;
     }
 
     private static int CommonPrefixLength(
