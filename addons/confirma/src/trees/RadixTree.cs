@@ -13,7 +13,7 @@ namespace Confirma.Trees;
 /// <typeparam name="TValue">The type of the values stored in the tree.</typeparam>
 public class RadixTree<TValue> : PrefixTree<TValue>
 {
-    private readonly RadixNode<TValue> _root = new();
+    public RadixNode<TValue> Root { get; } = new();
 
     public override void Add(string key, TValue value)
     {
@@ -27,18 +27,18 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override void Clear()
     {
-        _root.Children.Clear();
-        _root.Value = default;
+        Root.Children.Clear();
+        Root.Value = default;
     }
 
     public override bool Remove(string key)
     {
-        return Remove(_root, key.AsSpan(), out bool _);
+        return Remove(Root, key.AsSpan(), out bool _);
     }
 
     public override bool Remove(KeyValuePair<string, TValue> item)
     {
-        return Remove(_root, item.Key, out bool _);
+        return Remove(Root, item.Key, out bool _);
     }
 
     private bool Remove(
@@ -90,7 +90,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         }
 
         // Check if current node should be merged or deleted
-        if (node != _root && node.Value is null && node.Children.Count == 1)
+        if (node != Root && node.Value is null && node.Children.Count == 1)
         {
             // Merge with the child node
             RadixNode<TValue> singleChild = node.Children.Values.First();
@@ -99,7 +99,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             node.Children = singleChild.Children;
         }
 
-        shouldDeleteNode = node != _root
+        shouldDeleteNode = node != Root
             && node.Value is null
             && node.Children.Count == 0;
         return result;
@@ -108,7 +108,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
     public override IEnumerable<KeyValuePair<string, TValue>> Search(string prefix)
     {
         List<KeyValuePair<string, TValue>> results = new();
-        RadixNode<TValue>? node = _root;
+        RadixNode<TValue>? node = Root;
         ReadOnlySpan<char> remainingPrefix = prefix.AsSpan();
         Stack<(RadixNode<TValue> Node, string KeySoFar)> stack = new();
 
@@ -159,7 +159,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override bool Lookup(string x)
     {
-        RadixNode<TValue> node = _root;
+        RadixNode<TValue> node = Root;
         ReadOnlySpan<char> remainingKey = x.AsSpan();
 
         while (!remainingKey.IsEmpty)
@@ -190,7 +190,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override bool TryGetValue(string key, [MaybeNullWhen(false)] out TValue value)
     {
-        RadixNode<TValue> node = _root;
+        RadixNode<TValue> node = Root;
         ReadOnlySpan<char> remainingKey = key.AsSpan();
 
         while (!remainingKey.IsEmpty)
@@ -226,9 +226,134 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         return false;
     }
 
-    public RadixNode<TValue> FindSuccessor(string key)
+    public RadixNode<TValue>? FindSuccessor(string key)
     {
-        throw new NotImplementedException();
+        RadixNode<TValue>? node = Root;
+        ReadOnlySpan<char> remainingKey = key.AsSpan();
+        string accumulatedKey = string.Empty;
+
+        while (!remainingKey.IsEmpty)
+        {
+            char firstChar = remainingKey[0];
+
+            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+            {
+                break; // No exact match; need to find the next node in order
+            }
+
+            ReadOnlySpan<char> label = child.Prefix.Span;
+            int matchLength = CommonPrefixLength(remainingKey, label);
+
+            accumulatedKey += label[..matchLength].ToString();
+            remainingKey = remainingKey[matchLength..];
+
+            if (matchLength < label.Length)
+            {
+                // Partial match; explore this child for successor
+                node = child;
+                accumulatedKey += label[matchLength..].ToString();
+                return FindLeftmost(node, accumulatedKey);
+            }
+
+            node = child;
+        }
+
+        // If the node has a value and it's not the key itself, return it
+        if (node is not null && accumulatedKey != key)
+        {
+            return node;
+        }
+
+        // Find the next node in lexicographical order
+        return node is not null ? FindNextNode(node, accumulatedKey) : null;
+    }
+
+    private RadixNode<TValue>? FindNextNode(RadixNode<TValue>? node, string accumulatedKey)
+    {
+        // If there are children, find the leftmost (smallest) child
+        if (node?.Children.Count > 0)
+        {
+            RadixNode<TValue> firstChild = node.Children
+                .OrderBy(c => c.Key)
+                .First().Value;
+            accumulatedKey += firstChild.Prefix.Span.ToString();
+            return FindLeftmost(firstChild, accumulatedKey);
+        }
+
+        while (node != Root)
+        {
+            char lastChar = accumulatedKey[^1];
+            accumulatedKey = accumulatedKey[..^1];
+            node = GetParentNode(Root, accumulatedKey.AsSpan());
+
+            if (node is null)
+            {
+                return null;
+            }
+
+            var siblings = node.Children
+                .Where(c => c.Key > lastChar)
+                .OrderBy(c => c.Key);
+            if (siblings.Any())
+            {
+                RadixNode<TValue> nextSibling = siblings.First().Value;
+                accumulatedKey += nextSibling.Prefix.Span.ToString();
+                return FindLeftmost(nextSibling, accumulatedKey);
+            }
+        }
+
+        return null;
+    }
+
+    private static RadixNode<TValue>? FindLeftmost(
+        RadixNode<TValue> node,
+        string accumulatedKey
+    )
+    {
+        while (true)
+        {
+            if (node.Value is not null)
+            {
+                return node;
+            }
+
+            if (node.Children.Count == 0)
+            {
+                return null;
+            }
+
+            RadixNode<TValue> firstChild = node.Children
+                .OrderBy(static c => c.Key)
+                .First().Value;
+            accumulatedKey += firstChild.Prefix.Span.ToString();
+            node = firstChild;
+        }
+    }
+
+    private static RadixNode<TValue>? GetParentNode(
+        RadixNode<TValue> currentNode,
+        ReadOnlySpan<char> key
+    )
+    {
+        RadixNode<TValue> node = currentNode;
+        ReadOnlySpan<char> remainingKey = key;
+
+        while (!remainingKey.IsEmpty)
+        {
+            char firstChar = remainingKey[0];
+
+            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+            {
+                return null;
+            }
+
+            ReadOnlySpan<char> label = child.Prefix.Span;
+            int matchLength = CommonPrefixLength(remainingKey, label);
+            remainingKey = remainingKey[matchLength..];
+            node = child;
+        }
+
+        return node;
     }
 
     public RadixNode<TValue> FindPredecessor(string key)
@@ -266,7 +391,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         TValue value
     )
     {
-        RadixNode<TValue> node = _root;
+        RadixNode<TValue> node = Root;
         ReadOnlySpan<char> remainingKey = key;
 
         while (true)
@@ -283,7 +408,11 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
             {
                 // Create a new node with the remaining key
-                RadixNode<TValue> n = new(remainingKey.ToArray()) { Value = value };
+                RadixNode<TValue> n = new(remainingKey.ToArray())
+                {
+                    Value = value,
+                    Parent = node
+                };
                 node.Children[firstChar] = n;
                 return n;
             }
@@ -301,7 +430,11 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
             // Partial match, need to split the node
             char[] commonPrefix = remainingKey[..matchLength].ToArray();
-            RadixNode<TValue> splitNode = new(commonPrefix);
+            RadixNode<TValue> splitNode = new(commonPrefix)
+            {
+                Value = value,
+                Parent = node
+            };
             node.Children[firstChar] = splitNode;
 
             // Adjust the existing child
@@ -318,7 +451,11 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
             // Create a new node for the remaining key
             char[] suffix = remainingKey[matchLength..].ToArray();
-            RadixNode<TValue> newNode = new(suffix) { Value = value };
+            RadixNode<TValue> newNode = new(suffix)
+            {
+                Value = value,
+                Parent = node
+            };
             splitNode.Children[suffix[0]] = newNode;
 
             return newNode;
