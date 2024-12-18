@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Confirma.Trees;
 
 /// <summary>
-/// https://en.wikipedia.org/wiki/Radix_tree
+/// Represents a radix tree data structure, also known as a prefix tree or trie.
+/// A radix tree is a tree-like data structure that is often used to store a
+/// dynamic set or associative array where the keys are usually strings.
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
+/// <typeparam name="TValue">The type of the values stored in the tree.</typeparam>
 public class RadixTree<TValue> : PrefixTree<TValue>
 {
     private readonly RadixNode<TValue> _root = new();
@@ -29,12 +32,76 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override bool Remove(string key)
     {
-        throw new System.NotImplementedException();
+        return Remove(_root, key.AsSpan(), out bool _);
     }
 
     public override bool Remove(KeyValuePair<string, TValue> item)
     {
-        throw new System.NotImplementedException();
+        return Remove(_root, item.Key, out bool _);
+    }
+
+    private bool Remove(
+        RadixNode<TValue> node,
+        ReadOnlySpan<char> key,
+        out bool shouldDeleteNode
+    )
+    {
+        shouldDeleteNode = false;
+
+        if (key.IsEmpty)
+        {
+            if (node.Value is not null)
+            {
+                // Found the node to remove
+                node.Value = default;
+                // If node has no children, indicate it can be deleted
+                shouldDeleteNode = node.Children.Count == 0;
+                return true;
+            }
+            // Key not found
+            return false;
+        }
+
+        char firstChar = key[0];
+
+        if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+        {
+            // Key not found
+            return false;
+        }
+
+        ReadOnlySpan<char> label = child.Prefix.Span;
+        int matchLength = CommonPrefixLength(key, label);
+
+        if (matchLength < label.Length)
+        {
+            // Key not found
+            return false;
+        }
+
+        ReadOnlySpan<char> remainingKey = key[matchLength..];
+
+        bool result = Remove(child, remainingKey, out bool shouldDeleteChild);
+
+        if (shouldDeleteChild)
+        {
+            _ = node.Children.Remove(firstChar);
+        }
+
+        // Check if current node should be merged or deleted
+        if (node != _root && node.Value is null && node.Children.Count == 1)
+        {
+            // Merge with the child node
+            RadixNode<TValue> singleChild = node.Children.Values.First();
+            node.Prefix = Concat(node.Prefix, singleChild.Prefix);
+            node.Value = singleChild.Value;
+            node.Children = singleChild.Children;
+        }
+
+        shouldDeleteNode = node != _root
+            && node.Value is null
+            && node.Children.Count == 0;
+        return result;
     }
 
     public override IEnumerable<KeyValuePair<string, TValue>> Search(string prefix)
@@ -158,6 +225,16 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         return false;
     }
 
+    public RadixNode<TValue> FindSuccessor(string key)
+    {
+        throw new NotImplementedException();
+    }
+
+    public RadixNode<TValue> FindPredecessor(string key)
+    {
+        throw new NotImplementedException();
+    }
+
     private static int CommonPrefixLength(
         ReadOnlySpan<char> span1,
         ReadOnlySpan<char> span2
@@ -172,7 +249,18 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         return i;
     }
 
-    protected virtual RadixNode<TValue> GetOrAddNode(
+    private static char[] Concat(
+        ReadOnlyMemory<char> prefix1,
+        ReadOnlyMemory<char> prefix2
+    )
+    {
+        char[] newPrefix = new char[prefix1.Length + prefix2.Length];
+        prefix1.Span.CopyTo(newPrefix);
+        prefix2.Span.CopyTo(newPrefix.AsSpan(prefix1.Length));
+        return newPrefix;
+    }
+
+    private RadixNode<TValue> GetOrAddNode(
         ReadOnlySpan<char> key,
         TValue value
     )
