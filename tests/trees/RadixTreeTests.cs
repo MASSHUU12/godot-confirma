@@ -192,4 +192,61 @@ public class RadixTreeTests
             );
     }
     #endregion Search
+
+    #region FindSuccessor
+    [TestCase]
+    public void FindSuccessor_ExistingKey_ReturnsNextKey()
+    {
+        RadixTree<int> tree = new()
+        {
+            { "apple", 1 },
+            { "application", 2 },
+            { "banana", 3 },
+        };
+
+        RadixNode<int>? node = tree.FindSuccessor("apple");
+
+        _ = node.ConfirmNotNull();
+        _ = node!.GetFullKey().ConfirmEqual("application");
+        _ = node!.Value.ConfirmEqual(2);
+    }
+
+    [TestCase]
+    public void FindSuccessor_NonExistingKey_ReturnsCorrectSuccessor()
+    {
+        RadixTree<int> tree = new()
+        {
+            { "apple", 1 },
+            { "application", 2 },
+            { "banana", 3 },
+        };
+
+        RadixNode<int>? node = tree.FindSuccessor("app");
+
+        _ = node.ConfirmNotNull();
+        _ = node!.GetFullKey().ConfirmEqual("apple");
+        _ = node!.Value.ConfirmEqual(1);
+    }
+
+    [TestCase]
+    public void FindSuccessor_LastKey_ReturnsNull()
+    {
+        RadixTree<int> tree = new()
+        {
+            { "apple", 1 },
+            { "application", 2 },
+            { "banana", 3 },
+            { "catalog", 7 },
+            { "dog", 8 },
+            { "dove", 9 },
+        };
+
+        RadixNode<int>? node = tree.FindSuccessor("dove");
+
+        _ = node.ConfirmNull();
+    }
+    #endregion FindSuccessor
+
+    #region FindPredecessor
+    #endregion FindPredecessor
 }
