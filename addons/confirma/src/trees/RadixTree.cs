@@ -27,7 +27,8 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override void Clear()
     {
-        throw new System.NotImplementedException();
+        _root.Children.Clear();
+        _root.Value = default;
     }
 
     public override bool Remove(string key)
