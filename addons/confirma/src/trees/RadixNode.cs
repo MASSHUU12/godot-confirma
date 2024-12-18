@@ -4,22 +4,24 @@ using System.Collections.Generic;
 namespace Confirma.Trees;
 
 // TODO: Tests
-public class RadixNode<T>
+public class RadixNode<TValue>
 {
     public ReadOnlyMemory<char> Prefix { get; set; }
-    public T? Value { get; set; }
-    public Dictionary<char, RadixNode<T>> Children { get; set; }
+    public TValue? Value { get; set; }
+    public Dictionary<char, RadixNode<TValue>> Children { get; set; }
+    public RadixNode<TValue>? Parent { get; set; }
 
     public RadixNode()
     {
         Prefix = string.Empty.AsMemory();
-        Children = new Dictionary<char, RadixNode<T>>();
+        Children = new Dictionary<char, RadixNode<TValue>>();
+        Parent = null;
     }
 
-    public RadixNode(ReadOnlyMemory<char> prefix)
+    public RadixNode(char[] prefix, RadixNode<TValue>? parent = null) : this()
     {
         Prefix = prefix;
-        Children = new Dictionary<char, RadixNode<T>>();
+        Parent = parent;
     }
 
     public bool IsLeaf()
@@ -30,5 +32,17 @@ public class RadixNode<T>
     public override string? ToString()
     {
         return $"RadixNode(Prefix=\"{Prefix}\", Value={Value})";
+    }
+
+    public string GetFullKey()
+    {
+        Stack<string> parts = new();
+        RadixNode<TValue>? node = this;
+        while (node?.Parent is not null)
+        {
+            parts.Push(node.Prefix.ToString());
+            node = node.Parent;
+        }
+        return string.Concat(parts);
     }
 }
