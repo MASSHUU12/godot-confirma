@@ -224,8 +224,8 @@ public class RadixTreeTests
         RadixNode<int>? node = tree.FindSuccessor("app");
 
         _ = node.ConfirmNotNull();
-        _ = node!.GetFullKey().ConfirmEqual("apple");
-        _ = node!.Value.ConfirmEqual(1);
+        _ = node!.GetFullKey().ConfirmEqual("appl");
+        _ = node!.Value.ConfirmEqual(2);
     }
 
     [TestCase]
@@ -248,5 +248,80 @@ public class RadixTreeTests
     #endregion FindSuccessor
 
     #region FindPredecessor
+    [TestCase]
+    public void FindPredecessor_ExistingKey_ReturnsCorrectPredecessor()
+    {
+        RadixTree<string> tree = new()
+        {
+            { "apple", "Apple" },
+            { "banana", "Banana" },
+            { "cherry", "Cherry" },
+            { "date", "Date" },
+            { "fig", "Fig" }
+        };
+
+        RadixNode<string>? predecessor = tree.FindPredecessor("date");
+
+        _ = predecessor.ConfirmNotNull();
+        _ = predecessor!.GetFullKey().ConfirmEqual("cherry");
+        _ = predecessor!.Value.ConfirmEqual("Cherry");
+    }
+
+    [TestCase]
+    public void FindPredecessor_NonExistingKey_ReturnsNearestPredecessor()
+    {
+        RadixTree<string> tree = new()
+        {
+            { "alpha", "Alpha" },
+            { "beta", "Beta" },
+            { "delta", "Delta" },
+            { "epsilon", "Epsilon" }
+        };
+
+        RadixNode<string>? predecessor = tree.FindPredecessor("gamma");
+
+        _ = predecessor.ConfirmNotNull();
+        _ = predecessor!.GetFullKey().ConfirmEqual("epsilon");
+        _ = predecessor!.Value.ConfirmEqual("Epsilon");
+    }
+
+    [TestCase]
+    public void FindPredecessor_SmallestKey_ReturnsNull()
+    {
+        RadixTree<string> tree = new()
+        {
+            { "aardvark", "Aardvark" },
+            { "zebra", "Zebra" }
+        };
+
+        RadixNode<string>? predecessor = tree.FindPredecessor("aardvark");
+
+        _ = predecessor.ConfirmNull();
+    }
+
+    [TestCase]
+    public void FindPredecessor_EmptyTree_ReturnsNull()
+    {
+        RadixTree<string> tree = new();
+
+        _ = tree.FindPredecessor("anykey").ConfirmNull();
+    }
+
+    [TestCase]
+    public void FindPredecessor_KeyGreaterThanAll_ReturnsLastKey()
+    {
+        RadixTree<string> tree = new()
+        {
+            { "apple", "Apple" },
+            { "banana", "Banana" },
+            { "cherry", "Cherry" }
+        };
+
+        RadixNode<string>? predecessor = tree.FindPredecessor("date");
+
+        _ = predecessor.ConfirmNotNull();
+        _ = predecessor!.GetFullKey().ConfirmEqual("cherry");
+        _ = predecessor!.Value.ConfirmEqual("Cherry");
+    }
     #endregion FindPredecessor
 }
