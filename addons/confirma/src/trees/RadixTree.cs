@@ -383,7 +383,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         return i;
     }
 
-    private static char[] Concat(
+    private static ReadOnlyMemory<char> Concat(
         ReadOnlyMemory<char> prefix1,
         ReadOnlyMemory<char> prefix2
     )
@@ -391,7 +391,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         char[] newPrefix = new char[prefix1.Length + prefix2.Length];
         prefix1.Span.CopyTo(newPrefix);
         prefix2.Span.CopyTo(newPrefix.AsSpan(prefix1.Length));
-        return newPrefix;
+        return new ReadOnlyMemory<char>(newPrefix);
     }
 
     private RadixNode<TValue> GetOrAddNode(
