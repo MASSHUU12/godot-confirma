@@ -19,7 +19,10 @@ public class RadixNode<TValue>
         HasValue = false;
     }
 
-    public RadixNode(char[] prefix, RadixNode<TValue>? parent = null) : this()
+    public RadixNode(
+        ReadOnlyMemory<char> prefix,
+        RadixNode<TValue>? parent = null
+    ) : this()
     {
         Prefix = prefix;
         Children = new Dictionary<char, RadixNode<TValue>>();
@@ -41,11 +44,18 @@ public class RadixNode<TValue>
     {
         Stack<string> parts = new();
         RadixNode<TValue>? node = this;
-        while (node?.Parent is not null)
+        while (node?.Parent != null)
         {
             parts.Push(node.Prefix.ToString());
             node = node.Parent;
         }
+
+        // Include the root node's prefix if necessary
+        if (node?.Prefix.Length > 0)
+        {
+            parts.Push(node.Prefix.ToString());
+        }
+
         return string.Concat(parts);
     }
 }
