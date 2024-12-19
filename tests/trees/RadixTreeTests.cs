@@ -245,6 +245,14 @@ public class RadixTreeTests
 
         _ = node.ConfirmNull();
     }
+
+    [TestCase]
+    public void FindSuccessor_EmptyTree_ReturnsNull()
+    {
+        RadixTree<string> tree = new();
+
+        _ = tree.FindSuccessor("anykey").ConfirmNull();
+    }
     #endregion FindSuccessor
 
     #region FindPredecessor
