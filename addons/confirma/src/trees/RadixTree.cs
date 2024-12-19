@@ -51,7 +51,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
         if (key.IsEmpty)
         {
-            if (node.Value is not null)
+            if (node.HasValue)
             {
                 // Found the node to remove
                 node.Value = default;
@@ -93,11 +93,18 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         // Check if current node should be merged or deleted
         if (node != Root && node.Value is null && node.Children.Count == 1)
         {
-            // Merge with the child node
             RadixNode<TValue> singleChild = node.Children.Values.First();
+
+            // Merge with the child node
             node.Prefix = Concat(node.Prefix, singleChild.Prefix);
             node.Value = singleChild.Value;
+            node.HasValue = singleChild.HasValue;
             node.Children = singleChild.Children;
+
+            foreach (RadixNode<TValue>? grandChild in node.Children.Values)
+            {
+                grandChild.Parent = node;
+            }
         }
 
         shouldDeleteNode = node != Root
@@ -217,9 +224,9 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             node = child;
         }
 
-        if (node.Value is not null)
+        if (node.HasValue)
         {
-            value = node.Value;
+            value = node.Value!;
             return true;
         }
 
@@ -313,7 +320,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
     {
         while (true)
         {
-            if (node.Value is not null)
+            if (node.HasValue)
             {
                 return node;
             }
@@ -443,6 +450,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             // Adjust the existing child
             char[] childSuffix = label[matchLength..].ToArray();
             child.Prefix = childSuffix;
+            child.Parent = splitNode;
             splitNode.Children[childSuffix[0]] = child;
 
             if (matchLength == remainingKey.Length)
@@ -458,7 +466,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             {
                 Value = value,
                 HasValue = true,
-                Parent = node
+                Parent = splitNode
             };
             splitNode.Children[suffix[0]] = newNode;
 
