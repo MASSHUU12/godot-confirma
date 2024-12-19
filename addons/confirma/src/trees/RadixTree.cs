@@ -259,64 +259,71 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             {
                 // Partial match; explore this child for successor
                 node = child;
-                accumulatedKey += label[matchLength..].ToString();
-                return FindLeftmost(node, accumulatedKey);
+                break;
             }
 
             node = child;
         }
 
         // If the node has a value and it's not the key itself, return it
-        if (node is not null && accumulatedKey != key)
+        if (node.HasValue && string.CompareOrdinal(node.GetFullKey(), key) > 0)
         {
             return node;
         }
 
-        // Find the next node in lexicographical order
-        return node is not null ? FindNextNode(node, accumulatedKey) : null;
+        // Perform in-order traversal to find the successor
+        return FindNextNode(node);
     }
 
-    private RadixNode<TValue>? FindNextNode(RadixNode<TValue>? node, string accumulatedKey)
+    private static RadixNode<TValue>? FindNextNode(RadixNode<TValue>? node)
     {
         // If there are children, find the leftmost (smallest) child
         if (node?.Children.Count > 0)
         {
-            RadixNode<TValue> firstChild = node.Children
-                .OrderBy(c => c.Key)
-                .First().Value;
-            accumulatedKey += firstChild.Prefix.Span.ToString();
-            return FindLeftmost(firstChild, accumulatedKey);
+            RadixNode<TValue> child = node.Children.Values
+                .OrderBy(n => n.Prefix.Span[0]).First();
+
+            // Continue down the leftmost path
+            while (child.Children.Count > 0)
+            {
+                if (child.HasValue)
+                {
+                    return child;
+                }
+                child = child.Children.Values.OrderBy(n => n.Prefix.Span[0]).First();
+            }
+            return child.HasValue ? child : null;
         }
 
-        while (node != Root)
+        // Traverse up to find the next successor
+        RadixNode<TValue>? parent = node?.Parent;
+        RadixNode<TValue>? current = node;
+
+        while (parent is not null)
         {
-            char lastChar = accumulatedKey[^1];
-            accumulatedKey = accumulatedKey[..^1];
-            node = GetParentNode(Root, accumulatedKey.AsSpan());
+            IOrderedEnumerable<RadixNode<TValue>> siblings = parent.Children.Values
+                .Where(n =>
+                    n != current
+                    && string.CompareOrdinal(
+                        n.Prefix.ToString(),
+                        current?.Prefix.ToString()
+                    ) > 0
+                ).OrderBy(n => n.Prefix.ToString());
 
-            if (node is null)
-            {
-                return null;
-            }
-
-            var siblings = node.Children
-                .Where(c => c.Key > lastChar)
-                .OrderBy(c => c.Key);
             if (siblings.Any())
             {
-                RadixNode<TValue> nextSibling = siblings.First().Value;
-                accumulatedKey += nextSibling.Prefix.Span.ToString();
-                return FindLeftmost(nextSibling, accumulatedKey);
+                RadixNode<TValue> nextSibling = siblings.First();
+                return FindLeftmost(nextSibling);
             }
+
+            current = parent;
+            parent = parent.Parent;
         }
 
         return null;
     }
 
-    private static RadixNode<TValue>? FindLeftmost(
-        RadixNode<TValue> node,
-        string accumulatedKey
-    )
+    private static RadixNode<TValue>? FindLeftmost(RadixNode<TValue> node)
     {
         while (true)
         {
@@ -330,38 +337,8 @@ public class RadixTree<TValue> : PrefixTree<TValue>
                 return null;
             }
 
-            RadixNode<TValue> firstChild = node.Children
-                .OrderBy(static c => c.Key)
-                .First().Value;
-            accumulatedKey += firstChild.Prefix.Span.ToString();
-            node = firstChild;
+            node = node.Children.Values.OrderBy(static n => n.Prefix.Span[0]).First();
         }
-    }
-
-    private static RadixNode<TValue>? GetParentNode(
-        RadixNode<TValue> currentNode,
-        ReadOnlySpan<char> key
-    )
-    {
-        RadixNode<TValue> node = currentNode;
-        ReadOnlySpan<char> remainingKey = key;
-
-        while (!remainingKey.IsEmpty)
-        {
-            char firstChar = remainingKey[0];
-
-            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
-            {
-                return null;
-            }
-
-            ReadOnlySpan<char> label = child.Prefix.Span;
-            int matchLength = CommonPrefixLength(remainingKey, label);
-            remainingKey = remainingKey[matchLength..];
-            node = child;
-        }
-
-        return node;
     }
 
     public RadixNode<TValue> FindPredecessor(string key)
