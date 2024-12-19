@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 
 namespace Confirma.Trees;
 
@@ -115,7 +116,6 @@ public class RadixTree<TValue> : PrefixTree<TValue>
 
     public override IEnumerable<KeyValuePair<string, TValue>> Search(string prefix)
     {
-        List<KeyValuePair<string, TValue>> results = new();
         RadixNode<TValue>? node = Root;
         ReadOnlySpan<char> remainingPrefix = prefix.AsSpan();
         Stack<(RadixNode<TValue> Node, string KeySoFar)> stack = new();
@@ -127,7 +127,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
             {
                 // No matching prefix
-                return results;
+                yield break;
             }
 
             ReadOnlySpan<char> label = child.Prefix.Span;
@@ -136,33 +136,36 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             if (matchLength < label.Length)
             {
                 // Prefix doesn't fully match
-                return results;
+                yield break;
             }
 
             remainingPrefix = remainingPrefix[matchLength..];
             node = child;
         }
 
+        List<char> keySoFar = new(prefix);
+
         // Perform DFS to collect all nodes under the prefix
         stack.Push((node, prefix));
 
         while (stack.Count > 0)
         {
-            (RadixNode<TValue> currentNode, string keySoFar) = stack.Pop();
+            (RadixNode<TValue> currentNode, string accumulatedKey) = stack.Pop();
 
-            if (currentNode.Value is not null)
+            if (currentNode.HasValue)
             {
-                results.Add(new KeyValuePair<string, TValue>(keySoFar, currentNode.Value));
+                yield return new(new(accumulatedKey.ToArray()), currentNode.Value!);
             }
 
-            foreach (RadixNode<TValue> child in currentNode.Children.Values)
+            foreach (RadixNode<TValue> child in currentNode.Children.Values.OrderBy(static n => n.Prefix.Span[0]))
             {
-                string childKey = keySoFar + child.Prefix.ToString();
-                stack.Push((child, childKey));
+                // Create a new list to avoid modifying the current accumulated key
+                StringBuilder childKey = new(accumulatedKey);
+                _ = childKey.Append(child.Prefix);
+
+                stack.Push((child, childKey.ToString()));
             }
         }
-
-        return results;
     }
 
     public override bool Lookup(string x)
