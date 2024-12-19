@@ -344,9 +344,117 @@ public class RadixTree<TValue> : PrefixTree<TValue>
         }
     }
 
-    public RadixNode<TValue> FindPredecessor(string key)
+    public RadixNode<TValue>? FindPredecessor(string key)
     {
-        throw new NotImplementedException();
+        RadixNode<TValue>? node = Root;
+        ReadOnlySpan<char> remainingKey = key.AsSpan();
+        RadixNode<TValue>? lastValueNode = null;
+
+        // Traverse the tree to find the node matching the key or the closest ancestor
+        while (!remainingKey.IsEmpty)
+        {
+            char firstChar = remainingKey[0];
+
+            var smallerChildren = node.Children
+                .Where(c => c.Key < firstChar)
+                .OrderByDescending(c => c.Key);
+
+            if (smallerChildren.Any())
+            {
+                return FindRightmost(smallerChildren.First().Value);
+            }
+
+            if (!node.Children.TryGetValue(firstChar, out RadixNode<TValue>? child))
+            {
+                // No exact match; need to backtrack to find predecessor
+                break;
+            }
+
+            ReadOnlySpan<char> label = child.Prefix.Span;
+            int matchLength = CommonPrefixLength(remainingKey, label);
+
+            if (matchLength < label.Length)
+            {
+                // Partial match; need to consider left subtree
+                if (matchLength < remainingKey.Length && label[matchLength] < remainingKey[matchLength])
+                {
+                    // Child nodes might have predecessors
+                    return FindRightmost(child);
+                }
+                break;
+            }
+
+            remainingKey = remainingKey[matchLength..];
+            node = child;
+
+            if (node.HasValue)
+            {
+                // Keep track of the last node with a value encountered
+                lastValueNode = node;
+            }
+        }
+
+        // If we have a node with a value less than the key, return it
+        if (lastValueNode is not null && string.CompareOrdinal(lastValueNode.GetFullKey(), key) < 0)
+        {
+            return lastValueNode;
+        }
+
+        // Traverse up to find the predecessor if necessary
+        return FindPreviousNode(node);
+    }
+
+    private static RadixNode<TValue>? FindPreviousNode(RadixNode<TValue> node)
+    {
+        RadixNode<TValue>? parent = node.Parent;
+        RadixNode<TValue>? current = node;
+
+        while (parent is not null)
+        {
+            // Find siblings that come before the current node
+            var siblings = parent.Children
+                .Where(c => c.Value != current && c.Key < current.Prefix.Span[0])
+                .OrderByDescending(c => c.Key);
+
+            if (siblings.Any())
+            {
+                RadixNode<TValue>? predecessorSibling = siblings.First().Value;
+                return FindRightmost(predecessorSibling);
+            }
+
+            if (parent.HasValue)
+            {
+                return parent;
+            }
+
+            current = parent;
+            parent = parent.Parent;
+        }
+
+        return null;
+    }
+
+    private static RadixNode<TValue>? FindRightmost(RadixNode<TValue> node)
+    {
+        while (true)
+        {
+            if (node.Children.Count == 0)
+            {
+                return node.HasValue ? node : null;
+            }
+
+            // Get the child with the greatest key (rightmost child)
+            node = node.Children.Values
+                .OrderByDescending(static n => n.Prefix.Span[0])
+                .First();
+
+            if (node.HasValue)
+            {
+                // Continue down to find the rightmost value node
+                RadixNode<TValue>? potentialNode = RadixTree<TValue>.FindRightmost(node);
+                return potentialNode ?? node;
+            }
+        }
     }
 
     private static int CommonPrefixLength(
