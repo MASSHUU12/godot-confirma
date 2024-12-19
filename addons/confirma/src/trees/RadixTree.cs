@@ -55,6 +55,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             {
                 // Found the node to remove
                 node.Value = default;
+                node.HasValue = false;
                 // If node has no children, indicate it can be deleted
                 shouldDeleteNode = node.Children.Count == 0;
                 return true;
@@ -411,6 +412,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
                 RadixNode<TValue> n = new(remainingKey.ToArray())
                 {
                     Value = value,
+                    HasValue = true,
                     Parent = node
                 };
                 node.Children[firstChar] = n;
@@ -433,6 +435,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             RadixNode<TValue> splitNode = new(commonPrefix)
             {
                 Value = value,
+                HasValue = true,
                 Parent = node
             };
             node.Children[firstChar] = splitNode;
@@ -454,6 +457,7 @@ public class RadixTree<TValue> : PrefixTree<TValue>
             RadixNode<TValue> newNode = new(suffix)
             {
                 Value = value,
+                HasValue = true,
                 Parent = node
             };
             splitNode.Children[suffix[0]] = newNode;
