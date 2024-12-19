@@ -164,7 +164,7 @@ public class RadixTreeTests
         };
 
         List<KeyValuePair<string, string>> results = tree.Search("ap").ToList();
-        List<string> expectedKeys = new() { "app", "apple", "apricot" };
+        List<string> expectedKeys = new() { "ap", "app", "apple", "apricot" };
 
         _ = results.ConvertAll(static kvp => kvp.Key).ConfirmElementsAreEquivalent(
                 expectedKeys,
