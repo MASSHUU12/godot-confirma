@@ -15,7 +15,7 @@ public class RadixNodeTests
         RadixNode<int> node = new();
 
         _ = node.Prefix.Length.ConfirmEqual(0);
-        _ = node.Value.ConfirmEqual(0); // TODO: Add ConfirmDefault method
+        _ = node.Value.ConfirmDefaultValue();
         _ = node.Children.ConfirmNotNull();
         _ = node.Children.Count.ConfirmEqual(0);
         _ = node.Parent.ConfirmNull();
@@ -28,7 +28,7 @@ public class RadixNodeTests
         RadixNode<int> node = new(prefix);
 
         _ = node.Prefix.ToString().ConfirmEqual("test");
-        _ = node.Value.ConfirmEqual(0);
+        _ = node.Value.ConfirmDefaultValue();
         _ = node.Children.ConfirmNotNull();
         _ = node.Children.Count.ConfirmEqual(0);
         _ = node.Parent.ConfirmNull();
@@ -45,8 +45,8 @@ public class RadixNodeTests
         _ = node.Prefix.ToString().ConfirmEqual("child");
         _ = parent.Prefix.ToString().ConfirmEqual("parent");
 
-        _ = node.Value.ConfirmEqual(0);
-        _ = parent.Value.ConfirmEqual(0);
+        _ = node.Value.ConfirmDefaultValue();
+        _ = parent.Value.ConfirmDefaultValue();
 
         _ = parent.ConfirmSameReference(node.Parent!);
     }
