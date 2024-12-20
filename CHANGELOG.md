@@ -40,6 +40,7 @@ All notable changes to this project will be documented in this file.
   - ConfirmElementsAreOrdered w/ comparer
   - ConfirmElementsAreNotOrdered w/ & w/o comparer
   - Overload for ConfirmEqual/ConfirmNotEqual accepting Array.
+  - ConfirmDefaultValue/ConfirmNotDefaultValue
 - Enums:
   - EFormatType
   - EDistributionType
