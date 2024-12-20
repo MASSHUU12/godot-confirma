@@ -197,4 +197,66 @@ public class ConfirmEqualTest
         );
     }
     #endregion ConfirmNotEqual
+
+    #region ConfirmDefaultValue
+    [TestCase]
+    public void ConfirmDefaultValue_Passes_WhenIsDefaultValue()
+    {
+        _ = default(int).ConfirmDefaultValue();
+    }
+
+    [TestCase]
+    public void ConfirmDefaultValue_Fails_WhenIsNotDefaultValue()
+    {
+        Action action = static () => 5.ConfirmDefaultValue();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmDefaultValue failed: "
+            + "5 is not the default value of the Int32."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmDefaultValue_Passes_WhenIsNull()
+    {
+        int? actual = null;
+
+        _ = actual.ConfirmDefaultValue();
+    }
+    #endregion ConfirmDefaultValue
+
+    #region ConfirmNotDefaultValue
+    [TestCase]
+    public void ConfirmNotDefaultValue_Passes_WhenIsNotDefaultValue()
+    {
+        _ = 5.ConfirmNotDefaultValue();
+    }
+
+    [TestCase]
+    public void ConfirmNotDefaultValue_Fails_WhenIsDefaultValue()
+    {
+        Action action = static () => default(int).ConfirmNotDefaultValue();
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotDefaultValue failed: "
+            + "0 is the default value of the Int32."
+        );
+    }
+
+    [TestCase]
+    public void ConfirmNotDefaultValue_Fails_WhenIsNull()
+    {
+        Action action = static () =>
+        {
+            int? actual = null;
+
+            _ = actual.ConfirmNotDefaultValue();
+        };
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotDefaultValue failed: "
+            + "null is the default value of the Nullable`1."
+        );
+    }
+    #endregion ConfirmNotDefaultValue
 }
