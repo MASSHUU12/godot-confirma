@@ -181,4 +181,48 @@ public static class ConfirmEqualExtensions
         );
     }
     #endregion ConfirmNotEqual
+
+    #region ConfirmDefaultValue
+    public static T? ConfirmDefaultValue<T>(
+        this T? actual,
+        string? message = null
+    )
+    {
+        if (Equals(actual, default(T?)))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "{1} is not the default value of the " + $"{typeof(T?).Name}.",
+            nameof(ConfirmDefaultValue),
+            new AutomaticFormatter(),
+            actual,
+            null,
+            message,
+            formatNulls: 1
+        );
+    }
+
+    public static T? ConfirmNotDefaultValue<T>(
+        this T? actual,
+        string? message = null
+    )
+    {
+        if (!Equals(actual, default(T?)))
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "{1} is the default value of the " + $"{typeof(T?).Name}.",
+            nameof(ConfirmNotDefaultValue),
+            new AutomaticFormatter(),
+            actual,
+            null,
+            message,
+            formatNulls: 1
+        );
+    }
+    #endregion ConfirmDefaultValue
 }
