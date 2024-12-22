@@ -315,6 +315,9 @@ public static class ConfirmStringExtensions
     }
     #endregion ConfirmMatchesPattern
 
+    #region ConfirmSimilar
+    #endregion ConfirmSimilar
+
     public static bool ConfirmLowercase(this string value, string? message = null)
     {
         if (value.Equals(value.ToLowerInvariant(), Ordinal))
