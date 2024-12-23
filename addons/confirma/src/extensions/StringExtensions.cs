@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Confirma.Enums;
 
 namespace Confirma.Extensions;
 
@@ -208,5 +209,45 @@ public static class StringExtensions
         }
 
         return distance + (prefixLength * p * (1 - distance));
+    }
+
+    /// <summary>
+    /// Calculates the similarity score between two strings using the specified method.
+    /// </summary>
+    /// <remarks>
+    /// Levenshtein distance is converted to the similarity score.
+    /// </remarks>
+    /// <param name="a">The first string to compare.</param>
+    /// <param name="b">The second string to compare.</param>
+    /// <param name="method">
+    /// The string similarity method to use. Defaults to JaroWinklerSimilarity.
+    /// </param>
+    /// <param name="p">
+    /// The prefix scaling factor for JaroWinklerSimilarity method. Defaults to 0.1.
+    /// </param>
+    /// <returns>
+    /// The similarity score between the two strings,
+    /// ranging from 0 (completely dissimilar) to 1 (identical).
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified method is not supported.
+    /// </exception>
+    public static double CalculateSimilarityScore(
+        this string a,
+        string b,
+        EStringSimilarityMethod method = EStringSimilarityMethod.JaroWinklerSimilarity,
+        double p = 0.1
+    )
+    {
+        return method switch
+        {
+            EStringSimilarityMethod.LevenshteinDistance => 1d - (
+                a.LevenshteinDistance(b)
+                / MathF.Max(a.Length, b.Length)
+            ),
+            EStringSimilarityMethod.JaroDistance => a.JaroDistance(b),
+            EStringSimilarityMethod.JaroWinklerSimilarity => a.JaroWinklerSimilarity(b, p),
+            _ => throw new ArgumentOutOfRangeException(nameof(method))
+        };
     }
 }
