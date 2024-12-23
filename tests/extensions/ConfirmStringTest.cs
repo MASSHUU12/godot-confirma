@@ -1,6 +1,7 @@
 using System;
 using Confirma.Attributes;
 using Confirma.Classes;
+using Confirma.Enums;
 using Confirma.Exceptions;
 using Confirma.Extensions;
 
@@ -361,4 +362,93 @@ public class ConfirmStringTest
         );
     }
     #endregion ConfirmUppercase
+
+    #region ConfirmSimilar
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.75)]
+    [TestCase("kitten", "sitting", 0.5)]
+    public void ConfirmSimilar_LevenshteinDistance_WhenIsSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmSimilar(b, expected, EStringSimilarityMethod.LevenshteinDistance);
+    }
+
+    [TestCase]
+    public void ConfirmSimilar_LevenshteinDistance_WhenIsNotSimilar()
+    {
+        Action action = static () => "a".ConfirmSimilar(
+            "abc",
+            1d,
+            EStringSimilarityMethod.LevenshteinDistance
+        );
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmSimilar failed: "
+            + "String \"a\" is not similar to \"abc\" with a score of 0.3333333134651184. "
+            + "Expected a score of at least 1."
+        );
+    }
+
+    [TestCase("", "b", 0d)]
+    [TestCase("a", "", 0d)]
+    [TestCase("abc", "xyz", 0d)]
+    [TestCase("JELLYFISH", "SMELLYFISH", 0.896296296296296)]
+    public void ConfirmSimilar_JaroDistance_WhenIsSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmSimilar(b, expected, EStringSimilarityMethod.JaroDistance);
+    }
+
+    [TestCase]
+    public void ConfirmSimilar_JaroDistance_WhenIsNotSimilar()
+    {
+        Action action = static () => "a".ConfirmSimilar(
+            "abc",
+            1d,
+            EStringSimilarityMethod.JaroDistance
+        );
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmSimilar failed: "
+            + "String \"a\" is not similar to \"abc\" with a score of 0.7777777777777777. "
+            + "Expected a score of at least 1."
+        );
+    }
+
+    [TestCase("", "b", 0d)]
+    [TestCase("a", "", 0d)]
+    [TestCase("abc", "xyz", 0d)]
+    [TestCase("JELLYFISH", "SMELLYFISH", 0.896296296296296)]
+    public void ConfirmSimilar_JaroWinklerSimilarity_WhenIsSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmSimilar(b, expected, EStringSimilarityMethod.JaroWinklerSimilarity);
+    }
+
+    [TestCase]
+    public void ConfirmSimilar_JaroWinklerSimilarity_WhenIsNotSimilar()
+    {
+        Action action = static () => "a".ConfirmSimilar(
+            "abc",
+            1d,
+            EStringSimilarityMethod.JaroWinklerSimilarity
+        );
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmSimilar failed: "
+            + "String \"a\" is not similar to \"abc\" with a score of 0.7999999999999999. "
+            + "Expected a score of at least 1."
+        );
+    }
+    #endregion ConfirmSimilar
 }
