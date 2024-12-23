@@ -1,6 +1,7 @@
 using System;
 using Confirma.Attributes;
 using Confirma.Classes;
+using Confirma.Enums;
 using Confirma.Extensions;
 
 namespace Confirma.Tests;
@@ -120,4 +121,48 @@ public class StringExtensionsTest
         );
     }
     #endregion JaroWinklerSimilarity
+
+    #region CalculateSimilarityScore
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.83333)]
+    [TestCase("kitten", "sitting", 0.57145)]
+    public void CalculateSimilarityScore_LevenshteinDistance_ReturnsCorrectScore(
+        string a,
+        string b,
+        double score
+    )
+    {
+        _ = a.CalculateSimilarityScore(b, EStringSimilarityMethod.LevenshteinDistance)
+            .ConfirmCloseTo(score, 0.001);
+    }
+
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.88889)]
+    [TestCase("kitten", "sitting", 0.74603)]
+    public void CalculateSimilarityScore_JaroDistance_ReturnsCorrectScore(
+        string a,
+        string b,
+        double score
+    )
+    {
+        _ = a.CalculateSimilarityScore(b, EStringSimilarityMethod.JaroDistance)
+            .ConfirmCloseTo(score, 0.001);
+    }
+
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.88889)]
+    [TestCase("kitten", "sitting", 0.74603)]
+    public void CalculateSimilarityScore_JaroWinklerSimilarity_ReturnsCorrectScore(
+        string a,
+        string b,
+        double score
+    )
+    {
+        _ = a.CalculateSimilarityScore(b, EStringSimilarityMethod.JaroWinklerSimilarity)
+            .ConfirmCloseTo(score, 0.001);
+    }
+    #endregion CalculateSimilarityScore
 }
