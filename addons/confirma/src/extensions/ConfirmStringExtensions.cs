@@ -1,8 +1,11 @@
 using System;
 using System.Text.RegularExpressions;
+using Confirma.Enums;
 using Confirma.Exceptions;
 using Confirma.Formatters;
+
 using static System.StringComparison;
+using static Confirma.Enums.EStringSimilarityMethod;
 
 namespace Confirma.Extensions;
 
@@ -316,6 +319,67 @@ public static class ConfirmStringExtensions
     #endregion ConfirmMatchesPattern
 
     #region ConfirmSimilar
+    /// <summary>
+    /// Asserts that the actual string is similar to the expected string
+    /// based on the specified similarity method and minimum score.
+    /// </summary>
+    /// <remarks>
+    /// Levenshtein distance is converted to the similarity score.
+    /// </remarks>
+    /// <param name="actual">The actual string to compare.</param>
+    /// <param name="expected">The expected string to compare.</param>
+    /// <param name="minimumScore">The minimum similarity score required.</param>
+    /// <param name="method">
+    /// The string similarity method to use. Defaults to JaroWinklerSimilarity.
+    /// </param>
+    /// <param name="p">
+    /// The prefix scaling factor for JaroWinklerSimilarity method. Defaults to 0.1.
+    /// </param>
+    /// <param name="message">
+    /// An optional message to include in the exception if the assertion fails.
+    /// </param>
+    /// <exception cref="ConfirmAssertException">
+    /// Thrown if the actual string is not similar to the expected string
+    /// based on the specified similarity method and minimum score.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if the specified method is not supported.
+    /// </exception>
+    public static string ConfirmSimilar(
+        this string actual,
+        string expected,
+        double minimumScore,
+        EStringSimilarityMethod method = JaroWinklerSimilarity,
+        double p = 0.1,
+        string? message = null
+    )
+    {
+        double score = method switch
+        {
+            LevenshteinDistance => 1d - (
+                actual.LevenshteinDistance(expected)
+                / MathF.Max(actual.Length, expected.Length)
+            ),
+            JaroDistance => actual.JaroDistance(expected),
+            JaroWinklerSimilarity => actual.JaroWinklerSimilarity(expected, p),
+            _ => throw new ArgumentOutOfRangeException(nameof(method))
+        };
+
+        if (score >= minimumScore)
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "String {1} is not similar to {2} with a score of "
+            + $"{score}. Expected a score of at least {minimumScore}.",
+            nameof(ConfirmSimilar),
+            new StringFormatter(),
+            actual,
+            expected,
+            message
+        );
+    }
     #endregion ConfirmSimilar
 
     public static bool ConfirmLowercase(this string value, string? message = null)
