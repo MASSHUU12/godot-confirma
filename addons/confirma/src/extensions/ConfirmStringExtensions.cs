@@ -354,16 +354,7 @@ public static class ConfirmStringExtensions
         string? message = null
     )
     {
-        double score = method switch
-        {
-            LevenshteinDistance => 1d - (
-                actual.LevenshteinDistance(expected)
-                / MathF.Max(actual.Length, expected.Length)
-            ),
-            JaroDistance => actual.JaroDistance(expected),
-            JaroWinklerSimilarity => actual.JaroWinklerSimilarity(expected, p),
-            _ => throw new ArgumentOutOfRangeException(nameof(method))
-        };
+        double score = actual.CalculateSimilarityScore(expected, method, p);
 
         if (score >= minimumScore)
         {
@@ -374,6 +365,59 @@ public static class ConfirmStringExtensions
             "String {1} is not similar to {2} with a score of "
             + $"{score}. Expected a score of at least {minimumScore}.",
             nameof(ConfirmSimilar),
+            new StringFormatter(),
+            actual,
+            expected,
+            message
+        );
+    }
+
+    /// <summary>
+    /// Asserts that the actual string is not similar to the expected string
+    /// based on the specified similarity method and maximum score.
+    /// </summary>
+    /// <remarks>
+    /// Levenshtein distance is converted to the similarity score.
+    /// </remarks>
+    /// <param name="actual">The actual string to compare.</param>
+    /// <param name="expected">The expected string to compare.</param>
+    /// <param name="maximumScore">The maximum similarity score required.</param>
+    /// <param name="method">
+    /// The string similarity method to use. Defaults to JaroWinklerSimilarity.
+    /// </param>
+    /// <param name="p">
+    /// The prefix scaling factor for JaroWinklerSimilarity method. Defaults to 0.1.
+    /// </param>
+    /// <param name="message">
+    /// An optional message to include in the exception if the assertion fails.
+    /// </param>
+    /// <exception cref="ConfirmAssertException">
+    /// Thrown if the actual string is similar to the expected string
+    /// based on the specified similarity method and minimum score.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if the specified method is not supported.
+    /// </exception>
+    public static string ConfirmNotSimilar(
+        this string actual,
+        string expected,
+        double maximumScore,
+        EStringSimilarityMethod method = JaroWinklerSimilarity,
+        double p = 0.1,
+        string? message = null
+    )
+    {
+        double score = actual.CalculateSimilarityScore(expected, method, p);
+
+        if (score <= maximumScore)
+        {
+            return actual;
+        }
+
+        throw new ConfirmAssertException(
+            "String {1} is similar to {2} with a score of "
+            + $"{score}. Expected a score of at most {maximumScore}.",
+            nameof(ConfirmNotSimilar),
             new StringFormatter(),
             actual,
             expected,

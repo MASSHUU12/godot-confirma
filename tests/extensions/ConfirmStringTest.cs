@@ -451,4 +451,61 @@ public class ConfirmStringTest
         );
     }
     #endregion ConfirmSimilar
+
+    #region ConfirmNotSimilar
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.8333333283662796)]
+    [TestCase("kitten", "sitting", 0.5714285671710968)]
+    public void ConfirmNotSimilar_LevenshteinDistance_WhenIsNotSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmNotSimilar(b, expected, EStringSimilarityMethod.LevenshteinDistance);
+    }
+
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.888888888888889)]
+    [TestCase("kitten", "sitting", 0.746031746031746)]
+    public void ConfirmNotSimilar_JaroDistance_WhenIsNotSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmNotSimilar(b, expected, EStringSimilarityMethod.JaroDistance);
+    }
+
+    [TestCase("a", "", 0d)]
+    [TestCase("", "bb", 0d)]
+    [TestCase("kitten", "sitten", 0.888888888888889)]
+    [TestCase("kitten", "sitting", 0.746031746031746)]
+    public void ConfirmNotSimilar_JaroWinklerSimilarity_WhenIsNotSimilar(
+        string a,
+        string b,
+        double expected
+    )
+    {
+        _ = a.ConfirmNotSimilar(b, expected, EStringSimilarityMethod.JaroWinklerSimilarity);
+    }
+
+    [TestCase]
+    public void ConfirmNotSimilar_WhenIsSimilar()
+    {
+        Action action = static () => "a".ConfirmNotSimilar(
+            "a",
+            0.5,
+            EStringSimilarityMethod.LevenshteinDistance
+        );
+
+        _ = action.ConfirmThrowsWMessage<ConfirmAssertException>(
+            "Assertion ConfirmNotSimilar failed: "
+            + "String \"a\" is similar to \"a\" with a score of 1. "
+            + "Expected a score of at most 0.5."
+        );
+    }
+    #endregion ConfirmNotSimilar
 }
