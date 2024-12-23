@@ -41,16 +41,19 @@ All notable changes to this project will be documented in this file.
   - ConfirmElementsAreNotOrdered w/ & w/o comparer
   - Overload for ConfirmEqual/ConfirmNotEqual accepting Array.
   - ConfirmDefaultValue/ConfirmNotDefaultValue
+  - ConfirmSimilar/ConfirmNotSimilar
 - Enums:
   - EFormatType
   - EDistributionType
   - EArgumentParseResult
+  - EStringSimilarityMethod
 - Attributes:
   - FuzzAttribute
 - String extensions:
   - LevenshteinDistance
   - JaroDistance
   - JaroWinklerSimilarity
+  - CalculateSimilarityScore
 - Random extensions:
   - NextGaussianDouble
   - NextExponentialDouble
