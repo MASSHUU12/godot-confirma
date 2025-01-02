@@ -187,13 +187,4 @@ public class TestingClass
     {
         testLogs.Add(new(ELogType.Error, $"- {error}\n"));
     }
-
-    private int GetOrphans()
-    {
-        return !_props.MonitorOrphans
-            ? 0
-            : (int)Performance.Singleton.GetMonitor(
-                Performance.Monitor.ObjectOrphanNodeCount
-            );
-    }
 }
