@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- C# 12 is being used.
+- Minimum .NET version is 8.
+
+## Removed
+
+- LifecycleMethodException exception.
+
 ## [0.10.0-beta 2025.01.02]
 
 ### Added
