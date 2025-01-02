@@ -13,9 +13,4 @@ public class LifecycleMethodException : Exception
         string? message,
         Exception? innerException
     ) : base(message, innerException) { }
-
-    protected LifecycleMethodException(
-        SerializationInfo info,
-        StreamingContext context
-    ) : base(info, context) { }
 }
