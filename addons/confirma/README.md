@@ -9,9 +9,9 @@
 
 ## Prerequisites
 
-- [.NET SDK 7^](https://dotnet.microsoft.com/en-us/download)
+- [.NET SDK 8^](https://dotnet.microsoft.com/en-us/download)
 - [.NET enabled Godot 4^](https://godotengine.org/download)
-- C# 11^
+- C# 12^
 
 ## Overview
 
