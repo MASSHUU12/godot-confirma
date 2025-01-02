@@ -8,7 +8,6 @@ using Confirma.Enums;
 using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Types;
-using Godot;
 
 namespace Confirma.Classes;
 
@@ -16,12 +15,9 @@ public class TestingClass
 {
     public Type Type { get; init; }
     public bool IsParallelizable { get; init; }
-    public IEnumerable<TestingMethod> TestMethods { get; set; }
+    public IEnumerable<TestingMethod> TestMethods { get; private set; }
 
-    private readonly string? _setUpName;
-    private readonly string? _tearDownName;
-    private readonly string? _afterAllName;
-    private readonly string? _beforeAllName;
+    private readonly string? _setUpName, _tearDownName, _afterAllName, _beforeAllName;
 
     private TestsProps _props;
     private object? _instance;
@@ -32,11 +28,11 @@ public class TestingClass
         TestMethods = CsTestDiscovery.DiscoverTestMethods(type);
         IsParallelizable = type.GetCustomAttribute<ParallelizableAttribute>() is not null;
 
-        _afterAllName = FindLifecycleMethodName(typeof(AfterAllAttribute));
-        _beforeAllName = FindLifecycleMethodName(typeof(BeforeAllAttribute));
+        _afterAllName = FindLifecycleMethodName<AfterAllAttribute>();
+        _beforeAllName = FindLifecycleMethodName<BeforeAllAttribute>();
 
-        _setUpName = FindLifecycleMethodName(typeof(SetUpAttribute));
-        _tearDownName = FindLifecycleMethodName(typeof(TearDownAttribute));
+        _setUpName = FindLifecycleMethodName<SetUpAttribute>();
+        _tearDownName = FindLifecycleMethodName<TearDownAttribute>();
     }
 
     public TestClassResult Run(TestsProps props)
@@ -136,9 +132,9 @@ public class TestingClass
         );
     }
 
-    private string? FindLifecycleMethodName(Type attributeType)
+    private string? FindLifecycleMethodName<T>() where T : Attribute
     {
-        Attribute? attribute = Type.GetCustomAttribute(attributeType);
+        Attribute? attribute = Type.GetCustomAttribute<T>();
 
         return attribute is not LifecycleAttribute la
             ? null
@@ -183,7 +179,7 @@ public class TestingClass
         }
     }
 
-    private void AddError(string error, ref List<TestLog> testLogs)
+    private static void AddError(string error, ref List<TestLog> testLogs)
     {
         testLogs.Add(new(ELogType.Error, $"- {error}\n"));
     }
