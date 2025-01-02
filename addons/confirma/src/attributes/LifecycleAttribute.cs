@@ -7,12 +7,7 @@ namespace Confirma.Attributes;
     Inherited = true,
     AllowMultiple = false
 )]
-public class LifecycleAttribute : Attribute
+public class LifecycleAttribute(string className) : Attribute
 {
-    public string MethodName { get; init; }
-
-    public LifecycleAttribute(string className)
-    {
-        MethodName = className;
-    }
+    public string MethodName { get; init; } = className;
 }
