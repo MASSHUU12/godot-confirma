@@ -71,6 +71,7 @@ All notable changes to this project will be documented in this file.
 - Support for test methods with `params` modifier.
 - Flag to `CollectionHelper.ToString` & `CollectionFormatter` for adding type hint.
 - When passing an invalid command line argument, a similar one is suggested if available.
+- Support for .NET 8.
 
 ### Changed
 
@@ -82,6 +83,7 @@ All notable changes to this project will be documented in this file.
 flaky tests, fuzz testing & `params` modifier.
   - Added info about mocking libary in README.md.
   - Updated docs about `Repeat` and `Ignore` attribute.
+  - Added info about configuring .csproj after Godot 4.4.
 - Allowed the same numbers for min & max values in `NextDecimal`, `NextLong` &
 `NextDouble` extensions of `Random` class.
 - Adjusted warnings for `Repeat` attribute.
