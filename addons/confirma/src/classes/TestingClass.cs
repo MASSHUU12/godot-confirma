@@ -5,7 +5,6 @@ using System.Reflection;
 using Confirma.Attributes;
 using Confirma.Classes.Discovery;
 using Confirma.Enums;
-using Confirma.Exceptions;
 using Confirma.Helpers;
 using Confirma.Types;
 
@@ -37,90 +36,68 @@ public class TestingClass
 
     public TestClassResult Run(TestsProps props)
     {
-        TestResult results = new();
-        List<TestLog> testLogs = new();
-        bool runAfterAll = true;
-
         _props = props;
+        List<TestLog> testLogs = [];
+        TestResult results = new();
+        bool canRunAfterAll = true;
 
         if (!Type.IsStatic())
         {
             _instance = Activator.CreateInstance(Type);
         }
 
-        try
+        if (!InvokeLifecycleMethod(
+            _beforeAllName,
+            ref testLogs,
+            out string beforeAllError
+        ))
         {
-            RunLifecycleMethod(_beforeAllName, ref testLogs);
-        }
-        catch (LifecycleMethodException e)
-        {
-            runAfterAll = false;
-            AddError(e.Message, ref testLogs);
+            AddError(beforeAllError, ref testLogs);
             return new(0, 1, 0, 0, testLogs);
         }
 
-        if (_props.Target.Target == ERunTargetType.Method
-            && !string.IsNullOrEmpty(props.Target.DetailedName)
-        )
-        {
-            TestMethods = TestMethods.Where(
-                tm => tm.Name == props.Target.DetailedName
-            );
-
-            if (!TestMethods.Any())
-            {
-                testLogs.Add(new(ELogType.Error,
-                    ELangType.CSharp,
-                    $"No test methods found with the name {props.Target.DetailedName}."
-                ));
-
-                return new(0, 1, 0, 0, testLogs);
-            }
-        }
+        FilterTestMethodsOnTarget(ref testLogs);
 
         foreach (TestingMethod method in TestMethods)
         {
-            try
-            {
-                RunLifecycleMethod(_setUpName, ref testLogs);
-            }
-            catch (LifecycleMethodException e)
+            if (!InvokeLifecycleMethod(
+                _setUpName,
+                ref testLogs,
+                out string setUpError
+            ))
             {
                 results.TestsFailed++;
-                runAfterAll = false;
-                AddError(e.Message, ref testLogs);
+                canRunAfterAll = false;
+                AddError(setUpError, ref testLogs);
                 continue;
             }
 
-            TestMethodResult methodResult = method.Run(props, _instance);
+            TestMethodResult methodResult = method.Run(_props, _instance);
             testLogs.AddRange(methodResult.TestLogs);
-
-            try
-            {
-                RunLifecycleMethod(_tearDownName, ref testLogs);
-            }
-            catch (LifecycleMethodException e)
-            {
-                runAfterAll = false;
-                methodResult.TestsPassed--;
-                method.Result.TestsFailed++;
-                AddError(e.Message, ref testLogs);
-            }
-
             results += methodResult;
-        }
 
-        try
-        {
-            if (runAfterAll)
+            if (!InvokeLifecycleMethod(
+                _tearDownName,
+                ref testLogs,
+                out string tearDownError
+            ))
             {
-                RunLifecycleMethod(_afterAllName, ref testLogs);
+                canRunAfterAll = false;
+                results.TestsFailed++;
+                AddError(tearDownError, ref testLogs);
             }
         }
-        catch (LifecycleMethodException e)
+
+        if (canRunAfterAll
+            && !InvokeLifecycleMethod(
+                _afterAllName,
+                ref testLogs,
+                out string afterAllError2
+            )
+        )
         {
             results.TestsFailed++;
-            AddError(e.Message, ref testLogs);
+            AddError(afterAllError2, ref testLogs);
         }
 
         return new(
@@ -132,6 +109,28 @@ public class TestingClass
         );
     }
 
+    private void FilterTestMethodsOnTarget(ref List<TestLog> testLogs)
+    {
+        if (_props.Target.Target != ERunTargetType.Method
+            || string.IsNullOrEmpty(_props.Target.DetailedName)
+        )
+        {
+            return;
+        }
+
+        TestMethods = TestMethods
+            .Where(tm => tm.Name == _props.Target.DetailedName);
+
+        if (!TestMethods.Any())
+        {
+            testLogs.Add(new TestLog(
+                ELogType.Error,
+                ELangType.CSharp,
+                $"No test methods found with the name {_props.Target.DetailedName}."
+            ));
+        }
+    }
+
     private string? FindLifecycleMethodName<T>() where T : Attribute
     {
         Attribute? attribute = Type.GetCustomAttribute<T>();
@@ -141,23 +140,24 @@ public class TestingClass
             : la.MethodName;
     }
 
-    private void RunLifecycleMethod(string? methodName, ref List<TestLog> testLogs)
+    private bool InvokeLifecycleMethod(
+        string? methodName,
+        ref List<TestLog> testLogs,
+        out string error
+    )
     {
-        if (methodName is null)
-        {
-            return;
-        }
+        error = string.Empty;
+        if (string.IsNullOrEmpty(methodName)) { return true; }
 
         if (_props.IsVerbose)
         {
-            testLogs.Add(new(ELogType.Info, $"[{methodName}] {Type.Name}"));
+            testLogs.Add(new TestLog(ELogType.Info, $"[{methodName}] {Type.Name}"));
         }
 
         if (Type.GetMethod(methodName) is not MethodInfo method)
         {
-            throw new LifecycleMethodException(
-                $"Lifecycle method {methodName} not found."
-            );
+            error = $"Lifecycle method {methodName} not found.";
+            return false;
         }
 
         try
@@ -166,17 +166,14 @@ public class TestingClass
         }
         catch (Exception e)
         {
-            string message = e.InnerException?.Message ?? e.Message;
-
-            if (string.IsNullOrEmpty(message))
-            {
-                message = $"Calling lifecycle method {methodName} failed.";
-            }
-
-            throw new LifecycleMethodException(
-                $"Error in lifecycle method {methodName}: {message}"
-            );
+            error = e.InnerException?.Message
+                    ?? e.Message
+                    ?? $"Calling lifecycle method {methodName} failed.";
+            error = $"Error in lifecycle method {methodName}: {error}";
+            return false;
         }
+
+        return true;
     }
 
     private static void AddError(string error, ref List<TestLog> testLogs)
