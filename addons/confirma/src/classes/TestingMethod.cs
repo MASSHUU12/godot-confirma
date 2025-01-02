@@ -33,100 +33,134 @@ public class TestingMethod
     {
         foreach (TestCase test in TestCases)
         {
-            int iterations = test.Repeat?.IsFlaky == true
-                ? 0
-                : test.Repeat?.Repeat ?? 0;
+            int iterations = CalculateIterations(test);
 
-            for (ushort i = 0; i <= iterations; i++)
+            for (int i = 0; i <= iterations; i++)
             {
-                IgnoreAttribute? attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
-
-                if (attr?.IsIgnored(props.Target) == true)
+                if (CheckIfIgnored(test, props))
                 {
-                    if (attr.HideFromResults == true)
-                    {
-                        continue;
-                    }
-
-                    Result.TestsIgnored++;
-
-                    TestLog log = new(
-                        ELogType.Method,
-                        Name,
-                        Ignored,
-                        test.Params,
-                        attr.Reason
-                    );
-                    Result.TestLogs.Add(log);
                     continue;
                 }
 
-                int repeats = 0;
-                int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
-                int backoff = test.Repeat?.Backoff ?? 0;
-
-                do
-                {
-                    try
-                    {
-                        test.Run(instance);
-                        Result.TestsPassed++;
-
-                        TestLog log = new(
-                            ELogType.Method,
-                            Name,
-                            Passed,
-                            test.Params,
-                            null,
-                            ELangType.CSharp
-                        );
-                        Result.TestLogs.Add(log);
-                        break;
-                    }
-                    catch (ConfirmAssertException e)
-                    {
-                        if (maxRepeats != 0 && repeats != maxRepeats)
-                        {
-                            repeats++;
-                            if (backoff != 0)
-                            {
-                                // Workaround for:
-                                // https://github.com/godotengine/godot/issues/94510
-                                Task task = Task.Run(
-                                    async () => await Task.Delay(backoff)
-                                );
-                                task.Wait();
-                            }
-                            continue;
-                        }
-
-                        Result.TestsFailed++;
-
-                        TestLog log = new(
-                            ELogType.Method,
-                            Name,
-                            Failed,
-                            test.Params,
-                            e.Message,
-                            ELangType.CSharp
-                        );
-                        Result.TestLogs.Add(log);
-
-                        if (test.Repeat?.FailFast == true)
-                        {
-                            break;
-                        }
-
-                        if (props.ExitOnFail)
-                        {
-                            props.CallExitOnFailure();
-                        }
-                    }
-                } while (repeats < maxRepeats);
+                ExecuteTestWithRepeats(test, props, instance);
             }
         }
 
         return Result;
+    }
+
+    private static int CalculateIterations(TestCase test)
+    {
+        return test.Repeat?.IsFlaky == true ? 0 : test.Repeat?.Repeat ?? 0;
+    }
+
+    private bool CheckIfIgnored(TestCase test, TestsProps props)
+    {
+        IgnoreAttribute? attr = test.Method.GetCustomAttribute<IgnoreAttribute>();
+        if ((attr?.IsIgnored(props.Target)) != true)
+        {
+            return false;
+        }
+
+        if (attr.HideFromResults == true)
+        {
+            return true;
+        }
+
+        Result.TestsIgnored++;
+        TestLog log = new(
+            ELogType.Method,
+            Name,
+            Ignored,
+            test.Params,
+            attr.Reason
+        );
+        Result.TestLogs.Add(log);
+        return true;
+    }
+
+    private void ExecuteTestWithRepeats(
+        TestCase test,
+        TestsProps props,
+        object? instance
+    )
+    {
+        int repeats = 0;
+        int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
+        int backoff = test.Repeat?.Backoff ?? 0;
+
+        do
+        {
+            try
+            {
+                test.Run(instance);
+                LogTestResult(Passed, test, null);
+                Result.TestsPassed++;
+                break;
+            }
+            catch (ConfirmAssertException e)
+            {
+                if (ShouldRetryFlakyTest(ref repeats, maxRepeats, backoff))
+                {
+                    continue;
+                }
+
+                LogTestResult(Failed, test, e.Message);
+                Result.TestsFailed++;
+
+                if (test.Repeat?.FailFast == true)
+                {
+                    break;
+                }
+
+                if (props.ExitOnFail)
+                {
+                    props.CallExitOnFailure();
+                }
+            }
+        } while (repeats < maxRepeats);
+    }
+
+    private static bool ShouldRetryFlakyTest(
+        ref int repeats,
+        int maxRepeats,
+        int backoff
+    )
+    {
+        if (maxRepeats == 0 || repeats >= maxRepeats)
+        {
+            return false;
+        }
+
+        repeats++;
+        if (backoff > 0)
+        {
+            // Workaround for:
+            // https://github.com/godotengine/godot/issues/94510
+            Task task = Task.Run(
+                async () => await Task.Delay(backoff)
+            );
+            task.Wait();
+        }
+        return true;
+    }
+
+    private void LogTestResult(
+        ETestCaseState state,
+        TestCase test,
+        string? message
+    )
+    {
+        Result.TestLogs.Add(
+            new(
+                ELogType.Method,
+                Name,
+                state,
+                test.Params,
+                message,
+                ELangType.CSharp
+            )
+        );
     }
 
     private List<TestCase> DiscoverTestCases()
@@ -135,8 +169,8 @@ public class TestingMethod
             .GetAttributesForTestCaseGeneration(Method)
             .GetEnumerator();
 
-        List<TestCase> cases = new();
-        List<FuzzGenerator> generators = new();
+        List<TestCase> cases = [];
+        List<FuzzGenerator> generators = [];
         RepeatAttribute? pendingRepeat = null;
         RepeatAttribute? fuzzRepeat = null;
 
@@ -189,39 +223,55 @@ public class TestingMethod
             }
         }
 
+        ResolveUnusedRepeat(pendingRepeat);
+        HandleFuzzGenerators(generators, fuzzRepeat, cases);
+
+        return cases;
+    }
+
+    private void ResolveUnusedRepeat(RepeatAttribute? pendingRepeat)
+    {
         if (pendingRepeat is not null)
         {
             Log.PrintWarning(
-                $"The Repeat attribute for the {Method.Name} method "
-                + "will be ignored because it does not have the "
-                + "TestCase/Fuzz attribute associated with it.\n"
+                $"The Repeat attribute for {Method.Name} " +
+                "will be ignored because it does not have a " +
+                "TestCase/Fuzz attribute associated with it.\n"
+            );
+            Result.Warnings++;
+        }
+    }
+
+    private void HandleFuzzGenerators(
+        List<FuzzGenerator> generators,
+        RepeatAttribute? fuzzRepeat,
+        List<TestCase> cases
+    )
+    {
+        if (generators.Count == 0)
+        {
+            return;
+        }
+
+        int methodParams = Method.GetParameters().Length;
+
+        if (generators.Count > methodParams)
+        {
+            Log.PrintWarning(
+                $"Detected {generators.Count} Fuzz attributes but "
+                + $"{Method.Name} contains only {methodParams} parameters. "
+                + "Excessive Fuzz attributes are ignored.\n"
             );
             Result.Warnings++;
         }
 
-        if (generators.Count != 0)
-        {
-            int methodParams = Method.GetParameters().Length;
-
-            if (generators.Count > methodParams)
-            {
-                Log.PrintWarning(
-                    $"Detected {generators.Count} Fuzz attributes but "
-                    + $"{Method.Name} contains only {methodParams} parameters."
-                    + " Excessive Fuzz attributes are ignored.\n"
-                );
-                Result.Warnings++;
-            }
-
-            cases.Add(new(
-                Method,
-                generators
-                    .Take(methodParams) // Ignore excessive attributes
-                    .Select(static gen => gen.NextValue()).ToArray(),
-                fuzzRepeat
-            ));
-        }
-
-        return cases;
+        cases.Add(new(
+            Method,
+            [.. generators
+                .Take(methodParams) // Ignore excessive attributes
+                .Select(static gen => gen.NextValue())
+            ],
+            fuzzRepeat
+        ));
     }
 }
