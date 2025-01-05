@@ -1,21 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
 using Confirma.Types;
 using Godot;
 using Godot.Collections;
 
 namespace Confirma.Classes;
 
-public class ScriptInfo
+public class ScriptInfo(Script script, LinkedList<ScriptMethodInfo> methods)
 {
-    public Script Script { get; init; }
-    public LinkedList<ScriptMethodInfo> Methods { get; init; }
-
-    public ScriptInfo(Script script, LinkedList<ScriptMethodInfo> methods)
-    {
-        Script = script;
-        Methods = methods;
-    }
+    public Script Script { get; init; } = script;
+    public LinkedList<ScriptMethodInfo> Methods { get; init; } = methods;
 
     public static ScriptInfo Parse(in Script script)
     {
@@ -28,37 +21,52 @@ public class ScriptInfo
 
             foreach (Dictionary argInfo in method["args"].AsGodotArray<Dictionary>())
             {
-                _ = arg.AddLast(
-                    new ScriptMethodArgumentInfo(
-                        argInfo["name"].AsString(),
-                        argInfo["class_name"].AsString(),
-                        argInfo["type"].AsInt32(),
-                        argInfo["hint"].AsInt32(),
-                        argInfo["hint_string"].AsString(),
-                        argInfo["usage"].AsInt32()
-                    )
-                );
+                _ = arg.AddLast(ParseArgumentInfo(argInfo));
             }
 
-            _ = list.AddLast(
-                new ScriptMethodInfo(
-                    method["name"].AsString(),
-                    arg.ToArray(),
-                    method["default_args"].AsStringArray(),
-                    method["flags"].AsInt32(),
-                    method["id"].AsInt32(),
-                    new(
-                        returnInfo["name"].AsString(),
-                        returnInfo["class_name"].AsString(),
-                        returnInfo["type"].AsInt32(),
-                        returnInfo["hint"].AsInt32(),
-                        returnInfo["hint_string"].AsString(),
-                        returnInfo["usage"].AsInt32()
-                    )
-                )
-            );
+            _ = list.AddLast(ParseMethodInfo(method, returnInfo, arg));
         }
 
         return new(script, list);
+    }
+
+    private static ScriptMethodInfo ParseMethodInfo(
+        Dictionary methodInfo,
+        Dictionary returnInfo,
+        LinkedList<ScriptMethodArgumentInfo> arg
+    )
+    {
+        return new(
+            methodInfo["name"].AsString(),
+            [.. arg],
+            methodInfo["default_args"].AsStringArray(),
+            methodInfo["flags"].AsInt32(),
+            methodInfo["id"].AsInt32(),
+            ParseReturnInfo(returnInfo)
+        );
+    }
+
+    private static ScriptMethodReturnInfo ParseReturnInfo(Dictionary info)
+    {
+        return new(
+            info["name"].AsString(),
+            info["class_name"].AsString(),
+            info["type"].AsInt32(),
+            info["hint"].AsInt32(),
+            info["hint_string"].AsString(),
+            info["usage"].AsInt32()
+        );
+    }
+
+    private static ScriptMethodArgumentInfo ParseArgumentInfo(Dictionary info)
+    {
+        return new(
+            info["name"].AsString(),
+            info["class_name"].AsString(),
+            info["type"].AsInt32(),
+            info["hint"].AsInt32(),
+            info["hint_string"].AsString(),
+            info["usage"].AsInt32()
+        );
     }
 }
