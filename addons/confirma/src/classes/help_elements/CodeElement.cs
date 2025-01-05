@@ -5,7 +5,7 @@ namespace Confirma.Classes.HelpElements;
 
 public class CodeElement : FileElement
 {
-    public List<string> Lines { get; set; } = new ();
+    public List<string> Lines { get; set; } = [];
 
     public override string GetText()
     {
@@ -22,7 +22,7 @@ public class CodeElement : FileElement
 
     public void SetFormat()
     {
-        FormatOverride = new List<string>() { "i" };
+        FormatOverride = ["i"];
         BgColor = "#0d1117";
         Color = "#c9d1d9";
     }
