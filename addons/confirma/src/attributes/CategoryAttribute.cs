@@ -3,12 +3,7 @@ using System;
 namespace Confirma.Attributes;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-public class CategoryAttribute : Attribute
+public class CategoryAttribute(string category) : Attribute
 {
-    public string Category { get; init; }
-
-    public CategoryAttribute(string category)
-    {
-        Category = category;
-    }
+    public string Category { get; init; } = category;
 }

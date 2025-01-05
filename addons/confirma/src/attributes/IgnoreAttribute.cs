@@ -7,25 +7,17 @@ using static System.AttributeTargets;
 namespace Confirma.Attributes;
 
 [AttributeUsage(Class | Method, AllowMultiple = false)]
-public class IgnoreAttribute : Attribute
+public class IgnoreAttribute(
+    EIgnoreMode mode = EIgnoreMode.Always,
+    string? reason = null,
+    bool hideFromResults = false,
+    string category = ""
+    ) : Attribute
 {
-    public EIgnoreMode Mode { get; init; }
-    public string? Reason { get; init; }
-    public bool HideFromResults { get; init; }
-    public string Category { get; init; }
-
-    public IgnoreAttribute(
-        EIgnoreMode mode = EIgnoreMode.Always,
-        string? reason = null,
-        bool hideFromResults = false,
-        string category = ""
-    )
-    {
-        Mode = mode;
-        Reason = string.IsNullOrEmpty(reason) ? null : reason;
-        HideFromResults = hideFromResults;
-        Category = category;
-    }
+    public EIgnoreMode Mode { get; init; } = mode;
+    public string? Reason { get; init; } = string.IsNullOrEmpty(reason) ? null : reason;
+    public bool HideFromResults { get; init; } = hideFromResults;
+    public string Category { get; init; } = category;
 
     public bool IsIgnored(in RunTarget target)
     {
