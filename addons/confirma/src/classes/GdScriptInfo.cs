@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -14,43 +13,30 @@ public class GdScriptInfo : ScriptInfo
     public ImmutableDictionary<ELifecycleMethodName, ScriptMethodInfo>
         LifecycleMethods
     { get; init; }
-    private static readonly string[] _lifecycleMethodNames = {
-        "after_all",
-        "before_all",
-        "category",
-        "ignore",
-        "set_up",
-        "tear_down"
+
+    private static readonly Dictionary<string, ELifecycleMethodName>
+        _lifecycleMethodNameMap = new()
+    {
+        { "after_all", AfterAll },
+        { "before_all", BeforeAll },
+        { "category", Category },
+        { "ignore", Ignore },
+        { "set_up", SetUp },
+        { "tear_down", TearDown }
     };
 
-    public GdScriptInfo(
-        Script script,
-        LinkedList<ScriptMethodInfo> methods
-    )
+    public GdScriptInfo(Script script, LinkedList<ScriptMethodInfo> methods)
     : base(script, methods)
     {
         IEnumerable<ScriptMethodInfo> lifecycleMethods = Methods.Where(
-            static m => _lifecycleMethodNames.Contains(m.Name)
+            static m => _lifecycleMethodNameMap.ContainsKey(m.Name)
         );
 
-        LifecycleMethods =
-            lifecycleMethods.ToImmutableDictionary(
-                static info => info.Name switch
-                {
-                    "after_all" => AfterAll,
-                    "before_all" => BeforeAll,
-                    "set_up" => SetUp,
-                    "tear_down" => TearDown,
-                    "category" => Category,
-                    "ignore" => Ignore,
-                    _ => throw new ArgumentException(
-                        $"Unknown method name: {info.Name}."
-                    ),
-                },
-                static info => info
-            );
+        LifecycleMethods = lifecycleMethods.ToImmutableDictionary(
+            static m => _lifecycleMethodNameMap[m.Name]
+        );
 
-        Methods = new(Methods.Except(lifecycleMethods).ToList());
+        Methods = new(Methods.Except(lifecycleMethods));
     }
 
     public static new GdScriptInfo Parse(in Script script)
