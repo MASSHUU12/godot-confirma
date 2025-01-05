@@ -1,79 +1,58 @@
 using System;
 using Confirma.Extensions;
 
+using static Confirma.Fuzz.EDistributionType;
+
 namespace Confirma.Fuzz;
 
-public class FuzzGenerator
-{
-    public Type DataType { get; init; }
-    public string? Name { get; init; }
-    public double Min { get; init; }
-    public double Max { get; init; }
-    public double Mean { get; init; }
-    public double StandardDeviation { get; init; }
-    public double Lambda { get; init; }
-    public EDistributionType Distribution { get; init; }
-    public int? Seed { get; init; }
-
-    private readonly Random _rg;
-
-    public FuzzGenerator(
-        Type dataType,
-        string? name,
-        double min,
-        double max,
-        double mean,
-        double standardDeviation,
-        double lambda,
-        EDistributionType distribution,
-        int? seed
+public class FuzzGenerator(
+    Type dataType,
+    string? name,
+    double min,
+    double max,
+    double mean,
+    double standardDeviation,
+    double lambda,
+    EDistributionType distribution,
+    int? seed
     )
-    {
-        DataType = dataType;
-        Name = name;
-        Min = min;
-        Max = max;
-        Mean = mean;
-        StandardDeviation = standardDeviation;
-        Lambda = lambda;
-        Distribution = distribution;
-        Seed = seed;
+{
+    public Type DataType { get; init; } = dataType;
+    public string? Name { get; init; } = name;
+    public double Min { get; init; } = min;
+    public double Max { get; init; } = max;
+    public double Mean { get; init; } = mean;
+    public double StandardDeviation { get; init; } = standardDeviation;
+    public double Lambda { get; init; } = lambda;
+    public EDistributionType Distribution { get; init; } = distribution;
+    public int? Seed { get; init; } = seed;
 
-        _rg = seed.HasValue ? new(seed.Value) : new();
-    }
+    private readonly Random _rg = seed.HasValue ? new(seed.Value) : new();
 
     public object NextValue()
     {
-        switch (DataType)
+        return DataType switch
         {
-            case Type t when t == typeof(int):
-                return NextInt();
-            case Type t when t == typeof(double):
-                return NextDouble();
-            case Type t when t == typeof(float):
-                return (float)NextDouble();
-            case Type t when t == typeof(string):
-                return NextString();
-            case Type t when t == typeof(bool):
-                return _rg.NextBool();
-            default:
-                throw new ArgumentException($"{DataType.Name} is unsupported.");
-        }
+            Type t when t == typeof(int) => NextInt(),
+            Type t when t == typeof(double) => NextDouble(),
+            Type t when t == typeof(float) => (float)NextDouble(),
+            Type t when t == typeof(string) => NextString(),
+            Type t when t == typeof(bool) => _rg.NextBool(),
+            _ => throw new ArgumentException($"{DataType.Name} is unsupported."),
+        };
     }
 
     private int NextInt()
     {
         return Distribution switch
         {
-            EDistributionType.Gaussian => (int)_rg.NextGaussianDouble(
+            Gaussian => (int)_rg.NextGaussianDouble(
                 Mean,
                 StandardDeviation
             ),
-            EDistributionType.Exponential => (int)_rg.NextExponentialDouble(
-                Lambda
-            ),
-            EDistributionType.Poisson => _rg.NextPoissonInt(Lambda),
-            _ => (int)_rg.NextInt64((int)Min, (int)Max)
+            Exponential => (int)_rg.NextExponentialDouble(Lambda),
+            Poisson => _rg.NextPoissonInt(Lambda),
+            Uniform or _ => (int)_rg.NextInt64((int)Min, (int)Max)
         };
     }
 
@@ -81,13 +60,13 @@ public class FuzzGenerator
     {
         return Distribution switch
         {
-            EDistributionType.Gaussian => _rg.NextGaussianDouble(
+            Gaussian => _rg.NextGaussianDouble(
                 Mean,
                 StandardDeviation
             ),
-            EDistributionType.Exponential => _rg.NextExponentialDouble(Lambda),
-            EDistributionType.Poisson => _rg.NextPoissonInt(Lambda),
-            _ => _rg.NextDouble(Min, Max)
+            Exponential => _rg.NextExponentialDouble(Lambda),
+            Poisson => _rg.NextPoissonInt(Lambda),
+            Uniform or _ => _rg.NextDouble(Min, Max)
         };
     }
 

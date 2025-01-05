@@ -5,14 +5,9 @@ using Confirma.Helpers;
 
 namespace Confirma.Formatters;
 
-public class NumericFormatter : Formatter
+public class NumericFormatter(ushort precision = 5) : Formatter
 {
-    private readonly ushort _precision;
-
-    public NumericFormatter(ushort precision = 5)
-    {
-        _precision = precision;
-    }
+    private readonly ushort _precision = precision;
 
     public override string Format(object? value)
     {

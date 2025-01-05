@@ -9,18 +9,13 @@ using static Confirma.Terminal.EArgumentParseResult;
 
 namespace Confirma.Terminal;
 
-public class Cli
+public class Cli(string prefix = "")
 {
-    private readonly string _prefix;
+    private readonly string _prefix = prefix;
     private readonly Dictionary<string, Argument> _arguments = new(
         StringComparer.OrdinalIgnoreCase
     );
-    private readonly Dictionary<string, object?> _argumentValues = new();
-
-    public Cli(string prefix = "")
-    {
-        _prefix = prefix;
-    }
+    private readonly Dictionary<string, object?> _argumentValues = [];
 
     public Argument? GetArgument(string name)
     {
@@ -30,11 +25,13 @@ public class Cli
 
     public T? GetArgumentValue<T>(string name)
     {
-        if (_argumentValues.TryGetValue(name, out object? value) && value is T typedValue)
-        {
-            return typedValue;
-        }
-        return default;
+        return _argumentValues.TryGetValue(
+                name,
+                out object? value
+            )
+            && value is T typedValue
+                ? typedValue
+                : default;
     }
 
     public bool IsFlagSet(string name)
@@ -76,7 +73,7 @@ public class Cli
 
     public List<string> Parse(string[] args, bool invokeActions = false)
     {
-        List<string> errors = new();
+        List<string> errors = [];
 
         for (int i = 0; i < args.Length; i++)
         {

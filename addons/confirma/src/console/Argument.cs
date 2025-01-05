@@ -6,30 +6,21 @@ namespace Confirma.Terminal;
 
 // TODO: Implement a fluent interface for registering arguments e.q.:
 // new Argument("verbose").WithAlias("v").WithDescription("Enable verbose output");
-public class Argument
-{
-    public string Name { get; init; }
-
-    public bool IsFlag { get; init; }
-    public bool UsePrefix { get; init; }
-    public bool AllowEmpty { get; init; }
-
-    private readonly Action<object>? _action;
-
-    public Argument(
-        string name,
-        bool usePrefix = true,
-        bool isFlag = false,
-        bool allowEmpty = false,
-        Action<object>? action = null
+public class Argument(
+    string name,
+    bool usePrefix = true,
+    bool isFlag = false,
+    bool allowEmpty = false,
+    Action<object>? action = null
     )
-    {
-        Name = name;
-        UsePrefix = usePrefix;
-        IsFlag = isFlag;
-        _action = action;
-        AllowEmpty = allowEmpty;
-    }
+{
+    public string Name { get; init; } = name;
+
+    public bool IsFlag { get; init; } = isFlag;
+    public bool UsePrefix { get; init; } = usePrefix;
+    public bool AllowEmpty { get; init; } = allowEmpty;
+
+    private readonly Action<object>? _action = action;
 
     public EArgumentParseResult Parse(string? value, out object? parsed)
     {

@@ -13,14 +13,18 @@ public class FileElementConverter : JsonConverter<FileElement>
         return typeof(FileElement).IsAssignableFrom(typeToConvert);
     }
 
-    public override FileElement? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override FileElement? Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         if (reader.TokenType != JsonTokenType.StartObject)
         {
             throw new JsonException();
         }
 
-        reader.Read();
+        _ = reader.Read();
 
         if (reader.TokenType != JsonTokenType.PropertyName)
         {
@@ -34,29 +38,28 @@ public class FileElementConverter : JsonConverter<FileElement>
             throw new JsonException($"Expected \"type\" property, but got \"{propertyName}\"");
         }
 
-        reader.Read();
+        _ = reader.Read();
 
-        switch(reader.GetString())
+        return reader.GetString() switch
         {
-            case "text":
-                return ConvertText(ref reader);
-            case "header":
-                return ConvertHeader(ref reader);
-            case "code":
-                return ConvertCode(ref reader, options);
-            case "link":
-                return ConvertLink(ref reader);
-            default:
-                throw new NotSupportedException($"Unsupported type, \"{reader.GetString()}\"");
-        }
+            "text" => ConvertText(ref reader),
+            "header" => ConvertHeader(ref reader),
+            "code" => ConvertCode(ref reader, options),
+            "link" => ConvertLink(ref reader),
+            _ => throw new NotSupportedException($"Unsupported type, \"{reader.GetString()}\""),
+        };
     }
 
-    public override void Write(Utf8JsonWriter writer, FileElement value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        FileElement value,
+        JsonSerializerOptions options
+    )
     {
         throw new NotImplementedException();
     }
 
-#region Type converters
+    #region Type converters
     public static FileElement ConvertText(ref Utf8JsonReader reader)
     {
         TextElement element = new();
@@ -66,7 +69,7 @@ public class FileElementConverter : JsonConverter<FileElement>
             if (reader.TokenType == JsonTokenType.PropertyName)
             {
                 string? property = reader.GetString();
-                reader.Read();
+                _ = reader.Read();
 
                 switch (property)
                 {
@@ -87,26 +90,28 @@ public class FileElementConverter : JsonConverter<FileElement>
 
                         while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
                         {
-                            var test = reader.GetString();
+                            string? test = reader.GetString();
                             element.FormatOverride.Add(test ?? throw new JsonException());
                         }
                         break;
+                    default:
+                        continue;
                 }
             }
         }
         return element;
     }
 
-    public FileElement ConvertHeader(ref Utf8JsonReader reader)
+    public static FileElement ConvertHeader(ref Utf8JsonReader reader)
     {
-        HeaderElement element = new ();
+        HeaderElement element = new();
 
         while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
         {
             if (reader.TokenType == JsonTokenType.PropertyName)
             {
                 string? property = reader.GetString();
-                reader.Read();
+                _ = reader.Read();
 
                 switch (property)
                 {
@@ -122,13 +127,18 @@ public class FileElementConverter : JsonConverter<FileElement>
                     case "level":
                         element.Level = reader.GetInt32();
                         break;
+                    default:
+                        continue;
                 }
             }
         }
         return element;
     }
 
-    public FileElement ConvertCode(ref Utf8JsonReader reader, JsonSerializerOptions options)
+    public static FileElement ConvertCode(
+        ref Utf8JsonReader reader,
+        JsonSerializerOptions options
+    )
     {
         CodeElement element = new();
 
@@ -139,8 +149,8 @@ public class FileElementConverter : JsonConverter<FileElement>
                 && reader.GetString() == "lines"
             )
             {
-                reader.Read();
-                element = new CodeElement()
+                _ = reader.Read();
+                element = new()
                 {
                     Lines = JsonSerializer.Deserialize<List<string>>(ref reader, options)
                     ?? throw new JsonException()
@@ -150,7 +160,7 @@ public class FileElementConverter : JsonConverter<FileElement>
         return element;
     }
 
-    public FileElement ConvertLink(ref Utf8JsonReader reader)
+    public static FileElement ConvertLink(ref Utf8JsonReader reader)
     {
         LinkElement element = new();
 
@@ -159,7 +169,7 @@ public class FileElementConverter : JsonConverter<FileElement>
             if (reader.TokenType == JsonTokenType.PropertyName)
             {
                 string? property = reader.GetString();
-                reader.Read();
+                _ = reader.Read();
 
                 switch (property)
                 {
@@ -169,6 +179,8 @@ public class FileElementConverter : JsonConverter<FileElement>
                     case "url":
                         element.Url = reader.GetString() ?? throw new JsonException();
                         break;
+                    default:
+                        continue;
                 }
             }
         }

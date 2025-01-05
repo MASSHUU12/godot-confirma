@@ -1,14 +1,8 @@
 namespace Confirma.Mock;
 
-public class CallRecord
+public class CallRecord(string methodName, object?[]? arguments)
 {
-    public string MethodName { get; }
-    public object?[]? Arguments { get; }
+    public string MethodName { get; } = methodName;
+    public object?[]? Arguments { get; } = arguments;
     public object? ReturnValue { get; set; }
-
-    public CallRecord(string methodName, object?[]? arguments)
-    {
-        MethodName = methodName;
-        Arguments = arguments;
-    }
 }
