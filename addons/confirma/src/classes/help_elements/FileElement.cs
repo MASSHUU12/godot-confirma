@@ -13,9 +13,11 @@ public abstract class FileElement
     public string Text { get; set; } = string.Empty;
     public string Color { get; set; } = string.Empty;
     public string BgColor { get; set; } = string.Empty;
-    public List<string> FormatOverride { get; set; } = new();
+    public List<string> FormatOverride { get; set; } = [];
 
-    //I didn't have any idea how to name this method not to be misleading
+    /// <summary>
+    /// I didn't have any idea how to name this method not to be misleading
+    /// </summary>
     public virtual string Format(string text)
     {
         if (FormatOverride is null)
@@ -23,13 +25,9 @@ public abstract class FileElement
             return text;
         }
 
-        foreach(string? a in FormatOverride)
+        foreach (string? a in FormatOverride)
         {
-            if (
-                a is null
-                || a == "fill" || a == "f"
-                || a == "center" || a == "c"
-            )
+            if (a is null or "fill" or "f" or "center" or "c")
             {
                 continue;
             }
@@ -51,25 +49,18 @@ public abstract class FileElement
         string? color, bgColor = null;
         string text = Format(Text);
 
-        if (FormatOverride.Any((string a) =>
-            a == "center" || a == "c"
-        ))
+        if (FormatOverride.Any(static (string a) => a is "center" or "c"))
         {
             text = TextFormatHelper.FormatText(text, EFormatType.Center);
         }
 
-        if (FormatOverride.Any((string a) =>
-            a == "fill" || a == "f"
-        ))
+        if (FormatOverride.Any(static (string a) => a is "fill" or "f"))
         {
             text = TextFormatHelper.FormatText(text, EFormatType.Fill);
         }
 
-        if (Color?.Length == 0) { color = null; }
-        else { color = Color; }
-
-        if (BgColor?.Length == 0) { bgColor = null; }
-        else { bgColor=BgColor; }
+        color = Color?.Length == 0 ? null : Color;
+        bgColor = BgColor?.Length == 0 ? null : BgColor;
 
         return Colors.Color(text, color, bgColor);
     }
@@ -79,25 +70,18 @@ public abstract class FileElement
         string? color, bgColor = null;
         string text = Text;
 
-        if (FormatOverride.Any((string a) =>
-            a == "center" || a == "c"
-        ))
+        if (FormatOverride.Any(static (string a) => a is "center" or "c"))
         {
             text = TextFormatHelper.FormatText(text, EFormatType.Center);
         }
 
-        if (FormatOverride.Any((string a) =>
-            a == "fill" || a == "f"
-        ))
+        if (FormatOverride.Any(static (string a) => a is "fill" or "f"))
         {
             text = TextFormatHelper.FormatText(text, EFormatType.Fill);
         }
 
-        if (Color?.Length == 0) { color = null; }
-        else { color = Color; }
-
-        if (BgColor?.Length == 0) { bgColor = null; }
-        else { bgColor=BgColor; }
+        color = Color?.Length == 0 ? null : Color;
+        bgColor = BgColor?.Length == 0 ? null : BgColor;
 
         text = Colors.Color(text, color, bgColor, false);
 
