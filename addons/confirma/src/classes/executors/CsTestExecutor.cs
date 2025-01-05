@@ -9,16 +9,14 @@ using Confirma.Helpers;
 using Confirma.Interfaces;
 using Confirma.Types;
 
+using static Confirma.Enums.ELangType;
+using static Confirma.Enums.ERunTargetType;
+
 namespace Confirma.Classes.Executors;
 
-public class CsTestExecutor : ITestExecutor
+public class CsTestExecutor(TestsProps props) : ITestExecutor
 {
-    private TestsProps _props;
-
-    public CsTestExecutor(TestsProps props)
-    {
-        _props = props;
-    }
+    private TestsProps _props = props;
 
     public int Execute(out TestResult? result)
     {
@@ -30,26 +28,17 @@ public class CsTestExecutor : ITestExecutor
 
         if (!string.IsNullOrEmpty(_props.Target.Name))
         {
-            if (_props.Target.Target is ERunTargetType.Class or ERunTargetType.Method)
-            {
-                testClasses = testClasses.Where(tc => tc.Type.Name == _props.Target.Name);
+            testClasses = FilterTestClasses(testClasses);
 
-                if (!testClasses.Any())
+            if (!testClasses.Any())
+            {
+                if (_props.Target.Target is Class or Method)
                 {
                     Log.PrintError($"No test class found with the name '{_props.Target.Name}'.\n");
                     return -1;
                 }
-            }
 
-            if (_props.Target.Target == ERunTargetType.Category)
-            {
-                testClasses = testClasses.Where(
-                    tc => tc.Type.GetCustomAttributes<CategoryAttribute>().Count(
-                        c => c.Category == _props.Target.Name
-                    ) == 1
-                );
-
-                if (!testClasses.Any())
+                if (_props.Target.Target == Category)
                 {
                     Log.PrintError(
                         $"No test classes found with category '{_props.Target.Name}'.\n"
@@ -71,7 +60,7 @@ public class CsTestExecutor : ITestExecutor
         else
         {
             var (parallelTestClasses, sequentialTestClasses) = ClassifyTests(testClasses);
-            ConcurrentBag<TestResult> results = new();
+            ConcurrentBag<TestResult> results = [];
 
             parallelTestClasses.AsParallel().ForAll(testClass =>
             {
@@ -85,7 +74,6 @@ public class CsTestExecutor : ITestExecutor
                 ExecuteClass(testClass, _props.Result);
             }
 
-            // Aggregate results
             foreach (TestResult res in results)
             {
                 _props.Result += res;
@@ -98,13 +86,12 @@ public class CsTestExecutor : ITestExecutor
 
     private void ExecuteClass(TestingClass testClass, TestResult result)
     {
-        List<TestLog> testLogs = new()
-        {
-            new(ELogType.Class, ELangType.CSharp, testClass.Type.Name)
-        };
+        List<TestLog> testLogs =
+        [
+            new(ELogType.Class, CSharp, testClass.Type.Name)
+        ];
 
         IgnoreAttribute? attr = testClass.Type.GetCustomAttribute<IgnoreAttribute>();
-
         if (attr?.IsIgnored(_props.Target) == true)
         {
             if (attr.HideFromResults == true)
@@ -116,14 +103,14 @@ public class CsTestExecutor : ITestExecutor
                 static m => m.TestCases.Count()
             );
 
-            testLogs.Add(new(ELogType.Warning, ELangType.CSharp, "  ignored.\n"));
+            testLogs.Add(new(ELogType.Warning, CSharp, " ignored.\n"));
 
             if (string.IsNullOrEmpty(attr.Reason))
             {
                 return;
             }
 
-            testLogs.Add(new(ELogType.Warning, ELangType.CSharp, $"- {attr.Reason}\n"));
+            testLogs.Add(new(ELogType.Warning, CSharp, $"- {attr.Reason}\n"));
         }
 
         testLogs.Add(new(ELogType.Newline));
@@ -134,12 +121,30 @@ public class CsTestExecutor : ITestExecutor
         result += classResult;
     }
 
+    private IEnumerable<TestingClass> FilterTestClasses(
+        IEnumerable<TestingClass> testClasses
+    )
+    {
+        return _props.Target.Target switch
+        {
+            Class or Method =>
+                testClasses.Where(tc => tc.Type.Name == _props.Target.Name),
+            Category =>
+                testClasses.Where(
+                    tc => tc.Type
+                        .GetCustomAttributes<CategoryAttribute>()
+                        .Any(c => c.Category == _props.Target.Name)
+                ),
+            All or _ => testClasses
+        };
+    }
+
     private static (IEnumerable<TestingClass>, IEnumerable<TestingClass>)
     ClassifyTests(IEnumerable<TestingClass> tests)
     {
         return (
-          CsTestDiscovery.GetParallelTestClasses(tests),
-          CsTestDiscovery.GetSequentialTestClasses(tests)
+            CsTestDiscovery.GetParallelTestClasses(tests),
+            CsTestDiscovery.GetSequentialTestClasses(tests)
         );
     }
 }
