@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Godot;
 
 namespace Confirma.Helpers;
@@ -26,7 +27,7 @@ public static class Colors
             return text?.ToString() ?? string.Empty;
         }
 
-        string coloredText = Convert.ToString(text) ?? string.Empty;
+        string coloredText = Convert.ToString(text, CultureInfo.InvariantCulture) ?? string.Empty;
 
         if (TextColor is not null)
         {
@@ -42,7 +43,7 @@ public static class Colors
             : coloredText;
     }
 
-#region Text
+    #region Text
     public static string ColorText<T>(T text, string color, bool addReset = true)
     where T : IConvertible
     {
@@ -56,10 +57,16 @@ public static class Colors
     public static string ColorText<T>(T text, Color color, bool addReset = true)
     where T : IConvertible
     {
-        return Log.IsHeadless ? TextToTerminal(text, color, addReset) : TextToGodot(text, color);
+        return Log.IsHeadless
+            ? TextToTerminal(text, color, addReset)
+            : TextToGodot(text, color);
     }
 
-    public static string TextToTerminal<T>(T text, Color color, bool addReset = true)
+    public static string TextToTerminal<T>(
+        T text,
+        Color color,
+        bool addReset = true
+    )
     where T : IConvertible
     {
         string reset = addReset ? TerminalReset : string.Empty;
@@ -71,10 +78,14 @@ public static class Colors
     {
         return $"[color=#{color.ToHtml()}]{text}[/color]";
     }
-#endregion Text
+    #endregion Text
 
-#region Background
-    public static string ColorBackground<T>(T text, string color, bool addReset = true)
+    #region Background
+    public static string ColorBackground<T>(
+        T text,
+        string color,
+        bool addReset = true
+    )
     where T : IConvertible
     {
         return Log.IsHeadless
@@ -82,13 +93,23 @@ public static class Colors
             : BackgroundToGodot(text, new Color(color));
     }
 
-    public static string ColorBackground<T>(T text, Color color, bool addReset = true)
+    public static string ColorBackground<T>(
+        T text,
+        Color color,
+        bool addReset = true
+    )
     where T : IConvertible
     {
-        return Log.IsHeadless ? BackgroundToTerminal(text, color, addReset) : BackgroundToGodot(text, color);
+        return Log.IsHeadless
+            ? BackgroundToTerminal(text, color, addReset)
+            : BackgroundToGodot(text, color);
     }
 
-    public static string BackgroundToTerminal<T>(T text, Color color, bool addReset = true)
+    public static string BackgroundToTerminal<T>(
+        T text,
+        Color color,
+        bool addReset = true
+    )
     where T : IConvertible
     {
         string reset = addReset ? TerminalReset : string.Empty;
@@ -100,5 +121,5 @@ public static class Colors
     {
         return $"[bgcolor=#{color.ToHtml()}]{text}[/bgcolor]";
     }
-#endregion Background
+    #endregion Background
 }

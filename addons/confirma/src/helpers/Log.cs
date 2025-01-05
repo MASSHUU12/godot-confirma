@@ -9,7 +9,8 @@ public static class Log
     public static RichTextLabel? RichOutput { get; set; }
     public static bool IsHeadless { get; set; } = true;
 
-    public static void Print<T>(T message, TextWriter? stream) where T : IConvertible
+    public static void Print<T>(T message, TextWriter? stream)
+    where T : IConvertible
     {
         if (IsHeadless || RichOutput is null)
         {

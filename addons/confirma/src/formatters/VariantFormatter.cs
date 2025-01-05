@@ -8,8 +8,8 @@ public class VariantFormatter : Formatter
     {
         return new AutomaticFormatter().Format(
             value is Variant v
-            ? v.Obj
-            : value
+                ? v.Obj
+                : value
         );
     }
 }

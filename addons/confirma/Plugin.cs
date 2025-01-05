@@ -51,7 +51,7 @@ public partial class Plugin : EditorPlugin
         // because addons can be installed in various locations,
         // so it cannot be assumed that it will always be in the default location.
         string p = ProjectSettings.GetSetting("autoload/Confirma").AsString();
-        return p[1..].Remove(p.Length - 51);
+        return p[1..][..(p.Length - 51)];
     }
 
     public static void SetUpSettings()

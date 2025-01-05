@@ -13,7 +13,7 @@ public record TestResult
     public uint TotalClasses { get; set; }
     public double TotalTime { get; set; }
     public uint Warnings { get; set; }
-    public List<TestLog> TestLogs { get; set; } = new List<TestLog>();
+    public List<TestLog> TestLogs { get; set; } = [];
 
     public TestResult() { }
 

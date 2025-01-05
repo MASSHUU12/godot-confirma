@@ -8,7 +8,7 @@ namespace Confirma.Mock;
 
 public class Mock<T> where T : class
 {
-    private readonly ConcurrentBag<CallRecord> _callRecords = new();
+    private readonly ConcurrentBag<CallRecord> _callRecords = [];
     private readonly ConcurrentDictionary<string, object?> _defaultReturnValues = new();
 
     private static readonly ConcurrentDictionary<string, MethodInfo?> _methodInfoCache = new();
@@ -86,7 +86,7 @@ public class Mock<T> where T : class
             }
 
             string methodName = targetMethod.Name;
-            _mock._callRecords.Add(new CallRecord(methodName, args));
+            _mock._callRecords.Add(new(methodName, args));
 
             if (_mock._defaultReturnValues.TryGetValue(
                     methodName, out object? returnValue

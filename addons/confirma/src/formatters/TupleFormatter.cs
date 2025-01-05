@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Confirma.Helpers;
 
 namespace Confirma.Formatters;
@@ -19,7 +19,7 @@ public class TupleFormatter : Formatter
         };
     }
 
-    private string FormatTuple(object value)
+    private static string FormatTuple(object value)
     {
         Type type = value.GetType();
         FieldInfo[] fields = type.GetFields(

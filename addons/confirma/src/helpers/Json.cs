@@ -52,10 +52,10 @@ public static class Json
 
         try
         {
-            await using FileStream stream = new FileStream(fileName, FileMode.Open);
+            await using FileStream stream = new(fileName, FileMode.Open);
             return await JsonSerializer.DeserializeAsync<T>(stream);
         }
-        catch(Exception e) when (
+        catch (Exception e) when (
             e is FileNotFoundException or
             DirectoryNotFoundException or
             UnauthorizedAccessException or

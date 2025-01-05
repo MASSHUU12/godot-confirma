@@ -5,7 +5,7 @@ using Godot;
 
 namespace Confirma.Types;
 
-public struct TestsProps
+public struct TestsProps()
 {
     public event Action? ExitOnFailure;
 
@@ -41,8 +41,6 @@ public struct TestsProps
     public string SelectedHelpPage { get; set; } = "default";
 
     public ELogOutputType OutputType { get; set; } = ELogOutputType.Log;
-
-    public TestsProps() { }
 
     public void ResetStats()
     {

@@ -1,13 +1,8 @@
 namespace Confirma.Formatters;
 
-public class StringFormatter : Formatter
+public class StringFormatter(char quote = '"') : Formatter
 {
-    private readonly char _quote;
-
-    public StringFormatter(char quote = '"')
-    {
-        _quote = quote;
-    }
+    private readonly char _quote = quote;
 
     public override string Format(object? value)
     {

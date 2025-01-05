@@ -8,16 +8,11 @@ using Confirma.Helpers;
 
 namespace Confirma.Formatters;
 
-public class CollectionFormatter : Formatter
+public class CollectionFormatter(bool addTypeHint = true) : Formatter
 {
-    private readonly bool _addTypeHint;
+    private readonly bool _addTypeHint = addTypeHint;
     private static readonly ConcurrentDictionary<Type, Type?> ElementTypeCache = new();
     private static readonly ConcurrentDictionary<Type, MethodInfo> ToStringMethodCache = new();
-
-    public CollectionFormatter(bool addTypeHint = true)
-    {
-        _addTypeHint = addTypeHint;
-    }
 
     public override string Format(object? value)
     {
@@ -26,7 +21,7 @@ public class CollectionFormatter : Formatter
             return new DefaultFormatter().Format(value);
         }
 
-        if (value is IEnumerable enumerable && value is not string)
+        if (value is IEnumerable enumerable and not string)
         {
             Type collectionType = value.GetType();
             Type? elementType = GetElementType(collectionType);
