@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -72,6 +74,7 @@ public class TestingMethod
             ELogType.Method,
             Name,
             Ignored,
+            0,
             test.Params,
             attr.Reason
         );
@@ -88,13 +91,15 @@ public class TestingMethod
         int repeats = 0;
         int maxRepeats = test.Repeat?.GetFlakyRetries ?? 0;
         int backoff = test.Repeat?.Backoff ?? 0;
+        Stopwatch sw = Stopwatch.StartNew();
 
         do
         {
             try
             {
                 test.Run(instance);
-                LogTestResult(Passed, test, null);
+                sw.Stop();
+                LogTestResult(Passed, test, null, sw.ElapsedMilliseconds);
                 Result.TestsPassed++;
                 break;
             }
@@ -105,7 +110,7 @@ public class TestingMethod
                     continue;
                 }
 
-                LogTestResult(Failed, test, e.Message);
+                LogTestResult(Failed, test, e.Message, sw.ElapsedMilliseconds);
                 Result.TestsFailed++;
 
                 if (test.Repeat?.FailFast == true)
@@ -148,7 +153,8 @@ public class TestingMethod
     private void LogTestResult(
         ETestCaseState state,
         TestCase test,
-        string? message
+        string? message,
+        long executionTime
     )
     {
         Result.TestLogs.Add(
@@ -156,6 +162,7 @@ public class TestingMethod
                 ELogType.Method,
                 Name,
                 state,
+                executionTime,
                 test.Params,
                 message,
                 ELangType.CSharp
