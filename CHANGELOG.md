@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Test case execution time is displayed in regular & verbose mode.
+
 ### Changed
 
 - C# 12 is being used.
