@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Confirma.Classes.Discovery;
@@ -17,8 +18,9 @@ public class GdTestExecutor : ITestExecutor
 {
     private TestsProps _props;
     private bool _testFailed;
-    private readonly List<TestLog> _testLogs = new();
+    private readonly List<TestLog> _testLogs = [];
     private ScriptMethodInfo? _currentMethod;
+    private readonly Stopwatch _sw = new();
 
     public GdTestExecutor(TestsProps props)
     {
@@ -192,7 +194,9 @@ public class GdTestExecutor : ITestExecutor
     {
         _currentMethod = method;
 
+        _sw.Start();
         _ = instance.Call(method.Name);
+        _sw.Stop();
 
         if (_testFailed)
         {
@@ -220,6 +224,7 @@ public class GdTestExecutor : ITestExecutor
             ELogType.Method,
             _currentMethod!.Name,
             state,
+            _sw.Elapsed.Milliseconds,
             CollectionHelper.ToString(
                 _currentMethod.Args.Select(static a => a.Name),
                 addBrackets: false
