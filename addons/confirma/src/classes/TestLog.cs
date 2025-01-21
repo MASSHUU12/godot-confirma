@@ -1,5 +1,7 @@
+using System.Globalization;
 using Confirma.Enums;
 using Confirma.Extensions;
+using Confirma.Formatters;
 using Confirma.Helpers;
 
 namespace Confirma.Classes;
@@ -11,6 +13,9 @@ public class TestLog
     public ETestCaseState State { get; } = ETestCaseState.Ignored;
     public ELogType Type { get; }
     public ELangType Lang { get; set; } = ELangType.None;
+    public long ExecutionTime { get; }
+
+    private readonly NumericFormatter _numericFormatter = new(3);
 
     public TestLog(ELogType type)
     {
@@ -34,6 +39,7 @@ public class TestLog
         ELogType type,
         string name,
         ETestCaseState state,
+        long executionTime,
         string parameters = "",
         string? message = null,
         ELangType lang = ELangType.None
@@ -48,6 +54,7 @@ public class TestLog
         );
         State = state;
         Lang = lang;
+        ExecutionTime = executionTime;
     }
 
     public static string GetTestCaseStateString(ETestCaseState state)
@@ -107,17 +114,31 @@ public class TestLog
 
     private void PrintMethodDefault()
     {
-        string color = GetTestCaseStateColor(State);
-        string sState = GetTestCaseStateString(State);
         string pipe = Colors.ColorText("|", GetLangColor());
 
-        Log.PrintLine($"{pipe} {Name}... ");
+        Log.PrintLine($"{pipe} {Name}...");
 
         if (State is not ETestCaseState.Passed)
         {
-            Log.Print($"\\_ {Name}... ");
-            Log.PrintLine($"{Colors.ColorText(sState, color)}.");
+            Log.PrintLine($"\\_ {pipe} {GetMethodStringDefinition()}");
         }
+
+        PrintMessageIfNotNull();
+    }
+
+    private void PrintMethodVerbose()
+    {
+        string pipe = Colors.ColorText("|", GetLangColor());
+
+        Log.PrintLine($"{pipe} {GetMethodStringDefinition()}");
+
+        PrintMessageIfNotNull();
+    }
+
+    private void PrintMessageIfNotNull()
+    {
+        string color = GetTestCaseStateColor(State);
+        string pipe = Colors.ColorText("|", GetLangColor());
 
         if (Message is not null)
         {
@@ -125,18 +146,18 @@ public class TestLog
         }
     }
 
-    private void PrintMethodVerbose()
+    private string GetMethodStringDefinition()
     {
         string color = GetTestCaseStateColor(State);
         string sState = GetTestCaseStateString(State);
-        string pipe = Colors.ColorText("|", GetLangColor());
 
-        Log.PrintLine($"{pipe} {Name}... {Colors.ColorText(sState, color)}.");
-
-        if (Message is not null)
-        {
-            Log.PrintLine($"{pipe}- {Colors.ColorText(Message, color)}");
-        }
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            "{0}... {1} ({2}s).",
+            Name,
+            Colors.ColorText(sState, color),
+            _numericFormatter.Format(ExecutionTime * 0.001)
+        );
     }
 
     private string GetLangHeader()
